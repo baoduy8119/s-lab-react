@@ -1,0 +1,59 @@
+import React from "react";
+import LeftMenu from "@/app/components/LeftMenu";
+import CourseDetailHero from "@/app/features/courses/components/CourseDetailHero";
+import CourseInfo from "@/app/features/courses/components/CourseInfo";
+import NeedToKnow from "@/app/features/courses/components/NeedToKnow";
+import KeyLearningPoints from "@/app/features/courses/components/KeyLearningPoints";
+import CourseStructure from "@/app/features/courses/components/CourseStructure";
+import CapstoneProject from "@/app/features/courses/components/CapstoneProject";
+import TestimonialSlider from "@/app/features/courses/components/TestimonialSlider";
+import TestimonialsList from "@/app/features/courses/components/TestimonialsList";
+import CourseIncludes from "@/app/features/courses/components/CourseIncludes";
+import RelatedCourses from "@/app/features/courses/components/RelatedCourses";
+import CurriculumChapters from "@/app/features/courses/components/CurriculumChapters";
+import Footer from "@/app/components/Footer";
+
+export default function CourseDetailPage({ params }: { params: { id: string } }) {
+  return (
+    <div className="flex min-h-screen">
+      {/* Left Menu - Fixed Sidebar */}
+      <LeftMenu />
+
+      {/* Main Content - Offset by sidebar width */}
+      <div className="ml-[360px] flex-1 bg-[#f9fafb] overflow-x-hidden w-full">
+        {/* Hero Section with course title and images */}
+        <CourseDetailHero courseId={params.id} />
+
+        {/* Need to Know Tabs Section */}
+        <NeedToKnow />
+
+        {/* Key Learning Points Section */}
+        <KeyLearningPoints />
+
+        {/* Course Structure Section */}
+        <CourseStructure />
+
+        {/* Capstone Project Section */}
+        <CapstoneProject />
+
+        {/* Testimonial Slider Section */}
+        <TestimonialSlider />
+
+        {/* Testimonials Grid Section */}
+        <TestimonialsList />
+
+        {/* Pricing & Includes Section */}
+        <CourseIncludes />
+
+        {/* Other Related Courses Section */}
+        <RelatedCourses />
+
+        {/* Curriculum Chapters Section (Original) */}
+        {/* <CurriculumChapters /> */}
+
+        {/* Footer */}
+        <Footer />
+      </div>
+    </div>
+  );
+}

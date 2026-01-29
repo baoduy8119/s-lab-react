@@ -1,0 +1,233 @@
+.section {
+  position: relative;
+  min-height: 800px;
+  background: #000000;
+  color: #ffffff;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.bgOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.bgImage {
+  object-fit: cover;
+  opacity: 0.8; 
+}
+
+.bgGradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.8) 100%);
+}
+
+.innerContainer {
+  position: relative;
+  z-index: 2;
+  padding-top: 100px;
+  padding-bottom: 80px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  margin-bottom: 60px;
+  text-align: center; 
+}
+
+.heading {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 64px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -2px;
+  // Centered per design? Screenshot shows "/Our Testimonials." centered or left.
+  // The layout below (Quote) is left-aligned.
+  // I will assume left aligned to match quote flow
+  text-align: left;
+}
+
+.swiper {
+  width: 100%;
+}
+
+.slideContent {
+  display: flex;
+  gap: 60px;
+  align-items: flex-start;
+  margin-bottom: 60px;
+}
+
+.quoteIcon {
+  flex-shrink: 0;
+  width: 80px;
+  height: 80px;
+  
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.textContent {
+  max-width: 800px;
+}
+
+.quoteText {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 32px;
+  font-weight: 500;
+  color: #ffffff;
+  line-height: 1.4;
+  margin-bottom: 40px;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.avatarWrapper {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+}
+
+.avatar {
+  object-fit: cover;
+}
+
+.userDetails {
+  display: flex;
+  flex-direction: column;
+}
+
+.userName {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+.userRole {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 14px;
+  color: #9CA3AF;
+  margin: 0;
+}
+
+// Navigation
+.navWrapper {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  padding-left: 140px; // Align with text content (80px icon + 60px gap)
+}
+
+.navButtons {
+  display: flex;
+  gap: 16px;
+}
+
+.navBtn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  transition: all 0.2s;
+  
+  &:hover {
+    border-color: #ffffff;
+    background: rgba(255,255,255,0.1);
+  }
+}
+
+.navText {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 12px;
+  color: #6B7280;
+  max-width: 400px;
+  line-height: 1.5;
+}
+
+// Marquee
+.marqueeStrip {
+  position: relative;
+  z-index: 2;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding: 20px 0;
+  overflow: hidden;
+  background: black; // Ensures full opacity if needed
+  margin-top: auto;
+}
+
+.marqueeContent {
+  display: flex;
+  gap: 48px;
+  animation: scroll 30s linear infinite;
+  white-space: nowrap;
+}
+
+.marqueeItem {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #6B7280;
+  letter-spacing: 1px;
+}
+
+.marqueeIcon {
+  width: 14px;
+  height: 14px;
+  path {
+    fill: #6B7280; // Match text color
+  }
+}
+
+@keyframes scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@media (max-width: 768px) {
+  .slideContent {
+    flex-direction: column;
+    gap: 32px;
+  }
+  
+  .quoteIcon {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .navWrapper {
+    padding-left: 0;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .heading {
+    font-size: 40px;
+  }
+  
+  .quoteText {
+    font-size: 24px;
+  }
+}

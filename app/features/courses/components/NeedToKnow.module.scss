@@ -1,0 +1,248 @@
+.section {
+  padding: 80px 0;
+  background: #f3f4f6;
+}
+
+.container {
+  width: 100%; // Full width
+  margin: 0;
+  padding: 0 80px; // Maintain side padding like Hero
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+// --- Header ---
+.mainHeading {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 80px;
+  font-weight: 600;
+  color: #111827;
+  line-height: 1.1;
+  margin: 0;
+  letter-spacing: -2px;
+}
+
+// --- Overview Section ---
+.overviewGrid {
+  display: flex;
+  gap: 40px;
+}
+
+.overviewLabel {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  color: #111827;
+  flex: 1;
+}
+
+.overviewText {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: #111827;
+  line-height: 1.6;
+  max-width: 1000px;
+  flex: 1;
+  
+  p {
+    margin-bottom: 24px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// --- Tabs Section ---
+.tabsWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0; // Remove vertical gap between tabs and content
+}
+
+.tabList {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); // 3 Equal columns
+  background: white;
+}
+
+.tabButton {
+  padding: 10px;
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 18px; // Slightly larger
+  font-weight: 500;
+  text-align: center; // Center alignment
+  border: none;
+  cursor: pointer;
+  background: white;
+  color: #111827;
+  transition: all 0.2s ease;
+  border-right: 1px solid #e5e7eb; // Dividers between tabs
+
+  &:last-child {
+    border-right: none;
+  }
+
+  // Active state
+  &.active {
+    background: #000000;
+    color: #ffffff;
+    font-weight: 600;
+  }
+
+  &:hover:not(.active) {
+    background: #f9fafb;
+  }
+}
+
+// --- Content List ---
+.contentList {
+  display: flex;
+  flex-direction: column;
+}
+
+.contentRow {
+  display: grid;
+  // Match Tab Columns: 1fr 1fr 1fr
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 40px;
+  padding: 40px;
+  align-items: flex-start;
+  border-bottom: 1px solid #CBD5E1; // Separator
+  
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.rowTitle {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: #111827;
+  display: flex;
+  flex-direction: column;
+  padding-left: 20px; // Indent slightly
+}
+
+.titleLine {
+  display: block;
+}
+
+.rowDescription {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 18px;
+  line-height: 1.5;
+  color: #111827;
+  padding: 0 20px;
+}
+
+.rowImageWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9; // Fixed aspect ratio styling
+  background: #d1d5db;
+  overflow: hidden;
+  
+  img {
+    object-fit: cover;
+  }
+}
+
+.emptyState {
+  padding: 80px;
+  text-align: center;
+  font-family: "MJ Satoshi", sans-serif;
+  color: #6b7280;
+  background: #EAEAEA;
+}
+
+// --- Split Layout (What you'll get) ---
+.splitLayout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  padding: 24px 0;
+  align-items: center;
+  min-height: 400px;
+}
+
+.bulletList {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.bulletItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.bulletDash {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: #111827;
+  line-height: 1.5;
+}
+
+.bulletText {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 20px; // Larger readable text
+  line-height: 1.5;
+  color: #111827;
+  flex: 1;
+  margin: 0;
+}
+
+.splitImageWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4/3;
+  // No background needed if image fills or is transparent
+}
+
+// --- Responsive ---
+@media (max-width: 1024px) {
+  .mainHeading {
+    font-size: 56px;
+  }
+
+  .overviewGrid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .tabList, .contentRow {
+    grid-template-columns: 1fr;
+  }
+  
+  .contentRow {
+    gap: 24px;
+    padding: 24px;
+  }
+
+  // Split Layout Mobile
+  .splitLayout {
+    grid-template-columns: 1fr;
+    padding: 32px;
+    gap: 40px;
+  }
+
+  .bulletText {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 20px;
+    gap: 40px;
+  }
+
+  .mainHeading {
+    font-size: 40px;
+  }
+}

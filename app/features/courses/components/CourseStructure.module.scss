@@ -1,0 +1,166 @@
+.section {
+  padding: 100px 0;
+  background: #f9fafb; // Light gray matching design
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+.heading {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 64px; // Large heading
+  font-weight: 600;
+  color: #111827;
+  letter-spacing: -2px;
+  margin: 0;
+}
+
+.columnsWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; // Align top so margins push down
+}
+
+.column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 60px; // Vertical gap between cards in same column
+  padding: 0 40px; // Horizontal padding inside column
+  border-right: 1px solid #e5e7eb; // Vertical separator
+  
+  &:first-child {
+    padding-left: 0;
+  }
+  
+  &:last-child {
+    padding-right: 0;
+    border-right: none;
+  }
+}
+
+// Staggered Offsets
+.colOffset1 {
+  margin-top: 72px;
+}
+
+.colOffset2 {
+  margin-top: 144px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  min-height: 320px;
+}
+
+.header {
+  padding: 24px 32px;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  
+  &.light {
+    background: #ffffff;
+    
+    .chapterNum { color: #9CA3AF; } // Gray text
+    .chapterTitle { color: #111827; }
+  }
+  
+  &.dark {
+    background: #000000;
+    
+    .chapterNum { color: #9CA3AF; } 
+    .chapterTitle { color: #ffffff; }
+  }
+}
+
+.chapterNum {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.chapterTitle {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0 16px; // Indent body content slightly
+}
+
+.contentList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.contentItem {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #374151;
+  margin: 0;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline; // Align text by baseline for precision
+  margin-top: auto; // Force footer to bottom of card
+  padding-top: 100px; // Spacing from content
+}
+
+.timeLabel {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 14px;
+  color: #9CA3AF;
+  font-weight: 500;
+}
+
+.timeValue {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 14px;
+  color: #111827;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+// --- Responsive ---
+@media (max-width: 1024px) {
+  .columnsWrapper {
+    flex-direction: column; // Stack columns on mobile/tablet
+    gap: 40px;
+  }
+  
+  .column {
+    padding: 0;
+    border-right: none;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 40px;
+    width: 100%;
+    
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+  
+  .colOffset1, .colOffset2 {
+    margin-top: 0; // Remove Stagger on mobile
+  }
+}

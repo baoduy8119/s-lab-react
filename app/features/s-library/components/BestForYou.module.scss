@@ -1,0 +1,261 @@
+// Best For You Section
+.section {
+  position: relative;
+  width: 100%;
+  padding: 100px 0 0;
+  background-color: #f9fafb;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  position: relative;
+  width: 100%;
+  max-width: 1240px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 60px;
+  z-index: 2;
+}
+
+.title {
+  font-family: "MJ Satoshi", sans-serif;
+  font-weight: 700;
+  font-size: 72px;
+  line-height: 88px;
+  letter-spacing: -0.8px;
+  color: #111827;
+  align-self: flex-start;
+  margin-left: 0;
+}
+
+.subtitle {
+  font-family: "MJ Satoshi", sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 38px;
+  letter-spacing: -0.2px;
+  color: #111827;
+  margin-top: 10px;
+  text-align: center;
+  width: 100%;
+}
+
+.carouselContainer {
+  position: relative;
+  width: 100%;
+  max-width: 1440px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0;
+  overflow: visible;
+}
+
+.navButton {
+  position: absolute;
+  top: 45%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+  transition: all 0.2s;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+
+  &:hover {
+    background-color: #f3f4f6;
+    transform: translateY(-50%) scale(1.05);
+  }
+
+  svg {
+    color: #111827;
+  }
+}
+
+.navPrev {
+  left: 20%; 
+  @media (min-width: 1440px) {
+    left: calc(50% - 460px); 
+  }
+}
+
+.navNext {
+  right: 20%;
+  @media (min-width: 1440px) {
+    right: calc(50% - 460px);
+  }
+}
+
+.swiper {
+  width: 406px;
+  height: 345px;
+  margin: 0;
+  overflow: visible;
+  z-index: 10;
+}
+
+.swiperSlide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  background-color: transparent;
+  transition: all 0.3s;
+}
+
+.courseCard {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.courseImage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.courseLabel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  font-family: "MJ Satoshi", sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 40px;
+  letter-spacing: -0.5px;
+  color: #1f2937;
+  text-align: center;
+  z-index: 2;
+  padding: 0 20px;
+}
+
+.courseInfo {
+  width: 100%;
+  height: 100px;
+  background-color: #000000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -20px;
+  position: relative;
+  z-index: 30;
+}
+
+.infoContent {
+  width: 100%;
+  max-width: 1240px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.infoLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.duration,
+.documents {
+  font-family: "MJ Satoshi", sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+  color: #9ca3af;
+}
+
+.infoCenter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.courseTitle {
+  font-family: "MJ Satoshi", sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
+  color: #ffffff;
+  margin: 0;
+}
+
+.instructor {
+  font-family: "MJ Satoshi", sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+  color: #9ca3af;
+  margin: 0;
+}
+
+.infoRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.originalPrice {
+  font-family: "MJ Satoshi", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  color: #9ca3af;
+  text-decoration: line-through;
+}
+
+.price {
+  font-family: "MJ Satoshi", sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
+  color: #ffffff;
+}
+
+.decorativeImages {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  max-width: 1440px;
+  margin: 0 auto;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.emoji1 {
+  position: absolute;
+  top: 40px;
+  right: 150px;
+  width: 140px;
+  height: auto;
+  z-index: 1;
+}
+
+.emoji2 {
+  position: absolute;
+  bottom: 100px;
+  left: 50px;
+  width: 160px;
+  height: auto;
+  z-index: 1;
+}

@@ -1,0 +1,123 @@
+// S-Library Footer
+.footer {
+  width: 100%;
+  height: 260px;
+  background-color: #000000;
+  padding: 43px 80px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.leftSection {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.copyright {
+  font-family: "MJ Satoshi", sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.16px;
+  color: #ffffff;
+}
+
+.tagline {
+  font-family: "MJ Satoshi", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.16px;
+  color: #d1d5db;
+  width: 237px;
+}
+
+.contact {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.phone {
+  font-family: "MJ Satoshi", sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.16px;
+  color: #ffffff;
+}
+
+.email {
+  font-family: "MJ Satoshi", sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 38px;
+  letter-spacing: -0.2px;
+  color: #ffffff;
+}
+
+.socialIcons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  a {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+      width: 100%;
+      height: 100%;
+      stroke: #94a3b8;
+      transition: stroke 0.2s;
+    }
+
+    &:hover svg {
+      stroke: #ffffff;
+    }
+  }
+}
+
+.location {
+  font-family: "MJ Satoshi", sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.16px;
+  color: #ffffff;
+}
+
+.rightSection {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.navTitle {
+  font-family: "MJ Satoshi", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.16px;
+  color: #6b7280;
+  margin-bottom: 6px;
+}
+
+.navLink {
+  font-family: "MJ Satoshi", sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: -0.18px;
+  color: #ffffff;
+  text-decoration: none;
+  display: block;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

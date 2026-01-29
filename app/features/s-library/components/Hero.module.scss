@@ -1,0 +1,227 @@
+// Hero Section
+.section {
+  position: relative;
+  width: 100%;
+  height: 1080px;
+  background-color: #eaeaea;
+  overflow: hidden;
+  font-family: "MJ Satoshi", sans-serif;
+  color: #111827;
+}
+
+.gridBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(to right, #d1d5db 1px, transparent 1px),
+    linear-gradient(to bottom, #d1d5db 1px, transparent 1px);
+  background-size: 25% 100%; /* 4 columns */
+  background-position: 0 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.scrollingBanner {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 37px;
+  background-color: #171717;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.scrollContent {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  height: 100%;
+  padding: 12px 0;
+  animation: scroll 20s linear infinite;
+
+  span {
+    font-family: "MJ Satoshi", sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.16px;
+    color: #ffffff;
+    white-space: nowrap;
+  }
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Markers */
+.topMarkers {
+  position: absolute;
+  top: 32px;
+  left: 0;
+  width: 100%;
+  padding: 0 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  z-index: 5;
+  pointer-events: none;
+  
+  font-family: "MJ Satoshi", sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  color: #111827;
+}
+
+.markerA {
+  position: absolute;
+  left: 60px;
+}
+
+.markerB {
+  position: absolute;
+  left: 30%; 
+}
+
+.markerGroupC {
+  position: absolute;
+  left: 70%;
+  display: flex;
+  gap: 40px;
+}
+
+.markerArrow {
+  opacity: 0.6;
+}
+
+.markerDot {
+  position: absolute;
+  right: 60px;
+  top: 2px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #000000;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  padding: 100px 60px 0;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.title {
+  font-family: "MJ Satoshi", sans-serif;
+  font-weight: 700;
+  font-size: 96px; /* Increased scale from design look */
+  line-height: 100px;
+  letter-spacing: -2px;
+  color: #111827;
+  margin-bottom: 0;
+}
+
+.subtitle {
+  font-family: "MJ Satoshi", sans-serif;
+  font-weight: 700;
+  font-size: 80px;
+  line-height: 90px;
+  letter-spacing: -1.5px;
+  color: #111827;
+  margin-bottom: 0;
+}
+
+.descriptions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+  margin-bottom: 60px;
+  padding-right: 20px;
+}
+
+.description {
+  font-family: "MJ Satoshi", sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 28px;
+  color: #111827;
+  max-width: 440px;
+}
+
+.descriptionSecondary {
+  font-family: "MJ Satoshi", sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 28px;
+  color: #6b7280;
+  max-width: 440px;
+  text-align: right; 
+}
+
+.courseCards {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.cardLarge,
+.cardMedium,
+.cardSmall {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #fff;
+  flex-shrink: 0;
+}
+
+.cardLarge {
+  width: 475px; 
+  height: 380px;
+}
+
+.cardMedium {
+  width: 380px; 
+  height: 380px;
+}
+
+.cardSmall {
+  width: 200px; 
+  height: 380px;
+}
+
+.cardLabelTopRight {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  font-family: "MJ Satoshi", sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 38px;
+  letter-spacing: -0.5px;
+  color: #111827;
+  z-index: 2;
+}
+
+.cardLabelBottomLeft {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  font-family: "MJ Satoshi", sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
+  color: #111827;
+  z-index: 2;
+}

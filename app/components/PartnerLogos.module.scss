@@ -1,0 +1,15 @@
+.partnerLogos {
+  height: 162px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 49px;
+  opacity: 0.4;
+  flex-wrap: wrap;
+  border-top: 1px solid #cbd5e1;
+
+  img {
+    height: 32px;
+    width: auto;
+  }
+}

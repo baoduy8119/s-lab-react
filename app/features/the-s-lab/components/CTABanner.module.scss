@@ -1,0 +1,85 @@
+// CTA Banner Section - Content Styles Only
+.textContent {
+  margin-bottom: 48px;
+}
+
+.mainText {
+  font-family: "MJ Satoshi", sans-serif;
+  font-weight: 700;
+  font-size: 64px;
+  line-height: 77px;
+  letter-spacing: -0.7px;
+  margin-bottom: 24px;
+  max-width: 840px;
+
+  .whiteText {
+    color: #ffffff;
+  }
+}
+
+.secondaryText {
+  font-family: "MJ Satoshi", sans-serif;
+  font-weight: 700;
+  font-size: 64px;
+  line-height: 77px;
+  letter-spacing: -0.7px;
+  max-width: 960px;
+
+  .highlight {
+    color: #ffffff;
+  }
+}
+
+.ctaGroup {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.primaryButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 13px 24px;
+  background-color: #ffffff;
+  border: none;
+  cursor: pointer;
+  font-family: "MJ Satoshi", sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: -0.18px;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #f3f4f6;
+  }
+}
+
+.secondaryLink {
+  
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: "MJ Satoshi", sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 22px;
+  color: #ffffff;
+  text-decoration: none;
+  transition: opacity 0.2s;
+
+  span {
+    max-width: 250px;
+  }
+
+  svg {
+    flex-shrink: 0;
+  }
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+

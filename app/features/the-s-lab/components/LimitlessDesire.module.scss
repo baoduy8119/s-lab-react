@@ -1,0 +1,138 @@
+// Limitless Desire Section
+.section {
+  width: 100%;
+  padding:0 80px 80px;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-family: "MJ Satoshi", sans-serif;
+  font-weight: 700;
+  font-size: 72px;
+  line-height: 88px;
+  letter-spacing: -0.8px;
+  color: #111827;
+  margin-bottom: 32px;
+  width: 576px;
+}
+
+.accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.accordionItem {
+  display: flex;
+  gap: 72px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid #cbd5e1;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.icon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  transition: transform 0.3s ease;
+
+  svg {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.3s ease;
+  }
+}
+
+.iconOpen {
+  svg {
+    transform: rotate(90deg);
+  }
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.textContent {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.itemTitle {
+  font-family: "MJ Satoshi", sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 38px;
+  letter-spacing: -0.2px;
+  color: #111827;
+  &:hover {
+    opacity: 0.8;
+    transition: all 0.3s ease;
+  }
+}
+
+.subtitle {
+  font-family: "MJ Satoshi", sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  color: #111827;
+}
+
+.description {
+  margin-top: 15px;
+  font-family: "MJ Satoshi", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.16px;
+  color: #6b7280;
+}
+
+.images {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.collapsedItem {
+  .textContent {
+    gap: 16px;
+  }
+
+  .images {
+    display: none;
+  }
+
+  .expandedContent {
+    display: none;
+  }
+}
+
+.expandedContent {
+  animation: fadeIn 0.4s ease;
+}

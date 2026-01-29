@@ -1,0 +1,132 @@
+// Library System Section
+.section {
+  position: relative;
+  width: 100%;
+  padding: 120px 0 0;
+  background-color: #f3f4f6;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  font-family: "MJ Satoshi", sans-serif;
+  font-weight: 700;
+  font-size: 72px;
+  line-height: 88px;
+  letter-spacing: -0.8px;
+  color: #111827;
+  margin-bottom: 80px;
+  text-align: center;
+  z-index: 10;
+}
+
+.cardsContainer {
+  position: relative;
+  width: 100%;
+  max-width: 1440px;
+  height: 500px;
+  margin-bottom: 60px;
+  perspective: 2000px;
+  transform-style: preserve-3d; /* Ensure 3D space is shared */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Base card style */
+.card {
+  position: absolute;
+  width: 250px;
+  height: 351px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.5s ease-out;
+  background-color: #fff;
+  /* transform-style removed from card to simplify stacking context */
+}
+
+/* Specific Card Positions */
+/* Center Card - Marketing Planning */
+.card3 {
+  z-index: 50; /* Much higher z-index */
+  width: 234px;
+  height: 373px;
+  margin-top: 150px;
+  transform: translateX(0) translateZ(100px) rotateY(0deg); /* Increased Z-depth */
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* Immediate Neighbors - Content Writing (Left) & Design Media (Right) */
+.card2 {
+  z-index: 30;
+  transform: translateX(-240px) translateZ(-100px) rotateY(50deg) scale(0.95);
+}
+
+.card4 {
+  z-index: 30;
+  transform: translateX(240px) translateZ(-100px) rotateY(-50deg) scale(0.95);
+}
+
+/* Far Neighbors - Data Analytics (Far Left) & Logo (Far Right) */
+.card1 {
+  z-index: 10;
+  transform: translateX(-440px) translateZ(-100px) rotateY(50deg) scale(0.8);
+}
+
+.card5 {
+  z-index: 10;
+  transform: translateX(440px) translateZ(-100px) rotateY(-50deg) scale(0.8);
+}
+
+.cardLabel {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  font-family: "MJ Satoshi", sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: -0.2px;
+  color: #ffffff;
+  z-index: 2;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.viewAllContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.viewAllButton {
+  width: 64px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: #ef4444;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  box-shadow: 0 4px 6px -1px rgba(239, 68, 68, 0.3);
+
+  &:hover {
+    background-color: #dc2626;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px -1px rgba(239, 68, 68, 0.4);
+  }
+
+  svg {
+    color: #ffffff;
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.categories {
+  display: none; /* Hiding the old categories grid as per design showing only cards */
+}

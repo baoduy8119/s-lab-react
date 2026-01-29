@@ -1,0 +1,230 @@
+.section {
+  padding: 100px 0;
+  background: #ffffff;
+}
+
+.headerGrid {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 80px;
+}
+
+.headerLeft {
+  max-width: 30%;
+}
+
+.mainHeading {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 64px;
+  font-weight: 700;
+  color: #111827;
+  letter-spacing: -2px;
+  margin-bottom: 60px;
+  line-height: 1.1;
+}
+
+.counterBlock {
+  display: flex;
+  flex-direction: column;
+}
+
+.counterNumber {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 80px; // Very big
+  font-weight: 700;
+  color: #111827;
+  line-height: 1;
+  display: flex;
+  align-items: flex-start;
+  
+  .plus {
+    font-size: 40px;
+    color: #ef4444; // Red accent
+    margin-top: 10px;
+  }
+}
+
+.counterLabel {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 24px;
+  color: #9CA3AF;
+  font-weight: 700;
+}
+
+.headerRight {
+  flex: 1;
+  max-width: 70%;
+  padding-left: 60px;
+}
+
+.headerImage {
+  width: 100%;
+  height: 480px; // Fixed height for visual balance
+  position: relative;
+}
+
+// --- List Section ---
+.listLabels {
+  display: flex;
+  padding: 0 40px 20px;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 0;
+}
+
+.labelCol {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 16px; // Updated from 14px
+  color: #9CA3AF;
+  font-weight: 500;
+}
+
+.accordionList {
+  display: flex;
+  flex-direction: column;
+}
+
+.accordionItem {
+  position: relative;
+  border-bottom: 1px solid #e5e7eb;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  min-height: 100px;
+  
+  // Normal state
+  background: #ffffff;
+  
+  &.active {
+    min-height: 100px;
+    color: #ffffff;
+    border-bottom: none;
+  }
+}
+
+.itemBg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.bgImage {
+  object-fit: cover;
+}
+
+.bgOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.6) 100%);
+}
+
+.itemContent {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  padding: 24px 40px; // Updated padding (collapsed)
+  height: 100%;
+  min-height: 100px;
+  
+  .active & {
+    // padding: 60px 40px; // Expanded padding
+  }
+}
+
+.colTitle {
+  flex: 0 0 30%;
+}
+
+.itemTitle {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 32px; // Updated from 40px
+  font-weight: 700;
+  color: #111827;
+  
+  .active & {
+    color: #ffffff;
+  }
+}
+
+.colProfession {
+  flex: 0 0 30%;
+}
+
+.professionText {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 16px; // Updated from 20px
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.colDescription {
+  flex: 1;
+  padding-right: 60px;
+}
+
+.descList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  color: #ffffff;
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 14px; // Updated layout often uses smaller body text 14-16px
+  line-height: 1.6;
+}
+
+.colAction {
+  flex-shrink: 0;
+}
+
+.arrowBtn {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #ef4444;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+  
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+// --- Responsive ---
+@media (max-width: 1024px) {
+  .headerGrid {
+    flex-direction: column;
+    gap: 40px;
+    align-items: flex-start;
+  }
+  
+  .headerLeft, .headerRight {
+    max-width: 100%;
+    padding-left: 0;
+  }
+  
+  .headerImage {
+    height: 360px;
+  }
+  
+  .itemContent {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 32px 20px;
+    gap: 20px;
+    
+    .active & {
+      padding: 40px 20px;
+    }
+  }
+  
+  .colTitle, .colProfession, .colDescription {
+    flex: auto;
+    width: 100%;
+  }
+  
+  .listLabels {
+    display: none; // Hide labels on mobile
+  }
+}

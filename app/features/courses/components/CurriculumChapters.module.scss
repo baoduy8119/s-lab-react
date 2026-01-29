@@ -1,0 +1,241 @@
+.curriculumSection {
+  padding: 80px 0;
+  background: #ffffff;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.sectionTitle {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 48px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 48px;
+  line-height: 1.2;
+}
+
+.chaptersContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.chapterCard {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+}
+
+.chapterHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 32px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: #f9fafb;
+  }
+
+  &.expanded {
+    background-color: #111827;
+    color: #ffffff;
+
+    .chapterNumber,
+    .weekLabel,
+    .chapterTitle,
+    .timeLabel {
+      color: #ffffff;
+    }
+
+    .expandButton svg {
+      color: #ffffff;
+    }
+  }
+}
+
+.chapterInfo {
+  flex: 1;
+}
+
+.chapterMeta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.chapterNumber {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.weekLabel {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #111827;
+  background: #f3f4f6;
+  padding: 4px 12px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.chapterTitle {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.chapterRight {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.timeLabel {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.expandButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+
+  svg {
+    color: #111827;
+    transition: transform 0.3s ease;
+
+    &.rotated {
+      transform: rotate(180deg);
+    }
+  }
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.chapterContent {
+  padding: 32px;
+  background: #f9fafb;
+  border-top: 1px solid #e5e7eb;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.contentTitle {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 8px 0;
+}
+
+.contentSubtitle {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #6b7280;
+  margin: 0 0 16px 0;
+}
+
+.bulletList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.bulletItem {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #374151;
+  line-height: 1.6;
+  padding-left: 24px;
+  position: relative;
+
+  &::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: #ef4444;
+    font-weight: 600;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .curriculumSection {
+    padding: 48px 0;
+  }
+
+  .container {
+    padding: 0 20px;
+  }
+
+  .sectionTitle {
+    font-size: 32px;
+    margin-bottom: 32px;
+  }
+
+  .chapterHeader {
+    padding: 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .chapterRight {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .chapterTitle {
+    font-size: 20px;
+  }
+
+  .chapterContent {
+    padding: 24px 20px;
+  }
+}

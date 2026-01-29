@@ -1,0 +1,64 @@
+1. Hero Section (About THE S-LAB)
+This is the most complex visual component due to the overlapping decorative elements and rotated highlights.
+
+Heading: A large <h1> with a font size of roughly 64px-72px (text-6xl or text-7xl). It should have a negative letter-spacing for a tight, modern look.
+
+Paragraph Group: Three staggered <p> tags. They are not perfectly aligned vertically; each subsequent paragraph should have an increasing padding-left or margin-left.
+
+Highlighter Component: Create a reusable SCSS-based component for the yellow and pink highlights.
+
+Style: Use display: inline-block with a background color and a transform: rotate(-1deg) or rotate(1deg).
+
+Selection Nodes: Use ::before and ::after pseudo-elements to create the small yellow circles at the top-left and bottom-right corners of the highlight box to mimic a "selected" state in Figma.
+
+Floating Asset: Position the 3D character (top right) using position: absolute with a high z-index.
+
+2. Trusted By (Logo Cloud)
+Container: A horizontal flex container with justify-content: space-between and align-items: center.
+
+Assets: Grayscale versions of partner logos (Google, OpenAI, etc.). Use a standard height (e.g., 24px) for all logos to maintain visual balance.
+
+3. Limitless Desire (Accordion/Tabs)
+Header: A bold <h2> title.
+
+Navigation: A vertical list of links (/Our Desire, /Our Mission, /Our Vision).
+
+Content Area:
+
+Text: A descriptive paragraph.
+
+Image Gallery: A horizontal flexbox containing three images with slight rounded corners (border-radius: 8px).
+
+4. Key Activities (Video/Hero Slider)
+Background: A full-width relative container with a dark overlay. Use an <img> or <video> with object-fit: cover.
+
+Content: Absolute positioned text "Our Key Activities" in the top left and a red "Play" button centered or slightly offset.
+
+Cards (Below Video): A 4-column grid (grid-cols-4) using SCSS. Each card has a bold title and a small paragraph. Ensure equal height for all cards.
+
+5. Trainers Section (Profile Cards)
+Quote: A centered red quote icon followed by a serif or italicized subheading.
+
+Grid: A flex or grid layout containing profile cards.
+
+Card Design:
+
+Image: High-contrast grayscale or moody portraits.
+
+Overlay: A black box at the bottom of the image containing the trainer's name and role in white/gray text.
+
+6. Advisors' Credentials (Vertical Timeline)
+Layout: A 2-column split.
+
+Left: A large quote and a decorative red quote icon.
+
+Right: A vertical timeline.
+
+Timeline Logic: Use a central vertical border-left. Each item consists of a circle node on the line, a bold timestamp/title, and a descriptive paragraph to the right.
+
+7. Call to Action (Red Footer Banner)
+Background: A vibrant red background.
+
+Typography: Mix of font weights. The main "gain the knowledge..." text should be the largest, with "knowledge and mentorship" highlighted in white or a bolder weight.
+
+Buttons: A white "Join us now" button with black text and a secondary ghost button/link with a "Meet the minds" arrow icon.

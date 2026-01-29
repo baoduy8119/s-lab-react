@@ -1,0 +1,141 @@
+
+
+.heroSection {
+  position: relative;
+  width: 100%;
+  height: 900px; /* Approximate height from screenshot */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 80px;
+  background-color: #f3f4f6;
+}
+
+.heroBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  
+  img {
+    object-fit: cover;
+  }
+}
+
+.contentContainer {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  align-items: flex-start;
+  padding-top: 100px;
+}
+
+.leftContent {
+  max-width: 600px;
+  padding-top: 100px;
+}
+
+.logo {
+  margin-bottom: 32px;
+  width: 50px; 
+  height: 50px;
+  position: relative;
+}
+
+.title {
+  font-family: "MJ Satoshi", sans-serif;
+  font-weight: 700;
+  font-size: 72px;
+  line-height: 80px;
+  letter-spacing: -1.5px;
+  color: #FFFFFF; /* Looks white in screenshot? No, it's white text on image? */
+  /* Wait, screenshot shows text looks white or light?  */
+  /* Actually, looking at screenshot 2 (Step 11), the text "The S-LAB Programmes and Courses" is White. The background image is dark/dimmed? Or the image is just the woman. */
+  /* The text is clearly white. */
+  margin-bottom: 24px;
+}
+
+.subtitle {
+  font-family: "MJ Satoshi", sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 30px;
+  color: #FFFFFF;
+  opacity: 0.9;
+}
+
+.formContainer {
+  width: 440px;
+  background-color: #000000;
+  padding: 16px 24px;
+  color: #ffffff;
+}
+
+.formTitle {
+  font-family: "MJ Satoshi", sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 30px;
+  letter-spacing: -0.15px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.formGroup {
+  margin-bottom: 8px;
+}
+
+.input {
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  border-bottom: 0.5px solid #4b5563;
+  padding: 10px 0;
+  color: #ffffff;
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  
+  &::placeholder {
+    color: #9CA3AF;
+  }
+  
+  &:focus {
+    outline: none;
+    border-bottom-color: #EF4444;
+  }
+}
+
+.row {
+  display: flex;
+  gap: 20px;
+}
+
+.submitButton {
+  width: 100%;
+  background-color: #EF4444;
+  color: #ffffff;
+  border: none;
+  padding: 16px;
+  font-family: "MJ Satoshi", sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 80px;
+  transition: background-color 0.2s;
+  
+  &:hover {
+    background-color: #DC2626;
+  }
+}

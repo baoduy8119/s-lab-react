@@ -1,0 +1,206 @@
+// Hero Section Styles
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 918px;
+  display: flex;
+  flex-direction: column;
+  padding: 102px 0 62px;
+
+  .innerContent {
+    padding: 0 80px;
+  }
+}
+
+.bgImageTop {
+  position: absolute;
+  top: -25px;
+  right: 0;
+  width: 408px;
+  height: 330px;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.bgImageLeft {
+  position: absolute;
+  top: 300px;
+  left: -73px;
+  width: 173px;
+  height: 452px;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.contentWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 39px;
+  position: relative;
+  z-index: 1;
+}
+
+.headerSection {
+  display: flex;
+  flex-direction: column;
+  gap: 29px;
+}
+
+.title {
+  font-family: "MJ Satoshi", sans-serif;
+  font-weight: 700;
+  font-size: 72px;
+  line-height: 88px;
+  letter-spacing: -0.8px;
+  color: #111827;
+  margin: 0;
+}
+
+.logoGroup {
+  width: 89.97px;
+  height: 32.38px;
+}
+
+.description {
+  max-width: 830px;
+  margin-left: 96px;
+  font-family: "MJ Satoshi", sans-serif;
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 48px;
+  letter-spacing: -0.3px;
+  color: #111827;
+  margin: 0 auto;
+
+  p {
+    margin-bottom: 24px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// Highlight wrapper with pill positioning
+.highlightWrapper {
+  display: inline-block;
+  position: relative;
+
+  &.yellow .highlight {
+    background-color: #fde68a;
+  }
+
+  &.pink .highlight {
+    background-color: #fee2e2;
+  }
+
+  &.red .highlight {
+    color: #ef4444;
+  }
+
+  &.rotate-1 .highlight {
+    transform: rotate(-1deg);
+  }
+
+  &.rotate-2 .highlight {
+    transform: rotate(-2deg);
+  }
+
+  &.rotate3 .highlight {
+    transform: rotate(3deg);
+  }
+
+  &.rotate-3 .highlight {
+    transform: rotate(-3deg);
+  }
+}
+
+// Highlight component (inline)
+.highlight {
+  display: inline-block;
+  padding: 6px 10px;
+  position: relative;
+  white-space: nowrap;
+}
+
+.highlight span.cornerBottom {
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: white;
+    border: 2px solid #3b82f6;
+    border-radius: 50%;
+    z-index: 10;
+  }
+
+  &::before {
+    bottom: -3px;
+    left: -3px;
+  }
+
+  &::after {
+    bottom: -3px;
+    right: -3px;
+  }
+}
+
+// Decorative pills positioned relative to highlights
+.pill {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+
+  svg {
+    display: block;
+  }
+
+  &.pill-top-left {
+    bottom: 0;
+    right: 100%;
+    margin-right: -10px;
+  }
+
+  &.pill-top-right {
+    bottom: 100%;
+    left: 100%;
+    margin-bottom: 0;
+    margin-left: -20px;
+  }
+
+  &.pill-bottom-left {
+    top: 100%;
+    right: 100%;
+    margin-top: -35px;
+    margin-right: -10px;
+  }
+
+  &.pill-bottom-right {
+    bottom: -20px;
+    left: 100%;
+    margin-left: -10px;
+  }
+}
+
+.footerSection {
+  margin-top: auto;
+  padding-top: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 62px;
+  position: relative;
+  z-index: 1;
+}
+
+.divider {
+  width: 100%;
+  max-width: 1080px;
+  height: 1px;
+  background-color: #cbd5e1;
+}
+
+.partners {
+  padding-left: 27px;
+}

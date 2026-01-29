@@ -1,0 +1,109 @@
+
+
+.section {
+  width: 100%;
+  padding: 80px 80px;
+}
+
+.container {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px; 
+  margin-bottom: 48px;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.tab {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  background-color: #F9FAFB; /* Default light gray background */
+  color: #1F2937;
+  padding: 12px 24px;
+  border: none;
+  transition: background-color 0.2s, color 0.2s;
+  
+  &:hover {
+    background-color: #E5E7EB;
+    color: #111827;
+  }
+  
+  &.active {
+    background-color: #000000;
+    color: #ffffff;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  row-gap: 48px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.imageContainer {
+  position: relative;
+  width: 100%;
+  /* Aspect ratio handled by image dimensions or class, but nice to enforce */
+  border-radius: 0; /* PolygonImage handles shape */
+  overflow: hidden; 
+  /* background-color: #e5e7eb; - removed to avoid flash behind polygon */
+}
+
+.cardImage {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cardTitle {
+  font-family: "MJ Satoshi", sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: -0.01em;
+  color: #111827;
+}
+
+.cardDescription {
+  font-family: "MJ Satoshi", sans-serif;
+  font-weight: 400;
+  font-size: 16px; /* Slightly larger for readability */
+  line-height: 24px;
+  color: #4B5563; /* Gray-600 */
+}
+
+.cardFooter {
+  margin-top: 4px;
+}
+
+.badge {
+  display: inline-block;
+  background-color: #E5E7EB;
+  color: #1F2937;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: 99px;
+}

@@ -1,0 +1,17 @@
+// Common CTA Banner with Red Background
+.banner {
+  position: relative;
+  width: 100%;
+  background-image: url('/images/red-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  padding: 74px 80px;
+  height: 100%;
+}

@@ -1,0 +1,92 @@
+.section {
+  padding: 100px 0;
+  background: #F3F4F6;
+}
+
+.heading {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 48px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 60px;
+  // Center or Container alignment?
+  // Previous code had Container wrapper around heading.
+  // In Step 768 user removed Container wrapper in TSX but kept heading inside section.
+  // Wait, Step 768 snippet showed:
+  // <section> <h2 ...> <div grid ...> </section>
+  // So heading is likely edge-to-edge if not in container?
+  // Wait, "The S-Lab’s Partners" usually constrained.
+  // I should probably put them back in Container or add padding.
+  // But if the user removed Container locally in Step 768, I should respect that?
+  // "The following changes were made by the USER ... <Container> ... removed".
+  // So layout is full width?
+  // The grid lines go to edges?
+  // I'll add horizontal padding to section or heading if needed.
+  // Assuming full width grid.
+  padding-left: 80px;
+  padding-right: 80px;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  border-top: 1px solid #E5E7EB;
+  border-left: 1px solid #E5E7EB;
+}
+
+.logoCard {
+  flex: 0 0 20%; // 5 items per row
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid #E5E7EB;
+  border-bottom: 1px solid #E5E7EB;
+  transition: background 0.2s;
+  padding: 32px 0;
+  
+  &:hover {
+    background: #f9fafb;
+    .logoImage {
+      opacity: 1;
+      filter: grayscale(0%);
+    }
+  }
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logoImage {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  transition: all 0.3s ease;
+  // Optional: Grayscale effect for partners?
+  // filter: grayscale(100%);
+  // opacity: 0.8;
+}
+
+// --- Responsive ---
+@media (max-width: 1024px) {
+  .logoCard {
+    width: 33.33%;
+  }
+}
+
+@media (max-width: 768px) {
+  .heading {
+    font-size: 32px;
+  }
+  
+  .logoCard {
+    width: 50%;
+    height: 140px; // Smaller on mobile
+  }
+}
