@@ -3,6 +3,7 @@
 import React from "react";
 import Container from "@/app/components/Container";
 import BlogGridCard from "./BlogGridCard";
+import SectionHeader from "@/app/components/SectionHeader";
 import styles from "./MoreArticles.module.scss";
 
 const articles = [
@@ -33,7 +34,9 @@ const MoreArticles = React.memo(function MoreArticles() {
   return (
     <section className={styles.section}>
       <Container>
-        <h2 className={styles.title}>/More articles.</h2>
+        <SectionHeader
+          title="/More articles."
+        />
         <div className={styles.grid}>
           {articles.map((article) => (
             <div key={article.id} className={styles.borderWrapper}>

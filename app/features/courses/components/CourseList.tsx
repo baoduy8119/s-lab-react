@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import QuoteIcon from "@/app/components/icons/QuoteIcon";
+import SectionHeader from "@/app/components/SectionHeader";
 import styles from "./CourseList.module.scss";
 
 const CourseList = React.memo(function CourseList() {
@@ -74,14 +74,15 @@ const CourseList = React.memo(function CourseList() {
 
   return (
     <section className={styles.section}>
+      <SectionHeader
+        title="/Most choices courses."
+      />
       <div className={styles.container}>
         <div className={styles.leftContent}>
-          <h2 className={styles.title}>/Most choices courses.</h2>
           <p className={styles.description}>
             The course is transparent, covering every stage of your development. No
             hidden fees. No long-term contracts.
           </p>
-
           <div className={styles.visualDivider}>
             {Array.from({ length: 40 }).map((_, i) => (
               <span key={i} className={styles.dividerLine} style={{ opacity: Math.random() > 0.5 ? 1 : 0.4 }}></span>
