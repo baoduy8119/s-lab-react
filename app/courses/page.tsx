@@ -3,7 +3,6 @@ import LeftMenu from "../components/LeftMenu";
 import CourseHero from "../features/courses/components/CourseHero";
 import CourseList from "../features/courses/components/CourseList";
 import MarketingCards from "../features/courses/components/MarketingCards";
-import NewsletterCTA from "../features/s-library/components/NewsletterCTA";
 import Footer from "../components/Footer";
 
 export default function CoursesPage() {

@@ -1,6 +1,5 @@
 .section {
-  padding: 100px 0;
-  background: #ffffff;
+  padding: 60px 0;
 }
 
 .headerGrid {
@@ -90,9 +89,6 @@
   overflow: hidden;
   transition: all 0.3s ease;
   min-height: 100px;
-  
-  // Normal state
-  background: #ffffff;
   
   &.active {
     min-height: 100px;

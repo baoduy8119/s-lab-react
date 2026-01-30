@@ -99,11 +99,11 @@ const Section2 = React.memo(function Section2() {
           </div>
 
           {/* Outcome-driven box at bottom */}
-          <div className="relative z-20 w-full h-[239px] bg-white/10 backdrop-blur-sm rounded-[8px] flex flex-col px-[115px] py-[44px]">
+          <div className="relative z-20 w-full h-[239px] bg-white/10 backdrop-blur-sm rounded-[8px] flex flex-col px-[80px] py-[40px]">
             <h3 className="text-white text-2xl font-bold leading-[30px] tracking-[-0.15px] w-[295px]">
               Outcome-driven by design
             </h3>
-            <p className="text-white text-base font-medium leading-[22px] tracking-[-0.18px] w-[332px] mt-[43px]">
+            <p className="text-white text-base font-medium leading-[22px] tracking-[-0.18px] w-[332px] mt-[20px]">
               Every module produces tangible deliverables—plans, systems, or assets you can apply
               immediately.
             </p>
@@ -114,7 +114,7 @@ const Section2 = React.memo(function Section2() {
       {/* Card 3: Project-first & High-touch advisor */}
       <div className="relative w-full h-[565px] overflow-hidden flex">
         {/* Left Side: Project-first */}
-        <div className="relative w-1/2 flex flex-col justify-between bg-black overflow-hidden px-20 py-[41px]">
+        <div className="relative w-1/2 flex flex-col justify-between bg-black overflow-hidden">
           {/* Background Image for left side */}
           <div className="absolute inset-0 z-0">
             <Image
@@ -122,17 +122,16 @@ const Section2 = React.memo(function Section2() {
               alt=""
               fill
               className="object-cover"
-              style={{ objectPosition: "-139px -307px" }}
             />
           </div>
 
           {/* /004/ Label at top */}
-          <div className="relative z-20 text-white text-2xl font-bold leading-[30px] tracking-[-0.15px]">
+          <div className="relative z-20 text-white text-2xl font-bold leading-[30px] tracking-[-0.15px] px-[80px] py-[40px]">
             /004/
           </div>
 
           {/* Project-first box at bottom */}
-          <div className="relative z-20 w-full max-w-[549px] bg-white/10 backdrop-blur-sm rounded-[8px] flex flex-col px-[80px] py-[50px] -ml-[37px] mb-0">
+          <div className="relative z-20 w-full bg-white/10 backdrop-blur-sm rounded-[8px] flex flex-col px-[80px] py-[50px] mb-0">
             <h3 className="text-white text-2xl font-bold leading-[30px] tracking-[-0.15px]">
               Project-first execution
             </h3>
@@ -143,31 +142,26 @@ const Section2 = React.memo(function Section2() {
         </div>
 
         {/* Right Side: High-touch advisor */}
-        <div className="relative w-1/2 flex flex-col justify-between bg-black overflow-hidden px-[68px] py-[29px]">
+        <div className="relative w-1/2 flex flex-col justify-between bg-black overflow-hidden px-[80px] py-[29px]">
           {/* Solid black background */}
           <div className="absolute inset-0 z-0 bg-black" />
 
           {/* Top Section */}
           <div className="relative z-20 flex flex-col">
-            {/* S-Lab Logo - Top Right */}
-            <div className="self-end mr-[-28px]">
-              <Image src="/images/s-lab-white-logo.svg" alt="The S-Lab" width={108} height={54} />
-            </div>
-
             {/* Title */}
-            <h3 className="text-white text-2xl font-bold leading-[30px] tracking-[-0.15px] w-[378px] mt-[29px]">
+            <h3 className="text-white text-2xl font-bold leading-[30px] tracking-[-0.15px] w-[378px]">
               High-touch advisor feedback
             </h3>
 
             {/* Description */}
-            <p className="text-white text-base font-medium leading-[22px] tracking-[-0.18px] w-[332px] mt-[53px]">
+            <p className="text-white text-base font-medium leading-[22px] tracking-[-0.18px] w-[332px] mt-[20px]">
               Targeted reviews and actionable improvements to steadily raise the quality of your
               output.
             </p>
           </div>
 
           {/* Bottom Section: Advisor Image with overlay text + Label */}
-          <div className="relative z-20 flex flex-col items-end gap-[46px]">
+          <div className="relative z-20 flex flex-col items-end">
             {/* Advisor Image */}
             <div className="relative w-[358px] h-[358px] mr-[41px]">
               <Image
@@ -222,7 +216,7 @@ const Section2 = React.memo(function Section2() {
         </div>
 
         {/* Content Wrapper (Glass Effect) */}
-        <div className="absolute left-0 top-[384px] w-[586px] h-[239px] bg-white/10 backdrop-blur-sm z-20 flex flex-col pl-[81px] pt-[42px]">
+        <div className="absolute left-0 bottom-0 w-[586px] bg-white/10 backdrop-blur-sm z-20 flex flex-col pl-[80px] py-[40px]">
           {/* Feature Title */}
           <h3 className="text-white text-2xl font-bold leading-[30px] tracking-[-0.15px] w-[452px]">
             AI-enabled workflows + systems thinking

@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import styles from "./FAQ.module.scss";
+import Container from "@/app/components/Container";
 
 const FAQ = React.memo(function FAQ() {
   const [openIndex, setOpenIndex] = useState<number>(0);
@@ -54,69 +55,70 @@ const FAQ = React.memo(function FAQ() {
 
   return (
     <section className={styles.section}>
-      <div className={styles.container}>
-        {/* Left Side - Image */}
-        <div className={styles.imageContainer}>
-          <Image
-            src="/images/slib/faq-image.png"
-            alt="FAQ"
-            fill
-            style={{ objectFit: "cover" }}
-          />
-        </div>
+      <Container>
+        <div className={styles.container}>
+          {/* Left Side - Image */}
+          <div className={styles.imageContainer}>
+            <Image
+              src="/images/slib/faq-image.png"
+              alt="FAQ"
+              fill
+              style={{ objectFit: "cover" }}
+            />
+          </div>
 
-        {/* Right Side - FAQ List */}
-        <div className={styles.faqContainer}>
-          <h2 className={styles.title}>
-            /Frequently
-            <br />
-            asked questions.
-          </h2>
+          {/* Right Side - FAQ List */}
+          <div className={styles.faqContainer}>
+            <h2 className={styles.title}>
+              /Frequently
+              <br />
+              asked questions.
+            </h2>
 
-          <div className={styles.faqList}>
-            {faqs.map((faq, index) => (
-              <div key={index} className={styles.faqItem}>
-                <div className={styles.faqQuestion} onClick={() => toggleFAQ(index)}>
-                  <h3 className={styles.questionText}>{faq.question}</h3>
-                  <button
-                    className={`${styles.toggleButton} ${
-                      openIndex !== index ? styles.active : ""
-                    }`}
-                  >
-                    {openIndex === index ? (
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <path
-                          d="M18 12H6"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                        />
-                      </svg>
-                    ) : (
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <path
-                          d="M12 6V18M18 12H6"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                        />
-                      </svg>
-                    )}
-                  </button>
-                </div>
-
-                {openIndex === index && (
-                  <div className={styles.faqAnswer}>
-                    <p>{faq.answer}</p>
+            <div className={styles.faqList}>
+              {faqs.map((faq, index) => (
+                <div key={index} className={styles.faqItem}>
+                  <div className={styles.faqQuestion} onClick={() => toggleFAQ(index)}>
+                    <h3 className={styles.questionText}>{faq.question}</h3>
+                    <button
+                      className={`${styles.toggleButton} ${openIndex !== index ? styles.active : ""
+                        }`}
+                    >
+                      {openIndex === index ? (
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                          <path
+                            d="M18 12H6"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                          />
+                        </svg>
+                      ) : (
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                          <path
+                            d="M12 6V18M18 12H6"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                          />
+                        </svg>
+                      )}
+                    </button>
                   </div>
-                )}
 
-                {index < faqs.length - 1 && <div className={styles.divider} />}
-              </div>
-            ))}
+                  {openIndex === index && (
+                    <div className={styles.faqAnswer}>
+                      <p>{faq.answer}</p>
+                    </div>
+                  )}
+
+                  {index < faqs.length - 1 && <div className={styles.divider} />}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 });

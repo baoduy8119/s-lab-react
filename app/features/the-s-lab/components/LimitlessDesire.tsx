@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import ArrowRightIcon from "@/app/components/icons/ArrowRightIcon";
 import PolygonImage from "@/app/components/PolygonImage";
 import styles from "./LimitlessDesire.module.scss";
+import Container from "@/app/components/Container";
 
 const LimitlessDesire = React.memo(function LimitlessDesire() {
   const [openItem, setOpenItem] = useState<string>("desire");
@@ -53,50 +54,51 @@ const LimitlessDesire = React.memo(function LimitlessDesire() {
 
   return (
     <section className={styles.section}>
-      <h2 className={styles.title}>/We work for the Limitless Desire. </h2>
+      <Container>
+        <h2 className={styles.title}>/We work for the Limitless Desire. </h2>
+        <div className={styles.accordion}>
+          {accordionData.map((item) => {
+            const isOpen = openItem === item.id;
 
-      <div className={styles.accordion}>
-        {accordionData.map((item) => {
-          const isOpen = openItem === item.id;
-
-          return (
-            <div
-              key={item.id}
-              className={`${styles.accordionItem} ${!isOpen ? styles.collapsedItem : ""}`}
-              onClick={() => handleToggle(item.id)}
-            >
-              <div className={`${styles.icon} ${isOpen ? styles.iconOpen : ""}`}>
-                <ArrowRightIcon color="#0F172A" />
-              </div>
-              <div className={styles.content}>
-                <div className={styles.textContent}>
-                  <h3 className={styles.itemTitle}>{item.title}</h3>
+            return (
+              <div
+                key={item.id}
+                className={`${styles.accordionItem} ${!isOpen ? styles.collapsedItem : ""}`}
+                onClick={() => handleToggle(item.id)}
+              >
+                <div className={`${styles.icon} ${isOpen ? styles.iconOpen : ""}`}>
+                  <ArrowRightIcon color="#0F172A" />
+                </div>
+                <div className={styles.content}>
+                  <div className={styles.textContent}>
+                    <h3 className={styles.itemTitle}>{item.title}</h3>
+                    {isOpen && (
+                      <div className={styles.expandedContent}>
+                        <h4 className={styles.subtitle}>{item.subtitle}</h4>
+                        <p className={styles.description}>{item.description}</p>
+                      </div>
+                    )}
+                  </div>
                   {isOpen && (
-                    <div className={styles.expandedContent}>
-                      <h4 className={styles.subtitle}>{item.subtitle}</h4>
-                      <p className={styles.description}>{item.description}</p>
+                    <div className={styles.images}>
+                      {item.images.map((img, index) => (
+                        <PolygonImage
+                          key={index}
+                          src={img}
+                          alt={item.title}
+                          width={270}
+                          height={197}
+                          topLeftCut={25}
+                        />
+                      ))}
                     </div>
                   )}
                 </div>
-                {isOpen && (
-                  <div className={styles.images}>
-                    {item.images.map((img, index) => (
-                      <PolygonImage
-                        key={index}
-                        src={img}
-                        alt={item.title}
-                        width={270}
-                        height={197}
-                        topLeftCut={25}
-                      />
-                    ))}
-                  </div>
-                )}
               </div>
-            </div>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
+      </Container>
     </section>
   );
 });

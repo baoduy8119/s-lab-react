@@ -3,6 +3,7 @@
 import React from "react";
 import QuoteIcon from "@/app/components/icons/QuoteIcon";
 import styles from "./AdvisorsCredentials.module.scss";
+import Container from "@/app/components/Container";
 
 const AdvisorsCredentials = React.memo(function AdvisorsCredentials() {
   const credentials = [
@@ -37,45 +38,47 @@ const AdvisorsCredentials = React.memo(function AdvisorsCredentials() {
         "With our trainers, learners don't just gain theoretical knowledge. They acquire practical skills and insights that can be immediately applied in the business world.",
     },
   ];
-  
+
   return (
     <section className={styles.section}>
-      <div className={styles.container}>
-        <div className={styles.leftContent}>
-      <h2 className={styles.title}>/Advisors' Credentials</h2>
-      
-      <div className={styles.quoteIcon}>
-        <QuoteIcon />
-      </div>
-      
-      <p className={styles.subtitle}>
-            Each phase is handled by specialists who work together seamlessly, ensuring nothing
-            falls through the cracks.
-      </p>
-        </div>
-      
-      <div className={styles.timeline}>
-        {credentials.map((item, index) => (
-          <div key={index} className={styles.timelineItem}>
-            <div className={styles.timelineMarker}>
-                <div
-                  className={`${styles.circle} ${index === 0 ? styles.circleActive : ""}`}
-                />
-                {index < credentials.length - 1 && (
-                  <div
-                    className={`${styles.line} ${index === 0 ? styles.lineActive : ""}`}
-                  />
-                )}
+      <Container>
+        <div className={styles.container}>
+          <div className={styles.leftContent}>
+            <h2 className={styles.title}>/Advisors' Credentials</h2>
+
+            <div className={styles.quoteIcon}>
+              <QuoteIcon />
             </div>
-            <div className={styles.timelineContent}>
-              <div className={styles.itemNumber}>{item.number}</div>
-              <h3 className={styles.itemTitle}>{item.title}</h3>
-              <p className={styles.itemDescription}>{item.description}</p>
-            </div>
+
+            <p className={styles.subtitle}>
+              Each phase is handled by specialists who work together seamlessly, ensuring nothing
+              falls through the cracks.
+            </p>
           </div>
-        ))}
+
+          <div className={styles.timeline}>
+            {credentials.map((item, index) => (
+              <div key={index} className={styles.timelineItem}>
+                <div className={styles.timelineMarker}>
+                  <div
+                    className={`${styles.circle} ${index === 0 ? styles.circleActive : ""}`}
+                  />
+                  {index < credentials.length - 1 && (
+                    <div
+                      className={`${styles.line} ${index === 0 ? styles.lineActive : ""}`}
+                    />
+                  )}
+                </div>
+                <div className={styles.timelineContent}>
+                  <div className={styles.itemNumber}>{item.number}</div>
+                  <h3 className={styles.itemTitle}>{item.title}</h3>
+                  <p className={styles.itemDescription}>{item.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 });

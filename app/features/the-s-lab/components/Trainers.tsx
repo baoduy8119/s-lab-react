@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import PolygonImage from "@/app/components/PolygonImage";
 import QuoteIcon from "@/app/components/icons/QuoteIcon";
 import styles from "./Trainers.module.scss";
+import Container from "@/app/components/Container";
 
 const Trainers = React.memo(function Trainers() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -41,49 +42,51 @@ const Trainers = React.memo(function Trainers() {
 
   return (
     <section className={styles.section}>
-      <div className={styles.quoteIconWrapper}>
-        <div className={styles.quoteIcon}>
-          <QuoteIcon />
+      <Container>
+        <div className={styles.quoteIconWrapper}>
+          <div className={styles.quoteIcon}>
+            <QuoteIcon />
+          </div>
+          <h2 className={styles.title}>Our Trainers: The Heart of The S-Lab</h2>
+          <p className={styles.subtitle}>Who brings value to leverage the talents</p>
         </div>
-        <h2 className={styles.title}>Our Trainers: The Heart of The S-Lab</h2>
-        <p className={styles.subtitle}>Who brings value to leverage the talents</p>
-      </div>
 
 
-      <div className={styles.trainersGrid}>
-        {trainers.map((trainer, index) => {
-          const isHovered = hoveredIndex === index;
+        <div className={styles.trainersGrid}>
+          {trainers.map((trainer, index) => {
+            const isHovered = hoveredIndex === index;
 
-          return (
-            <div
-              key={index}
-              className={`${styles.trainerCard} ${isHovered ? styles.expanded : ""}`}
-              onMouseEnter={() => setHoveredIndex(index)}
-              onMouseLeave={() => setHoveredIndex(null)}
-            >
-              <div className={styles.cardNumber}>{trainer.number}</div>
-              <div className={`${styles.imageContainer} ${isHovered ? styles.expanded : ""}`}>
-                <PolygonImage
-                  src={trainer.image}
-                  alt={trainer.name}
-                  width={225}
-                  height={350}
-                  topLeftCut={25}
-                />
-                <div className={`${styles.overlay} ${isHovered ? styles.expanded : ""}`}>
-                  <div>
-                    <p className={styles.trainerName}>{trainer.name}</p>
-                    <p className={styles.trainerRole}>{trainer.role}</p>
+            return (
+              <div
+                key={index}
+                className={`${styles.trainerCard} ${isHovered ? styles.expanded : ""}`}
+                onMouseEnter={() => setHoveredIndex(index)}
+                onMouseLeave={() => setHoveredIndex(null)}
+              >
+                <div className={styles.cardNumber}>{trainer.number}</div>
+                <div className={`${styles.imageContainer} ${isHovered ? styles.expanded : ""}`}>
+                  <PolygonImage
+                    src={trainer.image}
+                    alt={trainer.name}
+                    width={225}
+                    height={350}
+                    topLeftCut={25}
+                  />
+                  <div className={`${styles.overlay} ${isHovered ? styles.expanded : ""}`}>
+                    <div>
+                      <p className={styles.trainerName}>{trainer.name}</p>
+                      <p className={styles.trainerRole}>{trainer.role}</p>
+                    </div>
+                    {isHovered && trainer.bio && (
+                      <p className={styles.trainerBio}>{trainer.bio}</p>
+                    )}
                   </div>
-                  {isHovered && trainer.bio && (
-                    <p className={styles.trainerBio}>{trainer.bio}</p>
-                  )}
                 </div>
               </div>
-            </div>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
+      </Container>
     </section>
   );
 });

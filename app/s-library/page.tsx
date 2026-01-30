@@ -3,8 +3,7 @@ import Hero from '../features/s-library/components/Hero';
 import BestForYou from '../features/s-library/components/BestForYou';
 import LibrarySystem from '../features/s-library/components/LibrarySystem';
 import FAQ from '../features/s-library/components/FAQ';
-import NewsletterCTA from '../features/s-library/components/NewsletterCTA';
-import SLibraryFooter from '../features/s-library/components/SLibraryFooter';
+import Footer from '../components/Footer';
 
 export default function SLibraryPage() {
   return (
@@ -18,12 +17,7 @@ export default function SLibraryPage() {
         <BestForYou />
         <LibrarySystem />
         <FAQ />
-        <div className="bg-[#DC2626]">
-          <NewsletterCTA />
-        </div>
-        <div className="bg-[#000000]">
-          <SLibraryFooter />
-        </div>
+        <Footer />
       </div>
     </div>
   );
