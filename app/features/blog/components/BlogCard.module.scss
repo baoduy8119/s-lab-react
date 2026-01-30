@@ -1,0 +1,132 @@
+.card {
+  display: flex;
+  margin-bottom: 24px;
+  min-height: 480px;
+  align-items: stretch; // Explicitly stretch children to match heights
+}
+
+.imageContainer {
+  position: relative;
+  flex-shrink: 0;
+  display: flex; // Ensure wrapper matches image size
+}
+
+.postImage {
+  display: block;
+}
+
+.dateOverlay {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  z-index: 2;
+}
+
+.dateText {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: 1px;
+}
+
+.contentContainer {
+  flex: 1;
+  padding: 24px;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 26px;
+  // height: 100%; // Removed to rely on flex stretch
+}
+
+.title {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.2;
+  margin-bottom: 0;
+}
+
+.excerpt {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 14px;
+  color: #6B7280;
+  line-height: 1.6;
+  margin-bottom: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.authorBlock {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-top: 26px;
+  border-top: 1px solid #E5E7EB;
+  width: 100%;
+}
+
+.authorImageWrapper {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+}
+
+.authorImage {
+  object-fit: cover;
+}
+
+.authorInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.authorName {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.authorRole {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 14px;
+  color: #6B7280;
+}
+
+// --- Responsive ---
+@media (max-width: 1024px) {
+  .card {
+    flex-direction: column;
+    align-items: flex-start; // Reset overlap style
+    min-height: auto;
+    margin-bottom: 60px;
+  }
+  
+  .imageContainer {
+    width: 100%;
+    
+    img {
+      width: 100% !important;
+      height: auto !important;
+    }
+  }
+  
+  .contentContainer {
+    padding: 24px; // Reset standard padding
+  }
+  
+  .title {
+    font-size: 24px;
+  }
+}

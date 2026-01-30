@@ -1,0 +1,137 @@
+.section {
+  padding-top: 120px;
+  background: #F3F4F6;
+  padding-bottom: 24px;
+}
+
+.topLogo {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 40px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 220px 1fr; // Left column width + gap logic
+  column-gap: 30px;
+  row-gap: 100px;
+}
+
+// Area assignments
+.dateArea {
+  grid-column: 1;
+  grid-row: 1;
+  padding-top: 12px; // Optical alignment with Title Cap height
+}
+
+.headerArea {
+  grid-column: 2;
+  grid-row: 1;
+  max-width: 900px;
+}
+
+.authorArea {
+  grid-column: 1;
+  grid-row: 2;
+  // Aligns to top of row 2 automatically
+}
+
+.heroArea {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+// Element Styles
+.date {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 16px;
+  color: #6B7280;
+  font-weight: 500;
+}
+
+.title {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 64px;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.1;
+  letter-spacing: -1.5px;
+  margin-bottom: 24px;
+}
+
+.subtitle {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 20px;
+  color: #6B7280;
+  line-height: 1.6;
+  margin-bottom: 0;
+  max-width: 600px;
+}
+
+.authorBlock {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.authorImageWrapper {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+}
+
+.authorImage {
+  object-fit: cover;
+}
+
+.authorInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.authorName {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.authorRole {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 14px;
+  color: #6B7280;
+}
+
+.heroImageWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.heroImage {
+  object-fit: cover;
+}
+
+// Responsive
+@media (max-width: 1024px) {
+  .grid {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+  
+  .dateArea {
+    padding-top: 0;
+  }
+  
+  .title {
+    font-size: 40px;
+  }
+  
+  // Reorder for mobile if needed: Date > Header > Author > Hero
+  // Flex order usually follows DOM order: Date, Header, Author, Hero.
+  // This is acceptable responsive behavior.
+}

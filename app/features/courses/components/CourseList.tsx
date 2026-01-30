@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import QuoteIcon from "@/app/components/icons/QuoteIcon";
 import styles from "./CourseList.module.scss";
 
 const CourseList = React.memo(function CourseList() {

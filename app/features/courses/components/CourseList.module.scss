@@ -1,5 +1,4 @@
 
-
 .section {
   width: 100%;
   padding: 80px 80px;
@@ -23,11 +22,26 @@
   flex-shrink: 0;
   position: sticky;
   top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align left */
 }
 
 .rightContent {
   flex: 1;
   max-width: 800px;
+}
+
+.quoteIcon {
+  width: 48px;
+  height: 35px;
+  margin-bottom: 32px;
+
+  svg {
+    width: 100%;
+    height: 100%;
+    fill: #ef4444; /* Red-500 */
+  }
 }
 
 .title {
@@ -44,7 +58,7 @@
   font-family: "MJ Satoshi", sans-serif;
   font-size: 18px;
   line-height: 28px;
-  color: #374151;
+  color: #374151; /* Gray-700 */
   margin-bottom: 40px;
   font-weight: 500;
   max-width: 320px;
@@ -79,7 +93,7 @@
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  border: 3px solid #F3F4F6; /* Match bg color */
+  border: 3px solid #F3F4F6;
   margin-left: -16px;
   background-size: cover;
   
@@ -136,13 +150,13 @@
 
 .courseItem {
   width: 100%;
-  background-color: #F8FAFC; /* Slate-50 */
-  border: 1px solid #CBD5E1; /* Slate-300 */
+  background-color: #F8FAFC; 
+  border: 1px solid #CBD5E1; 
   padding: 24px;
   border-radius: 0; 
   display: flex;
   flex-direction: column;
-  gap: 32px; /* Gap between Header and Content approximately */
+  gap: 32px;
 }
 
 /* Header Section */
@@ -152,7 +166,7 @@
   align-items: flex-start;
   gap: 16px;
   width: 100%;
-  padding-bottom: 0; /* No padding here, handled by gap/divider */
+  padding-bottom: 0;
   border-bottom: none;
   margin-bottom: 0;
 }
@@ -168,11 +182,11 @@
 
 .duration {
   font-family: "MJ Satoshi", sans-serif;
-  font-weight: 700; /* Updated to Bold per design */
+  font-weight: 700;
   font-size: 16px;
   line-height: 22px;
   letter-spacing: -0.18px;
-  color: #111827; /* Updated to Gray-900 per design */
+  color: #111827;
 }
 
 .priceWrapper {
@@ -202,14 +216,14 @@
   font-family: "MJ Satoshi", sans-serif;
   font-weight: 700;
   font-size: 20px;
-  color: #6B7280; /* Gray 500 */
+  color: #6B7280;
 }
 
 /* Divider */
 .divider {
   width: 100%;
   height: 1px;
-  background-color: #E2E8F0; /* Slate-200 or similar light divider */
+  background-color: #E2E8F0;
   margin: 0; 
 }
 
@@ -226,18 +240,18 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 16px; /* Matches Figma base gap usually */
+  gap: 16px; 
 }
 
 .featureItem {
   display: flex;
-  align-items: flex-start; /* Align top in case of multiline */
+  align-items: flex-start; 
   gap: 16px;
   font-family: "MJ Satoshi", sans-serif;
   font-size: 16px; 
   line-height: 24px;
   font-weight: 500;
-  color: #374151; /* Gray 700? Or 900? Keeping 700 based on standard body text */
+  color: #374151; 
 }
 
 .checkIcon {
@@ -248,10 +262,9 @@
 
 .registerButton {
   width: 100%;
-  /* background-color set inline mostly, or black default */
   background-color: #000000;
   color: #ffffff;
-  padding: 16px 24px; /* Larger padding */
+  padding: 16px 24px; 
   font-family: "MJ Satoshi", sans-serif;
   font-weight: 700;
   font-size: 16px;
@@ -285,7 +298,7 @@
   font-family: "MJ Satoshi", sans-serif;
   font-size: 16px;
   color: #111827;
-  font-weight: 500; /* Label-1 Medium/Bold */
+  font-weight: 500;
   display: flex;
   align-items: center;
   gap: 4px;

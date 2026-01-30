@@ -4,8 +4,8 @@ import Image from "next/image";
 interface PolygonImageProps {
   src: string;
   alt: string;
-  width: number;
-  height: number;
+  width?: number;
+  height?: number;
   clipPath?: string;
   topLeftCut?: number;
   topRightCut?: number;
@@ -27,7 +27,9 @@ const PolygonImage = React.memo(function PolygonImage({
   bottomLeftCut = 0,
   className,
   style,
-}: PolygonImageProps) {
+  fill = false,
+  ...props
+}: PolygonImageProps & Omit<React.ComponentProps<typeof Image>, "src" | "alt" | "width" | "height">) {
   // Generate clip-path based on corner cuts
   const generateClipPath = () => {
     if (clipPath) return clipPath;
@@ -86,6 +88,19 @@ const PolygonImage = React.memo(function PolygonImage({
     display: "block",
   };
 
+  if (fill) {
+    return (
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        style={combinedStyle}
+        className={className}
+        {...props}
+      />
+    );
+  }
+
   return (
     <Image
       src={src}
@@ -94,6 +109,7 @@ const PolygonImage = React.memo(function PolygonImage({
       height={height}
       style={combinedStyle}
       className={className}
+      {...props}
     />
   );
 });

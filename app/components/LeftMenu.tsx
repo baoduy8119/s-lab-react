@@ -89,7 +89,7 @@ const LeftMenu = React.memo(function LeftMenu() {
               <span className="text-[#EF4444] font-bold ml-1">/HOT/</span>
             </a>
             <a
-              href="#"
+              href="/blog"
               className="text-[#111827] font-bold text-base leading-[22px] tracking-[-0.18px] hover:text-[#EF4444] transition-colors"
             >
               /Blog
