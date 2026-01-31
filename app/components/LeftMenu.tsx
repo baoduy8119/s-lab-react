@@ -58,13 +58,15 @@ const LeftMenu = React.memo(function LeftMenu() {
       <div className="flex-1 flex flex-col">
         {/* Large Logo - Aligned with top icon */}
         <div className="h-14 flex items-center shrink-0">
-          <Image
-            src="/images/logo-main.svg"
-            alt="The S-Lab"
-            width={156}
-            height={19}
-            className="w-auto h-auto"
-          />
+          <Link href="/">
+            <Image
+              src="/images/logo-main.svg"
+              alt="The S-Lab"
+              width={156}
+              height={19}
+              className="w-auto h-auto"
+            />
+          </Link>
         </div>
 
         {/* Main content area with padding */}

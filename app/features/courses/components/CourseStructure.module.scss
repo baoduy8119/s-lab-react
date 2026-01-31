@@ -50,6 +50,25 @@
   margin-top: 144px;
 }
 
+// Align first cards in each column on desktop to match bottoms
+.column:nth-child(1) .card:first-child {
+  min-height: 464px; // 320px + 144px offset
+}
+
+.column:nth-child(2) .card:first-child {
+  min-height: 392px; // 320px + 72px offset
+}
+
+// Align second cards in each column (Row 2)
+.column:nth-child(1) .card:nth-child(2) {
+  min-height: 412px; // 340px + 72px to match Ch 5 bottom
+}
+
+.column:nth-child(2) .card:nth-child(2) {
+  min-height: 340px; 
+  margin-top: 72px; // Stagger
+}
+
 .card {
   display: flex;
   flex-direction: column;
@@ -57,11 +76,11 @@
 }
 
 .header {
-  padding: 24px 32px;
+  padding: 24px 32px 23px 32px;
   border-radius: 100px;
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 21px;
   margin-bottom: 24px;
   
   &.light {
@@ -153,6 +172,15 @@
     
     &:last-child {
       border-bottom: none;
+    }
+
+    // Reset min-heights on mobile
+    &:nth-child(1) .card:first-child,
+    &:nth-child(2) .card:first-child,
+    &:nth-child(1) .card:nth-child(2),
+    &:nth-child(2) .card:nth-child(2) {
+      min-height: 320px;
+      margin-top: 0;
     }
   }
   

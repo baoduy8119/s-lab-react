@@ -1,6 +1,6 @@
 .section {
   position: relative;
-  min-height: 800px;
+  min-height: 700px;
   background: #000000;
   color: #ffffff;
   overflow: hidden;
@@ -38,7 +38,10 @@
 
 .header {
   margin-bottom: 60px;
-  text-align: center; 
+  text-align: center;
+  @media screen and (max-width: 991px) {
+    margin-bottom: 0;
+  }
 }
 
 .heading {
@@ -47,10 +50,12 @@
   font-weight: 700;
   color: #ffffff;
   letter-spacing: -2px;
-  // Centered per design? Screenshot shows "/Our Testimonials." centered or left.
-  // The layout below (Quote) is left-aligned.
-  // I will assume left aligned to match quote flow
   text-align: left;
+  padding-top: 40px;
+  padding-left: 180px;
+  @media screen and (max-width: 991px) {
+    padding-left: 0;
+  }
 }
 
 .swiper {
@@ -66,8 +71,8 @@
 
 .quoteIcon {
   flex-shrink: 0;
-  width: 80px;
-  height: 80px;
+  width: 120px;
+  height: 120px;
   
   svg {
     width: 100%;
@@ -131,7 +136,7 @@
   display: flex;
   align-items: center;
   gap: 32px;
-  padding-left: 140px; // Align with text content (80px icon + 60px gap)
+  padding-left: 180px; // Align with text content (80px icon + 60px gap)
 }
 
 .navButtons {

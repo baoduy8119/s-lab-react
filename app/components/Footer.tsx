@@ -11,7 +11,7 @@ const Footer = React.memo(function Footer() {
     <footer className="w-full">
       {/* Top Section - Newsletter */}
       <PolygonSection topLeftCut={60}>
-        <div className="relative w-full lg:h-[565px] bg-[#DC2626] overflow-hidden">
+        <div className="relative w-full lg:h-[465px] bg-[#DC2626] overflow-hidden pb-[80px] lg:pb-0">
           {/* Background Pattern */}
           <div className="absolute inset-0">
             <Image
@@ -38,11 +38,7 @@ const Footer = React.memo(function Footer() {
             <div className="flex items-start gap-3 lg:absolute lg:left-[116px] lg:top-[229px] mb-12 lg:mb-0">
               {/* Icon - Curved Arrow */}
               <div className="mt-1 lg:hidden">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M4 14C4 14 5 20 10 20C15 20 16 14 16 14" stroke="white" strokeWidth="2" strokeLinecap="round" />
-                  <path d="M16 14L13 17" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  <path d="M16 14L19 17" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
+                <ArrowRightIcon color="#fff" />
               </div>
               {/* Icon Desktop */}
               <div className="hidden lg:block absolute left-[-36px] top-[6px]">
@@ -87,7 +83,7 @@ const Footer = React.memo(function Footer() {
 
       {/* Bottom Section - Using Grid Layout */}
       <PolygonSection topLeftCut={60}>
-        <div className="relative w-full bg-[#171717] overflow-hidden px-6 pb-12 pt-16 lg:px-20 lg:py-11 lg:mt-[-80px] -mt-[1px]">
+        <div className="relative w-full bg-[#171717] overflow-hidden px-6 pb-12 pt-16 lg:px-20 lg:py-11 mt-[-80px] lg:mt-[-80px] -mt-[1px]">
           {/* Background Pattern */}
           <div className="absolute inset-0">
             <Image
