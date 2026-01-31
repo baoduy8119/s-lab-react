@@ -85,7 +85,7 @@ const CourseList = React.memo(function CourseList() {
           </p>
           <div className={styles.visualDivider}>
             {Array.from({ length: 40 }).map((_, i) => (
-              <span key={i} className={styles.dividerLine} style={{ opacity: Math.random() > 0.5 ? 1 : 0.4 }}></span>
+              <span key={i} className={styles.dividerLine} style={{ opacity: (i % 3 === 0 || i % 4 === 1) ? 1 : 0.4 }}></span>
             ))}
           </div>
 

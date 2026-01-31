@@ -1,7 +1,5 @@
-"use client";
-
 import React from "react";
-import LeftMenu from "@/app/components/LeftMenu";
+import MainLayout from "@/app/MainLayout";
 import Footer from "@/app/components/Footer";
 import BlogDetailHeader from "@/app/features/blog/components/BlogDetailHeader";
 import BlogBody from "@/app/features/blog/components/BlogBody";
@@ -20,28 +18,22 @@ export default function BlogDetailPage() {
   };
 
   return (
-    <div className="flex min-h-screen bg-[#F3F4F6]">
-      {/* Left Menu - Fixed Sidebar */}
-      <LeftMenu />
+    <MainLayout>
+      <BlogDetailHeader
+        date={post.date}
+        title={post.title}
+        subtitle={post.subtitle}
+        authorName={post.authorName}
+        authorRole={post.authorRole}
+        authorImage={post.authorImage}
+        heroImage={post.heroImage}
+      />
 
-      {/* Main Content */}
-      <div className="ml-[360px] flex-1 overflow-hidden">
-        <BlogDetailHeader
-          date={post.date}
-          title={post.title}
-          subtitle={post.subtitle}
-          authorName={post.authorName}
-          authorRole={post.authorRole}
-          authorImage={post.authorImage}
-          heroImage={post.heroImage}
-        />
+      <BlogBody />
 
-        <BlogBody />
+      <MoreArticles />
 
-        <MoreArticles />
-
-        <Footer />
-      </div>
-    </div>
+      <Footer />
+    </MainLayout>
   );
 }

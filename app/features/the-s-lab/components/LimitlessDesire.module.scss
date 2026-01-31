@@ -1,9 +1,13 @@
 // Limitless Desire Section
 .section {
   width: 100%;
-  padding:0 80px 80px;
+  padding: 0 80px 80px;
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 1024px) {
+    padding: 0 16px 40px;
+  }
 }
 
 .title {
@@ -15,6 +19,14 @@
   color: #111827;
   margin-bottom: 32px;
   width: 576px;
+
+  @media (max-width: 1024px) {
+    width: 100%;
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: -0.8px;
+    margin-bottom: 24px;
+  }
 }
 
 .accordion {
@@ -30,6 +42,17 @@
   border-bottom: 1px solid #cbd5e1;
   cursor: pointer;
   transition: all 0.3s ease;
+
+  @media (max-width: 1024px) {
+    gap: 16px;
+    padding-bottom: 24px;
+    flex-direction: column; // Stack icon/content if needed, or keep flex but reduce gap
+    align-items: flex-start;
+    
+    // Actually desire design usually keeps icon next to title, so let's keep row but reduce gap
+    flex-direction: row; 
+    gap: 16px;
+  }
 
   
 
@@ -77,6 +100,12 @@
   line-height: 38px;
   letter-spacing: -0.2px;
   color: #111827;
+  
+  @media (max-width: 1024px) {
+    font-size: 24px;
+    line-height: 32px;
+  }
+
   &:hover {
     opacity: 0.8;
     transition: all 0.3s ease;
@@ -106,6 +135,23 @@
   align-items: center;
   gap: 16px;
   animation: fadeIn 0.4s ease;
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    
+    // Ensure images take full width or are responsive
+    & > div { // Assuming polygon image wrapper
+       width: 100% !important;
+       height: auto !important;
+    }
+    
+    img {
+        width: 100%;
+        height: auto;
+    }
+  }
 }
 
 @keyframes fadeIn {

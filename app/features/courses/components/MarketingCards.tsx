@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import styles from "./MarketingCards.module.scss";
 
 import PolygonImage from "@/app/components/PolygonImage";
@@ -27,6 +28,7 @@ const MarketingCards = React.memo(function MarketingCards() {
       description: "Our clients don’t just hire us for our skills — they stay with us because we consistently deliver clarity, speed, and measurable outcomes.",
       image: "/images/courses/mar-1.png",
       popular: true,
+      category: "Marketing Foundations"
     },
     {
       id: 2,
@@ -34,6 +36,7 @@ const MarketingCards = React.memo(function MarketingCards() {
       description: "Our clients don’t just hire us for our skills — they stay with us because we consistently deliver clarity, speed, and measurable outcomes.",
       image: "/images/courses/mar-2.png",
       popular: true,
+      category: "Business Fundamentals"
     },
     {
       id: 3,
@@ -41,6 +44,7 @@ const MarketingCards = React.memo(function MarketingCards() {
       description: "Our clients don’t just hire us for our skills — they stay with us because we consistently deliver clarity, speed, and measurable outcomes.",
       image: "/images/courses/mar-3.png",
       popular: true,
+      category: "Advanced Marketing"
     },
     {
       id: 4,
@@ -48,6 +52,7 @@ const MarketingCards = React.memo(function MarketingCards() {
       description: "Our clients don’t just hire us for our skills — they stay with us because we consistently deliver clarity, speed, and measurable outcomes.",
       image: "/images/courses/mar-1.png",
       popular: true,
+      category: "Entrepreneurship"
     },
     {
       id: 5,
@@ -55,6 +60,7 @@ const MarketingCards = React.memo(function MarketingCards() {
       description: "Our clients don’t just hire us for our skills — they stay with us because we consistently deliver clarity, speed, and measurable outcomes.",
       image: "/images/courses/mar-2.png",
       popular: true,
+      category: "Web3 Technologies"
     },
     {
       id: 6,
@@ -62,6 +68,7 @@ const MarketingCards = React.memo(function MarketingCards() {
       description: "Our clients don’t just hire us for our skills — they stay with us because we consistently deliver clarity, speed, and measurable outcomes.",
       image: "/images/courses/mar-3.png",
       popular: true,
+      category: "Marketing Foundations"
     },
     {
       id: 7,
@@ -69,6 +76,7 @@ const MarketingCards = React.memo(function MarketingCards() {
       description: "Our clients don’t just hire us for our skills — they stay with us because we consistently deliver clarity, speed, and measurable outcomes.",
       image: "/images/courses/mar-1.png",
       popular: true,
+      category: "Business Fundamentals"
     },
     {
       id: 8,
@@ -76,6 +84,7 @@ const MarketingCards = React.memo(function MarketingCards() {
       description: "Our clients don’t just hire us for our skills — they stay with us because we consistently deliver clarity, speed, and measurable outcomes.",
       image: "/images/courses/mar-2.png",
       popular: true,
+      category: "Advanced Marketing"
     },
     {
       id: 9,
@@ -83,8 +92,13 @@ const MarketingCards = React.memo(function MarketingCards() {
       description: "Our clients don’t just hire us for our skills — they stay with us because we consistently deliver clarity, speed, and measurable outcomes.",
       image: "/images/courses/mar-3.png",
       popular: true,
+      category: "Entrepreneurship"
     },
   ];
+
+  const filteredCards = activeTab === "All"
+    ? cards
+    : cards.filter(card => card.category === activeTab);
 
   return (
     <section className={styles.section}>
@@ -104,8 +118,8 @@ const MarketingCards = React.memo(function MarketingCards() {
 
         {/* Grid */}
         <div className={styles.grid}>
-          {cards.map((card) => (
-            <div key={card.id} className={styles.card}>
+          {filteredCards.map((card) => (
+            <Link key={card.id} href={`/courses/${card.id}`} className={styles.card}>
               <div className={styles.imageContainer}>
                 <PolygonImage
                   src={card.image}
@@ -123,7 +137,7 @@ const MarketingCards = React.memo(function MarketingCards() {
                   {card.popular && <span className={styles.badge}>Popular</span>}
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

@@ -1,7 +1,24 @@
+"use client";
+
 import Image from "next/image";
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 const LeftMenu = React.memo(function LeftMenu() {
+  const pathname = usePathname();
+  const [isSLabOpen, setIsSLabOpen] = useState(false);
+
+  // Automatically open S-Lab menu if on a relevant path
+  useEffect(() => {
+    if (pathname && (pathname.includes("/the-s-lab") || pathname.includes("/s-library"))) {
+      setIsSLabOpen(true);
+    }
+  }, [pathname]);
+
+  const isActive = (path: string) => pathname === path;
+  const isSLabActive = pathname?.startsWith("/the-s-lab") || pathname === "/s-library";
+
   return (
     <aside className="fixed left-0 top-0 w-[360px] h-screen bg-white flex z-50">
       {/* Left Section - Decorative Pattern */}
@@ -53,66 +70,82 @@ const LeftMenu = React.memo(function LeftMenu() {
         {/* Main content area with padding */}
         <div className="flex-1 flex flex-col px-6 pt-12">
           {/* Navigation Menu */}
-          <nav className="flex flex-col gap-2">
-            <a
-              href="#"
-              className="flex items-center gap-1 px-2 text-[#EF4444] font-bold text-base leading-[22px] tracking-[-0.18px]"
+          <nav className="flex flex-col gap-4">
+            <Link
+              href="/"
+              className={`flex items-center gap-1 font-bold text-base leading-[22px] tracking-[-0.18px] transition-colors ${isActive("/") ? "text-[#EF4444]" : "text-[#111827] hover:text-[#EF4444]"
+                }`}
             >
               /Home
-            </a>
-            <a
-              href="#"
-              className="flex items-center gap-1 text-[#111827] font-bold text-base leading-[22px] tracking-[-0.18px] hover:text-[#EF4444] transition-colors"
-            >
-              /The S-Lab
-              <svg
-                width="16"
-                height="24"
-                viewBox="0 0 16 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
+            </Link>
+
+            {/* The S-Lab Group */}
+            <div className="flex flex-col gap-2">
+              <Link
+                href="/the-s-lab"
+                onClick={() => setIsSLabOpen(!isSLabOpen)}
+                className={`flex items-center text-left gap-1 font-bold text-base leading-[22px] tracking-[-0.18px] transition-all ${isSLabActive
+                  ? "text-[#EF4444] ml-[10px]"
+                  : "text-[#111827] hover:text-[#EF4444]"
+                  }`}
               >
-                <path
-                  d="M3 9.21L8 4.42L13 9.21"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </a>
-            <a
+                /The S-Lab
+
+                <svg xmlns="http://www.w3.org/2000/svg"
+                  className={`transition-transform duration-200 ${isSLabOpen ? "" : "rotate-180"}`}
+                  width="12" height="7" viewBox="0 0 12 7" fill="none" >
+                  <path d="M11 5.79167L6 1L1 5.79167" stroke={isSLabActive ? "#EF4444" : "#111827"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </Link>
+
+              {/* Submenu */}
+              {isSLabOpen && (
+                <div className="pl-4 flex flex-col gap-2">
+                  <Link
+                    href="/s-library"
+                    className={`flex items-center gap-2 font-medium text-base leading-[22px] tracking-[-0.18px] transition-colors ${isActive("/s-library")
+                      ? "text-[#EF4444]"
+                      : "text-[#4B5563] hover:text-[#EF4444]"
+                      }`}
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-current shrink-0" />
+                    The S-Library
+                  </Link>
+                </div>
+              )}
+            </div>
+
+            <Link
               href="/courses"
-              className="flex items-center gap-1 text-[#111827] font-bold text-base leading-[22px] tracking-[-0.18px] hover:text-[#EF4444] transition-colors"
+              className={`flex items-center gap-1 font-bold text-base leading-[22px] tracking-[-0.18px] transition-colors ${isActive("/courses") ? "text-[#EF4444]" : "text-[#111827] hover:text-[#EF4444]"
+                }`}
             >
               /Course
-              <span className="text-[#EF4444] font-bold ml-1">/HOT/</span>
-            </a>
-            <a
+              <span className="text-[#EF4444] ml-1 text-[12px] relative -top-1.5">/HOT/</span>
+            </Link>
+
+            <Link
               href="/blog"
-              className="text-[#111827] font-bold text-base leading-[22px] tracking-[-0.18px] hover:text-[#EF4444] transition-colors"
+              className={`font-bold text-base leading-[22px] tracking-[-0.18px] transition-colors ${isActive("/blog") ? "text-[#EF4444]" : "text-[#111827] hover:text-[#EF4444]"
+                }`}
             >
               /Blog
-            </a>
-            <a
-              href="#"
-              className="text-[#111827] font-bold text-base leading-[22px] tracking-[-0.18px] hover:text-[#EF4444] transition-colors"
+            </Link>
+
+            <Link
+              href="/event"
+              className={`font-bold text-base leading-[22px] tracking-[-0.18px] transition-colors ${isActive("/event") ? "text-[#EF4444]" : "text-[#111827] hover:text-[#EF4444]"
+                }`}
             >
               /Event
-            </a>
+            </Link>
           </nav>
 
           {/* Bottom Content */}
           <div className="mt-auto mb-8 flex flex-col gap-7">
             {/* Decorative Line */}
-            <svg
-              width="41"
-              height="12"
-              viewBox="0 0 41 12"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect width="41" height="12" fill="black" />
+            <svg xmlns="http://www.w3.org/2000/svg" width="41" height="12" viewBox="0 0 41 12" fill="none">
+              <path fillRule="evenodd" clipRule="evenodd" d="M0 0H2.05V12H0V0ZM4.1 0H8.2V12H4.1V0ZM12.3 0H14.35V12H12.3V0ZM16.4 0H22.55V12H16.4V0ZM24.6 0H26.65V12H24.6V0ZM30.75 0H32.8V12H30.75V0ZM34.85 0H36.9V12H34.85V0ZM38.95 0H41V12H38.95V0Z" fill="black" />
             </svg>
 
             {/* Contact Info */}
@@ -145,8 +178,8 @@ const LeftMenu = React.memo(function LeftMenu() {
             </p>
           </div>
         </div>
-      </div>
-    </aside>
+      </div >
+    </aside >
   );
 });
 LeftMenu.displayName = "LeftMenu";

@@ -308,3 +308,47 @@
 .boldDate {
     font-weight: 700;
 }
+
+// Responsive Styles
+@media (max-width: 1024px) {
+  .section {
+    padding: 60px 24px;
+  }
+
+  .container {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .leftContent {
+    width: 100%;
+    position: static;
+    top: auto;
+    max-width: 100%;
+  }
+
+  .rightContent {
+    max-width: 100%;
+  }
+
+  .title {
+    font-size: 40px;
+    margin-bottom: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 40px 16px;
+  }
+
+  .courseItem {
+    padding: 16px;
+    gap: 24px;
+  }
+
+  .price {
+    font-size: 36px;
+    line-height: 1.2;
+  }
+}

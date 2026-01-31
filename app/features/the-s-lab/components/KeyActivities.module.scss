@@ -11,6 +11,11 @@
   width: 100%;
   height: 648px;
   overflow: hidden;
+
+  @media (max-width: 1024px) {
+    height: auto;
+    min-height: 400px;
+  }
 }
 
 .background {
@@ -45,6 +50,12 @@
   display: flex;
   flex-direction: column;
   padding: 80px;
+
+  @media (max-width: 1024px) {
+    position: relative; // Let it flow naturally or overlay differently
+    padding: 40px 16px;
+    height: auto;
+  }
 }
 
 .header {
@@ -61,6 +72,16 @@
   line-height: 58px;
   letter-spacing: -0.3px;
   color: #ffffff;
+
+  @media (max-width: 1024px) {
+    font-size: 32px;
+    line-height: 40px;
+    color: #111827; // If background is gone or white, change color? Or keep white if keeping bg.
+    // Actually, on mobile, if we keep the background image, white is fine.
+    // But let's check the design. The design screenshot shows "Business and Marketing Courses" cards below.
+    // The header "Our Key Activities" is separate.
+    color: #ffffff; // Keeping white for now assuming background persists
+  }
 }
 
 .buttonWrapper {
@@ -68,6 +89,13 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
+  @media (max-width: 1024px) {
+    position: static;
+    transform: none;
+    margin-top: 24px;
+    // On mobile design, button might be at the very bottom of the section
+  }
 }
 
 .playButton {
@@ -100,6 +128,14 @@
   gap: 1px;
   background-color: #e5e7eb;
   border: 1px solid #e5e7eb;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    background-color: transparent;
+    border: none;
+    padding: 0 16px;
+  }
 }
 
 .card {

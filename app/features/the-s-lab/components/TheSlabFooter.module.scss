@@ -6,12 +6,26 @@
   padding: 43px 80px;
   display: flex;
   justify-content: space-between;
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    height: auto;
+    padding: 60px 16px;
+    gap: 48px;
+  }
 }
 
 .leftSection {
   display: flex;
   flex-direction: column;
   gap: 43px;
+
+  @media (max-width: 1024px) {
+    order: 2; // Show after contact info
+    gap: 24px;
+    
+    // Tagline and copyright styling adjustment if needed
+  }
 }
 
 .copyright {
@@ -37,6 +51,11 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+
+  @media (max-width: 1024px) {
+    order: 1; // Show first
+    gap: 32px;
+  }
 }
 
 .contact {
@@ -61,6 +80,11 @@
   line-height: 38px;
   letter-spacing: -0.2px;
   color: #ffffff;
+  
+  // Ensure email breaks if too long on mobile
+  @media (max-width: 1024px) {
+    word-break: break-all;
+  }
 }
 
 .socialIcons {
@@ -101,6 +125,10 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
+
+  @media (max-width: 1024px) {
+    display: none; // Hide navigation on mobile
+  }
 }
 
 .navTitle {

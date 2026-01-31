@@ -1,5 +1,5 @@
 import React from "react";
-import LeftMenu from "@/app/components/LeftMenu";
+import MainLayout from "@/app/MainLayout";
 import CourseDetailHero from "@/app/features/courses/components/CourseDetailHero";
 import CourseInfo from "@/app/features/courses/components/CourseInfo";
 import NeedToKnow from "@/app/features/courses/components/NeedToKnow";
@@ -15,45 +15,39 @@ import Footer from "@/app/components/Footer";
 
 export default function CourseDetailPage({ params }: { params: { id: string } }) {
   return (
-    <div className="flex min-h-screen">
-      {/* Left Menu - Fixed Sidebar */}
-      <LeftMenu />
+    <MainLayout>
+      {/* Hero Section with course title and images */}
+      <CourseDetailHero courseId={params.id} />
 
-      {/* Main Content - Offset by sidebar width */}
-      <div className="ml-[360px] flex-1 bg-[#f9fafb] overflow-x-hidden w-full">
-        {/* Hero Section with course title and images */}
-        <CourseDetailHero courseId={params.id} />
+      {/* Need to Know Tabs Section */}
+      <NeedToKnow />
 
-        {/* Need to Know Tabs Section */}
-        <NeedToKnow />
+      {/* Key Learning Points Section */}
+      <KeyLearningPoints />
 
-        {/* Key Learning Points Section */}
-        <KeyLearningPoints />
+      {/* Course Structure Section */}
+      <CourseStructure />
 
-        {/* Course Structure Section */}
-        <CourseStructure />
+      {/* Capstone Project Section */}
+      <CapstoneProject />
 
-        {/* Capstone Project Section */}
-        <CapstoneProject />
+      {/* Testimonial Slider Section */}
+      <TestimonialSlider />
 
-        {/* Testimonial Slider Section */}
-        <TestimonialSlider />
+      {/* Testimonials Grid Section */}
+      <TestimonialsList />
 
-        {/* Testimonials Grid Section */}
-        <TestimonialsList />
+      {/* Pricing & Includes Section */}
+      <CourseIncludes />
 
-        {/* Pricing & Includes Section */}
-        <CourseIncludes />
+      {/* Other Related Courses Section */}
+      <RelatedCourses />
 
-        {/* Other Related Courses Section */}
-        <RelatedCourses />
+      {/* Curriculum Chapters Section (Original) */}
+      {/* <CurriculumChapters /> */}
 
-        {/* Curriculum Chapters Section (Original) */}
-        {/* <CurriculumChapters /> */}
-
-        {/* Footer */}
-        <Footer />
-      </div>
-    </div>
+      {/* Footer */}
+      <Footer />
+    </MainLayout>
   );
 }

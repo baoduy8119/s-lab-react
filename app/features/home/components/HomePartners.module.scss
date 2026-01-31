@@ -74,19 +74,37 @@
 }
 
 // --- Responsive ---
+// --- Responsive ---
 @media (max-width: 1024px) {
+  .section {
+    padding: 60px 0;
+  }
+  
+  .heading {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
   .logoCard {
-    width: 33.33%;
+    flex: 0 0 33.33%; // 3 per row on tablet
   }
 }
 
 @media (max-width: 768px) {
   .heading {
     font-size: 32px;
+    margin-bottom: 40px;
+    padding-left: 16px;
+    padding-right: 16px;
   }
   
   .logoCard {
-    width: 50%;
-    height: 140px; // Smaller on mobile
+    flex: 0 0 50%; // 2 per row on mobile
+    height: 120px;
+    padding: 20px 0;
+  }
+  
+  .imageWrapper img {
+    transform: scale(0.8); /* Scale down logos */
   }
 }

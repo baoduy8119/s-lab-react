@@ -9,9 +9,9 @@ const Footer = React.memo(function Footer() {
   return (
 
     <footer className="w-full">
-      {/* Top Section - Newsletter - 565px height */}
+      {/* Top Section - Newsletter */}
       <PolygonSection topLeftCut={60}>
-        <div className="relative w-full h-[565px] bg-[#DC2626] overflow-hidden">
+        <div className="relative w-full lg:h-[565px] bg-[#DC2626] overflow-hidden">
           {/* Background Pattern */}
           <div className="absolute inset-0">
             <Image
@@ -23,59 +23,71 @@ const Footer = React.memo(function Footer() {
             />
           </div>
 
-          {/* Title - Top Left */}
-          <h2 className="absolute left-20 top-[94px] text-[#450A0A] text-[72px] font-bold leading-[88px] tracking-[-0.8px] w-[552px]">
-            /Stay in <span className="text-white">the loop.</span>
-          </h2>
-
-          {/* Logo - Top Right */}
-          <div className="absolute top-[73px] right-20">
-            <SLabLogoWhite />
-          </div>
-
-          {/* Subtitle */}
-          <p className="absolute left-[116px] top-[229px] text-[#450A0A] text-2xl font-bold leading-[30px] tracking-[-0.15px] w-[193px]">
-            Smart updates for smart people.
-          </p>
-
-          {/* Email Input - Positioned at x:369, y:225 */}
-          <div className="absolute left-[369px] top-[225px] w-[650px]">
-            <div className="relative flex items-center border-b border-white pb-6">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="bg-transparent border-none outline-none text-white text-xl font-medium leading-[24px] placeholder-white placeholder-opacity-100 flex-1"
-              />
-              <button className="w-[48px] h-[48px] bg-[#450A0A] rounded-full flex items-center justify-center hover:bg-[#7C2D12] transition-colors shrink-0 ml-2">
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M7 17L17 7M17 7H8M17 7V16"
-                    stroke="white"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </button>
+          <div className="relative flex flex-col h-full px-6 py-10 lg:p-0">
+            {/* Logo - Mobile: Top Right, Desktop: Absolute Right */}
+            <div className="absolute top-6 right-6 lg:top-[73px] lg:right-20">
+              <SLabLogoWhite />
             </div>
-          </div>
 
-          {/* Email Icon - Left of input at x:80, y:229 */}
-          <div className="absolute left-20 top-[235px]">
-            <ArrowRightIcon color="#fff" />
+            {/* Title */}
+            <h2 className="mt-16 lg:mt-0 lg:absolute lg:left-20 lg:top-[94px] text-[#450A0A] text-[56px] lg:text-[72px] font-bold leading-[64px] lg:leading-[88px] tracking-[-0.8px] w-full lg:w-[552px] mb-4 lg:mb-0">
+              /Stay in <br className="lg:hidden" /><span className="text-white">the loop.</span>
+            </h2>
+
+            {/* Subtitle Mobile Wrapper */}
+            <div className="flex items-start gap-3 lg:absolute lg:left-[116px] lg:top-[229px] mb-12 lg:mb-0">
+              {/* Icon - Curved Arrow */}
+              <div className="mt-1 lg:hidden">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M4 14C4 14 5 20 10 20C15 20 16 14 16 14" stroke="white" strokeWidth="2" strokeLinecap="round" />
+                  <path d="M16 14L13 17" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M16 14L19 17" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </div>
+              {/* Icon Desktop */}
+              <div className="hidden lg:block absolute left-[-36px] top-[6px]">
+                <ArrowRightIcon color="#fff" />
+              </div>
+
+              <p className="text-[#450A0A] text-lg lg:text-2xl font-bold leading-normal lg:leading-[30px] tracking-[-0.15px] w-full lg:w-[193px]">
+                Smart updates for smart people.
+              </p>
+            </div>
+
+            {/* Email Input */}
+            <div className="lg:absolute lg:left-[369px] lg:top-[225px] w-full lg:w-[650px]">
+              <div className="relative flex items-center border-b border-[#450A0A] lg:border-white pb-4 lg:pb-6">
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  className="bg-transparent border-none outline-none text-white text-lg lg:text-xl font-medium leading-[24px] placeholder-white placeholder-opacity-100 flex-1"
+                />
+                <button className="w-[48px] h-[48px] bg-[#450A0A] rounded-full flex items-center justify-center hover:bg-[#7C2D12] transition-colors shrink-0 ml-2">
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M7 17L17 7M17 7H8M17 7V16"
+                      stroke="white"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </PolygonSection>
 
       {/* Bottom Section - Using Grid Layout */}
       <PolygonSection topLeftCut={60}>
-        <div className="relative w-full bg-[#171717] overflow-hidden px-20 py-11 mt-[-80px]">
+        <div className="relative w-full bg-[#171717] overflow-hidden px-6 pb-12 pt-16 lg:px-20 lg:py-11 lg:mt-[-80px] -mt-[1px]">
           {/* Background Pattern */}
           <div className="absolute inset-0">
             <Image
@@ -87,40 +99,25 @@ const Footer = React.memo(function Footer() {
             />
           </div>
 
-          {/* Content Grid */}
-          <div className="relative grid grid-cols-[1fr_2fr_1fr] gap-x-20">
+          {/* Desktop Content Grid */}
+          <div className="hidden lg:grid relative grid-cols-[1fr_2fr_1fr] gap-x-20">
             {/* Left Column - Company Info */}
             <div className="flex flex-col gap-[85px]">
-              {/* Year */}
               <p className="text-white text-sm font-bold leading-[20px] tracking-[-0.16px]">
-                20©
-                <br />
-                26
+                20©<br />26
               </p>
-
-              {/* Description */}
               <p className="text-[#D1D5DB] text-sm font-medium leading-[20px] tracking-[-0.16px] w-[237px]">
-                A sturdy backpack on your journey to conquer business knowledge and practical
-                experience
+                A sturdy backpack on your journey to conquer business knowledge and practical experience
               </p>
             </div>
 
             {/* Middle Column - Contact Info */}
             <div className="flex flex-col gap-6">
-              {/* Phone and Email */}
               <div className="flex flex-col gap-1">
-                <p className="text-white text-sm font-bold leading-[20px] tracking-[-0.16px]">
-                  (312) 555-2468
-                </p>
-                <p className="text-white text-[32px] font-bold leading-[38px] tracking-[-0.2px]">
-                  hello@theslab.agency
-                </p>
+                <p className="text-white text-sm font-bold leading-[20px] tracking-[-0.16px]">(312) 555-2468</p>
+                <p className="text-white text-[32px] font-bold leading-[38px] tracking-[-0.2px]">hello@theslab.agency</p>
               </div>
-
-              {/* Social Icons */}
               <SocialIcons />
-
-              {/* Location */}
               <p className="text-white text-sm font-bold leading-[20px] tracking-[-0.16px]">
                 Lorem ipsum Location is here. Danang
               </p>
@@ -128,45 +125,47 @@ const Footer = React.memo(function Footer() {
 
             {/* Right Column - Navigation */}
             <div className="flex flex-col gap-1.5">
-              <p className="text-[#6B7280] text-sm font-medium leading-[20px] tracking-[-0.16px] mb-1">
-                /Navigation
-              </p>
-              <a
-                href="#"
-                className="text-white text-base font-bold leading-[22px] tracking-[-0.18px] hover:text-[#EF4444] transition-colors"
-              >
-                Home
-              </a>
-              <a
-                href="#"
-                className="text-white text-base font-bold leading-[22px] tracking-[-0.18px] hover:text-[#EF4444] transition-colors"
-              >
-                The S-Lab
-              </a>
-              <a
-                href="#"
-                className="text-white text-base font-bold leading-[22px] tracking-[-0.18px] hover:text-[#EF4444] transition-colors"
-              >
-                Course
-              </a>
-              <a
-                href="#"
-                className="text-white text-base font-bold leading-[22px] tracking-[-0.18px] hover:text-[#EF4444] transition-colors"
-              >
-                Blog
-              </a>
-              <a
-                href="#"
-                className="text-white text-base font-bold leading-[22px] tracking-[-0.18px] hover:text-[#EF4444] transition-colors"
-              >
-                Event
-              </a>
-
+              <p className="text-[#6B7280] text-sm font-medium leading-[20px] tracking-[-0.16px] mb-1">/Navigation</p>
+              <div className="flex flex-col gap-1.5">
+                <a href="#" className="text-white text-base font-bold leading-[22px] tracking-[-0.18px] hover:text-[#EF4444] transition-colors">Home</a>
+                <a href="#" className="text-white text-base font-bold leading-[22px] tracking-[-0.18px] hover:text-[#EF4444] transition-colors">The S-Lab</a>
+                <a href="#" className="text-white text-base font-bold leading-[22px] tracking-[-0.18px] hover:text-[#EF4444] transition-colors">Course</a>
+                <a href="#" className="text-white text-base font-bold leading-[22px] tracking-[-0.18px] hover:text-[#EF4444] transition-colors">Blog</a>
+                <a href="#" className="text-white text-base font-bold leading-[22px] tracking-[-0.18px] hover:text-[#EF4444] transition-colors">Event</a>
+              </div>
             </div>
           </div>
+
+          {/* Mobile Content Stack - Ordered per design */}
+          <div className="flex lg:hidden relative flex-col gap-8">
+            {/* 1. Contact Info */}
+            <div className="flex flex-col gap-1">
+              <p className="text-white text-sm font-bold leading-[20px] tracking-[-0.16px]">(312) 555-2468</p>
+              <p className="text-white text-[32px] font-bold leading-[40px] tracking-[-0.2px] break-all">hello@<br />theslab.agency</p>
+            </div>
+
+            {/* 2. Social Icons */}
+            <SocialIcons />
+
+            {/* 3. Location */}
+            <p className="text-white text-sm font-bold leading-[20px] tracking-[-0.16px]">
+              Lorem ipsum Location is here. Danang
+            </p>
+
+            {/* 4. Year */}
+            <p className="text-white text-sm font-bold leading-[20px] tracking-[-0.16px] mt-4">
+              20©<br />26
+            </p>
+
+            {/* 5. Description */}
+            <p className="text-[#D1D5DB] text-sm font-medium leading-[20px] tracking-[-0.16px] w-full">
+              A sturdy backpack on your journey to conquer business knowledge and practical experience
+            </p>
+          </div>
+
         </div>
       </PolygonSection>
-    </footer >
+    </footer>
   );
 });
 Footer.displayName = "Footer";

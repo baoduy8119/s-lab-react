@@ -4,7 +4,7 @@ import PartnerLogos from "./PartnerLogos";
 
 const HeroSection = React.memo(function HeroSection() {
   return (
-    <section className="relative w-full h-[829px] overflow-hidden bg-white">
+    <section className="relative w-full lg:h-[829px] overflow-hidden bg-white">
       {/* Background Pattern */}
       <div
         className="absolute inset-0 opacity-[0.04]"
@@ -15,8 +15,41 @@ const HeroSection = React.memo(function HeroSection() {
         }}
       ></div>
 
-      {/* 3D Logo Background */}
-      <div className="absolute right-[-54px] top-[-103px] w-[1080px] h-[829px]">
+      {/* Mobile-Specific Hero Layout */}
+      <div className="block lg:hidden px-4 pt-8 pb-12 flex flex-col gap-6">
+        <h1 className="text-[40px] leading-[48px] font-bold text-[#111827] tracking-[-1.5px] uppercase">
+          THE
+          <br />
+          S-LΛB
+        </h1>
+
+        <p className="text-base text-[#111827] font-medium leading-[22px]">
+          A sturdy backpack on your journey to conquer business knowledge and practical experience
+        </p>
+
+        <div className="flex flex-col gap-3 w-full">
+          <button className="w-full bg-[#EF4444] text-white font-bold text-base py-[13px] hover:bg-[#DC2626] transition-colors">
+            Get in touch now
+          </button>
+          <button className="w-full bg-white text-[#111827] font-bold text-base py-[13px] border border-[#D1D5DB] hover:bg-gray-50 transition-colors">
+            See our work
+          </button>
+        </div>
+
+        {/* Feedback Section Mobile */}
+        <div className="flex flex-col gap-1 mt-2">
+          <div className="flex items-center gap-2">
+            <Image src="/images/star-rating.svg" alt="5 stars" width={56} height={8} />
+            <span className="text-[#111827] text-xs font-bold">4.9 / 5</span>
+          </div>
+          <p className="text-[#6B7280] text-xs font-bold leading-[16px]">
+            We have helped over 950+ students<br />achieve their goals — you could be the next one.
+          </p>
+        </div>
+      </div>
+
+      {/* Desktop Layout Elements (Hidden on Mobile) */}
+      <div className="hidden lg:block absolute right-[-54px] top-[-103px] w-[1080px] h-[829px]">
         <Image
           src="/images/3d-logo-41976a.png"
           alt="3D Logo"
@@ -26,15 +59,13 @@ const HeroSection = React.memo(function HeroSection() {
         />
       </div>
 
-      {/* Theory Badge */}
-      <div className="absolute right-[140px] top-[510px] bg-[#FDE68A] px-2.5 py-2.5 inline-flex items-center justify-center rotate-[7deg]">
+      <div className="hidden lg:inline-flex absolute right-[140px] top-[510px] bg-[#FDE68A] px-2.5 py-2.5 items-center justify-center rotate-[7deg]">
         <p className="text-[#111827] text-2xl font-bold leading-[30px] tracking-[-0.15px]">
           Theory is where you practice
         </p>
       </div>
 
-      {/* Main Content */}
-      <div className="absolute left-[75px] top-[82px] w-[595px] flex flex-col gap-[30px]">
+      <div className="hidden lg:flex absolute left-[75px] top-[82px] w-[595px] flex-col gap-[30px]">
         {/* Headline */}
         <h1 className="text-xl font-bold text-[#111827] w-[347px] leading-[27.5px] tracking-[-0.225px]">
           A sturdy backpack on your journey to conquer business knowledge and practical experience
@@ -72,13 +103,13 @@ const HeroSection = React.memo(function HeroSection() {
         </div>
       </div>
 
-      {/* Partner Logos */}
-      <div className="absolute bottom-0 left-0 w-full">
+      {/* Partner Logos - Adjusted for Responsive */}
+      <div className="relative lg:absolute bottom-0 left-0 w-full">
         <PartnerLogos />
       </div>
 
-      {/* Small Hero Image */}
-      <div className="absolute right-[357px] top-[6px] w-[259px] h-[240px] rounded-lg overflow-hidden">
+      {/* Small Hero Image - Desktop Only */}
+      <div className="hidden lg:block absolute right-[357px] top-[6px] w-[259px] h-[240px] rounded-lg overflow-hidden">
         <Image src="/images/hero-image-76f7dd.png" alt="Hero" fill style={{ objectFit: "cover" }} />
       </div>
     </section>

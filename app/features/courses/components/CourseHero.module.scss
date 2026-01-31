@@ -138,4 +138,68 @@
   &:hover {
     background-color: #DC2626;
   }
+  &:hover {
+    background-color: #DC2626;
+  }
+}
+
+// Responsive Styles
+@media (max-width: 1024px) {
+  .heroSection {
+    height: auto;
+    flex-direction: column;
+    padding: 0;
+  }
+
+  .contentContainer {
+    flex-direction: column;
+    padding-top: 80px; /* Space for fixed header */
+    padding-left: 16px;
+    padding-right: 16px;
+    gap: 40px;
+  }
+
+  .leftContent {
+    width: 100%;
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
+  .title {
+    font-size: 48px;
+    line-height: 56px;
+  }
+
+  .formContainer {
+    width: 100%;
+    margin-bottom: 40px;
+  }
+
+  .heroBackground {
+    height: 600px; /* Fixed height for image part */
+    /* Or make it cover the whole area? Usually hero bg covers top part only on mobile if content overflows */
+    position: absolute;
+    z-index: 0;
+  }
+  
+  /* Ensure form sits on top or handled correctly */
+  .formContainer {
+    position: relative; 
+    z-index: 20;
+  }
+}
+
+@media (max-width: 768px) {
+  .contentContainer {
+    padding-top: 20px;
+  }
+  
+  .title {
+    font-size: 40px;
+    line-height: 48px;
+  }
+  
+  .submitButton {
+    margin-top: 40px;
+  }
 }
