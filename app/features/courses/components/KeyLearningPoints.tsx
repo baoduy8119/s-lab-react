@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import styles from "./KeyLearningPoints.module.scss";
+import Container from "@/app/components/Container";
 
 const points = [
   {
@@ -35,9 +36,8 @@ const points = [
 const KeyLearningPoints = React.memo(function KeyLearningPoints() {
   return (
     <section className={styles.section}>
-      <div className={styles.container}>
+      <Container>
         <h2 className={styles.heading}>/Key Learning Points.</h2>
-
         <div className={styles.grid}>
           {points.map((point, index) => (
             <div key={index} className={styles.card}>
@@ -54,7 +54,7 @@ const KeyLearningPoints = React.memo(function KeyLearningPoints() {
             </div>
           ))}
         </div>
-      </div>
+      </Container>
     </section>
   );
 });

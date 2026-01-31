@@ -7,6 +7,7 @@ import "swiper/css";
 import "swiper/css/effect-fade";
 import PolygonImage from "@/app/components/PolygonImage";
 import styles from "./TestimonialSlider.module.scss";
+import Container from "@/app/components/Container";
 
 interface Testimonial {
   id: number;
@@ -77,7 +78,7 @@ const NavButtons = () => {
 const TestimonialSlider = React.memo(function TestimonialSlider() {
   return (
     <section className={styles.section}>
-      <div className={styles.container}>
+      <Container>
         <Swiper
           modules={[Autoplay, EffectFade]}
           effect="fade"
@@ -121,7 +122,7 @@ const TestimonialSlider = React.memo(function TestimonialSlider() {
             </SwiperSlide>
           ))}
         </Swiper>
-      </div>
+      </Container>
     </section>
   );
 });

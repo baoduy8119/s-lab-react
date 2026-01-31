@@ -2,6 +2,7 @@
 
 import React from "react";
 import styles from "./CourseStructure.module.scss";
+import Container from "@/app/components/Container";
 
 interface Chapter {
   id: string;
@@ -100,7 +101,7 @@ const CourseStructure = React.memo(function CourseStructure() {
 
   return (
     <section className={styles.section}>
-      <div className={styles.container}>
+      <Container>
         <h2 className={styles.heading}>/Course Structure.</h2>
 
         <div className={styles.columnsWrapper}>
@@ -114,7 +115,7 @@ const CourseStructure = React.memo(function CourseStructure() {
             {col3.map(renderCard)}
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 });

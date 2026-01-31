@@ -68,96 +68,94 @@ const NeedToKnow = React.memo(function NeedToKnow() {
   return (
     <section className={styles.section}>
       <Container>
-        <div className={styles.container}>
-          {/* Header Section */}
-          <h2 className={styles.mainHeading}>
-            /Your need-to-know<br />
-            about this course.
-          </h2>
+        {/* Header Section */}
+        <h2 className={styles.mainHeading}>
+          /Your need-to-know<br />
+          about this course
+        </h2>
 
-          {/* Overview Section */}
-          <div className={styles.overviewGrid}>
-            <div className={styles.overviewLabel}>/Overview information</div>
-            <div className={styles.overviewText}>
-              <p>
-                Today, marketing content is everywhere—but most learners are still piecing things together from scattered tips, random tools, and channel-by-channel tutorials. The result is common: you try a few tactics, feel busy, but struggle to explain why it works, what to do next, or how to measure progress.
-              </p>
-              <p>
-                Marketing Essentials is necessary because it builds the foundation many people skip. It helps you understand how marketing actually works as a system—audience, positioning, channels, and measurement—so you can make smarter decisions, execute with clarity, and improve consistently. Instead of chasing trends, you leave with a structured framework you can apply to any project, role, or industry.
-              </p>
-            </div>
+        {/* Overview Section */}
+        <div className={styles.overviewGrid}>
+          <div className={styles.overviewLabel}>/Overview information</div>
+          <div className={styles.overviewText}>
+            <p>
+              Today, marketing content is everywhere—but most learners are still piecing things together from scattered tips, random tools, and channel-by-channel tutorials. The result is common: you try a few tactics, feel busy, but struggle to explain why it works, what to do next, or how to measure progress.
+            </p>
+            <p>
+              Marketing Essentials is necessary because it builds the foundation many people skip. It helps you understand how marketing actually works as a system—audience, positioning, channels, and measurement—so you can make smarter decisions, execute with clarity, and improve consistently. Instead of chasing trends, you leave with a structured framework you can apply to any project, role, or industry.
+            </p>
+          </div>
+        </div>
+
+        {/* Tabs Section */}
+        <div className={styles.tabsWrapper}>
+          <div className={styles.tabList}>
+            {(Object.keys(tabsData) as TabType[]).map((tabKey) => (
+              <button
+                key={tabKey}
+                className={`${styles.tabButton} ${activeTab === tabKey ? styles.active : ""}`}
+                onClick={() => setActiveTab(tabKey)}
+              >
+                {tabsData[tabKey].label}
+              </button>
+            ))}
           </div>
 
-          {/* Tabs Section */}
-          <div className={styles.tabsWrapper}>
-            <div className={styles.tabList}>
-              {(Object.keys(tabsData) as TabType[]).map((tabKey) => (
-                <button
-                  key={tabKey}
-                  className={`${styles.tabButton} ${activeTab === tabKey ? styles.active : ""}`}
-                  onClick={() => setActiveTab(tabKey)}
-                >
-                  {tabsData[tabKey].label}
-                </button>
-              ))}
-            </div>
+          {/* Content Section */}
+          <div className={styles.contentContainer}>
+            {/* List Layout (Who it's for) */}
+            {currentTab.layout === "list" && currentTab.items && (
+              <div className={styles.contentList}>
+                {currentTab.items.map((item, index) => (
+                  <div key={index} className={styles.contentRow}>
+                    <div className={styles.rowTitle}>
+                      {item.title.split('\n').map((line, i) => (
+                        <span key={i} className={styles.titleLine}>{line}</span>
+                      ))}
+                    </div>
+                    <div className={styles.rowDescription}>{item.description}</div>
+                    <div className={styles.rowImageWrapper}>
+                      <Image
+                        src={item.imageSrc}
+                        alt={item.title}
+                        fill
+                        style={{ objectFit: 'cover' }}
+                        onError={(e) => {
+                          e.currentTarget.style.backgroundColor = '#d1d5db';
+                        }}
+                      />
+                    </div>
+                  </div>
+                ))}
+                {currentTab.items.length === 0 && (
+                  <div className={styles.emptyState}>Content coming soon.</div>
+                )}
+              </div>
+            )}
 
-            {/* Content Section */}
-            <div className={styles.contentContainer}>
-              {/* List Layout (Who it's for) */}
-              {currentTab.layout === "list" && currentTab.items && (
-                <div className={styles.contentList}>
-                  {currentTab.items.map((item, index) => (
-                    <div key={index} className={styles.contentRow}>
-                      <div className={styles.rowTitle}>
-                        {item.title.split('\n').map((line, i) => (
-                          <span key={i} className={styles.titleLine}>{line}</span>
-                        ))}
-                      </div>
-                      <div className={styles.rowDescription}>{item.description}</div>
-                      <div className={styles.rowImageWrapper}>
-                        <Image
-                          src={item.imageSrc}
-                          alt={item.title}
-                          fill
-                          style={{ objectFit: 'cover' }}
-                          onError={(e) => {
-                            e.currentTarget.style.backgroundColor = '#d1d5db';
-                          }}
-                        />
-                      </div>
+            {/* Split Layout (What you'll get) */}
+            {currentTab.layout === "split" && (
+              <div className={styles.splitLayout}>
+                <div className={styles.bulletList}>
+                  {currentTab.bullets?.map((bullet, index) => (
+                    <div key={index} className={styles.bulletItem}>
+                      <span className={styles.bulletDash}>-</span>
+                      <p className={styles.bulletText}>{bullet}</p>
                     </div>
                   ))}
-                  {currentTab.items.length === 0 && (
-                    <div className={styles.emptyState}>Content coming soon.</div>
+                </div>
+                <div className={styles.splitImageWrapper}>
+                  {currentTab.image && (
+                    <Image
+                      src={currentTab.image}
+                      alt="Course Content Preview"
+                      fill
+                      style={{ objectFit: "contain", objectPosition: "center" }}
+                    />
                   )}
                 </div>
-              )}
-
-              {/* Split Layout (What you'll get) */}
-              {currentTab.layout === "split" && (
-                <div className={styles.splitLayout}>
-                  <div className={styles.bulletList}>
-                    {currentTab.bullets?.map((bullet, index) => (
-                      <div key={index} className={styles.bulletItem}>
-                        <span className={styles.bulletDash}>-</span>
-                        <p className={styles.bulletText}>{bullet}</p>
-                      </div>
-                    ))}
-                  </div>
-                  <div className={styles.splitImageWrapper}>
-                    {currentTab.image && (
-                      <Image
-                        src={currentTab.image}
-                        alt="Course Content Preview"
-                        fill
-                        style={{ objectFit: "contain", objectPosition: "center" }}
-                      />
-                    )}
-                  </div>
-                </div>
-              )}
-            </div>
+              </div>
+            )}
           </div>
         </div>
       </Container>
