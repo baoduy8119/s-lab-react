@@ -14,7 +14,8 @@ const posts = [
     image: "/images/blogs/blog1.jpg", // Placeholder
     authorName: "Lora K.",
     authorRole: "Student, InnovateHealth",
-    authorImage: "/images/avatar.png"
+    authorImage: "/images/avatar.png",
+    slug: "how-integration-drives-success-1"
   },
   {
     id: 2,
@@ -24,7 +25,8 @@ const posts = [
     image: "/images/blogs/blog2.jpg", // Placeholder
     authorName: "Lora K.",
     authorRole: "Student, InnovateHealth",
-    authorImage: "/images/avatar.png"
+    authorImage: "/images/avatar.png",
+    slug: "how-integration-drives-success-2"
   },
   {
     id: 3,
@@ -34,7 +36,8 @@ const posts = [
     image: "/images/blogs/blog3.jpg", // Placeholder
     authorName: "Lora K.",
     authorRole: "Student, InnovateHealth",
-    authorImage: "/images/avatar.png"
+    authorImage: "/images/avatar.png",
+    slug: "how-integration-drives-success-3"
   },
   {
     id: 4,
@@ -44,7 +47,8 @@ const posts = [
     image: "/images/blogs/blog4.jpg", // Placeholder if exists, else hero
     authorName: "Lora K.",
     authorRole: "Student, InnovateHealth",
-    authorImage: "/images/avatar.png"
+    authorImage: "/images/avatar.png",
+    slug: "how-integration-drives-success-4"
   }
 ];
 
@@ -63,6 +67,7 @@ const BlogList = React.memo(function BlogList() {
               authorName={post.authorName}
               authorRole={post.authorRole}
               authorImage={post.authorImage}
+              slug={post.slug}
             />
           ))}
         </div>

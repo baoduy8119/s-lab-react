@@ -135,8 +135,8 @@ const LeftMenu = React.memo(function LeftMenu() {
             </Link>
 
             <Link
-              href="/event"
-              className={`font-bold text-base leading-[22px] tracking-[-0.18px] transition-colors ${isActive("/event") ? "text-[#EF4444]" : "text-[#111827] hover:text-[#EF4444]"
+              href="/events"
+              className={`font-bold text-base leading-[22px] tracking-[-0.18px] transition-colors ${isActive("/events") ? "text-[#EF4444]" : "text-[#111827] hover:text-[#EF4444]"
                 }`}
             >
               /Event

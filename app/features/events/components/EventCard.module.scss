@@ -1,0 +1,172 @@
+.card {
+  display: flex;
+  gap: 40px;
+  padding: 30px 0;
+  border-bottom: 1px solid #e5e7eb;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.metaCol {
+  width: 280px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #6B7280
+}
+
+.date {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.author {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 14px;
+}
+
+.contentCol {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.textGroup {
+  display: flex;
+  /* justify-content: space-between; This might be needed if description is to the right of title? */
+  /* Screenshot: Title is on top? No.
+     Actually, looking closely at Step 44:
+     Title "The S-LAB Competition Reveal" is on the left of the content area.
+     Description "Prepare to turn..." is on the RIGHT of the content area?
+     It looks like consistent columns.
+     Let's re-examine alignment.
+     Date/Author | Title | Description
+     Then Image spans Title + Description?
+     Or Date/Author | Content. Content has Title then Image?
+  */ 
+  /* 
+    Looking at the screenshot again:
+    Col 1: Date/Author
+    Col 2: Title (Large)
+    Col 3: Description (Small text)
+    Then below that row is the Image spanning Col 2 and 3?
+  */
+}
+
+/* Let's refine the layout based on the "Grid" request and visual. */
+/* 
+   Actually, it looks like:
+   Grid with 3 columns?
+   1: Date/Author
+   2: Title
+   3: Description
+   
+   Then Image is below Title/Description, spanning Col 2 and 3.
+*/
+
+.gridContent {
+  display: grid;
+  grid-template-columns: 1fr 1fr; // Title | Description
+  gap: 40px;
+  align-items: start;
+}
+
+.title {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 32px;
+  line-height: title-height;
+  font-weight: 500;
+  color: #111827;
+  max-width: 300px;
+}
+
+.description {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #6B7280;
+  max-width: 400px;
+}
+
+.imageWrapper {
+  width: 100%;
+  height: 480px;
+  position: relative;
+  background: #f3f4f6;
+
+  // PolygonImage handles clipping, so we remove border-radius/overflow here if needed,
+  // or keep it if PolygonImage just clips the img. 
+  // However, PolygonImage applies clip-path to the img.
+  // We need to ensure the wrapper doesn't crop incorrectly if we want the cut.
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.logoOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none; // Let clicks pass through to image if needed
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.4); // Dark overlay
+  clip-path: polygon(40px 0, 100% 0, 100% 100%, 0 100%, 0 40px); // Match topLeftCut={40} matches PolygonImage
+  
+  .logo {
+    width: 108px;
+    height: auto;
+    opacity: 1; // Ensure logo is fully visible
+  }
+}
+
+.tags {
+  display: flex;
+  gap: 12px;
+}
+
+.tag {
+  height: 32px;
+  padding: 0 16px;
+  background: #000;
+  color: #fff;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+@media (max-width: 1024px) {
+  .card {
+    flex-direction: column;
+    gap: 24px;
+    padding: 40px 0;
+  }
+
+  .metaCol {
+    width: 100%;
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  .gridContent {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .imageWrapper {
+    height: 240px;
+  }
+}

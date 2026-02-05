@@ -1,0 +1,77 @@
+.hero {
+  position: relative;
+  width: 100%;
+  height: 600px;
+  overflow: hidden;
+  background-color: #000;
+  color: #fff;
+}
+
+.heroImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.8; 
+}
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 60px;
+  background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+}
+
+.title {
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 1.1;
+  max-width: 800px;
+  
+  span {
+    display: block;
+  }
+}
+
+.topBar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 24px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+}
+
+.brand {
+  font-size: 24px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.5px;
+}
+
+.iconArrow {
+  width: 24px;
+  height: 24px;
+}
+@media (max-width: 768px) {
+  .hero {
+    height: 400px;
+  }
+  
+  .title {
+    font-size: 32px;
+    max-width: 100%;
+  }
+
+  .topBar {
+    padding: 16px 20px;
+  }
+
+  .overlay {
+    padding: 30px 20px;
+  }
+}

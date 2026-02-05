@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 import PolygonImage from "@/app/components/PolygonImage";
 import styles from "./BlogCard.module.scss";
+import Link from "next/link";
 
 interface BlogCardProps {
   title: string;
@@ -13,6 +14,7 @@ interface BlogCardProps {
   authorName: string;
   authorRole: string;
   authorImage: string;
+  slug: string;
 }
 
 const BlogCard = React.memo(function BlogCard({
@@ -22,10 +24,11 @@ const BlogCard = React.memo(function BlogCard({
   image,
   authorName,
   authorRole,
-  authorImage
+  authorImage,
+  slug
 }: BlogCardProps) {
   return (
-    <div className={styles.card}>
+    <Link href={`/blog/${slug}`} className={styles.card}>
       <div className={styles.imageContainer}>
         <PolygonImage
           src={image}
@@ -60,7 +63,7 @@ const BlogCard = React.memo(function BlogCard({
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 });
 
