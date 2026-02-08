@@ -3,7 +3,7 @@ import MainLayout from "@/app/MainLayout";
 import Footer from "@/app/components/Footer";
 import BlogDetailHeader from "@/app/features/blog/components/BlogDetailHeader";
 import BlogBody from "@/app/features/blog/components/BlogBody";
-import MoreArticles from "@/app/features/blog/components/MoreArticles";
+import MoreArticles from "@/app/components/MoreArticles";
 
 export default function BlogDetailPage() {
   // Static mock data for the view

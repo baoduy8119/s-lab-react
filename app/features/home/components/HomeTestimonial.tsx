@@ -9,6 +9,7 @@ import "swiper/css/effect-fade";
 import Container from "@/app/components/Container";
 import styles from "./HomeTestimonial.module.scss";
 import PolygonSection from "@/app/components/PolygonSection";
+import TheSLabLogo from "@/app/components/TheSLabLogo";
 
 const testimonials = [
   {
@@ -64,20 +65,19 @@ const HomeTestimonial = React.memo(function HomeTestimonial() {
     <PolygonSection topLeftCut={60}>
       <section className={styles.section}>
         {/* Background */}
-        <div className={styles.bgOverlay}>
+        <div className="absolute inset-0">
           <Image
-            src="/images/courses/course-includes-bg.jpg"
+            src="/images/home-testimonial-bg.png"
             alt="Background"
             fill
-            className={styles.bgImage}
+            className="object-cover object-left-top"
             priority
           />
-          <div className={styles.bgGradient}></div>
         </div>
 
         <Container className={styles.innerContainer}>
           <div className={styles.header}>
-            <h2 className={styles.heading}>/Our Testimonials.</h2>
+            <h2 className={styles.heading} data-aos="fade-up">/Our Testimonials.</h2>
           </div>
 
           <Swiper
@@ -89,6 +89,7 @@ const HomeTestimonial = React.memo(function HomeTestimonial() {
             loop={true}
             autoplay={{ delay: 6000, disableOnInteraction: false }}
             className={styles.swiper}
+            data-aos="fade-up"
           >
             {testimonials.map((item) => (
               <SwiperSlide key={item.id}>
@@ -118,6 +119,7 @@ const HomeTestimonial = React.memo(function HomeTestimonial() {
                         <p className={styles.userRole}>{item.role}</p>
                       </div>
                     </div>
+                    <div className={styles.patternBlock}></div>
                   </div>
                 </div>
 
@@ -129,16 +131,11 @@ const HomeTestimonial = React.memo(function HomeTestimonial() {
         </Container>
 
         {/* Marquee Footer */}
-        <div className={styles.marqueeStrip}>
+        <div className={styles.marqueeStrip} data-aos="fade-up">
           <div className={styles.marqueeContent}>
             {Array(20).fill("THE S-LAB").map((text, i) => (
               <div key={i} className={styles.marqueeItem}>
-                <span>{text}</span>
-                <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" className={styles.marqueeIcon}>
-                  <path d="M12.5 0L14.0326 1.48869C15.6599 3.06902 17.7962 4.09017 20.0761 4.37688L22.2163 4.64609L22.4437 6.79093C22.6858 9.07222 23.6841 11.1963 25.2679 12.8029L26.759 14.3152H24.634C22.3687 14.3152 20.2185 15.2974 18.7303 16.9691L17.3292 18.5428L15.9281 16.9691C14.4399 15.2974 12.2897 14.3152 10.0244 14.3152H7.89941L9.39053 12.8029C10.9743 11.1963 11.9726 9.07222 12.2147 6.79093L12.4421 4.64609L14.5823 4.37688C16.8622 4.09017 18.9985 3.06902 20.6258 1.48869L22.1584 0H12.5Z" fill="#374151" style={{ display: 'none' }} />
-                  {/* Using a simple star/spark shape as placeholder based on standard design */}
-                  <path d="M12.5 0L15.5 9.5L25 12.5L15.5 15.5L12.5 25L9.5 15.5L0 12.5L9.5 9.5L12.5 0Z" fill="#374151" />
-                </svg>
+                <TheSLabLogo />
               </div>
             ))}
           </div>

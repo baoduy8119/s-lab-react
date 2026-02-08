@@ -63,23 +63,23 @@ const LimitlessDesire = React.memo(function LimitlessDesire() {
             return (
               <div
                 key={item.id}
-                className={`${styles.accordionItem} ${!isOpen ? styles.collapsedItem : ""}`}
+                className={`${styles.accordionItem} ${isOpen ? styles.open : ""}`}
                 onClick={() => handleToggle(item.id)}
               >
-                <div className={`${styles.icon} ${isOpen ? styles.iconOpen : ""}`}>
+                <div className={`${styles.icon}`}>
                   <ArrowRightIcon color="#0F172A" />
                 </div>
                 <div className={styles.content}>
                   <div className={styles.textContent}>
                     <h3 className={styles.itemTitle}>{item.title}</h3>
-                    {isOpen && (
-                      <div className={styles.expandedContent}>
-                        <h4 className={styles.subtitle}>{item.subtitle}</h4>
-                        <p className={styles.description}>{item.description}</p>
-                      </div>
-                    )}
                   </div>
-                  {isOpen && (
+
+                  <div className={styles.accordionContentWrapper}>
+                    <div className={styles.expandedContent}>
+                      <h4 className={styles.subtitle}>{item.subtitle}</h4>
+                      <p className={styles.description}>{item.description}</p>
+                    </div>
+
                     <div className={styles.images}>
                       {item.images.map((img, index) => (
                         <PolygonImage
@@ -92,7 +92,7 @@ const LimitlessDesire = React.memo(function LimitlessDesire() {
                         />
                       ))}
                     </div>
-                  )}
+                  </div>
                 </div>
               </div>
             );

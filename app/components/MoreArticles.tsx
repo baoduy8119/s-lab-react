@@ -2,7 +2,7 @@
 
 import React from "react";
 import Container from "@/app/components/Container";
-import BlogGridCard from "./BlogGridCard";
+import BlogGridCard from "@/app/features/blog/components/BlogGridCard";
 import SectionHeader from "@/app/components/SectionHeader";
 import styles from "./MoreArticles.module.scss";
 

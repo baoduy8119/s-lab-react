@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 
@@ -11,6 +13,11 @@ interface PolygonImageProps {
   topRightCut?: number;
   bottomRightCut?: number;
   bottomLeftCut?: number;
+  // Mobile specific cuts
+  topLeftCutMobile?: number;
+  topRightCutMobile?: number;
+  bottomRightCutMobile?: number;
+  bottomLeftCutMobile?: number;
   className?: string;
   style?: React.CSSProperties;
 }
@@ -21,96 +28,80 @@ const PolygonImage = React.memo(function PolygonImage({
   width,
   height,
   clipPath,
+  // Destructure with default values
   topLeftCut = 0,
   topRightCut = 0,
   bottomRightCut = 0,
   bottomLeftCut = 0,
+  // Mobile props (optional)
+  topLeftCutMobile,
+  topRightCutMobile,
+  bottomRightCutMobile,
+  bottomLeftCutMobile,
   className,
   style,
   fill = false,
   ...props
 }: PolygonImageProps & Omit<React.ComponentProps<typeof Image>, "src" | "alt" | "width" | "height">) {
-  // Generate clip-path based on corner cuts
-  const generateClipPath = () => {
-    if (clipPath) return clipPath;
+  // function body start, no vars needed
 
-    // If no cuts are specified, return normal rectangle
-    if (!topLeftCut && !topRightCut && !bottomRightCut && !bottomLeftCut) {
-      return "none";
-    }
+  // Helper to generate polygon string
+  const getPolygon = (tl: number, tr: number, br: number, bl: number) => {
+    if (!tl && !tr && !br && !bl) return "none";
 
-    // Build polygon points for each corner
     const points = [];
-
-    // Top-left corner
-    if (topLeftCut > 0) {
-      points.push(`${topLeftCut}px 0`);
-    } else {
-      points.push("0 0");
-    }
-
-    // Top-right corner
-    if (topRightCut > 0) {
-      points.push(`calc(100% - ${topRightCut}px) 0`);
-      points.push(`100% ${topRightCut}px`);
-    } else {
-      points.push("100% 0");
-    }
-
-    // Bottom-right corner
-    if (bottomRightCut > 0) {
-      points.push(`100% calc(100% - ${bottomRightCut}px)`);
-      points.push(`calc(100% - ${bottomRightCut}px) 100%`);
-    } else {
-      points.push("100% 100%");
-    }
-
-    // Bottom-left corner
-    if (bottomLeftCut > 0) {
-      points.push(`${bottomLeftCut}px 100%`);
-      points.push(`0 calc(100% - ${bottomLeftCut}px)`);
-    } else {
-      points.push("0 100%");
-    }
-
-    // Close the polygon back to top-left
-    if (topLeftCut > 0) {
-      points.push(`0 ${topLeftCut}px`);
-    }
+    // Top-left
+    points.push(tl > 0 ? `${tl}px 0` : "0 0");
+    // Top-right
+    points.push(tr > 0 ? `calc(100% - ${tr}px) 0, 100% ${tr}px` : "100% 0");
+    // Bottom-right
+    points.push(br > 0 ? `100% calc(100% - ${br}px), calc(100% - ${br}px) 100%` : "100% 100%");
+    // Bottom-left
+    points.push(bl > 0 ? `${bl}px 100%, 0 calc(100% - ${bl}px)` : "0 100%");
+    // Close top-left if cut
+    if (tl > 0) points.push(`0 ${tl}px`);
 
     return `polygon(${points.join(", ")})`;
   };
 
-  const combinedStyle: React.CSSProperties = {
-    ...style,
-    clipPath: generateClipPath(),
-    objectFit: "cover",
-    display: "block",
-  };
+  const desktopClip = clipPath || getPolygon(topLeftCut, topRightCut, bottomRightCut, bottomLeftCut);
+  const mobileClip = getPolygon(
+    topLeftCutMobile ?? topLeftCut,
+    topRightCutMobile ?? topRightCut,
+    bottomRightCutMobile ?? bottomRightCut,
+    bottomLeftCutMobile ?? bottomLeftCut
+  );
 
-  if (fill) {
-    return (
+  return (
+    <>
+      <style jsx global>{`
+        .polygon-image {
+          clip-path: var(--desktop-clip);
+        }
+        @media (max-width: 768px) {
+          .polygon-image {
+            clip-path: var(--mobile-clip);
+          }
+        }
+      `}</style>
       <Image
         src={src}
         alt={alt}
-        fill
-        style={combinedStyle}
-        className={className}
+        width={width}
+        height={height}
+        fill={fill}
+        style={{
+          ...style,
+          objectFit: "cover",
+          display: "block",
+          // @ts-ignore
+          "--desktop-clip": desktopClip,
+          "--mobile-clip": mobileClip,
+        }}
+        className={`polygon-image ${className || ""}`}
         {...props}
       />
-    );
-  }
-
-  return (
-    <Image
-      src={src}
-      alt={alt}
-      width={width}
-      height={height}
-      style={combinedStyle}
-      className={className}
-      {...props}
-    />
+    </>
   );
 });
 PolygonImage.displayName = "PolygonImage";

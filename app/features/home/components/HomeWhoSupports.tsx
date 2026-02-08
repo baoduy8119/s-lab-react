@@ -68,13 +68,13 @@ const items: SupportItem[] = [
 ];
 
 const HomeWhoSupports = React.memo(function HomeWhoSupports() {
-  const [activeId, setActiveId] = useState<string>("students");
+  const [activeId, setActiveId] = useState<string>("");
 
   return (
     <section className={styles.section}>
       <Container>
         {/* Header Layout */}
-        <h2 className={styles.mainHeading}>Who The Slab Supports</h2>
+        <h2 className={styles.mainHeading} data-aos="fade-up">Who The Slab Supports</h2>
         <div className={styles.headerGrid}>
           <div className={styles.headerLeft}>
             <div className={styles.counterBlock}>
@@ -91,6 +91,8 @@ const HomeWhoSupports = React.memo(function HomeWhoSupports() {
               width={800}
               height={500}
               className={styles.headerImage}
+              data-aos="fade-left"
+              data-aos-duration="1000"
             />
           </div>
         </div>
@@ -103,14 +105,14 @@ const HomeWhoSupports = React.memo(function HomeWhoSupports() {
         </div>
 
         {/* Accordion List */}
-        <div className={styles.accordionList}>
-          {items.map((item) => {
+        <div className={styles.accordionList} data-aos="fade-up">
+          {items.map((item, index) => {
             const isActive = activeId === item.id;
             return (
               <div
                 key={item.id}
                 className={`${styles.accordionItem} ${isActive ? styles.active : ''}`}
-                onClick={() => setActiveId(item.id)}
+                onMouseEnter={() => setActiveId(item.id)}
               >
                 {/* Background Image for Active State */}
                 {isActive && (

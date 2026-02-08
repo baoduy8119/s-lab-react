@@ -46,6 +46,15 @@ const KeyActivities = React.memo(function KeyActivities() {
           />
         </div>
 
+        <div className={styles.patternBg}>
+          <Image
+            src="/images/slab/our-key-frame-16.png"
+            alt="Key Activities Background"
+            fill
+            style={{ objectFit: "cover" }}
+          />
+        </div>
+
         <div className={styles.content}>
           <div className={styles.header}>
             <h2 className={styles.title}>Our Key Activities</h2>

@@ -82,12 +82,8 @@
   cursor: pointer;
   transition: transform 0.3s ease;
 
-  &:hover {
-    transform: translateY(-5px);
-  }
-
   &.expanded {
-    width: 224px;
+    width: 225px;
   }
 
   &:not(.expanded) {

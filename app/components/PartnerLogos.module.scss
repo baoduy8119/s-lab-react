@@ -1,15 +1,43 @@
 .partnerLogos {
   height: 162px;
+  overflow: hidden;
+  border-top: 1px solid #cbd5e1;
+  background-color: transparent;
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  gap: 49px;
-  opacity: 0.4;
-  flex-wrap: wrap;
-  border-top: 1px solid #cbd5e1;
+  position: relative;
+  
+  // Optional: Add gradient masks for fading edges
+  // mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
 
+.slideTrack {
+  display: flex;
+  width: max-content;
+  animation: scroll 40s linear infinite; // Adjust speed as needed
+}
+
+.logoSet {
+  display: flex;
+  align-items: center;
+  gap: 80px; // Larger gap for slider
+  padding-right: 80px; // Ensure gap between sets matches
+  opacity: 0.4;
+  flex-shrink: 0; // Prevent the set from shrinking
+  
   img {
     height: 32px;
     width: auto;
+    object-fit: contain;
+    flex-shrink: 0; // Prevent images from shrinking
+  }
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%); // Move half the width (one full set)
   }
 }

@@ -87,13 +87,22 @@
   border-bottom: 1px solid #e5e7eb;
   cursor: pointer;
   overflow: hidden;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
   min-height: 100px;
   
   &.active {
     min-height: 100px;
     color: #ffffff;
-    border-bottom: none;
+    // border-bottom: none;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 
@@ -101,6 +110,7 @@
   position: absolute;
   inset: 0;
   z-index: 1;
+  animation: slideIn 0.6s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
 }
 
 .bgImage {
@@ -118,7 +128,7 @@
   z-index: 2;
   display: flex;
   align-items: center;
-  padding: 24px 40px; // Updated padding (collapsed)
+  padding: 12px 40px; // Updated padding (collapsed)
   height: 100%;
   min-height: 100px;
   
@@ -134,6 +144,7 @@
   font-size: 32px; // Updated from 40px
   font-weight: 700;
   color: #111827;
+  transition: color 0.6s ease;
   
   .active & {
     color: #ffffff;
@@ -142,6 +153,8 @@
 
 .colProfession {
   flex: 0 0 30%;
+  animation: slideIn 0.5s ease-out 0.1s forwards;
+  opacity: 0; // Start hidden for animation
 }
 
 .professionText {
@@ -154,6 +167,8 @@
 .colDescription {
   flex: 1;
   padding-right: 60px;
+  animation: slideIn 0.5s ease-out 0.2s forwards;
+  opacity: 0; // Start hidden for animation
 }
 
 .descList {
@@ -168,6 +183,8 @@
 
 .colAction {
   flex-shrink: 0;
+  animation: slideIn 0.5s ease-out 0.3s forwards;
+  opacity: 0; // Start hidden for animation
 }
 
 .arrowBtn {

@@ -30,12 +30,19 @@ const Footer = React.memo(function Footer() {
             </div>
 
             {/* Title */}
-            <h2 className="mt-16 lg:mt-0 lg:absolute lg:left-20 lg:top-[94px] text-[#450A0A] text-[56px] lg:text-[72px] font-bold leading-[64px] lg:leading-[88px] tracking-[-0.8px] w-full lg:w-[552px] mb-4 lg:mb-0">
+            <h2
+              className="mt-16 lg:mt-0 lg:absolute lg:left-20 lg:top-[94px] text-[#450A0A] text-[56px] lg:text-[72px] font-bold leading-[64px] lg:leading-[88px] tracking-[-0.8px] w-full lg:w-[552px] mb-4 lg:mb-0"
+              data-aos="fade-up"
+            >
               /Stay in <br className="lg:hidden" /><span className="text-white">the loop.</span>
             </h2>
 
             {/* Subtitle Mobile Wrapper */}
-            <div className="flex items-start gap-3 lg:absolute lg:left-[116px] lg:top-[229px] mb-12 lg:mb-0">
+            <div
+              className="flex items-start gap-3 lg:absolute lg:left-[116px] lg:top-[229px] mb-12 lg:mb-0"
+              data-aos="fade-up"
+              data-aos-delay="200"
+            >
               {/* Icon - Curved Arrow */}
               <div className="mt-1 lg:hidden">
                 <ArrowRightIcon color="#fff" />
@@ -51,7 +58,11 @@ const Footer = React.memo(function Footer() {
             </div>
 
             {/* Email Input */}
-            <div className="lg:absolute lg:left-[369px] lg:top-[225px] w-full lg:w-[650px]">
+            <div
+              className="lg:absolute lg:left-[369px] lg:top-[225px] lg:right-[80px]"
+              data-aos="fade-up"
+              data-aos-delay="400"
+            >
               <div className="relative flex items-center border-b border-[#450A0A] lg:border-white pb-4 lg:pb-6">
                 <input
                   type="email"
@@ -83,7 +94,9 @@ const Footer = React.memo(function Footer() {
 
       {/* Bottom Section - Using Grid Layout */}
       <PolygonSection topLeftCut={60}>
-        <div className="relative w-full bg-[#171717] overflow-hidden px-6 pb-12 pt-16 lg:px-20 lg:py-11 mt-[-80px] lg:mt-[-80px] -mt-[1px]">
+        <div
+          className="relative w-full bg-[#171717] overflow-hidden px-6 pb-12 pt-16 lg:px-20 lg:py-11 mt-[-80px] lg:mt-[-80px] -mt-[1px]"
+        >
           {/* Background Pattern */}
           <div className="absolute inset-0">
             <Image
@@ -96,7 +109,7 @@ const Footer = React.memo(function Footer() {
           </div>
 
           {/* Desktop Content Grid */}
-          <div className="hidden lg:grid relative grid-cols-[1fr_2fr_1fr] gap-x-20">
+          <div className="hidden lg:grid relative grid-cols-[1fr_2fr_1fr] gap-x-20" data-aos="fade-up">
             {/* Left Column - Company Info */}
             <div className="flex flex-col gap-[85px]">
               <p className="text-white text-sm font-bold leading-[20px] tracking-[-0.16px]">
@@ -133,7 +146,7 @@ const Footer = React.memo(function Footer() {
           </div>
 
           {/* Mobile Content Stack - Ordered per design */}
-          <div className="flex lg:hidden relative flex-col gap-8">
+          <div className="flex lg:hidden relative flex-col gap-8" data-aos="fade-up">
             {/* 1. Contact Info */}
             <div className="flex flex-col gap-1">
               <p className="text-white text-sm font-bold leading-[20px] tracking-[-0.16px]">(312) 555-2468</p>

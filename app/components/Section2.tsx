@@ -1,29 +1,43 @@
 import Image from "next/image";
 import React from "react";
+import PolygonImage from "./PolygonImage";
 
 const Section2 = React.memo(function Section2() {
   return (
     <section className="w-full flex flex-col">
       {/* Card 1: Structured curriculum */}
-      <div className="relative w-full h-[565px] bg-black overflow-hidden group">
+      <div
+        className="relative w-full h-[565px] bg-black overflow-hidden group"
+        data-aos="fade-up"
+      >
         {/* Background Image */}
-        <div className="absolute inset-0">
-          <Image
+        <div className="absolute inset-0 bg-white">
+          <div
+            className="absolute inset-0 opacity-[0.04]"
+            style={{
+              backgroundImage: "url(/images/background-pattern.png)",
+              backgroundRepeat: "repeat",
+              backgroundSize: "256px 256px",
+            }}
+          ></div>
+          <PolygonImage
             src="/images/section2/section2-bg1.png"
             alt=""
             fill
             className="object-cover"
             style={{ objectPosition: "center -73px" }}
+            topLeftCut={60}
+            topLeftCutMobile={30}
           />
         </div>
 
         {/* S-Lab Logo - Top Right */}
-        <div className="absolute top-[40px] right-[24px] lg:top-[77px] lg:right-[40px] w-[80px] h-[55px] lg:w-[108px] lg:h-[74px]">
+        <div className="absolute top-[40px] right-[24px] lg:top-[40px] lg:right-[40px] w-[80px] h-[55px] lg:w-[108px] lg:h-[74px]">
           <Image src="/images/s-lab-white-logo.svg" alt="The S-Lab" fill className="object-contain" />
         </div>
 
         {/* Title */}
-        <h2 className="absolute left-[24px] top-[40px] w-[250px] lg:left-[86px] lg:top-[48px] text-white text-[24px] lg:text-[32px] font-bold leading-[30px] lg:leading-[38px] tracking-[-0.2px]">
+        <h2 className="absolute left-[24px] top-[40px] w-[250px] lg:w-auto lg:left-[86px] lg:top-[48px] text-white text-[24px] lg:text-[32px] font-bold leading-[30px] lg:leading-[38px] tracking-[-0.2px]">
           What Makes The Slab Different
         </h2>
 
@@ -31,23 +45,26 @@ const Section2 = React.memo(function Section2() {
         <div className="block lg:hidden absolute left-[24px] top-[260px] text-white text-xl font-bold">/001/</div>
 
         {/* desktop /001/ */}
-        <div className="hidden lg:block absolute right-[40px] top-[490px] text-white text-2xl font-bold leading-[30px] tracking-[-0.15px]">
+        <div className="hidden lg:block absolute right-[60px] bottom-[40px] text-white text-2xl font-bold leading-[30px] tracking-[-0.15px]">
           /001/
         </div>
 
         {/* Feature Title */}
-        <h3 className="absolute left-[24px] bottom-[100px] lg:left-[78px] lg:top-[426px] lg:bottom-auto text-white text-[20px] lg:text-2xl font-bold leading-[26px] lg:leading-[30px] w-[300px] lg:w-[406px]">
+        <h3 className="absolute left-[24px] bottom-[100px] lg:w-auto lg:left-[78px] lg:top-[426px] lg:bottom-auto text-white text-[20px] lg:text-2xl font-bold leading-[26px] lg:leading-[30px] w-[300px] lg:w-[406px]">
           Structured curriculum, easy to follow
         </h3>
 
         {/* Feature Description */}
-        <p className="absolute left-[24px] bottom-[40px] lg:left-[78px] lg:top-[471px] lg:bottom-auto text-white text-sm lg:text-base font-medium leading-[20px] lg:leading-[22px] w-[300px] lg:w-[302px]">
-          Clear stages, objectives, and checklists—so you always know what to focus on next.
+        <p className="absolute left-[24px] bottom-[40px] lg:w-auto lg:left-[78px] lg:top-[471px] lg:bottom-auto text-white text-sm lg:text-base font-medium leading-[20px] lg:leading-[22px] w-[300px] lg:w-[302px]">
+          Clear stages, objectives, and checklists—<br />so you always know what to focus on next.
         </p>
       </div>
 
       {/* Card 2: Outcome-driven & Flexible learning */}
-      <div className="relative w-full flex flex-col lg:flex-row lg:h-[565px] overflow-hidden">
+      <div
+        className="relative w-full flex flex-col lg:flex-row lg:h-[565px] overflow-hidden"
+        data-aos="fade-up"
+      >
         {/* Left 50% (Desktop) / Top (Mobile): Flexible learning */}
         <div className="relative w-full lg:w-1/2 h-[400px] lg:h-full flex flex-col justify-between px-6 py-10 lg:px-20 lg:py-[41px] bg-black overflow-hidden">
           {/* Background Image for left side */}
@@ -66,20 +83,18 @@ const Section2 = React.memo(function Section2() {
           </div>
 
           {/* Content */}
-          <div className="relative z-20 flex flex-col gap-6 lg:gap-[84px]">
-            {/* /003/ Label (Mobile: shown as 003? Wait, order is 002 here) */}
-            <div className="text-[#111827] text-xl lg:text-2xl font-bold leading-[30px] tracking-[-0.15px]">
-              /003/
-            </div>
-
-            <div className="flex flex-col gap-4 lg:gap-0">
+          <div className="relative z-20 flex flex-col gap-6 lg:gap-[84px] lg:h-full lg:justify-between">
+            <div className="flex flex-col gap-[24px] lg:gap-[24px]">
               <h3 className="text-white text-[20px] lg:text-2xl font-bold leading-[26px] lg:leading-[30px] w-full lg:w-[378px]">
                 Flexible learning, with a consistent rhythm
               </h3>
-              <p className="text-white text-sm lg:text-base font-medium leading-[20px] lg:leading-[22px] w-full lg:w-[332px] mt-2 lg:mt-[84px]">
+              <p className="text-white text-sm lg:text-base font-medium leading-[20px] lg:leading-[22px] w-full lg:w-[332px]">
                 Self-paced materials combined with scheduled guidance and reviews, so you stay on
                 track without feeling overwhelmed.
               </p>
+            </div>
+            <div className="text-white text-xl lg:text-2xl font-bold leading-[30px] tracking-[-0.15px]">
+              /002/
             </div>
           </div>
 
@@ -94,8 +109,8 @@ const Section2 = React.memo(function Section2() {
           </div>
 
           {/* Content */}
-          <div className="relative z-20 text-white text-xl lg:text-2xl font-bold p-6 lg:p-0 lg:self-end lg:mr-[13px] lg:mt-[13px]">
-            /002/
+          <div className="relative z-20 text-white text-xl lg:text-2xl font-bold p-6 lg:p-0 lg:self-end lg:mr-[60px] lg:mt-[40px]">
+            /003/
           </div>
 
           {/* Outcome-driven box at bottom */}
@@ -112,7 +127,10 @@ const Section2 = React.memo(function Section2() {
       </div>
 
       {/* Card 3: Project-first & High-touch advisor */}
-      <div className="relative w-full flex flex-col lg:flex-row lg:h-[565px] overflow-hidden">
+      <div
+        className="relative w-full flex flex-col lg:flex-row lg:h-[565px] overflow-hidden"
+        data-aos="fade-up"
+      >
         {/* Left Side: Project-first */}
         <div className="relative w-full lg:w-1/2 h-[400px] lg:h-full flex flex-col justify-between bg-black overflow-hidden">
           {/* Background Image for left side */}
@@ -186,7 +204,10 @@ const Section2 = React.memo(function Section2() {
       </div>
 
       {/* Card 4: AI-enabled workflows */}
-      <div className="relative w-full h-[565px] bg-black overflow-hidden">
+      <div
+        className="relative w-full h-[565px] bg-black overflow-hidden"
+        data-aos="fade-up"
+      >
         {/* Background Image - Full bleed */}
         <div className="absolute left-0 top-[-50px] lg:top-[-172px] w-full h-[500px] lg:h-[760px] z-0">
           <Image

@@ -25,10 +25,10 @@ const partnerImages = [
 const HomePartners = React.memo(function HomePartners() {
   return (
     <section className={styles.section}>
-      <h2 className={styles.heading}>The S-Lab’s Partners</h2>
+      <h2 className={styles.heading} data-aos="fade-up">The S-Lab’s Partners</h2>
       <div className={styles.grid}>
         {partnerImages.map((src, index) => (
-          <div key={index} className={styles.logoCard}>
+          <div key={index} className={styles.logoCard} data-aos="fade-up" data-aos-delay={index * 50}>
             <div className={styles.imageWrapper}>
               <img src={src} alt={`Partner ${index + 1}`} />
             </div>

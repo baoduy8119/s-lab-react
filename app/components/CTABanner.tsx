@@ -12,7 +12,7 @@ interface CTABannerProps {
 const CTABanner = React.memo(function CTABanner({
   children,
   className,
-  height = "725px",
+  height = "785px",
 }: CTABannerProps) {
   return (
     <section
