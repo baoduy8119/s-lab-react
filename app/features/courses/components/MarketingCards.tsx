@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "./MarketingCards.module.scss";
 
-import PolygonImage from "@/app/components/PolygonImage";
+// import PolygonImage from "@/app/components/PolygonImage";
 
 // ... (imports remain)
 
@@ -26,7 +26,7 @@ const MarketingCards = React.memo(function MarketingCards() {
       id: 1,
       title: "Marketing Essentials",
       description: "Our clients don’t just hire us for our skills — they stay with us because we consistently deliver clarity, speed, and measurable outcomes.",
-      image: "/images/courses/mar-1.png",
+      image: "/images/courses/mar-1.jpg",
       popular: true,
       category: "Marketing Foundations"
     },
@@ -34,7 +34,7 @@ const MarketingCards = React.memo(function MarketingCards() {
       id: 2,
       title: "Business Model & Offer Design",
       description: "Our clients don’t just hire us for our skills — they stay with us because we consistently deliver clarity, speed, and measurable outcomes.",
-      image: "/images/courses/mar-2.png",
+      image: "/images/courses/mar-2.jpg",
       popular: true,
       category: "Business Fundamentals"
     },
@@ -42,7 +42,7 @@ const MarketingCards = React.memo(function MarketingCards() {
       id: 3,
       title: "Customer & Market Insight",
       description: "Our clients don’t just hire us for our skills — they stay with us because we consistently deliver clarity, speed, and measurable outcomes.",
-      image: "/images/courses/mar-3.png",
+      image: "/images/courses/mar-3.jpg",
       popular: true,
       category: "Advanced Marketing"
     },
@@ -108,7 +108,7 @@ const MarketingCards = React.memo(function MarketingCards() {
           {tabs.map((tab) => (
             <button
               key={tab}
-              className={`${styles.tab} ${activeTab === tab ? styles.active : ""}`}
+              className={`${styles.tab} ${activeTab === tab ? styles.active : ""} ${tab === "All" ? styles.tabAll : ""}`}
               onClick={() => setActiveTab(tab)}
             >
               {tab}
@@ -121,13 +121,12 @@ const MarketingCards = React.memo(function MarketingCards() {
           {filteredCards.map((card) => (
             <Link key={card.id} href={`/courses/${card.id}`} className={styles.card}>
               <div className={styles.imageContainer}>
-                <PolygonImage
+                <Image
                   src={card.image}
                   alt={card.title}
                   width={416}
                   height={240}
                   className={styles.cardImage}
-                  topLeftCut={30}
                 />
               </div>
               <div className={styles.cardContent}>

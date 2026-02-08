@@ -9,13 +9,14 @@ import "swiper/css";
 import "swiper/css/effect-cards";
 import "swiper/css/navigation";
 import styles from "./BestForYou.module.scss";
+import Container from "@/app/components/Container";
 
 const BestForYou = React.memo(function BestForYou() {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(1);
   const courses = [
     {
       id: 1,
-      image: "/images/slib/lib-card-1.png",
+      image: "/images/slib/lib-card-1.jpg",
       label: "Marketing\nPlanning",
       title: "Marketing Planning",
       instructor: "Kira Dinh",
@@ -25,8 +26,8 @@ const BestForYou = React.memo(function BestForYou() {
       price: "399.000",
     },
     {
-      id: 3,
-      image: "/images/slib/lib-card-3.png",
+      id: 4,
+      image: "/images/slib/lib-card-4.jpg",
       label: "Content\nStrategy",
       title: "Content Strategy",
       instructor: "Sarah Lee",
@@ -47,8 +48,8 @@ const BestForYou = React.memo(function BestForYou() {
       price: "499.000",
     },
     {
-      id: 4,
-      image: "/images/slib/lib-card-4.png",
+      id: 3,
+      image: "/images/slib/lib-card-3.jpg",
       label: "Content\nStrategy",
       title: "Content Strategy",
       instructor: "Sarah Lee",
@@ -59,7 +60,7 @@ const BestForYou = React.memo(function BestForYou() {
     },
     {
       id: 5,
-      image: "/images/slib/lib-card-5.png",
+      image: "/images/slib/lib-card-5.jpg",
       label: "Content\nStrategy",
       title: "Content Strategy",
       instructor: "Sarah Lee",
@@ -90,34 +91,24 @@ const BestForYou = React.memo(function BestForYou() {
         />
       </div>
 
-      <div className={styles.header}>
-        <h2 className={styles.title}>/Best for you. </h2>
-        <p className={styles.subtitle}>Suit you best</p>
-      </div>
+      <Container>
+        <div className={styles.header}>
+          <h2 className={styles.title}>/Best for you. </h2>
+          <p className={styles.subtitle}>Suit you best</p>
+        </div>
+      </Container>
 
       <div className={styles.carouselContainer}>
         {/* Navigation Arrows */}
         <button className={`${styles.navButton} ${styles.navPrev} swiper-button-prev-custom`}>
-          <svg width="17" height="17" viewBox="0 0 17 17" fill="none">
-            <path
-              d="M10.5 13.5L5.5 8.5L10.5 3.5"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
+          <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 38 38" fill="none">
+            <path d="M27.3869 19.998L14.5408 19.998L20.4414 25.8986L18.9425 27.3869L10.498 18.9425L18.9425 10.498L20.4308 11.9864L14.5408 17.8869L27.3869 17.8869L27.3869 19.998Z" fill="currentColor" />
           </svg>
         </button>
 
         <button className={`${styles.navButton} ${styles.navNext} swiper-button-next-custom`}>
-          <svg width="17" height="17" viewBox="0 0 17 17" fill="none">
-            <path
-              d="M6.5 3.5L11.5 8.5L6.5 13.5"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
+          <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
+            <path d="M-0.000217853 9.5L12.8459 9.5L6.94534 15.4006L8.44423 16.8889L16.8887 8.44444L8.44423 -3.69118e-07L6.95589 1.48833L12.8459 7.38889L-0.000217761 7.38889L-0.000217853 9.5Z" fill="currentColor" />
           </svg>
         </button>
 
@@ -125,6 +116,7 @@ const BestForYou = React.memo(function BestForYou() {
         <Swiper
           effect="cards"
           grabCursor={true}
+          initialSlide={2}
           modules={[EffectCards, Navigation]}
           navigation={{
             prevEl: ".swiper-button-prev-custom",

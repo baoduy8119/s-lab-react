@@ -172,36 +172,13 @@
 }
 
 // --- Marquee ---
-.marqueeStrip {
-  position: relative;
-  z-index: 2;
-  background: #000000;
-  padding: 16px 0;
+.marqueeStrip { // This class will be passed to Marquee component
+  background: #000000 !important;
+  color: #6B7280 !important; // Override default white
+  padding: 16px 0 !important;
   border-top: 1px solid rgba(255,255,255,0.1);
-  overflow: hidden;
-  white-space: nowrap;
 }
-
-.marqueeContent {
-  display: inline-block;
-  animation: scroll 30s linear infinite;
-}
-
-.marqueeItem {
-  font-family: "MJ Satoshi", sans-serif;
-  font-size: 14px;
-  color: #6B7280; // Dark gray text
-  margin-right: 48px;
-  text-transform: uppercase;
-  font-weight: 700;
-  letter-spacing: 1px;
-}
-
-@keyframes scroll {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
+// Removed marqueeContent, marqueeItem, keyframes as they are now handled by Marquee component
 // --- Responsive ---
 @media (max-width: 1024px) {
   .contentWrapper {

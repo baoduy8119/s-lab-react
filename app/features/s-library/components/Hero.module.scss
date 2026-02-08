@@ -2,7 +2,7 @@
 .section {
   position: relative;
   width: 100%;
-  height: 1080px;
+  height: 1020px;
   background-color: #eaeaea;
   overflow: hidden;
   font-family: "MJ Satoshi", sans-serif;
@@ -29,7 +29,6 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 37px;
   background-color: #171717;
   overflow: hidden;
   z-index: 10;
@@ -117,7 +116,7 @@
 .content {
   position: relative;
   z-index: 2;
-  padding: 100px 60px 0;
+  padding: 100px 0;
   // max-width: 1440px;
   margin: 0 auto;
 }

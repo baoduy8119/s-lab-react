@@ -25,21 +25,33 @@
   }
 }
 
+.patternOverlay {
+  position: absolute;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 1320;
+  height: 14px;
+  z-index: 2;
+  pointer-events: none;
+}
+
 .contentContainer {
   position: relative;
   z-index: 10;
   display: flex;
   justify-content: space-between;
   width: 100%;
-  max-width: 1440px;
   margin: 0 auto;
   align-items: flex-start;
-  padding-top: 100px;
 }
 
 .leftContent {
+  display: flex;
+  flex-direction: column;
   max-width: 600px;
-  padding-top: 100px;
+  margin: auto 0
 }
 
 .logo {
@@ -130,8 +142,9 @@
   font-size: 16px;
   cursor: pointer;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  gap: 10px;
   margin-top: 80px;
   transition: background-color 0.2s;
   

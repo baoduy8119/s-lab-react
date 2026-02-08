@@ -6,6 +6,7 @@ import Link from "next/link";
 import styles from "./CourseIncludes.module.scss";
 import PolygonSection from "@/app/components/PolygonSection";
 import Container from "@/app/components/Container";
+import Marquee from "@/app/components/Marquee";
 
 const CourseIncludes = React.memo(function CourseIncludes() {
   return (
@@ -116,13 +117,7 @@ const CourseIncludes = React.memo(function CourseIncludes() {
         </Container>
 
         {/* Marquee Footer Strip */}
-        <div className={styles.marqueeStrip}>
-          <div className={styles.marqueeContent}>
-            {Array(20).fill("THE S-LAB").map((text, i) => (
-              <span key={i} className={styles.marqueeItem}>{text}</span>
-            ))}
-          </div>
-        </div>
+        <Marquee className={styles.marqueeStrip} />
       </section>
     </PolygonSection>
   );

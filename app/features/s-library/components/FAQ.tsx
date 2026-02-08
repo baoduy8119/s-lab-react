@@ -58,23 +58,24 @@ const FAQ = React.memo(function FAQ() {
       <Container>
         <div className={styles.container}>
           {/* Left Side - Image */}
-          <div className={styles.imageContainer}>
-            <Image
-              src="/images/slib/faq-image.png"
-              alt="FAQ"
-              fill
-              style={{ objectFit: "cover" }}
-            />
-          </div>
-
-          {/* Right Side - FAQ List */}
-          <div className={styles.faqContainer}>
+          <div>
             <h2 className={styles.title}>
               /Frequently
               <br />
               asked questions.
             </h2>
+            <div className={styles.imageContainer}>
+              <Image
+                src="/images/slib/faq-image.png"
+                alt="FAQ"
+                fill
+                style={{ objectFit: "cover" }}
+              />
+            </div>
+          </div>
 
+          {/* Right Side - FAQ List */}
+          <div className={styles.faqContainer}>
             <div className={styles.faqList}>
               {faqs.map((faq, index) => (
                 <div key={index} className={styles.faqItem}>
@@ -106,11 +107,11 @@ const FAQ = React.memo(function FAQ() {
                     </button>
                   </div>
 
-                  {openIndex === index && (
-                    <div className={styles.faqAnswer}>
+                  <div className={`${styles.faqAnswer} ${openIndex === index ? styles.open : ""}`}>
+                    <div className={styles.answerInner}>
                       <p>{faq.answer}</p>
                     </div>
-                  )}
+                  </div>
 
                   {index < faqs.length - 1 && <div className={styles.divider} />}
                 </div>

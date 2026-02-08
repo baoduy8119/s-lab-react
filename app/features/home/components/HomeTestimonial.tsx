@@ -9,7 +9,7 @@ import "swiper/css/effect-fade";
 import Container from "@/app/components/Container";
 import styles from "./HomeTestimonial.module.scss";
 import PolygonSection from "@/app/components/PolygonSection";
-import TheSLabLogo from "@/app/components/TheSLabLogo";
+import Marquee from "@/app/components/Marquee";
 
 const testimonials = [
   {
@@ -131,15 +131,7 @@ const HomeTestimonial = React.memo(function HomeTestimonial() {
         </Container>
 
         {/* Marquee Footer */}
-        <div className={styles.marqueeStrip} data-aos="fade-up">
-          <div className={styles.marqueeContent}>
-            {Array(20).fill("THE S-LAB").map((text, i) => (
-              <div key={i} className={styles.marqueeItem}>
-                <TheSLabLogo />
-              </div>
-            ))}
-          </div>
-        </div>
+        <Marquee />
       </section>
     </PolygonSection>
   );

@@ -172,46 +172,6 @@
   line-height: 1.5;
 }
 
-// Marquee
-.marqueeStrip {
-  position: relative;
-  z-index: 2;
-  padding: 20px 0;
-  overflow: hidden;
-  background: #171717; // Ensures full opacity if needed
-  margin-top: auto;
-}
-
-.marqueeContent {
-  display: flex;
-  gap: 48px;
-  animation: scroll 30s linear infinite;
-  white-space: nowrap;
-}
-
-.marqueeItem {
-  display: flex;
-  align-items: center;
-  gap: 48px;
-  font-family: "MJ Satoshi", sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  color: white;
-  letter-spacing: 1px;
-}
-
-.marqueeIcon {
-  width: 14px;
-  height: 14px;
-  path {
-    fill: #6B7280; // Match text color
-  }
-}
-
-@keyframes scroll {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
 
 @media (max-width: 1024px) {
   .innerContainer {
