@@ -1,14 +1,21 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Container from "@/app/components/Container";
 import styles from "./BlogHero.module.scss";
+import SLabLogoBlack from "@/app/components/SLabLogoBlack";
 
 const BlogHero = React.memo(function BlogHero() {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const categories = ["All", "blog1", "blog2", "blog3", "blog4"];
+
   return (
     <section className={styles.section}>
       <Container>
-        <h1 className={styles.mainTitle}>/Insights & Stories.</h1>
+        <div className={styles.headerRow}>
+          <h1 className={styles.mainTitle}>/Insights & Stories.</h1>
+          <SLabLogoBlack className={styles.logoAbs} />
+        </div>
 
         <div className={styles.introBlock}>
           <span className={styles.label}>/Blog/</span>
@@ -27,11 +34,30 @@ const BlogHero = React.memo(function BlogHero() {
 
         {/* Toolbar */}
         <div className={styles.toolbar}>
-          <div className={styles.categoryDropdown}>
+          <div
+            className={styles.categoryDropdown}
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+          >
             <span>Category</span>
-            <svg width="12" height="8" viewBox="0 0 12 8" fill="none" className={styles.chevron}>
+            <svg
+              width="12"
+              height="8"
+              viewBox="0 0 12 8"
+              fill="none"
+              className={`${styles.chevron} ${isDropdownOpen ? styles.rotate : ''}`}
+            >
               <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
+
+            {isDropdownOpen && (
+              <div className={styles.dropdownMenu}>
+                {categories.map((category) => (
+                  <div key={category} className={`${styles.dropdownItem} ${category === "All" ? styles.selected : ""}`}>
+                    {category}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           <div className={styles.searchBar}>

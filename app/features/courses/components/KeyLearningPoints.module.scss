@@ -30,12 +30,10 @@
 .card {
   display: flex;
   flex-direction: column;
-  justify-content: space-between; // Icon top, Text bottom
   align-items: flex-start;
   padding: 40px 26px; // Generous padding
   background: #ffffff;
   border-radius: 8px; // Rounded corners
-  min-height: 280px; // Aspect ratio
   transition: transform 0.3s ease;
   border: none; // Clean look
   
@@ -57,7 +55,7 @@
   font-weight: 700;
   line-height: 1.5;
   color: #111827;
-  margin: 0;
+  margin: 60px 0 0;
   max-width: 90%; // prevent text from hitting edge too hard
 }
 

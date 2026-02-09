@@ -165,14 +165,13 @@
   grid-template-columns: 1fr 1fr;
   gap: 60px;
   padding: 24px 0;
-  align-items: center;
   min-height: 400px;
 }
 
 .bulletList {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 12px;
 }
 
 .bulletItem {
@@ -201,7 +200,7 @@
 .splitImageWrapper {
   position: relative;
   width: 100%;
-  aspect-ratio: 4/3;
+  // aspect-ratio: 4/3;
   // No background needed if image fills or is transparent
 }
 

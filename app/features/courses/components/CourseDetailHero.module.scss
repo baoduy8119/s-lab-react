@@ -6,10 +6,10 @@
 
 .gridContainer {
   display: grid;
-  // A | B | Arrow | C
-  grid-template-columns: minmax(250px, 1fr) minmax(400px, 1.6fr) 60px minmax(280px, 1.12fr);
+  // A | B | C
+  grid-template-columns: minmax(250px, 1fr) minmax(460px, 1.8fr) minmax(280px, 1.12fr);
   // Header | Top Img | Middle Text | Bottom Img/Btn
-  grid-template-rows: 60px 240px 320px 240px;
+  grid-template-rows: 150px 260px 260px 150px;
   width: 100%;
   border-top: 1px solid #c7c7c7;
   border-left: 1px solid #c7c7c7;
@@ -35,7 +35,8 @@
   color: #111827;
   padding: 16px 24px;
   display: flex;
-  align-items: center;
+  justify-content: flex-start; // Ensure left alignment but centered vertically
+  height: 100%; // Fill the 150px row
 }
 
 .dotIndicator {
@@ -55,9 +56,10 @@
 
 .cellCenterLeft {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: flex-start;
-  padding-left: 40px; // Indent for logo/info
+  padding-left: 40px;
+  padding-bottom: 24px;
 }
 
 .cellTopCenter {
@@ -69,16 +71,18 @@
 
 .alignTop {
   align-items: flex-start;
-  padding-top: 60px; // Push info text down to align with title top roughly
+  padding-top: 40px; // Push info text down to align with title top roughly
 }
 
 // --- Images ---
 .imageTopCenter {
   position: absolute;
-  top: 40px; // Offset from top grid line
-  left: 40px; // Offset from left grid line
-  width: 200px;
-  height: 200px;
+  bottom: 120px;
+  left: 0;
+  transform: translateX(-50px);
+  z-index: 10;
+  width: 172px;
+  height: 172px;
   background: #d1d5db;
   
   img {
@@ -91,8 +95,8 @@
   top: 30px; // Near top of cell
   right: -40px; // Going off-grid slightly? stick to design: looks flush right or overflowing
   width: 100%;
-  max-width: 280px;
-  height: 180px;
+  max-width: 172px;
+  height: 172px;
   background: #d1d5db;
   
   img {
@@ -102,10 +106,10 @@
 
 .imageBottomLeft {
   position: absolute;
-  bottom: 0px; // Flush bottom?
+  bottom: 0;
   left: 40px;
-  width: 220px;
-  height: 220px;
+  width: 172px;
+  height: 172px;
   background: #d1d5db;
   z-index: 1;
 
@@ -117,7 +121,7 @@
 .imageBottomRight {
   position: absolute;
   bottom: 0;
-  left: 0;
+  left: -140px;
   width: 172px; // Fill width of C col
   height: 172px;
   
@@ -135,7 +139,7 @@
   font-family: "MJ Satoshi", sans-serif;
   color: #6b7280;
   font-size: 18px;
-  font-weight: 500;
+  font-weight: 700;
   width: 100%;
   padding-right: 40px;
   justify-content: space-between;
@@ -143,6 +147,12 @@
   .hash {
     font-size: 20px;
   }
+}
+
+.cellCenterLeft {
+  // Shared by Logo cell and now Button cell
+  // Ensure relative positioning so absolute children (title) work
+  position: relative;
 }
 
 .courseTitle {
@@ -153,6 +163,14 @@
   line-height: 1;
   margin: 0;
   letter-spacing: -2px;
+  
+  // Position on the border of Row 2 & Row 3 (Top of current cell)
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateY(-50%);
+  width: 100%;
+  z-index: 20;
 
   .bracketArrow {
     font-family: monospace; // Or similar matching font
@@ -162,11 +180,14 @@
 }
 
 .ctaButton {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
   background: #ef4444;
   color: white;
   border: none;
-  border-radius: 4px;
-  padding: 16px 32px;
+  padding: 12px 24px;
   font-family: "MJ Satoshi", sans-serif;
   font-size: 16px;
   font-weight: 500;
@@ -184,7 +205,19 @@
   gap: 24px;
 }
 
+.dateBlockOverlay {
+  position: absolute;
+  bottom: 24px;
+  left: -50px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  z-index: 5;
+  color: #111827;
+}
+
 .dateBlock {
+  // Keeping this if needed elsewhere or removing if unused
   display: flex;
   gap: 12px;
   align-items: flex-start;
@@ -193,6 +226,7 @@
 .icon {
   font-size: 18px;
   padding-top: 2px;
+  color: black
 }
 
 .dateText {
@@ -203,7 +237,6 @@
 .label {
   font-family: "MJ Satoshi", sans-serif;
   font-size: 14px;
-  color: #374151;
   margin-bottom: 2px;
 }
 
@@ -219,7 +252,6 @@
   font-size: 16px;
   font-weight: 600;
   color: #111827;
-  padding-left: 30px; // Align with text above
 }
 
 // --- Responsive ---

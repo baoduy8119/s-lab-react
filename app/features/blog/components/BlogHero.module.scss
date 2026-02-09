@@ -3,13 +3,24 @@
   background: #F3F4F6;
 }
 
+.headerRow {
+  position: relative;
+  margin-bottom: 80px;
+}
+
+.logoAbs {
+  position: absolute;
+  top: -40px;
+  right: 0;
+}
+
 .mainTitle {
   font-family: "MJ Satoshi", sans-serif;
   font-size: 80px;
   font-weight: 700;
   color: #111827;
   letter-spacing: -2px;
-  margin-bottom: 80px;
+  margin-bottom: 0;
   line-height: 1;
 }
 
@@ -58,6 +69,7 @@
 }
 
 .categoryDropdown {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -66,9 +78,45 @@
   font-weight: 600;
   color: #111827;
   cursor: pointer;
+  user-select: none;
   
   .chevron {
     color: #111827;
+    transition: transform 0.2s;
+    
+    &.rotate {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 20px;
+  background: #ffffff;
+  // box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  min-width: 200px;
+  z-index: 50;
+  padding: 8px;
+}
+
+.dropdownItem {
+  padding: 8px 16px;
+  color: #374151;
+  font-size: 16px;
+  font-weight: 400;
+  transition: background-color 0.2s;
+  
+  &:hover {
+    background-color: #F3F4F6;
+  }
+  
+  &.selected {
+    font-weight: 700;
+    color: #111827;
+    background-color: #F3F4F6;
   }
 }
 
@@ -76,7 +124,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  width: 300px;
+  width: 500px;
 }
 
 .searchInput {
@@ -84,12 +132,12 @@
   background: transparent;
   border: none;
   font-family: "MJ Satoshi", sans-serif;
-  font-size: 16px;
+  font-size: 20px;
   color: #111827;
   outline: none;
   
   &::placeholder {
-    color: #9CA3AF;
+    color: #6B7280;
   }
 }
 

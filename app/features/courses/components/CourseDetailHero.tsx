@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import styles from "./CourseDetailHero.module.scss";
+import CalendarIcon from "@/app/components/icons/CalendarIcon";
 
 interface CourseDetailHeroProps {
   courseId: string;
@@ -14,21 +15,29 @@ const CourseDetailHero = React.memo(function CourseDetailHero({ courseId }: Cour
       <div className={styles.gridContainer}>
         {/* --- Header Row --- */}
         <div className={styles.headerCell}>A</div>
-        <div className={styles.headerCell}>B</div>
-        <div className={styles.headerCell}>(→.)</div>
+        <div className={styles.headerCell} style={{ justifyContent: 'space-between' }}>
+          B
+          <span>(→.)</span>
+        </div>
         <div className={styles.headerCell}>
           C
           <div className={styles.dotIndicator} />
         </div>
 
         {/* --- Top Row Items --- */}
-        <div className={styles.gridCell} /> {/* A-2 Empty */}
+        {/* A-2: Logo */}
+        <div className={`${styles.gridCell} ${styles.cellCenterLeft}`}>
+          <div className={styles.logoGroup}>
+            <span>The S-Labs</span>
+            <span className={styles.hash}>#</span>
+          </div>
+        </div>
 
         {/* B-2: Woman Image */}
         <div className={styles.gridCell}>
           <div className={styles.imageTopCenter}>
             <Image
-              src="/images/courses/marketing-essentials.png"
+              src="/images/courses/mar-7.jpg"
               alt="Marketing professional"
               fill
               style={{ objectFit: "cover" }}
@@ -39,13 +48,11 @@ const CourseDetailHero = React.memo(function CourseDetailHero({ courseId }: Cour
           </div>
         </div>
 
-        <div className={styles.gridCell} /> {/* Arrow-2 Empty */}
-
-        {/* C-2: Laptop Image */}
+        {/* C-2: Laptop Image & Date Block */}
         <div className={styles.gridCell}>
           <div className={styles.imageTopRight}>
             <Image
-              src="/images/courses/mar-3.png"
+              src="/images/courses/mar-5.jpg"
               alt="Marketing materials"
               fill
               style={{ objectFit: "cover" }}
@@ -54,47 +61,22 @@ const CourseDetailHero = React.memo(function CourseDetailHero({ courseId }: Cour
               }}
             />
           </div>
+
+          <div className={styles.dateBlockOverlay}>
+            <span className={styles.icon}><CalendarIcon /></span>
+            <div className={styles.dateText}>
+              <span className={styles.label}>Next available:</span>
+              <span className={styles.value}>Jan 14, 2026</span>
+            </div>
+          </div>
         </div>
 
         {/* --- Middle Row Items --- */}
-        {/* A-3: Logo */}
-        <div className={`${styles.gridCell} ${styles.cellCenterLeft}`}>
-          <div className={styles.logoGroup}>
-            <span>The S-Labs</span>
-            <span className={styles.hash}>#</span>
-          </div>
-        </div>
-
-        {/* B-3: Title */}
-        <div className={`${styles.gridCell} ${styles.cellCenter}`}>
-          <h1 className={styles.courseTitle}>
-            /Marketing<br />
-            <span className={styles.bracketArrow}>[→]</span> Essentials
-          </h1>
-        </div>
-
-        <div className={styles.gridCell} /> {/* Arrow-3 Empty */}
-
-        {/* C-3: Info Text */}
-        <div className={`${styles.gridCell} ${styles.cellCenterLeft} ${styles.alignTop}`}>
-          <div className={styles.infoGroup}>
-            <div className={styles.dateBlock}>
-              <span className={styles.icon}>📅</span>
-              <div className={styles.dateText}>
-                <span className={styles.label}>Next available:</span>
-                <span className={styles.value}>Jan 14, 2026</span>
-              </div>
-            </div>
-            <div className={styles.duration}>2 hours/class</div>
-          </div>
-        </div>
-
-        {/* --- Bottom Row Items --- */}
-        {/* A-4: Couch Image */}
-        <div className={`${styles.gridCell} ${styles.noBorderBottom}`}>
+        {/* A-3: Couch Image */}
+        <div className={styles.gridCell}>
           <div className={styles.imageBottomLeft}>
             <Image
-              src="/images/courses/mar-1.png"
+              src="/images/courses/mar-6.jpg"
               alt="Team collaboration"
               fill
               style={{ objectFit: "cover" }}
@@ -105,14 +87,31 @@ const CourseDetailHero = React.memo(function CourseDetailHero({ courseId }: Cour
           </div>
         </div>
 
-        {/* B-4: Button */}
-        <div className={`${styles.gridCell} ${styles.noBorderBottom} ${styles.cellTopCenter}`}>
+        {/* B-3: Title */}
+        {/* B-3: Title (Overlapping) & Button */}
+        <div className={`${styles.gridCell} ${styles.cellCenterLeft}`}>
+          <h1 className={styles.courseTitle}>
+            /Marketing<br />
+            <span className={styles.bracketArrow}>[→]</span> Essentials
+          </h1>
           <button className={styles.ctaButton}>
             Sign up now
           </button>
         </div>
 
-        <div className={`${styles.gridCell} ${styles.noBorderBottom}`} /> {/* Arrow-4 Empty */}
+        {/* C-3: Info Text (Duration only) */}
+        <div className={`${styles.gridCell} ${styles.cellCenterLeft} ${styles.alignTop}`}>
+          <div className={styles.infoGroup}>
+            <div className={styles.duration}>2 hours/class</div>
+          </div>
+        </div>
+
+        {/* --- Bottom Row Items --- */}
+        {/* A-4: Empty */}
+        <div className={`${styles.gridCell} ${styles.noBorderBottom}`} />
+
+        {/* B-4: Empty */}
+        <div className={`${styles.gridCell} ${styles.noBorderBottom}`} />
 
         {/* C-4: Working Image */}
         <div className={`${styles.gridCell} ${styles.noBorderBottom}`}>

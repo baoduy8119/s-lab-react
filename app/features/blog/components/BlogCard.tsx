@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import PolygonImage from "@/app/components/PolygonImage";
+
 import styles from "./BlogCard.module.scss";
 import Link from "next/link";
 
@@ -30,12 +30,11 @@ const BlogCard = React.memo(function BlogCard({
   return (
     <Link href={`/blog/${slug}`} className={styles.card}>
       <div className={styles.imageContainer}>
-        <PolygonImage
+        <Image
           src={image}
           alt={title}
           width={655}
           height={484}
-          topLeftCut={40}
           className={styles.postImage}
         />
         <div className={styles.dateOverlay}>

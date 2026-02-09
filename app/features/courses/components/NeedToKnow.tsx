@@ -150,7 +150,7 @@ const NeedToKnow = React.memo(function NeedToKnow() {
                       src={currentTab.image}
                       alt="Course Content Preview"
                       fill
-                      style={{ objectFit: "contain", objectPosition: "center" }}
+                      style={{ objectFit: "contain", objectPosition: "right" }}
                     />
                   )}
                 </div>
