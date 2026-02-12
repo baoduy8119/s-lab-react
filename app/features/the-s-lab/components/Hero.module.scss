@@ -1,4 +1,9 @@
 // Hero Section Styles
+@keyframes bgSlide {
+  from { background-size: 0% 100%; }
+  to { background-size: 100% 100%; }
+}
+
 .hero {
   position: relative;
   width: 100%;
@@ -121,16 +126,17 @@
 }
 
 // Highlight wrapper with pill positioning
+// Highlight wrapper with pill positioning
 .highlightWrapper {
   display: inline-block;
   position: relative;
 
-  &.yellow .highlight {
-    background-color: #fde68a;
+  &.yellow {
+    --highlight-bg: #fde68a;
   }
 
-  &.pink .highlight {
-    background-color: #fee2e2;
+  &.pink {
+    --highlight-bg: #fee2e2;
   }
 
   &.red .highlight {
@@ -160,6 +166,13 @@
   padding: 6px 10px;
   position: relative;
   white-space: nowrap;
+  
+  background-image: linear-gradient(var(--highlight-bg), var(--highlight-bg));
+  background-size: 0% 100%;
+  background-repeat: no-repeat;
+  background-position: left center;
+  animation: bgSlide 1s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+  animation-delay: 0.4s;
 }
 
 .highlight span.cornerBottom {
