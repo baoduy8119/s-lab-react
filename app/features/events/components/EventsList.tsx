@@ -47,7 +47,9 @@ const EventsList = () => {
       <Container>
         <div className="flex flex-col border-t border-gray-200">
           {events.map((evt, idx) => (
-            <EventCard key={idx} {...evt} />
+            <div key={idx} data-aos="fade-up" data-aos-delay={idx * 100}>
+              <EventCard {...evt} />
+            </div>
           ))}
         </div>
       </Container>

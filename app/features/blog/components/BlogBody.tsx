@@ -12,13 +12,13 @@ const BlogBody = React.memo(function BlogBody() {
           <div className={styles.leftColumn} /> {/* Spacer to align with date column */}
 
           <div className={styles.contentColumn}>
-            <p className={styles.intro}>
+            <p className={styles.intro} data-aos="fade-up">
               No jargon. Just practical thoughts from our
               team. Written for designers, marketers, devs—
               and anyone building things online.
             </p>
 
-            <div className={styles.richText}>
+            <div className={styles.richText} data-aos="fade-up" data-aos-delay="100">
               <p>
                 In today’s digital-first economy, organizations of all sizes are investing
                 heavily in technology to improve operations, connect with customers, and

@@ -10,7 +10,7 @@ const EventRegistration = () => {
   if (!isVisible) return null;
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} data-aos="fade-up">
       <button className={styles.closeParams} onClick={() => setIsVisible(false)}>
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M18 6L6 18" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -18,9 +18,9 @@ const EventRegistration = () => {
         </svg>
       </button>
 
-      <h3 className={styles.title}>FILL FOR REGISTRATION</h3>
+      <h3 className={styles.title} data-aos="fade-up" data-aos-delay="100">FILL FOR REGISTRATION</h3>
 
-      <form className={styles.form}>
+      <form className={styles.form} data-aos="fade-up" data-aos-delay="200">
         <div className={styles.inputGroup}>
           <input type="text" className={styles.input} placeholder="Your career *" />
         </div>

@@ -9,7 +9,7 @@ const EventsHeader = () => {
     <section className={styles.header}>
       <div className={styles.gradientBg} />
       <Container>
-        <div className={styles.content}>
+        <div className={styles.content} >
           <div className={styles.titleWrapper}>
             <Image
               src="/images/events/header-text-1.svg"

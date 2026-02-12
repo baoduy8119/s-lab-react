@@ -9,7 +9,7 @@ const EventDetailContent = () => {
     <section className={styles.section}>
       {/* Top Info - Centered */}
       <Container>
-        <div className={styles.topInfo}>
+        <div className={styles.topInfo} data-aos="fade-down">
           <div className={styles.infoItem}>
             <h4>8am</h4>
             <p>11/11/2023</p>
@@ -22,7 +22,7 @@ const EventDetailContent = () => {
         </div>
 
         <div className={styles.mainGrid}>
-          <div className={styles.leftCol}>
+          <div className={styles.leftCol} data-aos="fade-right">
             {/* Small Brand Logo */}
             <div className="mb-12">
               <SLabLogoBlack />
@@ -30,16 +30,16 @@ const EventDetailContent = () => {
           </div>
 
           <div className={styles.contentCol}>
-            <h2 className={styles.heading}>
+            <h2 className={styles.heading} data-aos="fade-left">
               We created a dynamic, content-rich website that elevates the brand’s story and connects with its audience on every level.
             </h2>
-            <p className={styles.introText}>
+            <p className={styles.introText} data-aos="fade-up">
               Prepare for an electrifying experience as we unveil The S-LAB Competition. This event promises to ignite your creativity, challenge your problem-solving skills, and set the stage for innovation like never before.
             </p>
           </div>
         </div>
         <div className={styles.bottomSection}>
-          <div className={styles.imageBlock}>
+          <div className={styles.imageBlock} data-aos="fade-up">
             <Image
               src="/images/events/event-2.png"
               alt="Event Main"
@@ -47,7 +47,7 @@ const EventDetailContent = () => {
             />
           </div>
 
-          <div className={styles.descriptionContainer}>
+          <div className={styles.descriptionContainer} data-aos="fade-up">
             <div className={styles.description}>
               <p>
                 Our primary objective was to design a visually captivating website that reflected brand values: creativity, energy, and authenticity. The site needed to feel premium, responsive across all devices, and optimized for content-heavy storytelling — from editorial pieces to product highlights.
@@ -59,7 +59,7 @@ const EventDetailContent = () => {
             </div>
           </div>
 
-          <div className={styles.imageRow}>
+          <div className={styles.imageRow} data-aos="fade-up">
             <div className={styles.halfImage}>
               <Image
                 src="/images/events/event-3.png"
@@ -76,7 +76,7 @@ const EventDetailContent = () => {
             </div>
           </div>
 
-          <div className={styles.descriptionContainer}>
+          <div className={styles.descriptionContainer} data-aos="fade-up">
             <div className={styles.description}>
               <p>
                 Our primary objective was to design a visually captivating website that reflected brand values: creativity, energy, and authenticity. The site needed to feel premium, responsive across all devices, and optimized for content-heavy storytelling — from editorial pieces to product highlights.

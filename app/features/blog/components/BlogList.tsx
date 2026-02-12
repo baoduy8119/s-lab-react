@@ -57,18 +57,23 @@ const BlogList = React.memo(function BlogList() {
     <section className={styles.section}>
       <Container>
         <div className={styles.list}>
-          {posts.map((post) => (
-            <BlogCard
+          {posts.map((post, index) => (
+            <div
               key={post.id}
-              title={post.title}
-              excerpt={post.excerpt}
-              date={post.date}
-              image={post.image}
-              authorName={post.authorName}
-              authorRole={post.authorRole}
-              authorImage={post.authorImage}
-              slug={post.slug}
-            />
+              data-aos="fade-up"
+              data-aos-delay={index * 100}
+            >
+              <BlogCard
+                title={post.title}
+                excerpt={post.excerpt}
+                date={post.date}
+                image={post.image}
+                authorName={post.authorName}
+                authorRole={post.authorRole}
+                authorImage={post.authorImage}
+                slug={post.slug}
+              />
+            </div>
           ))}
         </div>
       </Container>
