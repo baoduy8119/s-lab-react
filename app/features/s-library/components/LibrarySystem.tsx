@@ -64,11 +64,11 @@ const LibrarySystem = React.memo(function LibrarySystem() {
 
   return (
     <section className={styles.section}>
-      <h2 className={styles.title}>/The S-Lab library system.</h2>
+      <h2 className={styles.title} data-aos="fade-up">/The S-Lab library system.</h2>
 
       {/* Library Cards Display */}
       <div className={styles.cardsContainer}>
-        {libraryCards.map((card) => (
+        {libraryCards.map((card, index) => (
           <div
             key={card.id}
             className={`${styles.card} ${card.positionClass}`}
@@ -92,7 +92,7 @@ const LibrarySystem = React.memo(function LibrarySystem() {
       </div>
 
       {/* View All Button */}
-      <div className={styles.viewAllContainer}>
+      <div className={styles.viewAllContainer} data-aos="fade-up" data-aos-delay="600">
         <button className={styles.viewAllButton}>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
             <path
@@ -108,8 +108,13 @@ const LibrarySystem = React.memo(function LibrarySystem() {
 
       {/* Category Tags */}
       <div className={styles.categories}>
-        {categories.map((category) => (
-          <div key={category.id} className={styles.categoryTag}>
+        {categories.map((category, index) => (
+          <div
+            key={category.id}
+            className={styles.categoryTag}
+            data-aos="fade-up"
+            data-aos-delay={index * 100}
+          >
             <div className={styles.categoryImage}>
               <Image src={category.image} alt={category.name} fill style={{ objectFit: "cover" }} />
             </div>

@@ -85,10 +85,10 @@ const Section2 = React.memo(function Section2() {
           {/* Content */}
           <div className="relative z-20 flex flex-col gap-6 lg:gap-[84px] lg:h-full lg:justify-between">
             <div className="flex flex-col gap-[24px] lg:gap-[24px]">
-              <h3 className="text-white text-[20px] lg:text-2xl font-bold leading-[26px] lg:leading-[30px] w-full lg:w-[378px]">
+              <h3 className="text-white text-[20px] lg:text-2xl font-bold leading-[26px] lg:leading-[30px] w-full">
                 Flexible learning, with a consistent rhythm
               </h3>
-              <p className="text-white text-sm lg:text-base font-medium leading-[20px] lg:leading-[22px] w-full lg:w-[332px]">
+              <p className="text-white text-sm lg:text-base font-medium leading-[20px] lg:leading-[22px] w-full lg:w-[400px]">
                 Self-paced materials combined with scheduled guidance and reviews, so you stay on
                 track without feeling overwhelmed.
               </p>

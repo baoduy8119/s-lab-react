@@ -57,10 +57,10 @@ const KeyActivities = React.memo(function KeyActivities() {
 
         <div className={styles.content}>
           <div className={styles.header}>
-            <h2 className={styles.title}>Our Key Activities</h2>
+            <h2 className={styles.title} data-aos="fade-up">Our Key Activities</h2>
           </div>
           <div className={styles.buttonWrapper}>
-            <button className={styles.playButton}>Join us now</button>
+            <button className={styles.playButton} data-aos="fade-up" data-aos-delay="200">Join us now</button>
           </div>
         </div>
       </div>
@@ -71,6 +71,8 @@ const KeyActivities = React.memo(function KeyActivities() {
           <div
             key={index}
             className={`${styles.card}`}
+            data-aos="fade-up"
+            data-aos-delay={index * 100}
           >
             <h3 className={styles.cardTitle}>{activity.title}</h3>
             <p className={styles.cardDescription}>{activity.description}</p>

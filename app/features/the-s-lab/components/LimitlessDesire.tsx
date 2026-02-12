@@ -55,8 +55,8 @@ const LimitlessDesire = React.memo(function LimitlessDesire() {
   return (
     <section className={styles.section}>
       <Container>
-        <h2 className={styles.title}>/We work for the Limitless Desire. </h2>
-        <div className={styles.accordion}>
+        <h2 className={styles.title} data-aos="fade-up">/We work for the Limitless Desire. </h2>
+        <div className={styles.accordion} data-aos="fade-up" data-aos-delay="200">
           {accordionData.map((item) => {
             const isOpen = openItem === item.id;
 

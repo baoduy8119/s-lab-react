@@ -130,3 +130,58 @@
 .categories {
   display: none; /* Hiding the old categories grid as per design showing only cards */
 }
+@media (max-width: 768px) {
+  .section {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+
+  .title {
+    font-size: 40px;
+    line-height: 48px;
+    margin-bottom: 40px;
+    padding: 0 16px;
+  }
+
+  .cardsContainer {
+    height: auto;
+    perspective: none;
+    transform-style: flat;
+    display: flex;
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding: 20px 16px;
+    gap: 16px;
+    scroll-snap-type: x mandatory;
+    margin-bottom: 40px;
+    -webkit-overflow-scrolling: touch; /* smooth scroll iOS */
+  }
+
+  .card,
+  .card1,
+  .card2,
+  .card3,
+  .card4,
+  .card5 {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    transform: none !important; /* Force override of specific transforms */
+    margin: 0;
+    z-index: 1;
+    width: 260px;
+    height: 360px;
+    flex-shrink: 0;
+    scroll-snap-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  }
+
+  .cardLabel {
+    font-size: 20px;
+    line-height: 28px;
+    bottom: 20px;
+    left: 20px;
+  }
+}

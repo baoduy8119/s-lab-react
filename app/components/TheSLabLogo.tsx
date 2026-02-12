@@ -1,16 +1,16 @@
 import React from "react";
 
-interface SLabLogoBlackProps {
+interface TheSLabLogoBlackProps {
   width?: number;
   height?: number;
   className?: string;
 }
 
-const SLabLogoBlack = React.memo(function SLabLogoBlack({
+const TheSLabLogoBlack = React.memo(function TheSLabLogoBlack({
   width = 107,
   height = 13,
   className,
-}: SLabLogoBlackProps) {
+}: TheSLabLogoBlackProps) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 107 13" fill="none" className={className}>
       <path d="M0 0.21582H12.847V1.59602H0V0.21582ZM5.60529 0.963664H7.24176V12.6883H5.60529V0.963664Z" fill="currentColor" />
@@ -24,6 +24,6 @@ const SLabLogoBlack = React.memo(function SLabLogoBlack({
     </svg>
   );
 });
-SLabLogoBlack.displayName = "SLabLogoBlack";
+TheSLabLogoBlack.displayName = "TheSLabLogoBlack";
 
-export default SLabLogoBlack;
+export default TheSLabLogoBlack;

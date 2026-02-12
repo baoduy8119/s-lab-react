@@ -224,3 +224,100 @@
   color: #111827;
   z-index: 2;
 }
+@media (max-width: 768px) {
+  .section {
+    height: auto;
+    padding-bottom: 60px;
+  }
+
+  .gridBackground {
+    background-size: 100% 100%; /* Simplify grid or hide */
+  }
+
+  .title {
+    font-size: 48px;
+    line-height: 52px;
+    word-break: break-word;
+  }
+
+  .subtitle {
+    font-size: 32px;
+    line-height: 38px;
+  }
+
+  .descriptions {
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 24px;
+    margin-bottom: 40px;
+    padding-right: 0;
+  }
+
+  .description,
+  .descriptionSecondary {
+    max-width: 100%;
+    margin-bottom: 16px;
+    text-align: left; /* Align left on mobile */
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .courseCards {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .cardLarge {
+    width: 100%;
+    height: 300px;
+    order: 1;
+  }
+
+  .cardMedium {
+    width: calc(50% - 8px);
+    height: 200px;
+    order: 2;
+  }
+
+  .cardSmall {
+    width: calc(50% - 8px);
+    height: 200px;
+    order: 3;
+  }
+
+  .topMarkers {
+    padding: 0 16px;
+    top: 16px;
+    font-size: 14px;
+  }
+
+  .markerA {
+    left: 16px;
+  }
+  .markerB {
+    left: auto;
+    right: 16px;
+  }
+  .markerGroupC {
+    display: none;
+  }
+  .markerDot {
+    display: none;
+  }
+
+  .content {
+    padding: 80px 16px 40px;
+  }
+
+  .cardLabelTopRight {
+    font-size: 24px;
+    top: 16px;
+    right: 16px;
+  }
+  .cardLabelBottomLeft {
+    font-size: 16px;
+    bottom: 16px;
+    left: 16px;
+    line-height: 20px;
+  }
+}

@@ -13,12 +13,18 @@ interface ContentItem {
   imageSrc: string;
 }
 
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+
 interface TabData {
   label: string;
-  layout: "list" | "split";
+  layout: "list" | "split" | "faq";
   items?: ContentItem[]; // For "list" layout
   bullets?: string[];    // For "split" layout
   image?: string;        // For "split" layout
+  faqItems?: FaqItem[];  // For "faq" layout
 }
 
 const tabsData: Record<TabType, TabData> = {
@@ -29,7 +35,7 @@ const tabsData: Record<TabType, TabData> = {
       {
         title: "Students & Career Switchers",
         description: "You need a clear foundation and a structured roadmap—so you stop learning random tips and understand how marketing actually works.",
-        imageSrc: "/images/courses/mar-1.png"
+        imageSrc: "/images/courses/be-strong.jpg"
       },
       {
         title: "Early-career Marketers\n(Freshers/Juniors)",
@@ -39,7 +45,7 @@ const tabsData: Record<TabType, TabData> = {
       {
         title: "Founders & Non-Marketing\nProfessionals",
         description: "You need marketing clarity to make better decisions, manage teams/agencies, and evaluate performance without guesswork.",
-        imageSrc: "/images/courses/mar-2.png"
+        imageSrc: "/images/courses/mar-8.jpg"
       }
     ]
   },
@@ -56,38 +62,40 @@ const tabsData: Record<TabType, TabData> = {
   },
   faqs: {
     label: "FAQs",
-    layout: "list",
-    items: [] // Placeholder
+    layout: "faq",
+    image: "/images/slib/faq-image.png",
+    faqItems: [
+      {
+        question: "Do I get templates and learning materials?",
+        answer: "Yes. You’ll receive a set of practical templates and checklists (e.g., audience/ICP, messaging, channel plan, KPI tracker) to apply immediately."
+      },
+      {
+        question: "How difficult is the course?",
+        answer: "The course is designed to be accessible for beginners but deep enough for early-career professionals. We break down complex concepts into actionable steps."
+      },
+      {
+        question: "How should I study to get the best results?",
+        answer: "We recommend setting aside dedicated time each week, completing the practical exercises, and joining the community discussions."
+      }
+    ]
   }
 };
 
 const NeedToKnow = React.memo(function NeedToKnow() {
   const [activeTab, setActiveTab] = useState<TabType>("who_its_for");
+  const [openFaqIndex, setOpenFaqIndex] = useState<number>(0);
   const currentTab = tabsData[activeTab];
+
+  const toggleFAQ = (index: number) => {
+    setOpenFaqIndex(openFaqIndex === index ? -1 : index);
+  };
 
   return (
     <section className={styles.section}>
       <Container>
-        {/* Header Section */}
-        <h2 className={styles.mainHeading}>
-          /Your need-to-know<br />
-          about this course
-        </h2>
-
-        {/* Overview Section */}
-        <div className={styles.overviewGrid}>
-          <div className={styles.overviewLabel}>/Overview information</div>
-          <div className={styles.overviewText}>
-            <p>
-              Today, marketing content is everywhere—but most learners are still piecing things together from scattered tips, random tools, and channel-by-channel tutorials. The result is common: you try a few tactics, feel busy, but struggle to explain why it works, what to do next, or how to measure progress.
-            </p>
-            <p>
-              Marketing Essentials is necessary because it builds the foundation many people skip. It helps you understand how marketing actually works as a system—audience, positioning, channels, and measurement—so you can make smarter decisions, execute with clarity, and improve consistently. Instead of chasing trends, you leave with a structured framework you can apply to any project, role, or industry.
-            </p>
-          </div>
-        </div>
-
-        {/* Tabs Section */}
+        {/* ... Header ... */}
+        {/* ... Overview ... */}
+        {/* ... Tabs ... */}
         <div className={styles.tabsWrapper}>
           <div className={styles.tabList}>
             {(Object.keys(tabsData) as TabType[]).map((tabKey) => (
@@ -101,9 +109,8 @@ const NeedToKnow = React.memo(function NeedToKnow() {
             ))}
           </div>
 
-          {/* Content Section */}
           <div className={styles.contentContainer}>
-            {/* List Layout (Who it's for) */}
+            {/* List Layout */}
             {currentTab.layout === "list" && currentTab.items && (
               <div className={styles.contentList}>
                 {currentTab.items.map((item, index) => (
@@ -133,7 +140,7 @@ const NeedToKnow = React.memo(function NeedToKnow() {
               </div>
             )}
 
-            {/* Split Layout (What you'll get) */}
+            {/* Split Layout */}
             {currentTab.layout === "split" && (
               <div className={styles.splitLayout}>
                 <div className={styles.bulletList}>
@@ -153,6 +160,54 @@ const NeedToKnow = React.memo(function NeedToKnow() {
                       style={{ objectFit: "contain", objectPosition: "right" }}
                     />
                   )}
+                </div>
+              </div>
+            )}
+
+            {/* FAQ Layout */}
+            {currentTab.layout === "faq" && currentTab.faqItems && (
+              <div className={styles.faqLayout}>
+                <div className={styles.faqLeftContent}>
+                  <h3 className={styles.faqTitle}>
+                    Friendly Asked<br />Questions.
+                  </h3>
+                  {currentTab.image && (
+                    <div className={styles.faqImageWrapper}>
+                      <Image
+                        src={currentTab.image}
+                        alt="FAQ Illustration"
+                        fill
+                        style={{ objectFit: 'contain' }}
+                      />
+                    </div>
+                  )}
+                </div>
+                <div className={styles.faqList}>
+                  {currentTab.faqItems.map((faq, index) => (
+                    <div key={index} className={styles.faqItem}>
+                      <div className={styles.faqQuestion} onClick={() => toggleFAQ(index)}>
+                        <h3 className={styles.questionText}>{faq.question}</h3>
+                        <button
+                          className={`${styles.toggleButton} ${openFaqIndex !== index ? styles.active : ""}`}
+                        >
+                          {openFaqIndex === index ? (
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                              <path d="M18 12H6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                            </svg>
+                          ) : (
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                              <path d="M12 6V18M18 12H6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                            </svg>
+                          )}
+                        </button>
+                      </div>
+                      <div className={`${styles.faqAnswer} ${openFaqIndex === index ? styles.open : ""}`}>
+                        <div className={styles.answerInner}>
+                          <p>{faq.answer}</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             )}

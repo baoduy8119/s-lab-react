@@ -1,5 +1,7 @@
 .partnerLogos {
   height: 162px;
+  width: 100%;
+  max-width: 100%;
   overflow: hidden;
   border-top: 1px solid #cbd5e1;
   background-color: transparent;
@@ -8,7 +10,8 @@
   position: relative;
   
   // Optional: Add gradient masks for fading edges
-  // mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
 
 .slideTrack {

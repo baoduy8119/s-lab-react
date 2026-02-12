@@ -20,7 +20,7 @@ const Hero = React.memo(function Hero() {
         </div>
 
         {/* Top Markers */}
-        <div className={styles.topMarkers}>
+        <div className={styles.topMarkers} data-aos="fade-down">
           <span className={styles.markerA}>A</span>
           <span className={styles.markerB}>B</span>
           <div className={styles.markerGroupC}>
@@ -32,11 +32,11 @@ const Hero = React.memo(function Hero() {
 
         {/* Main Content */}
         <div className={styles.content}>
-          <h1 className={styles.title}>/Shape Tomorrow Today</h1>
-          <h2 className={styles.subtitle}>Where Vision Meets Action</h2>
-          <h2 className={styles.subtitle}>in Business and Creativity</h2>
+          <h1 className={styles.title} data-aos="fade-up">/Shape Tomorrow Today</h1>
+          <h2 className={styles.subtitle} data-aos="fade-up" data-aos-delay="100">Where Vision Meets Action</h2>
+          <h2 className={styles.subtitle} data-aos="fade-up" data-aos-delay="150">in Business and Creativity</h2>
 
-          <div className={styles.descriptions}>
+          <div className={styles.descriptions} data-aos="fade-up" data-aos-delay="200">
             <p className={styles.description}>
               Our courses in business, marketing, and creativity are the launchpad for visionaries
               ready to challenge the status quo.
@@ -49,7 +49,7 @@ const Hero = React.memo(function Hero() {
 
           {/* Course Cards */}
           <div className={styles.courseCards}>
-            <div className={styles.cardLarge}>
+            <div className={styles.cardLarge} data-aos="fade-up" data-aos-delay="300">
               <Image
                 src="/images/slib/marketing-hero.png"
                 alt="Marketing"
@@ -59,7 +59,7 @@ const Hero = React.memo(function Hero() {
               <div className={styles.cardLabelTopRight}>Marketing</div>
             </div>
 
-            <div className={styles.cardMedium}>
+            <div className={styles.cardMedium} data-aos="fade-up" data-aos-delay="400">
               <Image
                 src="/images/slib/marketing-planning-hero.jpg"
                 alt="Marketing Planning"
@@ -69,7 +69,7 @@ const Hero = React.memo(function Hero() {
               <div className={styles.cardLabelBottomLeft}>Marketing Planning</div>
             </div>
 
-            <div className={styles.cardSmall}>
+            <div className={styles.cardSmall} data-aos="fade-up" data-aos-delay="500">
               <Image
                 src="/images/slib/person-hero.png"
                 alt="Expert"

@@ -5,6 +5,7 @@ import CTABannerCommon from "@/app/components/CTABanner";
 import ArrowRightIcon from "@/app/components/icons/ArrowRightIcon";
 import styles from "./CTABanner.module.scss";
 import PolygonSection from "@/app/components/PolygonSection";
+import Link from "next/link";
 
 const CTABanner = React.memo(function CTABanner() {
   return (
@@ -21,12 +22,12 @@ const CTABanner = React.memo(function CTABanner() {
         </div>
 
         <div className={styles.ctaGroup}>
-          <button className={styles.primaryButton}>Our courses</button>
+          <Link href="/courses" className={styles.primaryButton}>Our courses</Link>
 
-          <a href="#" className={styles.secondaryLink}>
+          <div className={styles.secondaryLink}>
             <ArrowRightIcon color="#FFFFFF" width={20} height={17} />
             <span>Meet the minds behind your success</span>
-          </a>
+          </div>
         </div>
       </CTABannerCommon>
     </PolygonSection>

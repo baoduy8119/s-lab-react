@@ -5,6 +5,8 @@ import Container from "@/app/components/Container";
 import BlogGridCard from "@/app/features/blog/components/BlogGridCard";
 import SectionHeader from "@/app/components/SectionHeader";
 import styles from "./MoreArticles.module.scss";
+import TheSLabLogo from "./TheSLabLogo";
+import Link from "next/link";
 
 const articles = [
   {
@@ -52,12 +54,12 @@ const MoreArticles = React.memo(function MoreArticles() {
           ))}
 
           <div className={styles.sidebar}>
-            <button className={styles.arrowBtn}>
+            <Link href="/blog" className={styles.arrowBtn}>
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M7 17L17 7M17 7H7M17 7V17" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
-            </button>
-            <div className={styles.sidebarLabel}>THE S-LAB</div>
+            </Link>
+            <div className={styles.sidebarLabel}><TheSLabLogo width={155} height={18} /></div>
           </div>
         </div>
       </Container>

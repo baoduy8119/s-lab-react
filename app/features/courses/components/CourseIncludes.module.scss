@@ -37,25 +37,33 @@
 .contentWrapper {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: stretch; // Stretch so columns have equal height
   gap: 80px;
 }
 
 // --- Left Column ---
 .leftColumn {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; // Center price block vertically
+  position: relative; // Allow absolute positioning of badge
 }
 
 .badge {
+  position: absolute;
+  top: 0;
+  left: 0;
   display: inline-block;
+  vertical-align: middle;
   background: #ffffff;
-  color: #374151;
+  color: #9CA3AF; // Dark black for contrast
   font-family: "MJ Satoshi", sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  padding: 8px 16px;
+  font-size: 20px;
+  padding: 3px 16px; // Pill shape padding
   border-radius: 100px;
-  margin-bottom: 40px;
+  letter-spacing: 0.5px; // Slight spacing for caps
+  margin-top: -40px;
 }
 
 .priceBlock {
@@ -72,14 +80,15 @@
 
 .priceLabel {
   font-family: "MJ Satoshi", sans-serif;
-  font-size: 20px;
-  color: #D1D5DB; // Light gray
+  font-size: 20px; // Match image size approx
+  color: #9CA3AF;
+  font-weight: 500;
 }
 
 .originalPrice {
   font-family: "MJ Satoshi", sans-serif;
   font-size: 20px;
-  color: #9CA3AF; // Gray
+  color: #9CA3AF;
   text-decoration: line-through;
   font-weight: 700;
 }
@@ -133,16 +142,17 @@
 }
 
 .iconWrapper {
-  margin-top: 4px; // Align with first line of type
+  margin-top: 7px; // Align with first line of type
   flex-shrink: 0;
 }
 
 .benefitText {
   font-family: "MJ Satoshi", sans-serif;
-  font-size: 18px;
+  font-size: 24px;
   line-height: 1.5;
   color: #E5E7EB;
   margin: 0;
+  font-weight: 700;
   
   strong {
     color: #ffffff;

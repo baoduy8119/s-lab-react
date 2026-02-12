@@ -1,11 +1,17 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
+import StickyBox from "react-sticky-box";
 import QuoteIcon from "@/app/components/icons/QuoteIcon";
 import styles from "./AdvisorsCredentials.module.scss";
+import { useMediaQuery } from "@/app/hooks/useMediaQuery";
 import Container from "@/app/components/Container";
 
 const AdvisorsCredentials = React.memo(function AdvisorsCredentials() {
+  const isMobile = useMediaQuery("(max-width: 1024px)");
+  const [activeIndex, setActiveIndex] = useState(0);
+  const observerRefs = useRef<(HTMLDivElement | null)[]>([]);
+
   const credentials = [
     {
       number: "/001/",
@@ -39,35 +45,78 @@ const AdvisorsCredentials = React.memo(function AdvisorsCredentials() {
     },
   ];
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = Number(entry.target.getAttribute("data-index"));
+            setActiveIndex(index);
+          }
+        });
+      },
+      {
+        threshold: 0.2, // Trigger when even a small part enters the "active zone"
+        rootMargin: "-120px 0px -70% 0px", // Active zone is near the top (Sticky header area)
+      }
+    );
+
+    observerRefs.current.forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   return (
     <section className={styles.section}>
       <Container>
         <div className={styles.container}>
-          <div className={styles.leftContent}>
-            <h2 className={styles.title}>/Advisors' Credentials</h2>
+          {isMobile ? (
+            <div className={styles.leftContent}>
+              <h2 className={styles.title}>/Advisors' Credentials</h2>
 
-            <div className={styles.quoteIcon}>
-              <QuoteIcon />
+              <div className={styles.quoteIcon}>
+                <QuoteIcon />
+              </div>
+
+              <p className={styles.subtitle}>
+                Each phase is handled by specialists who work together seamlessly, ensuring nothing
+                falls through the cracks.
+              </p>
             </div>
+          ) : (
+            <StickyBox className={styles.leftContent} offsetTop={120} offsetBottom={20}>
+              <h2 className={styles.title}>/Advisors' Credentials</h2>
 
-            <p className={styles.subtitle}>
-              Each phase is handled by specialists who work together seamlessly, ensuring nothing
-              falls through the cracks.
-            </p>
-          </div>
+              <div className={styles.quoteIcon}>
+                <QuoteIcon />
+              </div>
+
+              <p className={styles.subtitle}>
+                Each phase is handled by specialists who work together seamlessly, ensuring nothing
+                falls through the cracks.
+              </p>
+            </StickyBox>
+          )}
 
           <div className={styles.timeline}>
             {credentials.map((item, index) => (
-              <div key={index} className={styles.timelineItem}>
+              <div
+                key={index}
+                className={styles.timelineItem}
+                ref={(el) => { observerRefs.current[index] = el; }}
+                data-index={index}
+              >
                 <div className={styles.timelineMarker}>
                   <div
-                    className={`${styles.circle} ${index === 0 ? styles.circleActive : ""}`}
+                    className={`${styles.circle} ${index <= activeIndex ? styles.circleActive : ""}`}
                   />
-                  {index < credentials.length - 1 && (
-                    <div
-                      className={`${styles.line} ${index === 0 ? styles.lineActive : ""}`}
-                    />
-                  )}
+                  <div
+                    className={`${styles.line} ${index === credentials.length - 1 && styles.lastLine} ${index < activeIndex ? styles.lineActive : ""}`}
+                  />
                 </div>
                 <div className={styles.timelineContent}>
                   <div className={styles.itemNumber}>{item.number}</div>

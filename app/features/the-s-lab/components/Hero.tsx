@@ -113,12 +113,15 @@ const Hero = React.memo(function Hero() {
     <section className={styles.hero}>
       <div className={styles.innerContent}>
         {/* Background Images - decorative, kept absolute for layering */}
+        {/* Background Images - decorative, kept absolute for layering */}
         <Image
           src="/images/slab/bg-image-top-7c576e.png"
           alt="3D Asset"
           width={408}
           height={330}
           className={styles.bgImageTop}
+          data-aos="fade-down"
+          data-aos-duration="1500"
         />
         <Image
           src="/images/slab/bg-image-left-4bf67d.png"
@@ -126,20 +129,22 @@ const Hero = React.memo(function Hero() {
           width={173}
           height={452}
           className={styles.bgImageLeft}
+          data-aos="fade-right"
+          data-aos-duration="1500"
         />
 
         {/* Main Content Container */}
         <div className={styles.contentWrapper}>
           {/* Header Section */}
           <div className={styles.headerSection}>
-            <h1 className={styles.title}>/About THE S-LAB.</h1>
-            <div className={styles.logoGroup}>
+            <h1 className={styles.title} data-aos="fade-up">/About THE S-LAB.</h1>
+            <div className={styles.logoGroup} data-aos="fade-up" data-aos-delay="100">
               <SLabLogoBlack width={90} height={33} />
             </div>
           </div>
 
           {/* Description Text with Inline Highlights */}
-          <div className={styles.description}>
+          <div className={styles.description} data-aos="fade-up" data-aos-delay="200">
             <p>
               Where{" "}
               <Highlight color="yellow" rotation={1} pillPosition="top-left" pillSize="tall">
@@ -179,7 +184,7 @@ const Hero = React.memo(function Hero() {
 
         {/* Footer Section */}
       </div>
-      <div className="mt-[100px]">
+      <div className="mt-[100px]" data-aos="fade-up" data-aos-delay="300">
         <PartnerLogos />
       </div>
     </section>

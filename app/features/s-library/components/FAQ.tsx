@@ -2,10 +2,13 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import StickyBox from "react-sticky-box";
 import styles from "./FAQ.module.scss";
+import { useMediaQuery } from "@/app/hooks/useMediaQuery";
 import Container from "@/app/components/Container";
 
 const FAQ = React.memo(function FAQ() {
+  const isMobile = useMediaQuery("(max-width: 768px)");
   const [openIndex, setOpenIndex] = useState<number>(0);
 
   const faqs = [
@@ -58,21 +61,39 @@ const FAQ = React.memo(function FAQ() {
       <Container>
         <div className={styles.container}>
           {/* Left Side - Image */}
-          <div>
-            <h2 className={styles.title}>
-              /Frequently
-              <br />
-              asked questions.
-            </h2>
-            <div className={styles.imageContainer}>
-              <Image
-                src="/images/slib/faq-image.png"
-                alt="FAQ"
-                fill
-                style={{ objectFit: "cover" }}
-              />
+          {isMobile ? (
+            <div>
+              <h2 className={styles.title}>
+                /Frequently
+                <br />
+                asked questions.
+              </h2>
+              <div className={styles.imageContainer}>
+                <Image
+                  src="/images/slib/faq-image.png"
+                  alt="FAQ"
+                  fill
+                  style={{ objectFit: "cover" }}
+                />
+              </div>
             </div>
-          </div>
+          ) : (
+            <StickyBox offsetTop={120} offsetBottom={20}>
+              <h2 className={styles.title}>
+                /Frequently
+                <br />
+                asked questions.
+              </h2>
+              <div className={styles.imageContainer}>
+                <Image
+                  src="/images/slib/faq-image.png"
+                  alt="FAQ"
+                  fill
+                  style={{ objectFit: "cover" }}
+                />
+              </div>
+            </StickyBox>
+          )}
 
           {/* Right Side - FAQ List */}
           <div className={styles.faqContainer}>

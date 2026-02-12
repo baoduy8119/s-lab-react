@@ -3,10 +3,16 @@
 import React from "react";
 import Image from "next/image";
 import SectionHeader from "@/app/components/SectionHeader";
+import StickyBox from "react-sticky-box";
 import styles from "./CourseList.module.scss";
 import Container from "@/app/components/Container";
 
+import { useMediaQuery } from "@/app/hooks/useMediaQuery";
+// ... imports
+
 const CourseList = React.memo(function CourseList() {
+  const isMobile = useMediaQuery("(max-width: 1024px)");
+
   const courses = [
     {
       id: 1,
@@ -77,58 +83,110 @@ const CourseList = React.memo(function CourseList() {
   return (
     <section className={styles.section}>
       <Container>
-
-        <SectionHeader
-          title="/Most choices courses."
-        />
         <div className={styles.container}>
-          <div className={styles.leftContent}>
-            <p className={styles.description}>
-              The course is transparent, covering every stage of your development. No
-              hidden fees. No long-term contracts.
-            </p>
-            <div className={styles.visualDivider}>
-              {Array.from({ length: 40 }).map((_, i) => (
-                <span key={i} className={styles.dividerLine} style={{ opacity: (i % 3 === 0 || i % 4 === 1) ? 1 : 0.4 }}></span>
-              ))}
-            </div>
+          {isMobile ? (
+            <div className={styles.leftContent}>
+              <SectionHeader
+                title="/Most choices courses."
+              />
+              <p className={styles.description}>
+                The course is transparent, covering every stage of your development. No
+                hidden fees. No long-term contracts.
+              </p>
+              <div className={styles.visualDivider}>
+                {Array.from({ length: 40 }).map((_, i) => (
+                  <span key={i} className={styles.dividerLine} style={{ opacity: (i % 3 === 0 || i % 4 === 1) ? 1 : 0.4 }}></span>
+                ))}
+              </div>
 
-            <div className={styles.socialProof}>
-              <div className={styles.avatarGroup}>
-                <Image
-                  src="/images/avar-1.png"
-                  alt="User Avatar 1"
-                  width={48}
-                  height={48}
-                  className={styles.avatar}
-                />
-                <Image
-                  src="/images/avar-2.png"
-                  alt="User Avatar 2"
-                  width={48}
-                  height={48}
-                  className={styles.avatar}
-                />
-                <Image
-                  src="/images/avar-3.png"
-                  alt="User Avatar 3"
-                  width={48}
-                  height={48}
-                  className={styles.avatar}
-                />
-              </div>
-              <div className={styles.socialText}>
-                <div className={styles.ratingRow}>
-                  <div className={styles.stars}>★★★★★</div>
-                  <span className={styles.ratingScore}>4.9 / 5</span>
+              <div className={styles.socialProof}>
+                <div className={styles.avatarGroup}>
+                  <Image
+                    src="/images/avar-1.png"
+                    alt="User Avatar 1"
+                    width={48}
+                    height={48}
+                    className={styles.avatar}
+                  />
+                  <Image
+                    src="/images/avar-2.png"
+                    alt="User Avatar 2"
+                    width={48}
+                    height={48}
+                    className={styles.avatar}
+                  />
+                  <Image
+                    src="/images/avar-3.png"
+                    alt="User Avatar 3"
+                    width={48}
+                    height={48}
+                    className={styles.avatar}
+                  />
                 </div>
-                <p className={styles.socialDesc}>
-                  We've helped over <span className={styles.bold}>105+ people</span><br />
-                  achieve their goals — you could be the next one.
-                </p>
+                <div className={styles.socialText}>
+                  <div className={styles.ratingRow}>
+                    <div className={styles.stars}>★★★★★</div>
+                    <span className={styles.ratingScore}>4.9 / 5</span>
+                  </div>
+                  <p className={styles.socialDesc}>
+                    We've helped over <span className={styles.bold}>105+ people</span><br />
+                    achieve their goals — you could be the next one.
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
+          ) : (
+            <StickyBox className={styles.leftContent} offsetTop={100} offsetBottom={20}>
+              <SectionHeader
+                title="/Most choices courses."
+              />
+              <p className={styles.description}>
+                The course is transparent, covering every stage of your development. No
+                hidden fees. No long-term contracts.
+              </p>
+              <div className={styles.visualDivider}>
+                {Array.from({ length: 40 }).map((_, i) => (
+                  <span key={i} className={styles.dividerLine} style={{ opacity: (i % 3 === 0 || i % 4 === 1) ? 1 : 0.4 }}></span>
+                ))}
+              </div>
+
+              <div className={styles.socialProof}>
+                <div className={styles.avatarGroup}>
+                  <Image
+                    src="/images/avar-1.png"
+                    alt="User Avatar 1"
+                    width={48}
+                    height={48}
+                    className={styles.avatar}
+                  />
+                  <Image
+                    src="/images/avar-2.png"
+                    alt="User Avatar 2"
+                    width={48}
+                    height={48}
+                    className={styles.avatar}
+                  />
+                  <Image
+                    src="/images/avar-3.png"
+                    alt="User Avatar 3"
+                    width={48}
+                    height={48}
+                    className={styles.avatar}
+                  />
+                </div>
+                <div className={styles.socialText}>
+                  <div className={styles.ratingRow}>
+                    <div className={styles.stars}>★★★★★</div>
+                    <span className={styles.ratingScore}>4.9 / 5</span>
+                  </div>
+                  <p className={styles.socialDesc}>
+                    We've helped over <span className={styles.bold}>105+ people</span><br />
+                    achieve their goals — you could be the next one.
+                  </p>
+                </div>
+              </div>
+            </StickyBox>
+          )}
 
           <div className={styles.rightContent}>
             <div className={styles.courseList}>

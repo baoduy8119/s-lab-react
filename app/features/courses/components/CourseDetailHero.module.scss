@@ -255,6 +255,7 @@
 }
 
 // --- Responsive ---
+// --- Responsive ---
 @media (max-width: 1200px) {
   .gridContainer {
     grid-template-columns: 1fr 1fr;
@@ -262,10 +263,142 @@
   }
   
   .headerCell, .gridCell {
-    border: 1px solid #e5e7eb; // Simpler borders
+    border: 1px solid #e5e7eb;
   }
-  
-  // Collapse complex grid into simpler stack or 2-col
-  // (Simplified for brevity, ensuring it doesn't break)
+
+  .courseTitle {
+    font-size: 64px;
+  }
+}
+
+@media (max-width: 768px) {
+  .heroSection {
+    min-height: auto;
+    padding-bottom: 40px;
+    background: #EAEAEA;
+  }
+
+  .gridContainer {
+    display: flex;
+    flex-direction: column;
+    border: none;
+    padding: 0 16px;
+    gap: 24px;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+
+  // Hide decorative/empty cells & header cells
+  .headerCell,
+  .gridCell:nth-child(5),  // Image TopCenter
+  .gridCell:nth-child(7),  // Image BottomLeft
+  .gridCell:nth-child(10), // Empty
+  .gridCell:nth-child(11), // Empty
+  .gridCell:nth-child(12) { // Image BottomRight
+    display: none;
+  }
+
+  // Logo (Cell 4)
+  .gridCell:nth-child(4) {
+    order: 1;
+    border: none;
+    padding: 24px 0 0;
+    margin-bottom: 0;
+    
+    .logoGroup {
+      padding-right: 0;
+      gap: 20px;
+    }
+  }
+
+  // Title + Btn (Cell 8)
+  .gridCell:nth-child(8) {
+    order: 2;
+    border: none;
+    padding: 0;
+    position: static;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    height: auto !important;
+
+    .cellCenterLeft {
+      padding: 0;
+      position: static;
+    }
+
+    .courseTitle {
+      position: static;
+      transform: none;
+      font-size: 48px;
+      line-height: 1.1;
+      width: 100%;
+      margin-bottom: 0;
+      
+      br { display: none; }
+    }
+
+    .ctaButton {
+      position: static;
+      transform: none;
+      width: 100%;
+      text-align: center;
+      padding: 16px;
+      font-size: 18px;
+      border-radius: 8px;
+      margin-top: 12px;
+    }
+  }
+
+  // Duration (Cell 9)
+  .gridCell:nth-child(9) {
+    order: 3;
+    border: none;
+    padding: 0;
+    
+    .cellCenterLeft {
+        padding: 0;
+    }
+    
+    .infoGroup {
+      gap: 12px;
+    }
+  }
+
+  // Date + Image (Cell 6)
+  .gridCell:nth-child(6) {
+    order: 4;
+    border: none;
+    padding: 0;
+    position: static;
+    height: auto !important;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    .dateBlockOverlay {
+      position: static;
+      margin-bottom: 0;
+      width: 100%;
+      display: flex;
+      align-items: center;
+    }
+
+    .imageTopRight {
+      position: relative;
+      top: auto;
+      right: auto;
+      width: 100%;
+      max-width: 100%;
+      height: 250px;
+      margin: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      
+      img {
+        object-fit: cover;
+      }
+    }
+  }
 }
 

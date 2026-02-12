@@ -23,21 +23,21 @@ const testimonials: Testimonial[] = [
     name: "Jacob B.",
     role: "HR Manager Bank Central Indo",
     quote: "“We’re a boundary-pushing creative agency from Yogyakarta — crafting innovative design, strategic narratives, and unforgettable brand journeys for those who dare to dream big.”",
-    image: "/images/courses/mar-4.jpg"
+    image: "/images/courses/jacob.jpg"
   },
   {
     id: 2,
     name: "Sarah Jenkins",
     role: "CMO TechFlow",
     quote: "“The strategic insights from this course transformed our marketing approach. We moved from guessing to precision targeting in just weeks.”",
-    image: "/images/courses/mar-1.png"
+    image: "/images/courses/jacob.jpg"
   },
   {
     id: 3,
     name: "Michael Chen",
     role: "Founder StartupX",
     quote: "“Excellent curriculum that balances theory with real-world application. The templates alone are worth the investment.”",
-    image: "/images/courses/mar-2.png"
+    image: "/images/courses/jacob.jpg"
   }
 ];
 
@@ -86,7 +86,7 @@ const TestimonialSlider = React.memo(function TestimonialSlider() {
           spaceBetween={40}
           slidesPerView={1}
           loop={true}
-          autoplay={{ delay: 5000, disableOnInteraction: false }}
+          autoplay={false}
           className={styles.swiper}
         >
           {testimonials.map((item) => (
@@ -97,9 +97,9 @@ const TestimonialSlider = React.memo(function TestimonialSlider() {
                   <PolygonImage
                     src={item.image}
                     alt={item.name}
-                    width={600}
-                    height={600}
-                    topLeftCut={40}
+                    width={297}
+                    height={350}
+                    topLeftCut={30}
                     className={styles.profileImage}
                   />
                 </div>
