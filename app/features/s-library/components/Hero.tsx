@@ -66,7 +66,6 @@ const Hero = React.memo(function Hero() {
                 fill
                 style={{ objectFit: "cover" }}
               />
-              <div className={styles.cardLabelBottomLeft}>Marketing Planning</div>
             </div>
 
             <div className={styles.cardSmall} data-aos="fade-up" data-aos-delay="500">
