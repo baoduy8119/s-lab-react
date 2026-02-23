@@ -87,12 +87,10 @@
   align-items: center;
   justify-content: center;
   transition: all 0.3s;
-  box-shadow: 0 4px 6px -1px rgba(239, 68, 68, 0.3);
 
   &:hover {
     background-color: #dc2626;
     transform: translateY(-2px);
-    box-shadow: 0 6px 8px -1px rgba(239, 68, 68, 0.4);
   }
 
   svg {
