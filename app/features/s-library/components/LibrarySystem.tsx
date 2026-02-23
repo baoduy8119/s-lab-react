@@ -2,6 +2,11 @@
 
 import React from "react";
 import Image from "next/image";
+import { Swiper, SwiperSlide } from "swiper/react";
+import type { Swiper as SwiperType } from "swiper";
+import { EffectCoverflow, Autoplay } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/effect-coverflow";
 import styles from "./LibrarySystem.module.scss";
 
 const LibrarySystem = React.memo(function LibrarySystem() {
@@ -28,72 +33,102 @@ const LibrarySystem = React.memo(function LibrarySystem() {
     },
   ];
 
-  /* Order: Far Left -> Left -> Center -> Right -> Far Right */
-  const libraryCards = [
+  const libraryCardsData = [
     {
       id: 1,
       title: "Data Analytics",
       image: "/images/slib/data-analytics.png",
-      positionClass: styles.card1,
     },
     {
       id: 2,
       title: "Content Writing",
       image: "/images/slib/content-writing.png",
-      positionClass: styles.card2,
     },
     {
       id: 3,
       title: "Marketing Planning",
       image: "/images/slib/marketing-planning-lib.png",
-      positionClass: styles.card3,
     },
     {
       id: 4,
       title: "Design and Media",
       image: "/images/slib/design-media.png",
-      positionClass: styles.card4,
     },
     {
       id: 5,
       title: "Logo/Illustration",
       image: "/images/slib/lib-card-5.svg",
-      positionClass: styles.card5,
     },
   ];
+
+  const [isReady, setIsReady] = React.useState(false);
+  const [swiperInstance, setSwiperInstance] = React.useState<SwiperType | null>(null);
+
+  React.useEffect(() => {
+    setIsReady(true);
+  }, []);
 
   return (
     <section className={styles.section}>
       <h2 className={styles.title} data-aos="fade-up">/The S-Lab library system.</h2>
 
       {/* Library Cards Display */}
-      <div className={styles.cardsContainer}>
-        {libraryCards.map((card, index) => (
-          <div
-            key={card.id}
-            className={`${styles.card} ${card.positionClass}`}
+      {isReady && (
+        <div className={styles.cardsContainerOuter}>
+          <Swiper
+            onSwiper={setSwiperInstance}
+            effect="coverflow"
+            grabCursor={true}
+            centeredSlides={true}
+            slidesPerView="auto"
+            loop={true}
+            autoplay={{
+              delay: 3000,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: true,
+            }}
+            coverflowEffect={{
+              rotate: 30,
+              stretch: -20,
+              depth: 150,
+              modifier: 1,
+              slideShadows: false,
+              scale: 0.9,
+            }}
+            modules={[EffectCoverflow, Autoplay]}
+            className={styles.swiperContainer}
           >
-            <Image
-              src={card.image}
-              alt={card.title}
-              fill
-              style={{ objectFit: "cover" }}
-            />
-            <div className={styles.cardLabel}>
-              {card.title.split("/").map((part, index) => (
-                <React.Fragment key={index}>
-                  {part}
-                  {index < card.title.split("/").length - 1 && <br />}
-                </React.Fragment>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
+            {[...libraryCardsData, ...libraryCardsData].map((card, index) => (
+              <SwiperSlide key={`${card.id}-${index}`} className={styles.swiperSlide}>
+                <div className={styles.card}>
+                  <Image
+                    src={card.image}
+                    alt={card.title}
+                    fill
+                    style={{ objectFit: "cover" }}
+                  />
+                  <div className={styles.cardLabel}>
+                    {card.title.split("/").map((part, i) => (
+                      <React.Fragment key={i}>
+                        {part}
+                        {i < card.title.split("/").length - 1 && <br />}
+                      </React.Fragment>
+                    ))}
+                  </div>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+      )}
 
       {/* View All Button */}
       <div className={styles.viewAllContainer} data-aos="fade-up" data-aos-delay="600">
-        <button className={styles.viewAllButton}>
+        <button
+          className={styles.viewAllButton}
+          onClick={() => swiperInstance?.slideNext()}
+          aria-label="Next slide"
+        >
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
             <path
               d="M9 18L15 12L9 6"

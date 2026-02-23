@@ -22,14 +22,24 @@
   z-index: 10;
 }
 
-.cardsContainer {
+.cardsContainerOuter {
   position: relative;
   width: 100%;
-  max-width: 1440px;
-  height: 500px;
-  margin-bottom: 60px;
-  perspective: 2000px;
-  transform-style: preserve-3d; /* Ensure 3D space is shared */
+  max-width: 1080px;
+  margin: 0 auto 60px;
+  overflow: hidden;
+  padding: 20px 0;
+}
+
+.swiperContainer {
+  width: 100%;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.swiperSlide {
+  width: 250px;
+  height: 370px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -37,48 +47,13 @@
 
 /* Base card style */
 .card {
-  position: absolute;
-  width: 250px;
-  height: 351px;
+  position: relative;
+  width: 100%;
+  height: 100%;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  transition: all 0.5s ease-out;
   background-color: #fff;
-  /* transform-style removed from card to simplify stacking context */
-}
-
-/* Specific Card Positions */
-/* Center Card - Marketing Planning */
-.card3 {
-  z-index: 50; /* Much higher z-index */
-  width: 234px;
-  height: 373px;
-  margin-top: 150px;
-  transform: translateX(0) translateZ(100px) rotateY(0deg); /* Increased Z-depth */
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-}
-
-/* Immediate Neighbors - Content Writing (Left) & Design Media (Right) */
-.card2 {
-  z-index: 30;
-  transform: translateX(-240px) translateZ(-100px) rotateY(50deg) scale(0.95);
-}
-
-.card4 {
-  z-index: 30;
-  transform: translateX(240px) translateZ(-100px) rotateY(-50deg) scale(0.95);
-}
-
-/* Far Neighbors - Data Analytics (Far Left) & Logo (Far Right) */
-.card1 {
-  z-index: 10;
-  transform: translateX(-440px) translateZ(-100px) rotateY(50deg) scale(0.8);
-}
-
-.card5 {
-  z-index: 10;
-  transform: translateX(440px) translateZ(-100px) rotateY(-50deg) scale(0.8);
+  transition: box-shadow 0.3s ease;
 }
 
 .cardLabel {
@@ -143,38 +118,13 @@
     padding: 0 16px;
   }
 
-  .cardsContainer {
-    height: auto;
-    perspective: none;
-    transform-style: flat;
-    display: flex;
-    overflow-x: auto;
-    justify-content: flex-start;
-    padding: 20px 16px;
-    gap: 16px;
-    scroll-snap-type: x mandatory;
-    margin-bottom: 40px;
-    -webkit-overflow-scrolling: touch; /* smooth scroll iOS */
-  }
-
-  .card,
-  .card1,
-  .card2,
-  .card3,
-  .card4,
-  .card5 {
-    position: relative;
-    top: auto;
-    left: auto;
-    right: auto;
-    bottom: auto;
-    transform: none !important; /* Force override of specific transforms */
-    margin: 0;
-    z-index: 1;
+  .swiperSlide {
     width: 260px;
     height: 360px;
-    flex-shrink: 0;
-    scroll-snap-align: center;
+  }
+
+  .card {
+    border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
   }
 
