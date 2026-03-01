@@ -1,0 +1,16 @@
+export type ContentFieldType = "text" | "textarea" | "image";
+
+export interface ContentFieldConfig {
+  key: string;
+  label: string;
+  type: ContentFieldType;
+}
+
+export interface SectionConfig {
+  id: string;
+  title: string;
+  fields: ContentFieldConfig[];
+}
+
+export type SectionContent = Record<string, string>;
+export type HomepageContent = Record<string, SectionContent>;

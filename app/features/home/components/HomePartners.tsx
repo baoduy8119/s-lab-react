@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import styles from "./HomePartners.module.scss";
+import { useHomeContentStore } from "@/app/features/dashboard/stores/useHomeContentStore";
 
 const partnerImages = [
   "/images/partners/logo-partner-1.png",
@@ -19,16 +19,25 @@ const partnerImages = [
   "/images/partners/logo-partner-12.png",
   "/images/partners/logo-partner-13.png",
   "/images/partners/logo-partner-14.png",
-  "/images/partners/logo-partner.png"
+  "/images/partners/logo-partner.png",
 ];
 
 const HomePartners = React.memo(function HomePartners() {
+  const heading = useHomeContentStore((s) => s.content.partners.heading);
+
   return (
     <section className={styles.section}>
-      <h2 className={styles.heading} data-aos="fade-up">The S-Lab’s Partners</h2>
+      <h2 className={styles.heading} data-aos="fade-up">
+        {heading}
+      </h2>
       <div className={styles.grid}>
         {partnerImages.map((src, index) => (
-          <div key={index} className={styles.logoCard} data-aos="fade-up" data-aos-delay={index * 50}>
+          <div
+            key={index}
+            className={styles.logoCard}
+            data-aos="fade-up"
+            data-aos-delay={index * 50}
+          >
             <div className={styles.imageWrapper}>
               <img src={src} alt={`Partner ${index + 1}`} />
             </div>

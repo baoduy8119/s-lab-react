@@ -7,13 +7,13 @@ import HomePartners from "@/app/features/home/components/HomePartners";
 import Footer from "./components/Footer";
 import MainLayout from "./MainLayout";
 import MoreArticles from "./components/MoreArticles";
+import ContentHydrator from "@/app/features/dashboard/components/ContentHydrator";
 
 export default function Home() {
   return (
     <MainLayout>
+      <ContentHydrator />
       <AOSInit />
-      {/* Hero Section */}
-      {/* Hero Section */}
       <HeroSection />
 
       {/* Section 2: What Makes The Slab Different */}

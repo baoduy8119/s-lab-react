@@ -1,101 +1,78 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import Image from "next/image";
 import StickyBox from "react-sticky-box";
 import styles from "./FAQ.module.scss";
 import { useMediaQuery } from "@/app/hooks/useMediaQuery";
 import Container from "@/app/components/Container";
+import { useSLibraryContentStore } from "@/app/features/dashboard/stores/useSLibraryContentStore";
 
 const FAQ = React.memo(function FAQ() {
   const isMobile = useMediaQuery("(max-width: 768px)");
   const [openIndex, setOpenIndex] = useState<number>(0);
+  const c = useSLibraryContentStore((s) => s.content.slibFaq);
 
-  const faqs = [
-    {
-      question: "How do I purchase a course on S-Lab?",
-      answer:
-        "To purchase a course, simply navigate to the course catalog on the S-Lab website, select the course you're interested in, and click the \"Buy Now\" button. You'll be prompted to complete your payment information. Once the purchase is confirmed, you'll have immediate access to the course materials.",
-    },
-    {
-      question: "Can I preview a course before purchasing?",
-      answer: "Yes, you can preview select course materials before making a purchase.",
-    },
-    {
-      question: "What payment methods are accepted?",
-      answer: "We accept all major credit cards, PayPal, and bank transfers.",
-    },
-    {
-      question: "How long do I have access to a course after purchasing it?",
-      answer: "You have lifetime access to all purchased courses.",
-    },
-    {
-      question: "How can I track my progress in a course?",
-      answer: "Your progress is automatically tracked and displayed on your dashboard.",
-    },
-    {
-      question: "Can I interact with instructors or other students?",
-      answer: "Yes, you can interact through our community forums and live Q&A sessions.",
-    },
-    {
-      question: "Are there any assessments or certifications upon completing a course?",
-      answer: "Yes, most courses include assessments and provide certificates upon completion.",
-    },
-    {
-      question: "What should I do if I encounter technical issues with a course?",
-      answer: "Please contact our support team at hello@theslab.agency for assistance.",
-    },
-    {
-      question: "How can I make the most out of the courses I enroll in?",
-      answer:
-        "Stay consistent, participate in discussions, complete all assignments, and apply what you learn.",
-    },
-  ];
+  const headingLines = c.heading.split("\n");
+
+  const faqs = useMemo(
+    () => [
+      { question: c.q1, answer: c.a1 },
+      { question: c.q2, answer: c.a2 },
+      { question: c.q3, answer: c.a3 },
+      { question: c.q4, answer: c.a4 },
+      { question: c.q5, answer: c.a5 },
+      { question: c.q6, answer: c.a6 },
+      { question: c.q7, answer: c.a7 },
+      { question: c.q8, answer: c.a8 },
+      { question: c.q9, answer: c.a9 },
+    ],
+    [c]
+  );
 
   const toggleFAQ = (index: number) => {
     setOpenIndex(openIndex === index ? -1 : index);
   };
 
+  const titleContent = (
+    <h2 className={styles.title}>
+      {headingLines.map((line, i) => (
+        <React.Fragment key={i}>
+          {line}
+          {i < headingLines.length - 1 && <br />}
+        </React.Fragment>
+      ))}
+    </h2>
+  );
+
+  const imageContent = (
+    <div className={styles.imageContainer}>
+      <Image
+        src={c.faqImage}
+        alt="FAQ"
+        fill
+        style={{ objectFit: "cover" }}
+        unoptimized={c.faqImage.startsWith("data:")}
+      />
+    </div>
+  );
+
   return (
     <section className={styles.section}>
       <Container>
         <div className={styles.container}>
-          {/* Left Side - Image */}
           {isMobile ? (
             <div>
-              <h2 className={styles.title}>
-                /Frequently
-                <br />
-                asked questions.
-              </h2>
-              <div className={styles.imageContainer}>
-                <Image
-                  src="/images/slib/faq-image.png"
-                  alt="FAQ"
-                  fill
-                  style={{ objectFit: "cover" }}
-                />
-              </div>
+              {titleContent}
+              {imageContent}
             </div>
           ) : (
             <StickyBox offsetTop={120} offsetBottom={20}>
-              <h2 className={styles.title}>
-                /Frequently
-                <br />
-                asked questions.
-              </h2>
-              <div className={styles.imageContainer}>
-                <Image
-                  src="/images/slib/faq-image.png"
-                  alt="FAQ"
-                  fill
-                  style={{ objectFit: "cover" }}
-                />
-              </div>
+              {titleContent}
+              {imageContent}
             </StickyBox>
           )}
 
-          {/* Right Side - FAQ List */}
           <div className={styles.faqContainer}>
             <div className={styles.faqList}>
               {faqs.map((faq, index) => (
@@ -103,26 +80,15 @@ const FAQ = React.memo(function FAQ() {
                   <div className={styles.faqQuestion} onClick={() => toggleFAQ(index)}>
                     <h3 className={styles.questionText}>{faq.question}</h3>
                     <button
-                      className={`${styles.toggleButton} ${openIndex !== index ? styles.active : ""
-                        }`}
+                      className={`${styles.toggleButton} ${openIndex !== index ? styles.active : ""}`}
                     >
                       {openIndex === index ? (
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                          <path
-                            d="M18 12H6"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                          />
+                          <path d="M18 12H6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                         </svg>
                       ) : (
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                          <path
-                            d="M12 6V18M18 12H6"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                          />
+                          <path d="M12 6V18M18 12H6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                         </svg>
                       )}
                     </button>
