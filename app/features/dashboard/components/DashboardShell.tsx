@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useAuthStore } from "../stores/useAuthStore";
 import { useHomeContentStore } from "../stores/useHomeContentStore";
 import { useSLibraryContentStore } from "../stores/useSLibraryContentStore";
+import { useCoursesContentStore } from "../stores/useCoursesContentStore";
 import styles from "./DashboardShell.module.scss";
 
 interface NavItem {
@@ -35,6 +36,16 @@ const navItems: NavItem[] = [
       </svg>
     ),
   },
+  {
+    href: "/dashboard/courses",
+    label: "Courses",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z" />
+        <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z" />
+      </svg>
+    ),
+  },
 ];
 
 interface DashboardShellProps {
@@ -57,13 +68,15 @@ const DashboardShell = React.memo(function DashboardShell({
   const { isAuthenticated, isLoading, checkSession, logout } = useAuthStore();
   const hydrateHome = useHomeContentStore((s) => s.hydrate);
   const hydrateSLib = useSLibraryContentStore((s) => s.hydrate);
+  const hydrateCourses = useCoursesContentStore((s) => s.hydrate);
   const [toast, setToast] = useState("");
 
   useEffect(() => {
     checkSession();
     hydrateHome();
     hydrateSLib();
-  }, [checkSession, hydrateHome, hydrateSLib]);
+    hydrateCourses();
+  }, [checkSession, hydrateHome, hydrateSLib, hydrateCourses]);
 
   const handleSave = useCallback(() => {
     onSave();

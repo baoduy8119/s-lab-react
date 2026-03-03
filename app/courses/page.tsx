@@ -4,11 +4,14 @@ import CourseList from "../features/courses/components/CourseList";
 import MarketingCards from "../features/courses/components/MarketingCards";
 import Footer from "../components/Footer";
 import MainLayout from "@/app/MainLayout";
+import ContentHydrator from "@/app/features/dashboard/components/ContentHydrator";
+import CoursesContentHydrator from "@/app/features/dashboard/components/CoursesContentHydrator";
 
 export default function CoursesPage() {
   return (
     <MainLayout>
-      {/* Hero Section containing the title and registration form */}
+      <ContentHydrator />
+      <CoursesContentHydrator />
       <CourseHero />
 
       {/* Most Choices Courses List */}
