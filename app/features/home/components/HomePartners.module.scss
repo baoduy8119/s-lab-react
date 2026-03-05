@@ -1,5 +1,6 @@
+// Figma: reduced padding (was too wide per feedback)
 .section {
-  padding: 100px 0 0;
+  padding: 60px 0 0;
   background: #F3F4F6;
 }
 
@@ -8,7 +9,7 @@
   font-size: 48px;
   font-weight: 700;
   color: #111827;
-  margin-bottom: 60px;
+  margin-bottom: 16px;
   // Center or Container alignment?
   // Previous code had Container wrapper around heading.
   // In Step 768 user removed Container wrapper in TSX but kept heading inside section.
@@ -23,27 +24,27 @@
   // The grid lines go to edges?
   // I'll add horizontal padding to section or heading if needed.
   // Assuming full width grid.
-  padding-left: 80px;
-  padding-right: 80px;
+  padding-left: 24px;
+  padding-right: 24px;
 }
 
 .grid {
   display: flex;
   flex-wrap: wrap;
-  border-top: 1px solid #E5E7EB;
-  border-left: 1px solid #E5E7EB;
+  border-top: 1px solid #D1D5DB;
+  border-left: 1px solid #D1D5DB;
 }
 
 .logoCard {
   flex: 0 0 20%; // 5 items per row
-  height: 180px;
+  height: 138px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-right: 1px solid #E5E7EB;
-  border-bottom: 1px solid #E5E7EB;
+  border-right: 1px solid #D1D5DB;
+  border-bottom: 1px solid #D1D5DB;
   transition: background 0.2s;
-  padding: 32px 0;
+  padding: 50px 40px;
   
   &:hover {
     background: #f9fafb;
@@ -92,16 +93,16 @@
 
 @media (max-width: 768px) {
   .heading {
-    font-size: 32px;
-    margin-bottom: 40px;
+    font-size: 24px;
+    margin-bottom: 16px;
     padding-left: 16px;
     padding-right: 16px;
   }
   
   .logoCard {
-    flex: 0 0 50%; // 2 per row on mobile
-    height: 120px;
-    padding: 20px 0;
+    flex: 0 0 50%;
+    height: 138px;
+    padding: 50px 24px;
   }
   
   .imageWrapper img {

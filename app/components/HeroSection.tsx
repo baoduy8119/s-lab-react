@@ -21,11 +21,19 @@ const HeroSection = React.memo(function HeroSection() {
         }}
       ></div>
 
-      {/* Mobile-Specific Hero Layout */}
-      <div className="block lg:hidden px-4 pt-8 pb-12 flex flex-col gap-6">
+      {/* Mobile-Specific Hero Layout - Figma order: tagline → title → buttons → feedback */}
+      <div className="flex lg:hidden flex-col gap-[30px] px-4 pt-8 pb-12">
+        <p
+          className="text-[16px] text-[#111827] font-bold leading-[22px] tracking-[-0.18px]"
+          data-aos="fade-up"
+        >
+          {c.tagline}
+        </p>
+
         <h1
           className="text-[40px] leading-[48px] font-bold text-[#111827] tracking-[-1.5px] uppercase"
           data-aos="fade-up"
+          data-aos-delay="100"
         >
           {c.heading.split(/\s+/).reduce<React.ReactNode[]>((acc, word, i) => {
             if (i > 0) acc.push(<br key={`br-${i}`} />);
@@ -34,39 +42,44 @@ const HeroSection = React.memo(function HeroSection() {
           }, [])}
         </h1>
 
-        <p
-          className="text-base text-[#111827] font-medium leading-[22px]"
-          data-aos="fade-up"
-          data-aos-delay="100"
-        >
-          {c.tagline}
-        </p>
-
         <div
           className="flex flex-col gap-3 w-full"
           data-aos="fade-up"
           data-aos-delay="200"
         >
-          <button className="w-full bg-[#EF4444] text-white font-bold text-base py-[13px] hover:bg-[#DC2626] transition-colors">
+          <button className="w-full bg-[#EF4444] text-white font-bold text-base py-[13px] px-6 hover:bg-[#DC2626] transition-colors">
             Get in touch now
           </button>
-          <button className="w-full bg-white text-[#111827] font-bold text-base py-[13px] hover:opacity-60 transition-opacity">
+          <button className="w-full bg-white text-[#111827] font-bold text-base py-[13px] px-6 hover:opacity-60 transition-opacity">
             {c.buttonSecondary}
           </button>
         </div>
 
-        {/* Feedback Section Mobile */}
+        {/* Feedback Section - Figma: "We have helped..." in #111827, "achieve their goals..." in #6b7280 */}
         <div
-          className="flex flex-col gap-1 mt-2"
+          className="flex flex-col gap-1 w-[269px]"
           data-aos="fade-up"
           data-aos-delay="300"
         >
           <div className="flex items-center gap-2">
             <Image src="/images/star-rating.svg" alt="5 stars" width={56} height={8} />
-            <span className="text-[#111827] text-xs font-bold">{c.rating}</span>
+            <span className="text-[#111827] text-xs font-bold leading-[16px] tracking-[-0.12px]">{c.rating}</span>
           </div>
-          <p className="text-[#6B7280] text-xs font-bold leading-[16px]">
-            {c.feedbackText}
+          <p className="text-[12px] font-bold leading-[16px] tracking-[-0.12px]">
+            {(() => {
+              const text = c.feedbackText;
+              // Figma: "We have helped over 950+ students" (#111827) | "achieve their goals..." (#6b7280)
+              const achieveIdx = text.toLowerCase().indexOf("achieve");
+              if (achieveIdx > 0) {
+                return (
+                  <>
+                    <span className="text-[#111827]">{text.slice(0, achieveIdx).trimEnd()}</span>
+                    <span className="text-[#6B7280]"> {text.slice(achieveIdx)}</span>
+                  </>
+                );
+              }
+              return <span className="text-[#6B7280]">{text}</span>;
+            })()}
           </p>
         </div>
       </div>
@@ -127,8 +140,20 @@ const HeroSection = React.memo(function HeroSection() {
               {c.rating}
             </span>
           </div>
-          <p className="text-[#6B7280] text-xs font-bold leading-[16px] tracking-[-0.12px]">
-            {c.feedbackText}
+          <p className="text-[12px] font-bold leading-[16px] tracking-[-0.12px]">
+            {(() => {
+              const text = c.feedbackText;
+              const achieveIdx = text.toLowerCase().indexOf("achieve");
+              if (achieveIdx > 0) {
+                return (
+                  <>
+                    <span className="text-[#111827]">{text.slice(0, achieveIdx).trimEnd()}</span>
+                    <span className="text-[#6B7280]"> {text.slice(achieveIdx)}</span>
+                  </>
+                );
+              }
+              return <span className="text-[#6B7280]">{text}</span>;
+            })()}
           </p>
         </div>
       </div>
