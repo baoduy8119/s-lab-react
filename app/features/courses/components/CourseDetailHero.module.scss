@@ -1,6 +1,6 @@
 .heroSection {
   padding: 0;
-  background: #EAEAEA;
+  background: #eaeaea;
   min-height: 800px;
 }
 
@@ -16,11 +16,12 @@
 }
 
 // --- Generic Cell Styling ---
-.headerCell, .gridCell {
+.headerCell,
+.gridCell {
   border-right: 1px solid #c7c7c7;
   border-bottom: 1px solid #c7c7c7;
   position: relative;
-  background: #EAEAEA;
+  background: #eaeaea;
 }
 
 .noBorderBottom {
@@ -84,7 +85,7 @@
   width: 172px;
   height: 172px;
   background: #d1d5db;
-  
+
   img {
     object-fit: cover;
   }
@@ -98,7 +99,7 @@
   max-width: 172px;
   height: 172px;
   background: #d1d5db;
-  
+
   img {
     object-fit: cover;
   }
@@ -124,12 +125,11 @@
   left: -140px;
   width: 172px; // Fill width of C col
   height: 172px;
-  
+
   img {
     object-fit: cover;
   }
 }
-
 
 // --- Text & Logo Components ---
 .logoGroup {
@@ -163,7 +163,7 @@
   line-height: 1;
   margin: 0;
   letter-spacing: -2px;
-  
+
   // Position on the border of Row 2 & Row 3 (Top of current cell)
   position: absolute;
   top: 0;
@@ -176,6 +176,10 @@
     font-family: monospace; // Or similar matching font
     font-weight: 400;
     margin: 0 8px;
+  }
+
+  @media screen and (max-width: 1600px) {
+    font-size: 64px;
   }
 }
 
@@ -192,7 +196,7 @@
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
-  
+
   &:hover {
     background: #dc2626;
   }
@@ -226,7 +230,7 @@
 .icon {
   font-size: 18px;
   padding-top: 2px;
-  color: black
+  color: black;
 }
 
 .dateText {
@@ -261,8 +265,9 @@
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto;
   }
-  
-  .headerCell, .gridCell {
+
+  .headerCell,
+  .gridCell {
     border: 1px solid #e5e7eb;
   }
 
@@ -275,7 +280,7 @@
   .heroSection {
     min-height: auto;
     padding-bottom: 40px;
-    background: #EAEAEA;
+    background: #eaeaea;
   }
 
   .gridContainer {
@@ -294,7 +299,8 @@
   .gridCell:nth-child(7),  // Image BottomLeft
   .gridCell:nth-child(10), // Empty
   .gridCell:nth-child(11), // Empty
-  .gridCell:nth-child(12) { // Image BottomRight
+  .gridCell:nth-child(12) {
+    // Image BottomRight
     display: none;
   }
 
@@ -304,7 +310,7 @@
     border: none;
     padding: 24px 0 0;
     margin-bottom: 0;
-    
+
     .logoGroup {
       padding-right: 0;
       gap: 20px;
@@ -334,8 +340,10 @@
       line-height: 1.1;
       width: 100%;
       margin-bottom: 0;
-      
-      br { display: none; }
+
+      br {
+        display: none;
+      }
     }
 
     .ctaButton {
@@ -355,11 +363,11 @@
     order: 3;
     border: none;
     padding: 0;
-    
+
     .cellCenterLeft {
-        padding: 0;
+      padding: 0;
     }
-    
+
     .infoGroup {
       gap: 12px;
     }
@@ -394,11 +402,10 @@
       margin: 0;
       border-radius: 12px;
       overflow: hidden;
-      
+
       img {
         object-fit: cover;
       }
     }
   }
 }
-

@@ -82,14 +82,15 @@ const LimitlessDesire = React.memo(function LimitlessDesire() {
 
                     <div className={styles.images}>
                       {item.images.map((img, index) => (
-                        <PolygonImage
-                          key={index}
-                          src={img}
-                          alt={item.title}
-                          width={270}
-                          height={197}
-                          topLeftCut={25}
-                        />
+                        <div key={index} className={styles.imageItem}>
+                          <PolygonImage
+                            src={img}
+                            alt={item.title}
+                            width={270}
+                            height={197}
+                            topLeftCut={25}
+                          />
+                        </div>
                       ))}
                     </div>
                   </div>

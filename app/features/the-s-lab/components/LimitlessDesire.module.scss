@@ -150,26 +150,28 @@
   display: flex;
   align-items: center;
   gap: 16px;
-  
-  img {
-    flex: 1
-  }
 
   @media (max-width: 1024px) {
     flex-direction: column;
     align-items: flex-start;
     width: 100%;
-    
-    // Ensure images take full width or are responsive
-    & > div { // Assuming polygon image wrapper
-       width: 100% !important;
-       height: auto !important;
+
+    .imageItem {
+      width: 100%;
     }
-    
-    img {
-        width: 100%;
-        height: auto;
-    }
+  }
+}
+
+.imageItem {
+  flex: 1;
+  overflow: hidden;
+
+  img {
+    transition: transform 0.5s ease;
+  }
+
+  &:hover img {
+    transform: scale(1.1);
   }
 }
 
