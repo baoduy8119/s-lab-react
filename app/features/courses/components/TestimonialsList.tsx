@@ -48,14 +48,15 @@ const TestimonialsList = React.memo(function TestimonialsList() {
         <h2 className={styles.heading}>/Testimonials.</h2>
         <Swiper
           modules={[Autoplay]}
-          spaceBetween={24}
-          slidesPerView={1}
+          spaceBetween={16}
+          slidesPerView={1.2}
+          centeredSlides={false}
           loop={true}
           autoplay={{ delay: 3000, disableOnInteraction: false }}
           grabCursor={true}
           breakpoints={{
-            640: { slidesPerView: 2 },
-            1024: { slidesPerView: 3 },
+            640: { slidesPerView: 2, spaceBetween: 24 },
+            1024: { slidesPerView: 3, spaceBetween: 24 },
           }}
           className={styles.swiper}
         >

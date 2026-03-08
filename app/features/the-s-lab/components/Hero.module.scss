@@ -11,6 +11,7 @@
   display: flex;
   flex-direction: column;
   padding: 102px 0 62px;
+  overflow: hidden;
 
   .innerContent {
     padding: 0 80px;
@@ -22,7 +23,7 @@
 
   @media (max-width: 1024px) {
     min-height: auto;
-    padding: 60px 0 40px;
+    padding: 48px 0 24px;
   }
 }
 
@@ -60,6 +61,10 @@
   gap: 39px;
   position: relative;
   z-index: 1;
+
+  @media (max-width: 1024px) {
+    gap: 36px;
+  }
 }
 
 .headerSection {
@@ -69,7 +74,7 @@
 
   @media (max-width: 1024px) {
     gap: 16px;
-    margin-bottom: 24px;
+    margin-bottom: 0px; // remove bottom margin to stick precisely
   }
 }
 
@@ -83,15 +88,19 @@
   margin: 0;
 
   @media (max-width: 1024px) {
-    font-size: 40px;
-    line-height: 48px;
-    letter-spacing: -1.2px;
+    font-size: 32px;
+    line-height: 38px;
+    letter-spacing: -0.2px;
   }
 }
 
 .logoGroup {
   width: 89.97px;
   height: 32.38px;
+  
+  @media (max-width: 1024px) {
+    display: none;
+  }
 }
 
 .description {
@@ -116,11 +125,12 @@
   @media (max-width: 1024px) {
     max-width: 100%;
     margin-left: 0;
-    font-size: 20px; // Scaled down text for mobile
-    line-height: 28px;
+    font-size: 24px;
+    line-height: 30px;
+    letter-spacing: -0.15px;
     
     p {
-      margin-bottom: 20px;
+      margin-bottom: 30px;
     }
   }
 }

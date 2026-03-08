@@ -11,6 +11,7 @@ export interface EventCardProps {
   imageUrl: string;
   tags: string[];
   slug: string;
+  isLast?: boolean;
 }
 
 import Link from 'next/link';
@@ -22,10 +23,11 @@ const EventCard: React.FC<EventCardProps> = ({
   description,
   imageUrl,
   tags,
-  slug
+  slug,
+  isLast
 }) => {
   return (
-    <Link href={`/events/${slug}`} className={styles.card}>
+    <Link href={`/events/${slug}`} className={`${styles.card} ${isLast ? styles.noBorder : ''}`}>
       <div className={styles.metaCol}>
         <span className={styles.date}>{date}</span>
         <span className={styles.author}>{author}</span>

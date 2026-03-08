@@ -3,24 +3,41 @@ import React from 'react';
 import Container from '@/app/components/Container';
 import Image from 'next/image';
 import GlowEffectSvg from './GlowEffectSvg';
+import SLabLogoBlack from '@/app/components/SLabLogoBlack';
 
 const EventsHeader = () => {
   return (
     <section className={styles.header}>
       <div className={styles.gradientBg} />
+
+      {/* Mobile background glows from Figma 3:9008 */}
+      <div className={styles.mobileGlows}>
+        <div className={styles.glowOrange} />
+        <div className={styles.glowCyan} />
+        <div className={styles.glowBlue} />
+      </div>
+
       <Container>
         <div className={styles.content} >
           <div className={styles.titleWrapper}>
+            <Image
+              src="/images/events/header-text.svg"
+              alt="At The S-LAB's Events"
+              width={318}
+              height={73}
+              className={`${styles.titleImage} ${styles.mobileOnly}`}
+              priority
+            />
             <Image
               src="/images/events/header-text-1.svg"
               alt="At The S-LAB's Events"
               width={1020}
               height={232}
-              className={styles.titleImage}
+              className={`${styles.titleImage} ${styles.desktopOnly}`}
               priority
             />
           </div>
-          <div className={styles.titleWrapper2}>
+          <div className={`${styles.titleWrapper2} ${styles.desktopOnly}`}>
             <Image
               src="/images/events/header-text-2.svg"
               alt="At The S-LAB's Events"
@@ -30,8 +47,6 @@ const EventsHeader = () => {
               priority
             />
           </div>
-
-
 
           <div className={styles.images}>
             {/* Orange (Top Left) */}
@@ -98,6 +113,11 @@ const EventsHeader = () => {
                 />
               </div>
             </div>
+          </div>
+
+          {/* S-Lab Logo Bottom Right for Mobile */}
+          <div className={styles.mobileLogo}>
+            <SLabLogoBlack />
           </div>
         </div>
       </Container>

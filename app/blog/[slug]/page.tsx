@@ -29,7 +29,11 @@ export default function BlogDetailPage() {
         heroImage={post.heroImage}
       />
 
-      <BlogBody />
+      <BlogBody
+        authorName={post.authorName}
+        authorRole={post.authorRole}
+        authorImage={post.authorImage}
+      />
 
       <MoreArticles />
 

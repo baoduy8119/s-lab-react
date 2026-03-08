@@ -6,11 +6,15 @@ import ArrowRightIcon from "@/app/components/icons/ArrowRightIcon";
 import styles from "./CTABanner.module.scss";
 import PolygonSection from "@/app/components/PolygonSection";
 import Link from "next/link";
+import { useMediaQuery } from "@/app/hooks/useMediaQuery";
+
 
 const CTABanner = React.memo(function CTABanner() {
+  const isMobile = useMediaQuery("(max-width: 768px)");
+
   return (
-    <PolygonSection topLeftCut={60}>
-      <CTABannerCommon>
+    <PolygonSection topLeftCut={60} topLeftCutMobile={40} >
+      <CTABannerCommon className={styles.content} height={isMobile ? 600 : undefined}>
         <div className={styles.textContent}>
           <h2 className={styles.mainText}>
             At The S-Lab, learning goes <span className={styles.whiteText}>beyond textbooks.</span>

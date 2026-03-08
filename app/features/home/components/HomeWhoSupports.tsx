@@ -65,13 +65,20 @@ const HomeWhoSupports = React.memo(function HomeWhoSupports() {
         <h2 className={styles.mainHeading} data-aos="fade-up">
           {c.heading}
         </h2>
-        <div className={styles.headerGrid}>
-          <div className={styles.headerLeft}>
+
+        <div className={styles.topRow}>
+          <div className={styles.counterSection}>
             <div className={styles.counterBlock}>
               <span className={styles.counterNumber}>
-                /04<sup className={styles.plus}>+</sup>
+                /04<span className={styles.plus}>+</span>
               </span>
               <span className={styles.counterLabel}>The S-Lab supports</span>
+            </div>
+            {/* Mobile Barcode Icon */}
+            <div className={styles.barcodeIcon}>
+              <svg width="41" height="12" viewBox="0 0 41 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 0H2V12H0V0ZM4 0H5V12H4V0ZM7 0H10V12H7V0ZM12 0H13V12H12V0ZM15 0H17V12H15V0ZM20 0H21V12H20V0ZM23 0H26V12H23V0ZM28 0H29V12H28V0ZM31 0H33V12H31V0ZM36 0H37V12H36V0ZM39 0H41V12H39V0Z" fill="#111827" />
+              </svg>
             </div>
           </div>
 
@@ -89,28 +96,31 @@ const HomeWhoSupports = React.memo(function HomeWhoSupports() {
           </div>
         </div>
 
-        <div className={styles.listLabels}>
-          <span className={styles.labelCol} style={{ flex: "0 0 30%" }}>
-            Support staff
-          </span>
-          <span className={styles.labelCol} style={{ flex: "0 0 30%" }}>
-            Profession
-          </span>
-          <span className={styles.labelCol} style={{ flex: 1 }}>
-            Description
-          </span>
-        </div>
+        <div className={styles.listSection}>
+          <div className={styles.listLabels}>
+            <span className={styles.labelCol} style={{ flex: "0 0 30%" }}>
+              Support staff
+            </span>
+            <span className={styles.labelCol} style={{ flex: "0 0 30%" }}>
+              Profession
+            </span>
+            <span className={styles.labelCol} style={{ flex: 1 }}>
+              Description
+            </span>
+          </div>
 
-        <div className={styles.accordionList} data-aos="fade-up">
-          {items.map((item) => {
-            const isActive = activeId === item.id;
-            return (
-              <div
-                key={item.id}
-                className={`${styles.accordionItem} ${isActive ? styles.active : ""}`}
-                onMouseEnter={() => setActiveId(item.id)}
-              >
-                {isActive && (
+          {/* Mobile Label */}
+          <div className={styles.mobileLabel}>Support staff</div>
+
+          <div className={styles.accordionList} data-aos="fade-up">
+            {items.map((item) => {
+              const isActive = activeId === item.id;
+              return (
+                <div
+                  key={item.id}
+                  className={`${styles.accordionItem} ${isActive ? styles.active : ""}`}
+                  onMouseEnter={() => setActiveId(item.id)}
+                >
                   <div className={styles.itemBg}>
                     <Image
                       src={item.image}
@@ -121,54 +131,50 @@ const HomeWhoSupports = React.memo(function HomeWhoSupports() {
                     />
                     <div className={styles.bgOverlay}></div>
                   </div>
-                )}
 
-                <div className={styles.itemContent}>
-                  <div className={styles.colTitle}>
-                    <h3 className={styles.itemTitle}>{item.title}</h3>
+                  <div className={styles.itemContent}>
+                    <div className={styles.colTitle}>
+                      <h3 className={styles.itemTitle}>{item.title}</h3>
+                    </div>
+
+                    <div className={styles.colProfession}>
+                      <p className={styles.professionText}>
+                        {item.profession}
+                      </p>
+                    </div>
+
+                    <div className={styles.colDescription}>
+                      <ul className={styles.descList}>
+                        {item.description.map((desc, i) => (
+                          <li key={i}>{desc}</li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div className={styles.colAction}>
+                      <Link href={item.link} className={styles.arrowBtn}>
+                        <svg
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M7 17L17 7M17 7H7M17 7V17"
+                            stroke="white"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      </Link>
+                    </div>
                   </div>
-
-                  {isActive && (
-                    <>
-                      <div className={styles.colProfession}>
-                        <p className={styles.professionText}>
-                          {item.profession}
-                        </p>
-                      </div>
-
-                      <div className={styles.colDescription}>
-                        <ul className={styles.descList}>
-                          {item.description.map((desc, i) => (
-                            <li key={i}>{desc}</li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      <div className={styles.colAction}>
-                        <Link href={item.link} className={styles.arrowBtn}>
-                          <svg
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M7 17L17 7M17 7H7M17 7V17"
-                              stroke="white"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
-                        </Link>
-                      </div>
-                    </>
-                  )}
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </Container>
     </section>

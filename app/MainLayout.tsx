@@ -19,7 +19,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
     });
   }, []);
   return (
-    <div className="flex min-h-screen flex-col lg:block bg-[#F3F4F6]">
+    <div className="flex min-h-screen flex-col lg:block bg-[#F3F4F6] overflow-x-hidden">
       {/* Mobile Header - Visible only on mobile */}
       <div className="block lg:hidden w-full sticky top-0 z-50">
         <MobileHeader />

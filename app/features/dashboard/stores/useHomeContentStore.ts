@@ -212,22 +212,22 @@ export const defaultContent: HomepageContent = {
     item1Profession: "High School & University",
     item1Description:
       "Build strong foundations and a portfolio you can show.\nGuided learning path + clear track selection\nProject-based assignments with mentor feedback",
-    item1Image: "/images/hero-image-76f7dd.png",
+    item1Image: "/images/home-who-supports/students.png",
     item2Title: "/Early-Career",
     item2Profession: "Junior & Mid-level",
     item2Description:
       "Accelerate your career growth with practical skills.\nReal-world case studies + industry mentorship\nNetworking opportunities with peers and experts",
-    item2Image: "/images/hero-image-76f7dd.png",
+    item2Image: "/images/home-who-supports/early-career.png",
     item3Title: "/Professionals",
     item3Profession: "Senior & Executives",
     item3Description:
       "Deepen your expertise and stay ahead of trends.\nAdvanced workshops + strategic frameworks\nPeer-to-peer learning in executive cohorts",
-    item3Image: "/images/hero-image-76f7dd.png",
+    item3Image: "/images/home-who-supports/professionals.png",
     item4Title: "/Teams & Companies",
     item4Profession: "Corporate Training",
     item4Description:
       "Upskill your entire team with customized programs.\nTailored curriculum + progress tracking\nScalable learning solutions for organizations",
-    item4Image: "/images/hero-image-76f7dd.png",
+    item4Image: "/images/home-who-supports/teams.png",
   },
   testimonials: {
     heading: "/Our Testimonials.",

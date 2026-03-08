@@ -9,6 +9,11 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr) 80px;
   gap: 0;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+    border-top: 1px solid #d1d5db;
+  }
 }
 
 .borderWrapper {
@@ -55,7 +60,7 @@
 
 .sidebar {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   justify-content: space-between;
   align-items: center;
   padding: 20px;
@@ -102,31 +107,47 @@
 
 // Responsive
 @media (max-width: 1024px) {
+  .section {
+    padding: 60px 0;
+  }
+
   .grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 40px;
+    grid-template-columns: 1fr;
+    border-top: 1px solid #d1d5db;
   }
 
   .borderWrapper {
-    border-right: none;
+    border: 1px solid #d1d5db;
+    border-top: none;
   }
 
   .paddingWrapper {
-    padding: 0;
-  }
-
-  .borderWrapper:first-child .paddingWrapper {
-    padding-left: 0; // consistent reset
+    padding: 12px 12px 40px 12px;
   }
 
   .sidebar {
-    display: none;
+    height: 56px;
+    flex-direction: row;
+    padding: 0 24px;
+    background-color: #f9fafb;
+    border: 1px solid #d1d5db;
+    border-top: none;
+    align-items: center;
   }
-}
 
-@media (max-width: 768px) {
-  .grid {
-    grid-template-columns: 1fr;
-    gap: 40px;
+  .sidebarLabel {
+    margin-bottom: 0;
+    writing-mode: horizontal-tb;
+    transform: none;
+  }
+
+  .arrowBtn {
+    width: 32px;
+    height: 32px;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
   }
 }

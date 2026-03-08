@@ -10,7 +10,7 @@ const TheSlabFooter = React.memo(function TheSlabFooter() {
   return (
     <footer>
       {/* Bottom Section - Using Grid Layout */}
-      <PolygonSection topLeftCut={60}>
+      <PolygonSection topLeftCut={60} topLeftCutMobile={40}>
         <div
           className="relative w-full bg-[#171717] overflow-hidden px-6 pb-12 pt-16 lg:px-20 lg:py-11 mt-[-80px] lg:mt-[-80px] -mt-[1px]"
         >

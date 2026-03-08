@@ -14,7 +14,7 @@ const Footer = React.memo(function Footer() {
   return (
     <footer className="w-full">
       {/* Top Section - Newsletter */}
-      <PolygonSection topLeftCut={60}>
+      <PolygonSection topLeftCut={60} topLeftCutMobile={40}>
         <div className="relative w-full lg:h-[465px] bg-[#DC2626] overflow-hidden pb-[80px] lg:pb-0">
           <div className="absolute inset-0">
             <Image
@@ -86,7 +86,7 @@ const Footer = React.memo(function Footer() {
       </PolygonSection>
 
       {/* Bottom Section */}
-      <PolygonSection topLeftCut={60}>
+      <PolygonSection topLeftCut={60} topLeftCutMobile={40}>
         <div className="relative w-full bg-[#171717] overflow-hidden px-6 pb-12 pt-16 lg:px-20 lg:py-11 mt-[-80px] lg:mt-[-80px] -mt-[1px]">
           <div className="absolute inset-0">
             <Image src="/images/footer-black-bg.jpg" alt="Background" fill className="object-cover object-left-top" priority />

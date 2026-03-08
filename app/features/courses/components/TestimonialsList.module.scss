@@ -2,8 +2,6 @@
   padding: 100px 0;
 }
 
-
-
 .heading {
   font-family: "MJ Satoshi", sans-serif;
   font-size: 64px;
@@ -13,14 +11,11 @@
   margin-bottom: 60px;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
+.swiper {
+  width: 100%;
 }
 
 .card {
-  
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -28,14 +23,14 @@
   
   .contentInner {
     padding: 16px;
-    background: #fff; // Light gray background
+    background: #fff; // Original desktop white
     border-radius: 8px;
   }
 }
 
 .quoteIcon {
   margin-bottom: 24px;
-  color: #EF4444; // Red quote
+  color: #EF4444; // Original desktop red quote
   
   svg {
     width: 48px;
@@ -96,23 +91,69 @@
 
 // --- Responsive ---
 @media (max-width: 1024px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
+  .heading {
+    margin-bottom: 40px;
   }
 }
 
 @media (max-width: 768px) {
   .section {
-    padding: 60px 0;
+    padding: 0 0 32px 0;
+  }
+
+  .container {
+    padding: 0 20px;
   }
 
   .heading {
-    font-size: 40px;
-    margin-bottom: 40px;
+    font-size: 32px;
+    margin-bottom: 16px;
   }
 
-  .grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
+  .card {
+    gap: 12px;
+    
+    .contentInner {
+      background: #f9fafb; // Mobile-specific Figma background
+      gap: 16px;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  .quoteIcon {
+    margin-bottom: 0;
+    color: #111827; // Mobile-specific Figma color
+    width: 48px;
+    height: 35px;
+    
+    svg {
+      width: 48px;
+      height: 35px;
+    }
+  }
+
+  .textContent {
+    margin-bottom: 0;
+  }
+
+  .text {
+    line-height: 22px;
+    color: #111827;
+    letter-spacing: -0.18px;
+  }
+
+  .imageWrapper {
+    width: 38px; // Mobile-specific Figma size
+    height: 38px;
+  }
+
+  .name {
+    line-height: 20px;
+    letter-spacing: -0.16px;
+  }
+
+  .role {
+    line-height: 20px;
   }
 }

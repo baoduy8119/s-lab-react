@@ -106,17 +106,21 @@ const TestimonialSlider = React.memo(function TestimonialSlider() {
 
                 {/* Text Side */}
                 <div className={styles.textContent}>
-                  <div className={styles.header}>
-                    <h3 className={styles.name}>{item.name}</h3>
-                    <p className={styles.role}>{item.role}</p>
+                  <div className={styles.topSection}>
+                    <div className={styles.header}>
+                      <h3 className={styles.name}>{item.name}</h3>
+                      <p className={styles.role}>{item.role}</p>
+                    </div>
+
+                    {/* Navigation Buttons */}
+                    <div className={styles.navWrapper}>
+                      <NavButtons />
+                    </div>
                   </div>
 
                   <blockquote className={styles.quote}>
                     {item.quote}
                   </blockquote>
-
-                  {/* Navigation Buttons using internal component context */}
-                  <NavButtons />
                 </div>
               </div>
             </SwiperSlide>

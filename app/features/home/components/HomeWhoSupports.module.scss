@@ -2,14 +2,20 @@
   padding: 60px 0;
 }
 
-.headerGrid {
+.topRow {
   display: flex;
   justify-content: space-between;
   margin-bottom: 80px;
 }
 
-.headerLeft {
+.counterSection {
+  display: flex;
+  flex-direction: column;
   max-width: 30%;
+}
+
+.barcodeIcon {
+  display: none;
 }
 
 .mainHeading {
@@ -20,11 +26,6 @@
   letter-spacing: -2px;
   margin-bottom: 60px;
   line-height: 1.1;
-}
-
-.counterBlock {
-  display: flex;
-  flex-direction: column;
 }
 
 .counterNumber {
@@ -58,11 +59,19 @@
 
 .headerImage {
   width: 100%;
-  height: 480px; // Fixed height for visual balance
+  height: 480px; 
   position: relative;
 }
 
 // --- List Section ---
+.listSection {
+  margin-top: 40px;
+}
+
+.mobileLabel {
+  display: none;
+}
+
 .listLabels {
   display: flex;
   padding: 0 40px 20px;
@@ -72,7 +81,7 @@
 
 .labelCol {
   font-family: "MJ Satoshi", sans-serif;
-  font-size: 16px; // Updated from 14px
+  font-size: 16px; 
   color: #9CA3AF;
   font-weight: 500;
 }
@@ -84,7 +93,7 @@
 
 .accordionItem {
   position: relative;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid #ffffff33; // light border for dark backgrounds
   cursor: pointer;
   overflow: hidden;
   transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
@@ -93,24 +102,30 @@
   &.active {
     min-height: 100px;
     color: #ffffff;
-    // border-bottom: none;
+  }
+
+  &:hover:not(.active) {
+    .bgOverlay {
+      background: rgba(0,0,0,0.4);
+    }
   }
 }
 
 @keyframes slideIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .itemBg {
   position: absolute;
   inset: 0;
   z-index: 1;
-  animation: slideIn 0.6s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+
+  .active & {
+    opacity: 1;
+  }
 }
 
 .bgImage {
@@ -128,11 +143,9 @@
   z-index: 2;
   display: flex;
   align-items: center;
-  padding: 12px 40px; // Updated padding (collapsed)
+  padding: 12px 40px; 
   height: 100%;
   min-height: 100px;
-  
-
 }
 
 .colTitle {
@@ -141,7 +154,7 @@
 
 .itemTitle {
   font-family: "MJ Satoshi", sans-serif;
-  font-size: 32px; // Updated from 40px
+  font-size: 32px; 
   font-weight: 700;
   color: #111827;
   transition: color 0.6s ease;
@@ -153,13 +166,17 @@
 
 .colProfession {
   flex: 0 0 30%;
-  animation: slideIn 0.5s ease-out 0.1s forwards;
-  opacity: 0; // Start hidden for animation
+  opacity: 0;
+  transition: opacity 0.4s ease;
+
+  .active & {
+    opacity: 1;
+  }
 }
 
 .professionText {
   font-family: "MJ Satoshi", sans-serif;
-  font-size: 16px; // Updated from 20px
+  font-size: 16px; 
   font-weight: 500;
   color: #ffffff;
 }
@@ -167,8 +184,12 @@
 .colDescription {
   flex: 1;
   padding-right: 60px;
-  animation: slideIn 0.5s ease-out 0.2s forwards;
-  opacity: 0; // Start hidden for animation
+  opacity: 0;
+  transition: opacity 0.4s ease;
+
+  .active & {
+    opacity: 1;
+  }
 }
 
 .descList {
@@ -177,14 +198,18 @@
   margin: 0;
   color: #ffffff;
   font-family: "MJ Satoshi", sans-serif;
-  font-size: 14px; // Updated layout often uses smaller body text 14-16px
+  font-size: 14px; 
   line-height: 1.6;
 }
 
 .colAction {
   flex-shrink: 0;
-  animation: slideIn 0.5s ease-out 0.3s forwards;
-  opacity: 0; // Start hidden for animation
+  opacity: 0;
+  transition: opacity 0.4s ease;
+
+  .active & {
+    opacity: 1;
+  }
 }
 
 .arrowBtn {
@@ -203,36 +228,53 @@
 }
 
 // --- Responsive ---
-// --- Responsive ---
 @media (max-width: 1024px) {
   .section {
-    padding: 40px 0;
+    padding: 24px 0;
   }
 
   .mainHeading {
-    font-size: 32px;
+    font-size: 24px;
     margin-bottom: 24px;
-    padding: 0 16px;
+    letter-spacing: -0.15px;
+    font-weight: 700;
   }
 
-  .headerGrid {
+  .topRow {
     flex-direction: column;
-    padding: 0 16px;
-    margin-bottom: 40px;
-    gap: 24px;
+    margin-bottom: 24px;
+    gap: 16px;
   }
   
-  .headerLeft {
+  .counterSection {
     max-width: 100%;
     width: 100%;
+    position: relative;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .barcodeIcon {
+    display: block;
+    margin-bottom: 12px;
   }
 
   .counterNumber {
-    font-size: 64px;
+    font-size: 48px;
+    letter-spacing: -0.4px;
     
     .plus {
       font-size: 32px;
+      margin-top: 5px;
+      margin-left: 2px;
     }
+  }
+
+  .counterLabel {
+    font-size: 16px;
+    letter-spacing: -0.18px;
+    color: #9CA3AF;
   }
 
   .headerRight {
@@ -242,47 +284,101 @@
   }
   
   .headerImage {
-    height: 240px;
-    border-radius: 8px; /* Or use Polygon styling if consistent */
-    overflow: hidden;
+    height: 228px;
+    width: 360px;
+    margin: 0 auto;
   }
   
+  .listSection {
+    margin-top: 24px;
+  }
+
+  .mobileLabel {
+    display: block;
+    font-family: "MJ Satoshi", sans-serif;
+    font-size: 16px;
+    color: #9CA3AF;
+    margin-bottom: 16px;
+  }
+
   .listLabels {
     display: none;
   }
 
+  .accordionList {
+    gap: 8px;
+  }
+
   .accordionItem {
-    min-height: auto;
-    border-bottom: 1px solid #e5e7eb;
+    min-height: 64px;
+    border-bottom: none;
+    &.active {
+      min-height: 64px;
+    }
+
+    /* All backgrounds visible on mobile as per design */
+    .itemBg {
+      opacity: 1;
+    }
+
+    .bgOverlay {
+      background: rgba(0, 0, 0, 0.4); // slightly lighter for all visible
+    }
   }
 
   .itemContent {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 24px 16px;
-    gap: 16px;
-    min-height: auto;
+    flex-direction: row;
+    align-items: center;
+    padding: 0 12px;
+    gap: 12px;
+    min-height: 64px;
+    justify-content: space-between;
   }
 
   .colTitle {
-    width: 100%;
-    flex: auto;
+    width: auto;
+    flex: 0 0 auto;
   }
 
   .itemTitle {
-    font-size: 24px;
+    font-size: 20px;
+    color: #ffffff; // always white on mobile
+    white-space: nowrap;
   }
 
-  /* When active on mobile, show profession and description stacked */
-  .colProfession, .colDescription {
-    width: 100%;
-    padding-right: 0;
+  .colProfession {
+    flex: 1;
+    opacity: 1;
+    text-align: center;
+    padding: 0 5px;
+  }
+  
+  .professionText {
+    font-size: 12px;
+    letter-spacing: -0.12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .colDescription {
+    display: none; // hidden on mobile consistent with 64px height
   }
   
   .colAction {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 16px;
+    width: auto;
+    opacity: 1;
+    margin-top: 0;
+  }
+
+  .arrowBtn {
+    width: 24px;
+    height: 24px;
+    background: #ef4444;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
   }
 }

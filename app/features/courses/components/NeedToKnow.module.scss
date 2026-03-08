@@ -129,6 +129,9 @@
 
 .titleLine {
   display: block;
+  @media screen and (max-width: 767px) {
+    font-size: 20px;
+  }
 }
 
 .rowDescription {
@@ -137,6 +140,9 @@
   line-height: 1.5;
   color: #111827;
   padding: 0 20px;
+  @media screen and (max-width: 767px) {
+    font-size: 16px;
+  }
 }
 
 .rowImageWrapper {
@@ -328,54 +334,98 @@
   }
 }
 
-// --- Responsive ---
-@media (max-width: 1024px) {
-  .mainHeading {
-    font-size: 56px;
+@media (max-width: 768px) {
+  .section {
+    padding: 0; // Reduced top padding
+    background: #ffffff;
+    > div {
+      padding: 0;
+    }
   }
 
-  .overviewGrid {
-    grid-template-columns: 1fr;
-    gap: 20px;
+  .container {
+    padding: 0; // Let children handle side padding where needed
+    gap: 0;
   }
 
-  .tabList, .contentRow {
-    grid-template-columns: 1fr;
+  // --- Header Hide on Mobile if needed or adjust ---
+  .mainHeading, .overviewGrid {
+    padding: 0 20px;
   }
-  
+
+  .tabsWrapper {
+    margin-top: 0;
+  }
+
+  .tabList {
+    width: 100%;
+    grid-template-columns: repeat(3, 1fr);
+    border-bottom: 2px solid #000;
+  }
+
+  .tabButton {
+    padding: 16px 8px;
+    font-size: 16px;
+    font-weight: 700;
+    border-right: none; // Remove dividers on mobile for flush look
+    
+    &.active {
+      background: #000000;
+      color: #ffffff;
+    }
+  }
+
+  .contentContainer {
+    padding: 0 20px;
+  }
+
   .contentRow {
-    gap: 24px;
-    padding: 24px;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 16px 0 20px;
+    border-bottom: 1px solid #CBD5E1;
+
+    &:last-child {
+      border-bottom: none;
+    }
   }
 
-  // Split Layout Mobile & FAQ
+  .rowTitle {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.2;
+    padding: 0;
+  }
+
+  .rowDescription {
+    padding: 0;
+    font-size: 18px;
+    line-height: 1.5;
+    color: #374151; // Slightly softer black
+  }
+
+  .rowImageWrapper {
+    width: 60%;
+    margin-top: 8px;
+    aspect-ratio: 4/3; // Better for mobile viewing
+    border-radius: 4px;
+  }
+
+  // Split & FAQ Mobile
   .splitLayout, .faqLayout {
+    padding: 32px 0;
     grid-template-columns: 1fr;
-    padding: 32px;
-    gap: 40px;
-  }
-  
-  .faqLeftContent {
-    position: static;
-    gap: 20px;
-  }
-  
-  .faqImageWrapper {
-    width: 200px; // Smaller on mobile
   }
 
   .bulletText {
     font-size: 18px;
   }
-}
 
-@media (max-width: 768px) {
-  .container {
-    padding: 0 20px;
-    gap: 40px;
+  .faqTitle {
+    font-size: 32px;
   }
 
-  .mainHeading {
-    font-size: 40px;
+  .questionText {
+    font-size: 18px;
   }
 }

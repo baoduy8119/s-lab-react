@@ -6,7 +6,7 @@
   flex-direction: column;
 
   @media (max-width: 1024px) {
-    padding: 0 16px 40px;
+    padding: 0 16px 24px;
   }
 }
 
@@ -21,10 +21,10 @@
   width: 576px;
 
   @media (max-width: 1024px) {
-    width: 100%;
+    width: 267px;
     font-size: 32px;
-    line-height: 40px;
-    letter-spacing: -0.8px;
+    line-height: 38px;
+    letter-spacing: -0.2px;
     margin-bottom: 24px;
   }
 }
@@ -33,6 +33,10 @@
   display: flex;
   flex-direction: column;
   gap: 32px;
+
+  @media (max-width: 1024px) {
+    gap: 24px;
+  }
 }
 
 .imageWrapper {
@@ -48,17 +52,11 @@
   transition: all 0.3s ease;
 
   @media (max-width: 1024px) {
-    gap: 16px;
-    padding-bottom: 24px;
-    flex-direction: column; // Stack icon/content if needed, or keep flex but reduce gap
-    align-items: flex-start;
-    
-    // Actually desire design usually keeps icon next to title, so let's keep row but reduce gap
     flex-direction: row; 
-    gap: 16px;
+    gap: 0; // The icon and title don't have a gap, they are spaced using between or specific layout. Or maybe gap: 16px. wait, I'll use justify-between for title and icon if needed, but the design shows icon first then text. Let's use 16px gap? No, the design shows icon FIRST or LAST? Oh! The icon is LAST in some designs, or FIRST. Wait! Figma shows icon FIRST. In design, the icon is left side, rotated. Wait, in limiteless desire: "flex items-start justify-between pb-[var(--2xl,24px)]" -> The icon is on the left? Wait, icon is on the left.
+    padding-bottom: 24px;
+    justify-content: space-between;
   }
-
-  
 
   &:last-child {
     border-bottom: none;
@@ -106,7 +104,8 @@
   
   @media (max-width: 1024px) {
     font-size: 24px;
-    line-height: 32px;
+    line-height: 30px;
+    letter-spacing: -0.15px;
   }
 
   &:hover {

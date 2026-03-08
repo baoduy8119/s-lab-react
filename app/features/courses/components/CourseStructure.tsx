@@ -72,13 +72,8 @@ const chapters: Chapter[] = [
 ];
 
 const CourseStructure = React.memo(function CourseStructure() {
-  // Split data into 3 columns
-  const col1 = [chapters[0], chapters[3]]; // Ch 1, 4
-  const col2 = [chapters[1], chapters[4]]; // Ch 2, 5
-  const col3 = [chapters[2]];              // Ch 3
-
   const renderCard = (chapter: Chapter) => (
-    <div key={chapter.id} className={styles.card}>
+    <div key={chapter.id} className={`${styles.card} ${styles[`card${chapter.number}`]}`}>
       <div className={`${styles.header} ${styles[chapter.theme]}`}>
         <span className={styles.chapterNum}>Chapter {chapter.number}</span>
         <span className={styles.chapterTitle}>{chapter.title}</span>
@@ -104,16 +99,24 @@ const CourseStructure = React.memo(function CourseStructure() {
       <Container>
         <h2 className={styles.heading}>/Course Structure.</h2>
 
-        <div className={styles.columnsWrapper}>
+        {/* Desktop View: Staggered columns */}
+        <div className={styles.desktopLayout}>
           <div className={styles.column}>
-            {col1.map(renderCard)}
+            {renderCard(chapters[0])}
+            {renderCard(chapters[3])}
           </div>
           <div className={`${styles.column} ${styles.colOffset1}`}>
-            {col2.map(renderCard)}
+            {renderCard(chapters[1])}
+            {renderCard(chapters[4])}
           </div>
           <div className={`${styles.column} ${styles.colOffset2}`}>
-            {col3.map(renderCard)}
+            {renderCard(chapters[2])}
           </div>
+        </div>
+
+        {/* Mobile View: Sequential 1-5 */}
+        <div className={styles.mobileLayout}>
+          {chapters.map(renderCard)}
         </div>
       </Container>
     </section>

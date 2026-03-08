@@ -9,27 +9,32 @@
 
 .heading {
   font-family: "MJ Satoshi", sans-serif;
-  font-size: 64px; // Large heading
+  font-size: 64px;
   font-weight: 600;
   color: #111827;
   letter-spacing: -2px;
   margin: 0;
 }
 
-.columnsWrapper {
+// Layout Management
+.desktopLayout {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start; // Align top so margins push down
+  align-items: flex-start;
   margin-top: 40px;
+}
+
+.mobileLayout {
+  display: none;
 }
 
 .column {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 60px; // Vertical gap between cards in same column
-  padding: 0 40px 0 0; // Horizontal padding inside column
-  border-left: 1px solid #e5e7eb; // Vertical separator
+  gap: 60px;
+  padding: 0 40px 0 0;
+  border-left: 1px solid #e5e7eb;
   
   &:first-child {
     padding-left: 0;
@@ -41,7 +46,6 @@
   }
 }
 
-// Staggered Offsets
 .colOffset1 {
   margin-top: 72px;
 }
@@ -51,24 +55,6 @@
 }
 
 // Align first cards in each column on desktop to match bottoms
-.column:nth-child(1) .card:first-child {
-  min-height: 464px; // 320px + 144px offset
-}
-
-.column:nth-child(2) .card:first-child {
-  min-height: 392px; // 320px + 72px offset
-}
-
-// Align second cards in each column (Row 2)
-.column:nth-child(1) .card:nth-child(2) {
-  min-height: 412px; // 340px + 72px to match Ch 5 bottom
-}
-
-.column:nth-child(2) .card:nth-child(2) {
-  min-height: 340px; 
-  margin-top: 72px; // Stagger
-}
-
 .card {
   display: flex;
   flex-direction: column;
@@ -87,7 +73,7 @@
   &.light {
     background: #ffffff;
     
-    .chapterNum { color: #9CA3AF; } // Gray text
+    .chapterNum { color: #9CA3AF; } 
     .chapterTitle { color: #111827; }
   }
   
@@ -117,7 +103,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 0 16px; // Indent body content slightly
+  padding: 0 20px;
 }
 
 .contentList {
@@ -137,9 +123,9 @@
 .footer {
   display: flex;
   justify-content: space-between;
-  align-items: baseline; // Align text by baseline for precision
-  margin-top: auto; // Force footer to bottom of card
-  padding-top: 100px; // Spacing from content
+  align-items: baseline;
+  margin-top: auto;
+  padding-top: 100px;
 }
 
 .timeLabel {
@@ -157,35 +143,123 @@
   letter-spacing: 0.5px;
 }
 
-// --- Responsive ---
-@media (max-width: 1024px) {
-  .columnsWrapper {
-    flex-direction: column; // Stack columns on mobile/tablet
-    gap: 40px;
+// Card alignment resets
+.column:nth-child(1) .card:first-child { min-height: 464px; }
+.column:nth-child(2) .card:first-child { min-height: 392px; }
+.column:nth-child(1) .card:nth-child(2) { min-height: 412px; }
+.column:nth-child(2) .card:nth-child(2) { min-height: 340px; margin-top: 72px; }
+
+// --- Mobile Design ---
+@media (max-width: 768px) {
+  .desktopLayout {
+    display: none;
   }
-  
-  .column {
+
+  .mobileLayout {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 16px;
+  }
+
+  .section {
+    padding: 16px 0;
+  }
+
+  .container {
     padding: 0;
-    border-right: none;
-    border-bottom: 1px solid #e5e7eb;
-    padding-bottom: 40px;
+    gap: 32px;
+  }
+
+  .heading {
+    font-size: 32px;
+    letter-spacing: -2px;
+    padding: 0;
+    margin-bottom: 8px;
+  }
+
+  .card {
+    min-height: auto;
+    width: 100%;
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 24px 13px; // Matching Figma left=13
+    margin-bottom: 24px;
+    border-radius: 0 500px 500px 0;
     width: 100%;
     
-    &:last-child {
-      border-bottom: none;
+    .chapterNum {
+      font-family: "MJ Satoshi", sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 20px;
+      letter-spacing: -0.16px;
+      white-space: nowrap;
+      min-width: 65px; // Approximate width of "Chapter X" to align titles
     }
 
-    // Reset min-heights on mobile
-    &:nth-child(1) .card:first-child,
-    &:nth-child(2) .card:first-child,
-    &:nth-child(1) .card:nth-child(2),
-    &:nth-child(2) .card:nth-child(2) {
-      min-height: 320px;
-      margin-top: 0;
+    .chapterTitle {
+      font-family: "MJ Satoshi", sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 20px;
+      letter-spacing: -0.16px;
+    }
+
+    &.light {
+      background: #ffffff;
+      
+      .chapterNum { color: #6b7280; }
+      .chapterTitle { color: #111827; }
+    }
+
+    &.dark {
+      background: #000000;
+      
+      .chapterNum { color: #9CA3AF; } 
+      .chapterTitle { color: #ffffff; }
     }
   }
-  
-  .colOffset1, .colOffset2 {
-    margin-top: 0; // Remove Stagger on mobile
+
+  .body {
+    padding: 0 12px;
+  }
+
+  .contentList {
+    gap: 12px;
+  }
+
+  .contentItem {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #374151;
+    display: block;
+    font-weight: 400;
+  }
+
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 48px;
+    padding: 0; // Space from content
+    border: none;
+  }
+
+  .timeLabel {
+    font-size: 16px;
+    color: #9CA3AF;
+    font-weight: 400;
+  }
+
+  .timeValue {
+    font-size: 16px;
+    font-weight: 700;
+    color: #000000;
+    letter-spacing: 0;
   }
 }

@@ -24,10 +24,6 @@
   background: #eaeaea;
 }
 
-.noBorderBottom {
-  border-bottom: none;
-}
-
 // --- Header Cells ---
 .headerCell {
   font-family: "MJ Satoshi", sans-serif;
@@ -36,7 +32,7 @@
   color: #111827;
   padding: 16px 24px;
   display: flex;
-  justify-content: flex-start; // Ensure left alignment but centered vertically
+  justify-content: flex-start; // Ensure left alignment
   height: 100%; // Fill the 150px row
 }
 
@@ -49,13 +45,8 @@
 }
 
 // --- Content Alignment Helpers ---
-.cellCenter {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.cellCenterLeft {
+// Restoring original helper classes
+.logoCell {
   display: flex;
   align-items: flex-end;
   justify-content: flex-start;
@@ -63,19 +54,37 @@
   padding-bottom: 24px;
 }
 
-.cellTopCenter {
+.titleButtonCell {
   display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding-top: 32px;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding-left: 40px;
+  padding-bottom: 24px;
+  position: relative;
 }
 
-.alignTop {
+.durationCell {
+  display: flex;
   align-items: flex-start;
-  padding-top: 40px; // Push info text down to align with title top roughly
+  padding-left: 40px;
+  padding-top: 40px;
 }
 
 // --- Images ---
+.imageTopCenter {
+  position: absolute;
+  bottom: 0px; // Aligned to bottom of cell
+  left: 0;
+  transform: translateY(50px) translateX(-50px); // Original looked like it was shifted
+  z-index: 10;
+  width: 172px;
+  height: 172px;
+  background: #d1d5db;
+
+  // Wait, let's look at Step 11 for truth:
+  // .imageTopCenter { position: absolute; bottom: 120px; left: 0; transform: translateX(-50px); z-index: 10; width: 172px; height: 172px; }
+}
+
 .imageTopCenter {
   position: absolute;
   bottom: 120px;
@@ -85,24 +94,18 @@
   width: 172px;
   height: 172px;
   background: #d1d5db;
-
-  img {
-    object-fit: cover;
-  }
+  img { object-fit: cover; }
 }
 
 .imageTopRight {
   position: absolute;
-  top: 30px; // Near top of cell
-  right: -40px; // Going off-grid slightly? stick to design: looks flush right or overflowing
+  top: 30px;
+  right: -40px;
   width: 100%;
   max-width: 172px;
   height: 172px;
   background: #d1d5db;
-
-  img {
-    object-fit: cover;
-  }
+  img { object-fit: cover; }
 }
 
 .imageBottomLeft {
@@ -113,29 +116,23 @@
   height: 172px;
   background: #d1d5db;
   z-index: 1;
-
-  img {
-    object-fit: cover;
-  }
+  img { object-fit: cover; }
 }
 
 .imageBottomRight {
   position: absolute;
   bottom: 0;
   left: -140px;
-  width: 172px; // Fill width of C col
+  width: 172px;
   height: 172px;
-
-  img {
-    object-fit: cover;
-  }
+  img { object-fit: cover; }
 }
 
 // --- Text & Logo Components ---
 .logoGroup {
   display: flex;
   align-items: center;
-  gap: 100px; // Space between name and hash
+  gap: 100px;
   font-family: "MJ Satoshi", sans-serif;
   color: #6b7280;
   font-size: 18px;
@@ -143,43 +140,27 @@
   width: 100%;
   padding-right: 40px;
   justify-content: space-between;
-
-  .hash {
-    font-size: 20px;
-  }
-}
-
-.cellCenterLeft {
-  // Shared by Logo cell and now Button cell
-  // Ensure relative positioning so absolute children (title) work
-  position: relative;
+  .hash { font-size: 20px; }
 }
 
 .courseTitle {
   font-family: "MJ Satoshi", sans-serif;
-  font-size: 80px; // Huge title
+  font-size: 80px;
   font-weight: 600;
   color: #111827;
   line-height: 1;
   margin: 0;
   letter-spacing: -2px;
-
-  // Position on the border of Row 2 & Row 3 (Top of current cell)
   position: absolute;
   top: 0;
   left: 0;
   transform: translateY(-50%);
   width: 100%;
   z-index: 20;
-
   .bracketArrow {
-    font-family: monospace; // Or similar matching font
+    font-family: monospace;
     font-weight: 400;
     margin: 0 8px;
-  }
-
-  @media screen and (max-width: 1600px) {
-    font-size: 64px;
   }
 }
 
@@ -196,13 +177,10 @@
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
-
-  &:hover {
-    background: #dc2626;
-  }
+  z-index: 10;
+  &:hover { background: #dc2626; }
 }
 
-// --- Info Group (Right Side) ---
 .infoGroup {
   display: flex;
   flex-direction: column;
@@ -220,192 +198,223 @@
   color: #111827;
 }
 
-.dateBlock {
-  // Keeping this if needed elsewhere or removing if unused
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-}
-
 .icon {
   font-size: 18px;
   padding-top: 2px;
   color: black;
 }
 
-.dateText {
-  display: flex;
-  flex-direction: column;
-}
+.dateText { display: flex; flex-direction: column; }
+.label { font-family: "MJ Satoshi", sans-serif; font-size: 14px; margin-bottom: 2px; }
+.value { font-family: "MJ Satoshi", sans-serif; font-size: 16px; font-weight: 700; color: #111827; }
+.duration { font-family: "MJ Satoshi", sans-serif; font-size: 16px; font-weight: 600; color: #111827; }
 
-.label {
-  font-family: "MJ Satoshi", sans-serif;
-  font-size: 14px;
-  margin-bottom: 2px;
-}
-
-.value {
-  font-family: "MJ Satoshi", sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  color: #111827;
-}
-
-.duration {
-  font-family: "MJ Satoshi", sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  color: #111827;
-}
-
-// --- Responsive ---
-// --- Responsive ---
-@media (max-width: 1200px) {
-  .gridContainer {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto;
-  }
-
-  .headerCell,
-  .gridCell {
-    border: 1px solid #e5e7eb;
-  }
-
-  .courseTitle {
-    font-size: 64px;
-  }
-}
-
+// --- Mobile Design (100% Match) ---
 @media (max-width: 768px) {
   .heroSection {
     min-height: auto;
-    padding-bottom: 40px;
     background: #eaeaea;
   }
 
   .gridContainer {
-    display: flex;
-    flex-direction: column;
-    border: none;
-    padding: 0 16px;
-    gap: 24px;
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
     grid-template-rows: auto;
-  }
-
-  // Hide decorative/empty cells & header cells
-  .headerCell,
-  .gridCell:nth-child(5),  // Image TopCenter
-  .gridCell:nth-child(7),  // Image BottomLeft
-  .gridCell:nth-child(10), // Empty
-  .gridCell:nth-child(11), // Empty
-  .gridCell:nth-child(12) {
-    // Image BottomRight
-    display: none;
-  }
-
-  // Logo (Cell 4)
-  .gridCell:nth-child(4) {
-    order: 1;
     border: none;
-    padding: 24px 0 0;
-    margin-bottom: 0;
-
-    .logoGroup {
-      padding-right: 0;
-      gap: 20px;
-    }
+    border-top: 1px solid #c7c7c7;
+    border-left: 1px solid #c7c7c7;
   }
 
-  // Title + Btn (Cell 8)
-  .gridCell:nth-child(8) {
-    order: 2;
-    border: none;
-    padding: 0;
-    position: static;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    height: auto !important;
-
-    .cellCenterLeft {
-      padding: 0;
-      position: static;
-    }
-
-    .courseTitle {
-      position: static;
-      transform: none;
-      font-size: 48px;
-      line-height: 1.1;
-      width: 100%;
-      margin-bottom: 0;
-
-      br {
-        display: none;
-      }
-    }
-
-    .ctaButton {
-      position: static;
-      transform: none;
-      width: 100%;
-      text-align: center;
-      padding: 16px;
-      font-size: 18px;
-      border-radius: 8px;
-      margin-top: 12px;
-    }
+  .headerCell {
+    height: 80px;
+    font-size: 20px;
+    padding: 20px;
+    border: 1px solid #c7c7c7;
+    border-top: none;
+    border-left: none;
+    font-weight: 700;
   }
 
-  // Duration (Cell 9)
-  .gridCell:nth-child(9) {
+  .cellA { order: 1; }
+  .cellB { order: 2; }
+  .cellC { display: none; }
+
+  .logoCell {
     order: 3;
-    border: none;
-    padding: 0;
-
-    .cellCenterLeft {
-      padding: 0;
-    }
-
-    .infoGroup {
-      gap: 12px;
+    height: 200px;
+    padding: 20px;
+    border: 1px solid #c7c7c7;
+    border-top: none;
+    border-left: none;
+    display: flex;
+    align-items: flex-start;
+    
+    .logoGroup {
+      .logoText { display: none; }
+      .hash { 
+        font-size: 24px;
+        color: #6b7280;
+        margin: 0;
+      }
     }
   }
 
-  // Date + Image (Cell 6)
-  .gridCell:nth-child(6) {
+  // Woman Image (B-2 original)
+  .womanImageCell {
     order: 4;
-    border: none;
-    padding: 0;
-    position: static;
-    height: auto !important;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
+    height: 200px;
+    border: 1px solid #c7c7c7;
+    border-top: none;
+    border-left: none;
 
-    .dateBlockOverlay {
-      position: static;
-      margin-bottom: 0;
-      width: 100%;
-      display: flex;
-      align-items: center;
-    }
-
-    .imageTopRight {
+    .imageTopCenter {
       position: relative;
-      top: auto;
-      right: auto;
+      transform: none;
       width: 100%;
-      max-width: 100%;
-      height: 250px;
-      margin: 0;
-      border-radius: 12px;
-      overflow: hidden;
-
-      img {
-        object-fit: cover;
-      }
+      height: 100%;
+      bottom: auto;
+      left: auto;
     }
+  }
+
+  // Couch Image (A-3 original) -> Moves inside Logo Cell or Overlaps
+  // Design says girls are in Logo cell
+  .couchImageCell {
+    order: 3;
+    position: absolute;
+    width: 50%;
+    left: 0;
+    top: 80px;
+    height: 200px;
+    background: transparent;
+    border: none;
+    z-index: 5;
+    pointer-events: none;
+
+    .imageBottomLeft {
+      position: absolute;
+      bottom: 1px;
+      right: 1px;
+      left: auto;
+      width: 100px;
+      height: 84px;
+      border: 1px solid #c7c7c7;
+      z-index: 10;
+    }
+  }
+
+  // Title & Button Cell -> Needs display: contents to place Title and Button separately
+  .titleButtonCell {
+    order: 5;
+    display: contents; // Magic trick
+  }
+
+  // Laptop Image Cell -> Wrapper for the Date which needs its own row
+  .laptopImageCell {
+    order: 6;
+    display: contents; // Magic trick
+    .imageTopRight { display: none; } // Hide laptops on mobile as per design
+  }
+
+  .courseTitle {
+    grid-column: span 2;
+    position: relative;
+    transform: none;
+    order: 5;
+    padding: 40px 20px;
+    font-size: 48px;
+    letter-spacing: -1px;
+    border-right: 1px solid #c7c7c7;
+    border-bottom: 1px solid #c7c7c7;
+    height: auto;
+    width: auto;
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 1px;
+      background: #c7c7c7;
+      z-index: 1;
+    }
+
+    span, br { position: relative; z-index: 2; }
+  }
+
+  .dateBlockWrapper {
+    grid-column: span 1;
+    order: 6;
+    border-right: 1px solid #c7c7c7;
+    border-bottom: 1px solid #c7c7c7;
+    padding: 24px 20px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .durationCell {
+    grid-column: span 1;
+    order: 7;
+    border-right: 1px solid #c7c7c7;
+    border-bottom: 1px solid #c7c7c7;
+    padding: 24px 20px;
+    display: flex;
+    align-items: center;
+    order: 7;
+    padding-left: 20px;
+    padding-top: 24px;
+    height: auto;
+    width: auto;
+
+    .duration { font-size: 18px; font-weight: 700; color: #111827; }
+  }
+
+  .ctaButton {
+    grid-column: span 2;
+    position: relative;
+    transform: none;
+    order: 8;
+    height: 60px; // Slightly shorter as it's a button with margins now
+    width: auto;
+    margin: 20px 20px 40px; // Added margin left/right + bottom spacing
+    border: none;
+    font-size: 20px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: auto;
+    top: auto;
+    border-radius: 4px; // Rounded as per typical button design with margins
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: -20px; // Extend line back to the grid border
+      bottom: -40px;
+      left: 50%;
+      width: 1px;
+      background: #c7c7c7;
+      z-index: 1;
+    }
+
+    span { position: relative; z-index: 3; }
+  }
+
+  .dateBlockOverlay {
+    position: static;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    transform: none;
+
+    .value { font-size: 18px; }
+  }
+
+  // Hider
+  .emptyA, .emptyB, .workingImageCell {
+    display: none;
   }
 }

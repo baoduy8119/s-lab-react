@@ -145,8 +145,11 @@
   color: #111827;
 }
 
-// --- Responsive ---
 @media (max-width: 1024px) {
+  .section {
+    padding: 60px 0 32px;
+  }
+  
   .mainTitle {
     font-size: 60px;
   }
@@ -158,5 +161,107 @@
   
   .description {
     font-size: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 48px 0 24px;
+  }
+
+  .headerRow {
+    margin-bottom: 24px;
+  }
+
+  .logoAbs {
+    display: none;
+  }
+
+  .mainTitle {
+    font-size: 32px;
+    line-height: 38px;
+    letter-spacing: -0.2px;
+    margin-bottom: 24px;
+  }
+
+  .introBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: 0;
+  }
+
+  .label {
+    position: absolute;
+    left: 16px;
+    font-size: 20px;
+    line-height: 24px;
+    color: #6B7280;
+    margin-bottom: 40px;
+  }
+
+  .textWrapper {
+    max-width: 100%;
+  }
+
+  .description {
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 700;
+    letter-spacing: -0.18px;
+    margin-left: 28%;
+    margin-bottom: 16px;
+  }
+
+  .subDescription {
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 400;
+    letter-spacing: -0.18px;
+    color: #111827;
+    margin-left: 0;
+    margin-bottom: 64px;
+  }
+
+  .toolbar {
+    margin-top: auto;
+    padding-bottom: 16px;
+    gap: 16px;
+  }
+
+  .categoryDropdown {
+    font-size: 20px;
+    font-weight: 500;
+    color: #111827;
+    flex: 1;
+    gap: 8px; // Design shows 8px gap
+
+    .chevron {
+      width: 24px; // 24px from design
+      height: 24px;
+    }
+  }
+
+  .searchBar {
+    width: auto;
+    flex: 1.5;
+    background: transparent;
+    padding: 0;
+    gap: 8px; // Design shows 8px gap
+    justify-content: flex-end;
+  }
+
+  .searchInput {
+    font-size: 20px;
+    font-weight: 500;
+    text-align: right;
+    width: 100%;
+    color: #6b7280; // Placeholder/default color match
+  }
+
+  .searchIcon {
+    width: 24px;
+    height: 24px;
+    order: 2; // Keep icon on the far right
   }
 }

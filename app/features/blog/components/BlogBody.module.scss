@@ -64,8 +64,56 @@
   }
 }
 
+.authorArea {
+  display: none; // Hidden on desktop
+  margin-top: 60px;
+  border-top: 1px solid #E5E7EB;
+  padding-top: 40px;
+}
+
+.authorBlock {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.authorImageWrapper {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  background: #ffffff;
+}
+
+.authorImage {
+  object-fit: cover;
+}
+
+.authorInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.authorName {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.authorRole {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 14px;
+  color: #6B7280;
+}
+
 // Responsive
 @media (max-width: 1024px) {
+  .section {
+    padding: 0 0 60px;
+  }
+
   .layout {
     flex-direction: column;
     gap: 0;
@@ -76,7 +124,66 @@
   }
   
   .intro {
-    font-size: 24px;
-    margin-bottom: 40px;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 24px;
+    margin-bottom: 32px;
+  }
+
+  .richText {
+    p {
+      font-size: 16px;
+      line-height: 22px;
+      color: #6b7280;
+      letter-spacing: -0.18px;
+      margin-bottom: 24px;
+    }
+
+    h3 {
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 24px;
+      margin-top: 40px;
+      margin-bottom: 12px;
+    }
+
+    ul {
+      margin-bottom: 24px;
+      li {
+        font-size: 16px;
+        line-height: 22px;
+        color: #6b7280;
+        letter-spacing: -0.18px;
+        margin-bottom: 8px;
+      }
+    }
+  }
+
+  .authorArea {
+    display: flex;
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none; // Design doesn't show line at bottom in mobile screen?
+  }
+
+  .authorImageWrapper {
+    width: 28px;
+    height: 28px;
+  }
+
+  .authorName {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .authorRole {
+    font-size: 14px;
+    line-height: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding-bottom: 0;
   }
 }

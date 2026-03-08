@@ -104,14 +104,15 @@ const RelatedCourses = React.memo(function RelatedCourses() {
 
         <Swiper
           modules={[Autoplay]}
-          spaceBetween={24}
-          slidesPerView={1}
+          spaceBetween={16}
+          slidesPerView={1.2}
+          centeredSlides={false}
           loop={true}
           autoplay={{ delay: 3000, disableOnInteraction: false }}
           grabCursor={true}
           breakpoints={{
-            640: { slidesPerView: 2 },
-            1920: { slidesPerView: 3 },
+            640: { slidesPerView: 2, spaceBetween: 24 },
+            1024: { slidesPerView: 2, spaceBetween: 32 },
           }}
           className={styles.swiper}
         >

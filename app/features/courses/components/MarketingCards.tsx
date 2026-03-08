@@ -16,6 +16,7 @@ interface CardItem {
 
 const MarketingCards = React.memo(function MarketingCards() {
   const [activeTab, setActiveTab] = useState("All");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const cardIds = useCoursesContentStore((s) => s.cardIds);
   const content = useCoursesContentStore((s) => s.content);
 
@@ -47,19 +48,63 @@ const MarketingCards = React.memo(function MarketingCards() {
       ? cards
       : cards.filter((card) => card.category === activeTab);
 
+  const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
+
+  const handleTabChange = (tab: string) => {
+    setActiveTab(tab);
+    setIsDropdownOpen(false);
+  };
+
   return (
     <section className={styles.section}>
       <div className={styles.container}>
+        {/* Desktop Tabs */}
         <div className={styles.tabs}>
           {categories.map((tab) => (
             <button
               key={tab}
               className={`${styles.tab} ${activeTab === tab ? styles.active : ""} ${tab === "All" ? styles.tabAll : ""}`}
-              onClick={() => setActiveTab(tab)}
+              onClick={() => handleTabChange(tab)}
             >
               {tab}
             </button>
           ))}
+        </div>
+
+        {/* Mobile Dropdown */}
+        <div className={styles.mobileDropdownContainer}>
+          <button className={styles.dropdownButton} onClick={toggleDropdown}>
+            <span>{activeTab}</span>
+            <svg
+              className={`${styles.chevron} ${isDropdownOpen ? styles.rotated : ""}`}
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M4 6L8 10L12 6"
+                stroke="black"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
+          {isDropdownOpen && (
+            <div className={styles.dropdownMenu}>
+              {categories.map((tab) => (
+                <button
+                  key={tab}
+                  className={`${styles.dropdownItem} ${activeTab === tab ? styles.dropdownActive : ""}`}
+                  onClick={() => handleTabChange(tab)}
+                >
+                  {tab}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
         <div className={styles.grid}>
@@ -81,9 +126,7 @@ const MarketingCards = React.memo(function MarketingCards() {
                 <h3 className={styles.cardTitle}>{card.title}</h3>
                 <p className={styles.cardDescription}>{card.description}</p>
                 <div className={styles.cardFooter}>
-                  {card.category && (
-                    <span className={styles.badge}>{card.category}</span>
-                  )}
+                  <span className={styles.badge}>Popular</span>
                 </div>
               </div>
             </Link>

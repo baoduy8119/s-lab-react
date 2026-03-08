@@ -35,7 +35,7 @@ const KeyActivities = React.memo(function KeyActivities() {
 
   return (
     <section className={styles.section}>
-      {/* Background Image with Content */}
+      {/* Background Image with Content (Desktop Only) */}
       <div className={styles.backgroundWrapper}>
         <div className={styles.background}>
           <Image
@@ -65,6 +65,10 @@ const KeyActivities = React.memo(function KeyActivities() {
         </div>
       </div>
 
+      <div className={styles.mobileHeader}>
+        <h2 className={styles.mobileTitle} data-aos="fade-up">/Our Key Activities. </h2>
+      </div>
+
       {/* Cards Grid */}
       <div className={styles.cards}>
         {activities.map((activity, index) => (
@@ -78,6 +82,10 @@ const KeyActivities = React.memo(function KeyActivities() {
             <p className={styles.cardDescription}>{activity.description}</p>
           </div>
         ))}
+      </div>
+
+      <div className={styles.mobileActions}>
+        <button className={styles.joinButton}>Join us now</button>
       </div>
     </section>
   );

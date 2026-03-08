@@ -5,6 +5,7 @@ import React from "react";
 import PartnerLogos from "./PartnerLogos";
 import MouseTracker3D from "./MouseTracker3D";
 import { useHomeContentStore } from "@/app/features/dashboard/stores/useHomeContentStore";
+import TheSlabMobile from "./icons/TheSlabMobile";
 
 const HeroSection = React.memo(function HeroSection() {
   const c = useHomeContentStore((s) => s.content.hero);
@@ -31,15 +32,16 @@ const HeroSection = React.memo(function HeroSection() {
         </p>
 
         <h1
-          className="text-[40px] leading-[48px] font-bold text-[#111827] tracking-[-1.5px] uppercase"
+          className="text-[40px] leading-[48px] font-bold text-[#111827] tracking-[-1.5px] uppercase w-[300px]"
           data-aos="fade-up"
           data-aos-delay="100"
         >
-          {c.heading.split(/\s+/).reduce<React.ReactNode[]>((acc, word, i) => {
+          {/* {c.heading.split(/\s+/).reduce<React.ReactNode[]>((acc, word, i) => {
             if (i > 0) acc.push(<br key={`br-${i}`} />);
             acc.push(word);
             return acc;
-          }, [])}
+          }, [])} */}
+          <img src="/images/hero-graphic.svg" alt="TheSlabMobile" />
         </h1>
 
         <div

@@ -4,7 +4,7 @@
   padding: 30px 0;
   border-bottom: 1px solid #e5e7eb;
 
-  &:last-child {
+  &.noBorder {
     border-bottom: none;
   }
 }
@@ -83,6 +83,9 @@
   font-weight: 500;
   color: #111827;
   max-width: 300px;
+  @media screen and (max-width: 767px) {
+    font-size: 24px;
+  }
 }
 
 .description {
@@ -121,6 +124,9 @@
   z-index: 10;
   background: rgba(0, 0, 0, 0.4); // Dark overlay
   clip-path: polygon(40px 0, 100% 0, 100% 100%, 0 100%, 0 40px); // Match topLeftCut={40} matches PolygonImage
+  @media screen and (max-width: 767px) {
+    clip-path: polygon(30px 0, 100% 0, 100% 100%, 0 100%, 0 30px); // Match topLeftCut={40} matches PolygonImage
+  }
   
   .logo {
     width: 108px;
@@ -151,19 +157,18 @@
 @media (max-width: 1024px) {
   .card {
     flex-direction: column;
-    gap: 24px;
-    padding: 40px 0;
+    gap: 8px;
+    padding: 20px 0;
   }
 
   .metaCol {
     width: 100%;
-    flex-direction: row;
-    gap: 20px;
+    gap: 0;
   }
 
   .gridContent {
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 8px;
   }
 
   .imageWrapper {

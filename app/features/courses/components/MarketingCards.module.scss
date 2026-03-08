@@ -123,3 +123,119 @@
   padding: 4px 12px;
   border-radius: 99px;
 }
+@media (max-width: 1024px) {
+  .section {
+    padding: 0;
+  }
+
+  .tabs {
+    display: none;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 0 16px 60px 16px;
+  }
+
+  .card {
+    gap: 16px;
+  }
+
+  .cardTitle {
+    font-size: 24px;
+    line-height: 38px;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+
+  .cardDescription {
+    font-size: 14px;
+    line-height: 24px;
+    color: #4B5563;
+    margin: 0;
+  }
+
+  /* Dropdown Styles */
+  .mobileDropdownContainer {
+    display: block;
+    padding: 0 16px;
+    position: relative;
+    width: 100%;
+    z-index: 50;
+    margin-bottom: 16px;
+    
+  }
+
+  .dropdownButton {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #F3F4F6;
+    border: none;
+    border-bottom: 1px solid #E5E7EB;
+    padding: 13px 20px;
+    cursor: pointer;
+
+    span {
+      font-family: "MJ Satoshi", sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 22px;
+      letter-spacing: -0.18px;
+      color: #1f2937;
+    }
+  }
+
+  .chevron {
+    transition: transform 0.3s ease;
+    &.rotated {
+      transform: rotate(180deg);
+    }
+  }
+
+  .dropdownMenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    padding: 8px 16px;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+  }
+
+  .dropdownItem {
+    width: 100%;
+    text-align: left;
+    padding: 13px 12px;
+    background: transparent;
+    border: none;
+    font-family: "MJ Satoshi", sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 22px;
+    letter-spacing: -0.18px;
+    color: #6b7280;
+    cursor: pointer;
+    border-radius: 4px;
+
+    &.dropdownActive {
+      background-color: #f3f4f6;
+      color: #1f2937;
+    }
+
+    &:hover {
+      background-color: #f9fafb;
+    }
+  }
+}
+
+@media (min-width: 1025px) {
+  .mobileDropdownContainer {
+    display: none;
+  }
+}

@@ -11,6 +11,9 @@
   display: flex; // Ensure wrapper matches image size
   overflow: hidden;
   clip-path: polygon(40px 0, 100% 0, 100% 100%, 0 100%, 0 40px);
+  @media screen and (max-width: 767px) {
+    clip-path: polygon(30px 0, 100% 0, 100% 100%, 0 100%, 0 30px);
+  }
 }
 
 .postImage {
@@ -121,7 +124,7 @@
     flex-direction: column;
     align-items: flex-start; // Reset overlap style
     min-height: auto;
-    margin-bottom: 60px;
+    margin-bottom: 12px;
   }
   
   .imageContainer {
@@ -138,6 +141,6 @@
   }
   
   .title {
-    font-size: 24px;
+    font-size: 20px;
   }
 }

@@ -196,7 +196,104 @@
     gap: 40px;
   }
   
+  .badge {
+    position: absolute;
+    top: -10px; // Lowered slightly to align with first row
+    right: 0;
+    left: auto;
+    margin-top: 0;
+    font-size: 14px;
+    padding: 4px 16px;
+    background: #ffffff; // Design seems to show white
+    color: #9CA3AF; 
+    font-weight: 700;
+  }
+
+  .priceBlock {
+    margin-top: 32px; // More clear space
+  }
+
+  .priceLabel, .originalPrice {
+    color: #ffffff; // More prominent on mobile dark bg
+    font-size: 16px;
+  }
+
+  .earlyBirdText {
+    color: #e5e7eb;
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+
   .finalPrice {
-    font-size: 48px;
+    font-size: 44px;
+    color: #EF4444; // Bright red
+    font-weight: 800; // Extra bold on mobile
+    letter-spacing: -1px;
+  }
+}
+
+@media (max-width: 768px) {
+  .innerContainer {
+    padding-top: 30px;
+    padding-bottom: 40px;
+  }
+
+  .contentWrapper {
+    gap: 32px;
+  }
+
+  .leftColumn {
+    padding-top: 0;
+  }
+
+  .priceLabel, .originalPrice {
+    font-size: 14px;
+  }
+
+  .earlyBirdText {
+    font-size: 12px;
+    margin-bottom: 2px;
+  }
+
+  .finalPrice {
+    font-size: 32px;
+  }
+
+  .columnTitle {
+    font-size: 28px; // Design has it fairly large
+    margin-bottom: 0px;
+  }
+
+  .benefitList {
+    gap: 12px;
+  }
+
+  .benefitItem {
+    gap: 10px;
+  }
+
+  .iconWrapper {
+    margin-top: 4px;
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  .benefitText {
+    font-size: 16px;
+    line-height: 1.4;
+    color: #ffffff; // Lighter on mobile dark bg
+    font-weight: 400; // Regular text
+    
+    strong {
+      font-weight: 700;
+    }
+  }
+
+  .ctaButton {
+    margin-top: 8px;
+    padding: 14px 24px;
+    font-size: 14px;
   }
 }

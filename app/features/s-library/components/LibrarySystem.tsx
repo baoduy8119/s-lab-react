@@ -36,9 +36,14 @@ const LibrarySystem = React.memo(function LibrarySystem() {
 
   const [isReady, setIsReady] = React.useState(false);
   const [swiperInstance, setSwiperInstance] = React.useState<SwiperType | null>(null);
+  const [isMobile, setIsMobile] = React.useState(false);
 
   React.useEffect(() => {
     setIsReady(true);
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
   return (
@@ -49,9 +54,9 @@ const LibrarySystem = React.memo(function LibrarySystem() {
         <div className={styles.cardsContainerOuter}>
           <Swiper
             onSwiper={setSwiperInstance}
-            effect="coverflow"
+            effect={isMobile ? "slide" : "coverflow"}
             grabCursor={true}
-            centeredSlides={true}
+            centeredSlides={!isMobile}
             slidesPerView="auto"
             loop={true}
             autoplay={{
@@ -59,7 +64,14 @@ const LibrarySystem = React.memo(function LibrarySystem() {
               disableOnInteraction: false,
               pauseOnMouseEnter: true,
             }}
-            coverflowEffect={{
+            coverflowEffect={isMobile ? {
+              rotate: 0,
+              stretch: 0,
+              depth: 0,
+              modifier: 1,
+              slideShadows: false,
+              scale: 1,
+            } : {
               rotate: 30,
               stretch: -20,
               depth: 150,

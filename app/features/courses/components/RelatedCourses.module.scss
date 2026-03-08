@@ -200,19 +200,120 @@
 
 @media (max-width: 768px) {
   .section {
-    padding: 60px 0;
+    padding: 32px 0 60px;
   }
   
   .sectionHeading {
-    font-size: 40px;
-    margin-bottom: 40px;
+    font-size: 32px;
+    margin-bottom: 24px;
+    letter-spacing: -1px;
   }
   
+  .card {
+    padding: 24px;
+    gap: 16px;
+    border-color: #cbd5e1;
+  }
+
+  .cardHeader {
+    margin-bottom: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .titleRow {
+    margin: 0;
+  }
+
   .title {
     font-size: 20px;
+    margin-bottom: 8px;
   }
-  
+
+  .metaRow {
+    margin-bottom: 0px;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .duration {
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .priceRow {
+    gap: 8px;
+    align-items: flex-end;
+  }
+
+  .originalPrice {
+    font-size: 20px;
+    font-weight: 700;
+    color: #6b7280;
+  }
+
   .price {
-    font-size: 36px;
+    font-size: 48px;
+    line-height: 1;
+    letter-spacing: -0.4px;
+  }
+
+  .perPerson {
+    font-size: 20px;
+    font-weight: 700;
+    color: #6b7280;
+  }
+
+  .divider {
+    margin-bottom: 16px;
+    background: #cbd5e1;
+  }
+
+  .featuresList {
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .featureItem {
+    gap: 8px;
+    align-items: center;
+  }
+
+  .checkbox {
+    margin-top: 0;
+  }
+
+  .featureText {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: -0.16px;
+  }
+
+  .cardFooter {
+    gap: 16px;
+  }
+
+  .registerBtn {
+    padding: 13px 24px;
+    font-size: 16px;
+    letter-spacing: -0.18px;
+    
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  .nextDate {
+    gap: 8px;
+    font-size: 16px;
+    letter-spacing: -0.18px;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
   }
 }

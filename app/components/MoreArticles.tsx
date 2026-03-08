@@ -40,6 +40,14 @@ const MoreArticles = React.memo(function MoreArticles() {
           ))}
 
           <Link href="/blog" className={styles.sidebar}>
+            <div className={styles.sidebarLabel}>
+              <div className="hidden lg:block">
+                <TheSLabLogo width={155} height={18} />
+              </div>
+              <div className="block lg:hidden">
+                <TheSLabLogo width={121} height={14} />
+              </div>
+            </div>
             <div className={styles.arrowBtn}>
               <svg
                 width="24"
@@ -56,9 +64,6 @@ const MoreArticles = React.memo(function MoreArticles() {
                   strokeLinejoin="round"
                 />
               </svg>
-            </div>
-            <div className={styles.sidebarLabel}>
-              <TheSLabLogo width={155} height={18} />
             </div>
           </Link>
         </div>
