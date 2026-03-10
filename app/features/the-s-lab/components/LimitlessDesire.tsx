@@ -66,7 +66,7 @@ const LimitlessDesire = React.memo(function LimitlessDesire() {
                 className={`${styles.accordionItem} ${isOpen ? styles.open : ""}`}
                 onClick={() => handleToggle(item.id)}
               >
-                <div className={`${styles.icon}`}>
+                <div className={`${styles.icon} ${isOpen ? styles.iconOpen : ""}`}>
                   <ArrowRightIcon color="#0F172A" />
                 </div>
                 <div className={styles.content}>
@@ -88,7 +88,7 @@ const LimitlessDesire = React.memo(function LimitlessDesire() {
                             alt={item.title}
                             width={270}
                             height={197}
-                            topLeftCut={25}
+                            topLeftCut={index === 1 ? 0 : 25}
                           />
                         </div>
                       ))}

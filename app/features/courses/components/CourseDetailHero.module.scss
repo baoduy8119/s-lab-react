@@ -13,6 +13,7 @@
   width: 100%;
   border-top: 1px solid #c7c7c7;
   border-left: 1px solid #c7c7c7;
+  isolation: isolate;
 }
 
 // --- Generic Cell Styling ---
@@ -388,6 +389,7 @@
     left: auto;
     top: auto;
     border-radius: 4px; // Rounded as per typical button design with margins
+    z-index: auto;
 
     &::after {
       content: "";
@@ -397,7 +399,7 @@
       left: 50%;
       width: 1px;
       background: #c7c7c7;
-      z-index: 1;
+      z-index: -1;
     }
 
     span { position: relative; z-index: 3; }

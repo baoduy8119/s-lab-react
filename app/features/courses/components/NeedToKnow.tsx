@@ -94,7 +94,24 @@ const NeedToKnow = React.memo(function NeedToKnow() {
     <section className={styles.section}>
       <Container>
         {/* ... Header ... */}
+        <h2 className={styles.mainHeading} data-aos="fade-up">
+          /Your need-to-know<br />
+          about this course.
+        </h2>
+
         {/* ... Overview ... */}
+        <div className={styles.overviewGrid} data-aos="fade-up" data-aos-delay="100">
+          <h3 className={styles.overviewLabel}>/Overview information</h3>
+          <div className={styles.overviewText}>
+            <p>
+              Today, marketing content is everywhere—but most learners are still piecing things together from scattered tips, random tools, and channel-by-channel tutorials. The result is common: you try a few tactics, feel busy, but struggle to explain why it works, what to do next, or how to measure progress.
+            </p>
+            <p>
+              Marketing Essentials is necessary because it builds the foundation many people skip. It helps you understand how marketing actually works as a system—audience, positioning, channels, and measurement—so you can make smarter decisions, execute with clarity, and improve consistently. Instead of chasing trends, you leave with a structured framework you can apply to any project, role, or industry.
+            </p>
+          </div>
+        </div>
+
         {/* ... Tabs ... */}
         <div className={styles.tabsWrapper}>
           <div className={styles.tabList}>

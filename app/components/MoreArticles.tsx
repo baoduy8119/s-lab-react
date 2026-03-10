@@ -24,7 +24,7 @@ const MoreArticles = React.memo(function MoreArticles() {
   return (
     <section className={styles.section}>
       <Container>
-        <SectionHeader title={c.heading} />
+        <SectionHeader title={c.heading} className={styles.title} />
         <div className={styles.grid}>
           {articles.map((article) => (
             <div key={article.id} className={styles.borderWrapper}>

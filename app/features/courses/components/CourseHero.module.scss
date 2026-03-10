@@ -167,8 +167,6 @@
   .contentContainer {
     flex-direction: column;
     padding-top: 80px; /* Space for fixed header */
-    padding-left: 16px;
-    padding-right: 16px;
     gap: 40px;
   }
 
@@ -185,7 +183,6 @@
 
   .formContainer {
     width: 100%;
-    margin-bottom: 40px;
   }
 
   .heroBackground {

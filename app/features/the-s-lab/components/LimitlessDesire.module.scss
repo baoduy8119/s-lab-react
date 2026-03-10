@@ -6,7 +6,7 @@
   flex-direction: column;
 
   @media (max-width: 1024px) {
-    padding: 0 16px 24px;
+    padding: 0 0 0;
   }
 }
 
@@ -53,7 +53,7 @@
 
   @media (max-width: 1024px) {
     flex-direction: row; 
-    gap: 0; // The icon and title don't have a gap, they are spaced using between or specific layout. Or maybe gap: 16px. wait, I'll use justify-between for title and icon if needed, but the design shows icon first then text. Let's use 16px gap? No, the design shows icon FIRST or LAST? Oh! The icon is LAST in some designs, or FIRST. Wait! Figma shows icon FIRST. In design, the icon is left side, rotated. Wait, in limiteless desire: "flex items-start justify-between pb-[var(--2xl,24px)]" -> The icon is on the left? Wait, icon is on the left.
+    gap: 0; // Use space-between with fixed right-side width instead of flexible gap
     padding-bottom: 24px;
     justify-content: space-between;
   }
@@ -78,7 +78,7 @@
 
 .iconOpen {
   svg {
-    transform: rotate(90deg);
+    transform: scaleX(-1);
   }
 }
 
@@ -86,6 +86,12 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 1024px) {
+    flex: none;
+    width: 270px;
+    max-width: calc(100% - 40px); // safety for tiny screens
+  }
 }
 
 .textContent {

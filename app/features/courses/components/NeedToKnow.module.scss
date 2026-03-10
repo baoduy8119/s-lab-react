@@ -1,5 +1,5 @@
 .section {
-  padding: 80px 0 0;
+  padding: 60px 0 0;
   background: #f3f4f6;
 }
 
@@ -337,7 +337,6 @@
 @media (max-width: 768px) {
   .section {
     padding: 0; // Reduced top padding
-    background: #ffffff;
     > div {
       padding: 0;
     }
@@ -348,13 +347,31 @@
     gap: 0;
   }
 
-  // --- Header Hide on Mobile if needed or adjust ---
-  .mainHeading, .overviewGrid {
-    padding: 0 20px;
+  // --- Header & Overview Mobile ---
+  .mainHeading {
+    padding: 0 16px;
+    font-size: 32px;
+    letter-spacing: -1px;
+    margin-top: 40px;
+  }
+
+  .overviewGrid {
+    padding: 0 16px;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 8px;
+  }
+
+  .overviewLabel {
+    font-size: 24px;
+  }
+
+  .overviewText {
+    font-size: 16px;
   }
 
   .tabsWrapper {
-    margin-top: 0;
+    margin-top: 32px;
   }
 
   .tabList {

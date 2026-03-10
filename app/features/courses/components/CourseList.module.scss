@@ -144,6 +144,9 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+  @media screen and (max-width: 767px) {
+    gap: 8px;
+  }
 }
 
 .courseItem {
@@ -319,12 +322,13 @@
 // Responsive Styles
 @media (max-width: 1024px) {
   .section {
-    padding: 60px 0;
+    padding: 0 0 40px;
   }
 
   .container {
+    margin-top: 24px;
     flex-direction: column;
-    gap: 40px;
+    gap: 24px;
   }
 
   .leftContent {
@@ -335,6 +339,7 @@
   }
 
   .rightContent {
+    width: 100%;
     max-width: 100%;
   }
 
@@ -345,10 +350,6 @@
 }
 
 @media (max-width: 768px) {
-  .section {
-    padding: 40px 0;
-  }
-
   .courseItem {
     padding: 16px;
     gap: 24px;

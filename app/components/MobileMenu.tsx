@@ -11,6 +11,8 @@ interface MobileMenuProps {
 }
 
 const MobileMenu = React.memo(function MobileMenu({ onClose }: MobileMenuProps) {
+  const [isSLabOpen, setIsSLabOpen] = React.useState(false);
+
   return (
     <div className={styles.overlay}>
       {/* Figma: Header row (icon | logo+arrow | close) */}
@@ -52,12 +54,31 @@ const MobileMenu = React.memo(function MobileMenu({ onClose }: MobileMenuProps) 
             <Link href="/" className={styles.menuItem} onClick={onClose}>
               /Home
             </Link>
-            <Link href="/the-s-lab" className={styles.menuItem} onClick={onClose}>
-              /The S-Lab
-              <svg width={16} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M18 15l-6-6-6 6" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </Link>
+            <div className={styles.menuGroup}>
+              <div className={styles.menuItemWrapper}>
+                <Link href="/the-s-lab" className={styles.menuItem} onClick={onClose}>
+                  /The S-Lab
+                </Link>
+                <button
+                  className={`${styles.submenuToggle} ${isSLabOpen ? styles.open : ""}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setIsSLabOpen(!isSLabOpen);
+                  }}
+                >
+                  <svg width={16} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M18 15l-6-6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </button>
+              </div>
+              {isSLabOpen && (
+                <div className={styles.submenu}>
+                  <Link href="/s-library" className={styles.submenuItem} onClick={onClose}>
+                    /S-library
+                  </Link>
+                </div>
+              )}
+            </div>
             <Link href="/courses" className={styles.menuItem} onClick={onClose}>
               /Course
               <span className={styles.hotTag}>/HOT/</span>

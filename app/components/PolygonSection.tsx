@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import styles from "./PolygonSection.module.scss";
 
 interface PolygonSectionProps {
   children: React.ReactNode;
@@ -62,29 +63,17 @@ const PolygonSection = React.memo(function PolygonSection({
   );
 
   return (
-    <>
-      <style jsx global>{`
-        .polygon-section {
-          clip-path: var(--desktop-section-clip);
-        }
-        @media (max-width: 768px) {
-          .polygon-section {
-            clip-path: var(--mobile-section-clip);
-          }
-        }
-      `}</style>
-      <div
-        className={`polygon-section ${className || ""}`}
-        style={{
-          ...style,
-          // @ts-ignore
-          "--desktop-section-clip": desktopClip,
-          "--mobile-section-clip": mobileClip,
-        }}
-      >
-        {children}
-      </div>
-    </>
+    <div
+      className={`${styles.polygonSection} ${className || ""}`}
+      style={{
+        ...style,
+        // @ts-ignore
+        "--desktop-section-clip": desktopClip,
+        "--mobile-section-clip": mobileClip,
+      }}
+    >
+      {children}
+    </div>
   );
 });
 

@@ -74,7 +74,7 @@ const Section2 = React.memo(function Section2() {
     <section className="w-full flex flex-col">
       {/* MOBILE UI */}
       <div className="block lg:hidden">
-        <h2 className="px-6 py-6 text-[#111827] text-[24px] font-bold leading-[30px] tracking-[-0.15px]">
+        <h2 className="px-4 lg:px-6 py-6 text-[#111827] text-[24px] font-bold leading-[30px] tracking-[-0.15px]">
           {c.sectionTitle}
         </h2>
         <FeatureBlockMobile index={0} number="/001/" title={c.feature1Title} desc={c.feature1Desc} bgImage="/images/section2/section2-bg1.png" />
