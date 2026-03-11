@@ -17,15 +17,14 @@
 .slideTrack {
   display: flex;
   width: max-content;
-  animation: scroll 40s linear infinite;
+  will-change: transform; // GPU accelerated
 }
 
 .logoSet {
   display: flex;
   align-items: center;
   gap: 49px;
-  padding: 0 16px;
-  padding-right: 65px;
+  padding: 0 24px;
   opacity: 0.4;
   flex-shrink: 0;
   
@@ -34,14 +33,5 @@
     width: auto;
     object-fit: contain;
     flex-shrink: 0;
-  }
-}
-
-@keyframes scroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%); // Move half the width (one full set)
   }
 }

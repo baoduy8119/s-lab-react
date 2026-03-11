@@ -27,12 +27,12 @@ const Footer = React.memo(function Footer() {
           </div>
 
           <div className="relative flex flex-col h-full px-6 py-10 lg:p-0">
-            <div className="absolute top-6 right-6 lg:top-[73px] lg:right-20">
+            <div className="self-end mb-6 lg:mb-0 lg:absolute lg:top-[73px] lg:right-20">
               <SLabLogoWhite />
             </div>
 
             <h2
-              className="mt-16 lg:mt-0 lg:absolute lg:left-20 lg:top-[94px] text-[#450A0A] text-[56px] lg:text-[72px] font-bold leading-[64px] lg:leading-[88px] tracking-[-0.8px] w-full lg:w-[552px] mb-4 lg:mb-0"
+              className="lg:absolute lg:left-20 lg:top-[94px] text-[#450A0A] text-[56px] lg:text-[72px] font-bold leading-[64px] lg:leading-[88px] tracking-[-0.8px] w-full lg:w-[552px] mb-4 lg:mb-0"
               data-aos="fade-up"
             >
               {c.newsletterHeading.includes("the loop.") ? (

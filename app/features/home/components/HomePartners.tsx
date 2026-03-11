@@ -3,6 +3,7 @@
 import React from "react";
 import styles from "./HomePartners.module.scss";
 import { useHomeContentStore } from "@/app/features/dashboard/stores/useHomeContentStore";
+import Container from "@/app/components/Container";
 
 const partnerImages = [
   "/images/partners/logo-partner-1.png",
@@ -27,9 +28,11 @@ const HomePartners = React.memo(function HomePartners() {
 
   return (
     <section className={styles.section}>
-      <h2 className={styles.heading} data-aos="fade-up">
-        {heading}
-      </h2>
+      <Container>
+        <h2 className={styles.heading} data-aos="fade-up">
+          {heading}
+        </h2>
+      </Container>
       <div className={styles.grid}>
         {partnerImages.map((src, index) => (
           <div

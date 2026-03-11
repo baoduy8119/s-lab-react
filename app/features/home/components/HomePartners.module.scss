@@ -10,22 +10,6 @@
   font-weight: 700;
   color: #111827;
   margin-bottom: 16px;
-  // Center or Container alignment?
-  // Previous code had Container wrapper around heading.
-  // In Step 768 user removed Container wrapper in TSX but kept heading inside section.
-  // Wait, Step 768 snippet showed:
-  // <section> <h2 ...> <div grid ...> </section>
-  // So heading is likely edge-to-edge if not in container?
-  // Wait, "The S-Lab’s Partners" usually constrained.
-  // I should probably put them back in Container or add padding.
-  // But if the user removed Container locally in Step 768, I should respect that?
-  // "The following changes were made by the USER ... <Container> ... removed".
-  // So layout is full width?
-  // The grid lines go to edges?
-  // I'll add horizontal padding to section or heading if needed.
-  // Assuming full width grid.
-  padding-left: 24px;
-  padding-right: 24px;
 }
 
 .grid {
@@ -82,8 +66,7 @@
   }
   
   .heading {
-    padding-left: 24px;
-    padding-right: 24px;
+    padding: 0;
   }
 
   .logoCard {
