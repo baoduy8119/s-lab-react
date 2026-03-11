@@ -7,9 +7,12 @@ import styles from "./AdvisorsCredentials.module.scss";
 import { useMediaQuery } from "@/app/hooks/useMediaQuery";
 import Container from "@/app/components/Container";
 
+const LINE_ANIMATION_MS = 600; // Must match CSS transition duration
+
 const AdvisorsCredentials = React.memo(function AdvisorsCredentials() {
   const isMobile = useMediaQuery("(max-width: 1024px)");
   const [activeIndex, setActiveIndex] = useState(0);
+  const [visualIndex, setVisualIndex] = useState(0);
   const observerRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const credentials = [
@@ -45,6 +48,7 @@ const AdvisorsCredentials = React.memo(function AdvisorsCredentials() {
     },
   ];
 
+  // IntersectionObserver sets the scroll-based target
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -56,8 +60,8 @@ const AdvisorsCredentials = React.memo(function AdvisorsCredentials() {
         });
       },
       {
-        threshold: 0.2, // Trigger when even a small part enters the "active zone"
-        rootMargin: "-120px 0px -70% 0px", // Active zone is near the top (Sticky header area)
+        threshold: 0.2,
+        rootMargin: "-120px 0px -70% 0px",
       }
     );
 
@@ -69,6 +73,42 @@ const AdvisorsCredentials = React.memo(function AdvisorsCredentials() {
       observer.disconnect();
     };
   }, []);
+
+  // Step visualIndex toward activeIndex one-by-one, enforcing min 800ms between steps
+  const activeIndexRef = useRef(activeIndex);
+  activeIndexRef.current = activeIndex;
+  const lastStepTimeRef = useRef(0);
+
+  // When at the last or second-to-last item, extend target by 1
+  // so the last visible connector line also fills sequentially
+  const effectiveTarget =
+    activeIndex >= credentials.length - 2
+      ? Math.min(activeIndex + 1, credentials.length)
+      : activeIndex;
+
+  useEffect(() => {
+    if (visualIndex === effectiveTarget) return;
+
+    const now = Date.now();
+    const elapsed = now - lastStepTimeRef.current;
+    const delay = Math.max(0, LINE_ANIMATION_MS - elapsed);
+
+    const timer = setTimeout(() => {
+      lastStepTimeRef.current = Date.now();
+      setVisualIndex((prev) => {
+        const target = activeIndexRef.current;
+        const effective =
+          target >= credentials.length - 2
+            ? Math.min(target + 1, credentials.length)
+            : target;
+        if (prev < effective) return prev + 1;
+        if (prev > effective) return prev - 1;
+        return prev;
+      });
+    }, delay);
+
+    return () => clearTimeout(timer);
+  }, [visualIndex, effectiveTarget]);
 
   return (
     <section className={styles.section}>
@@ -112,10 +152,11 @@ const AdvisorsCredentials = React.memo(function AdvisorsCredentials() {
               >
                 <div className={styles.timelineMarker}>
                   <div
-                    className={`${styles.circle} ${index <= activeIndex ? styles.circleActive : ""}`}
+                    className={`${styles.circle} ${index <= visualIndex ? styles.circleActive : ""}`}
                   />
                   <div
-                    className={`${styles.line} ${index === credentials.length - 1 && styles.lastLine} ${index < activeIndex ? styles.lineActive : ""}`}
+                    className={`${styles.line} ${index === credentials.length - 1 && styles.lastLine} ${index < visualIndex ? styles.lineActive : ""
+                      }`}
                   />
                 </div>
                 <div className={styles.timelineContent}>
@@ -134,3 +175,4 @@ const AdvisorsCredentials = React.memo(function AdvisorsCredentials() {
 AdvisorsCredentials.displayName = "AdvisorsCredentials";
 
 export default AdvisorsCredentials;
+
