@@ -88,7 +88,7 @@ const LimitlessDesire = React.memo(function LimitlessDesire() {
                             alt={item.title}
                             width={270}
                             height={197}
-                            topLeftCut={index === 1 ? 0 : 25}
+                            topLeftCut={25}
                           />
                         </div>
                       ))}
