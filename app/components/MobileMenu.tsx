@@ -86,7 +86,7 @@ const MobileMenu = React.memo(function MobileMenu({ onClose }: MobileMenuProps) 
             <Link href="/blog" className={styles.menuItem} onClick={onClose}>
               /Blog
             </Link>
-            <Link href="/event" className={styles.menuItem} onClick={onClose}>
+            <Link href="/events" className={styles.menuItem} onClick={onClose}>
               /Event
             </Link>
           </div>
