@@ -68,8 +68,7 @@ const Trainers = React.memo(function Trainers() {
                   <PolygonImage
                     src={trainer.image}
                     alt={trainer.name}
-                    width={225}
-                    height={350}
+                    fill={true}
                     topLeftCut={25}
                   />
                   <div className={`${styles.overlay} ${isHovered ? styles.expanded : ""}`}>

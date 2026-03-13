@@ -102,7 +102,8 @@ const Section2 = React.memo(function Section2() {
               src="/images/section2/section2-bg1.png"
               alt=""
               fill
-              className="object-cover"
+              className="w-full h-full"
+              innerClassName="transition-transform duration-700 group-hover:scale-110"
               style={{ objectPosition: "center -73px" }}
               topLeftCut={60}
               topLeftCutMobile={30}
@@ -127,9 +128,9 @@ const Section2 = React.memo(function Section2() {
 
         {/* Card 2 & 3 */}
         <div className="relative w-full flex flex-row h-[565px] overflow-hidden" data-aos="fade-up">
-          <div className="relative w-1/2 h-full flex flex-col justify-between px-20 py-[41px] bg-black overflow-hidden">
+          <div className="relative w-1/2 h-full flex flex-col justify-between px-20 py-[41px] bg-black overflow-hidden group">
             <div className="absolute inset-0 z-0">
-              <Image src="/images/section2/section2-bg2.png" alt="" fill className="object-cover" />
+              <Image src="/images/section2/section2-bg2.png" alt="" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
             </div>
             <div className="absolute inset-0 z-10">
               <Image src="/images/section2/frame6-decorative.svg" alt="" fill className="object-cover" />
@@ -149,9 +150,9 @@ const Section2 = React.memo(function Section2() {
             </div>
           </div>
 
-          <div className="relative w-1/2 h-full flex flex-col items-end justify-between bg-black overflow-hidden">
+          <div className="relative w-1/2 h-full flex flex-col items-end justify-between bg-black overflow-hidden group">
             <div className="absolute inset-0 z-0">
-              <Image src="/images/section2/section2-bg2.png" alt="" fill className="object-cover" />
+              <Image src="/images/section2/section2-bg2.png" alt="" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
             </div>
             <div className="relative z-20 text-white text-2xl font-bold mr-[60px] mt-[40px]">
               /003/
@@ -169,9 +170,9 @@ const Section2 = React.memo(function Section2() {
 
         {/* Card 4 & 5 */}
         <div className="relative w-full flex flex-row h-[565px] overflow-hidden" data-aos="fade-up">
-          <div className="relative w-1/2 h-full flex flex-col justify-between bg-black overflow-hidden">
+          <div className="relative w-1/2 h-full flex flex-col justify-between bg-black overflow-hidden group">
             <div className="absolute inset-0 z-0">
-              <Image src="/images/section2/section2-bg3.png" alt="" fill className="object-cover" />
+              <Image src="/images/section2/section2-bg3.png" alt="" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
             </div>
             <div className="relative z-20 text-white text-2xl font-bold px-[80px] py-[40px]">
               /004/
@@ -213,9 +214,9 @@ const Section2 = React.memo(function Section2() {
         </div>
 
         {/* Card 6 */}
-        <div className="relative w-full h-[565px] bg-black overflow-hidden" data-aos="fade-up">
+        <div className="relative w-full h-[565px] bg-black overflow-hidden group" data-aos="fade-up">
           <div className="absolute left-0 top-[-172px] w-full h-[760px] z-0">
-            <Image src="/images/section2/systems-thinking.jpg" alt="" fill className="object-cover object-top" />
+            <Image src="/images/section2/systems-thinking.jpg" alt="" fill className="object-cover object-top transition-transform duration-700 group-hover:scale-110" />
           </div>
           {/* <div className="absolute left-0 top-[-172px] w-[1104px] h-[737px] z-10 pointer-events-none">
             <Image src="/images/section2/section2-bg4-482c9c.png" alt="" width={1104} height={737} className="object-cover" />

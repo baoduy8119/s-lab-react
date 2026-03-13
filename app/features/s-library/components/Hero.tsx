@@ -60,11 +60,12 @@ const Hero = React.memo(function Hero() {
             <div className={styles.cardMedium} data-aos="fade-up" data-aos-delay="400">
               <Image
                 src={c.heroImage2}
-                alt="Course"
+                alt={c.cardLabel2 || "Course"}
                 fill
                 style={{ objectFit: "cover" }}
                 unoptimized={c.heroImage2.startsWith("data:")}
               />
+              {/* {c.cardLabel2 && <div className={styles.cardLabelBottomLeft}>{c.cardLabel2}</div>} */}
             </div>
 
             <div className={styles.cardSmall} data-aos="fade-up" data-aos-delay="500">
