@@ -15,7 +15,7 @@ const CourseIncludes = React.memo(function CourseIncludes() {
         {/* Background Image Overlay */}
         <div className={styles.bgOverlay}>
           <Image
-            src="/images/courses/course-includes-bg.jpg" // Using existing bg, assuming dark texture
+            src="/images/courses/hero-bg.png" 
             alt="Background"
             fill
             className={styles.bgImage}

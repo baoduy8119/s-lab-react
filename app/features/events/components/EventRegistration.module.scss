@@ -17,22 +17,38 @@
 
 .closeParams {
   position: absolute;
-  top: -15px; 
+  top: -48px; 
   right: 0;
   background: white;
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  top: 10px;
-  right: 10px;
+  padding: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  z-index: 110;
+  border: none;
   
-  path {
-    stroke: black; 
+  svg {
+    width: 14px;
+    height: 14px;
   }
+
+  svg path {
+    stroke: black !important; 
+    stroke-width: 3;
+    stroke-linecap: round;
+  }
+
+  &:hover {
+    background-color: #f7f7f7;
+    transform: scale(1.05);
+  }
+
+  transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
 .title {
@@ -107,55 +123,60 @@
 }
 
 .chatBoxBtn {
-  display: none; // Hidden on desktop
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background-color: var(--bg-secondary, #000);
+  color: #fff;
+  border-radius: 8px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 50;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
+  
+  span {
+    font-family: 'MJ Satoshi', sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 30px;
+    letter-spacing: -0.15px;
+    white-space: nowrap;
+  }
+}
+
+.mobileHidden,
+.hidden {
+  display: none !important;
 }
 
 @media (max-width: 768px) {
-    .container {
-        width: 327px; // Consistent with base width
-        height: auto; 
-        top: 50%;
-        left: 50%;
-        bottom: auto;
-        right: auto;
-        transform: translate(-50%, -50%);
-        border-radius: 8px; 
-        position: fixed;
-        z-index: 100;
-        box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.6); // Dark overlay effect
-    }
+  .container {
+    width: 327px;
+    height: auto; 
+    top: 50%;
+    left: 50%;
+    bottom: auto;
+    right: auto;
+    transform: translate(-50%, -50%);
+    border-radius: 8px; 
+    position: fixed;
+    z-index: 100;
+    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.6);
+  }
+  
+  .chatBoxBtn {
+    bottom: 16px;
+    right: 16px;
     
-    .chatBoxBtn {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        padding: 16px;
-        background-color: var(--bg-secondary, #000);
-        color: #fff;
-        border-radius: 8px;
-        position: fixed;
-        bottom: 16px; // Floating spacing
-        right: 16px;
-        left: auto;
-        transform: none;
-        z-index: 50;
-        cursor: pointer;
-        border: none;
-        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
-        
-        span {
-            font-family: 'MJ Satoshi', sans-serif;
-            font-weight: 700;
-            font-size: 24px;
-            line-height: 30px;
-            letter-spacing: -0.15px;
-            white-space: nowrap;
-        }
+    span {
+      font-size: 20px; // Slightly smaller for mobile if needed, or keep 24px
+      line-height: 26px;
     }
-
-    .mobileHidden,
-    .hidden {
-        display: none !important;
-    }
+  }
 }
+
 

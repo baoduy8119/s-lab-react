@@ -27,9 +27,11 @@
 .innerContainer {
   position: relative;
   z-index: 2;
-  padding-top: 80px;
-  padding-bottom: 80px;
   flex: 1;
+  @media screen and (min-width: 768px) {
+    padding-top: 80px !important;
+    padding-bottom: 80px !important;
+  }
 }
 
 
@@ -38,7 +40,7 @@
   display: flex;
   justify-content: space-between;
   align-items: stretch; // Stretch so columns have equal height
-  gap: 80px;
+  gap: 40px;
 }
 
 // --- Left Column ---
@@ -150,9 +152,8 @@
   font-family: "MJ Satoshi", sans-serif;
   font-size: 24px;
   line-height: 1.5;
-  color: #E5E7EB;
+  color: #9CA3AF !important;
   margin: 0;
-  font-weight: 700;
   
   strong {
     color: #ffffff;
@@ -198,19 +199,18 @@
   
   .badge {
     position: absolute;
-    top: -10px; // Lowered slightly to align with first row
+    top: 10px; 
     right: 0;
     left: auto;
     margin-top: 0;
     font-size: 14px;
     padding: 4px 16px;
-    background: #ffffff; // Design seems to show white
-    color: #9CA3AF; 
+    background: #ffffff;
     font-weight: 700;
   }
 
   .priceBlock {
-    margin-top: 32px; // More clear space
+    margin-top: 40px; // More clear space
   }
 
   .priceLabel, .originalPrice {
