@@ -4,6 +4,7 @@ import Image from "next/image";
 import React from "react";
 import PolygonImage from "./PolygonImage";
 import { useHomeContentStore } from "@/app/features/dashboard/stores/useHomeContentStore";
+import Container from "./Container";
 
 const Section2 = React.memo(function Section2() {
   const c = useHomeContentStore((s) => s.content.section2);
@@ -17,6 +18,7 @@ const Section2 = React.memo(function Section2() {
     illustration,
     advisorGraphic,
     index,
+    className = "",
   }: {
     number: string;
     title: string;
@@ -26,43 +28,44 @@ const Section2 = React.memo(function Section2() {
     illustration?: string;
     advisorGraphic?: boolean;
     index: number;
+    className?: string;
   }) => (
     <div
-      className={`relative w-full h-[206px] overflow-hidden ${bgColor || "bg-black"}`}
+      className={`relative w-full h-[206px] md:h-[500px] overflow-hidden ${bgColor || "bg-black"} ${className} group cursor-pointer`}
       data-aos="fade-up"
     >
       {bgImage && (
         <div className="absolute inset-0 z-0">
-          <Image src={bgImage} alt="" fill className="object-cover" priority={index === 0} />
+          <Image src={bgImage} alt="" fill className="object-cover transition-transform duration-700 group-hover:scale-110" priority={index === 0} />
           <div className="absolute inset-0 bg-black/20" />
         </div>
       )}
       {illustration && (
-        <div className="absolute left-[4px] bottom-0 w-[202px] h-[151px] z-10">
+        <div className="absolute left-[4px] bottom-0 w-[202px] h-[151px] md:w-[320px] md:h-[240px] z-10 transition-transform duration-700 group-hover:scale-105">
           <Image src={illustration} alt="" fill className="object-contain" />
         </div>
       )}
       {advisorGraphic && (
-        <div className="absolute left-[8px] bottom-[-50px] z-20 flex items-center justify-center">
-          <div className="relative w-[195px] h-[195px]">
+        <div className="absolute left-[8px] bottom-[-50px] md:left-[20px] md:bottom-[-20px] z-20 flex items-center justify-center transition-transform duration-700 group-hover:scale-105">
+          <div className="relative w-[195px] h-[195px] md:w-[320px] md:h-[320px]">
             <Image src="/images/section2/section2-advisor.png" alt="" fill className="object-contain" />
             <div className="absolute inset-0 flex items-center justify-center p-4">
-              <div className="text-[#111827] text-[16px] font-bold leading-[20px] tracking-[-0.24px] text-center w-[120px] rotate-[-6.15deg]">
+              <div className="text-[#111827] text-[16px] md:text-[28px] font-bold leading-[20px] md:leading-[34px] tracking-[-0.24px] text-center w-[120px] md:w-[220px] rotate-[-6.15deg]">
                 {title}
               </div>
             </div>
           </div>
         </div>
       )}
-      <div className="relative z-30 h-full flex flex-col justify-between p-4">
+      <div className="relative z-30 h-full flex flex-col justify-between p-4 md:p-10">
         <div className="flex flex-col items-end">
-          <div className="text-white text-[12px] font-bold">{number}</div>
-          <h3 className="text-white text-[16px] font-bold leading-[22px] max-w-[280px] text-right mt-2">
+          <div className="text-white text-[12px] md:text-[20px] font-bold opacity-80">{number}</div>
+          <h3 className="text-white text-[16px] md:text-[28px] font-bold leading-[22px] md:leading-[36px] max-w-[280px] md:max-w-[450px] text-right mt-2">
             {title}
           </h3>
         </div>
         <div className="flex justify-end">
-          <p className="text-white text-[12px] font-medium leading-[16px] w-[200px] text-right">
+          <p className="text-white text-[12px] md:text-[18px] font-medium leading-[16px] md:leading-[26px] w-[200px] md:w-[380px] text-right opacity-90 transition-opacity group-hover:opacity-100">
             {desc}
           </p>
         </div>
@@ -72,17 +75,21 @@ const Section2 = React.memo(function Section2() {
 
   return (
     <section className="w-full flex flex-col">
-      {/* MOBILE UI */}
+      {/* MOBILE & TABLET UI */}
       <div className="block lg:hidden">
-        <h2 className="px-4 lg:px-6 py-6 text-[#111827] text-[24px] font-bold leading-[30px] tracking-[-0.15px]">
-          {c.sectionTitle}
-        </h2>
-        <FeatureBlockMobile index={0} number="/001/" title={c.feature1Title} desc={c.feature1Desc} bgImage="/images/section2/section2-bg1.png" />
-        <FeatureBlockMobile index={1} number="/002/" title={c.feature2Title} desc={c.feature2Desc} bgColor="bg-[#8B5CF6]" illustration="/images/section2/frame6-decorative.svg" />
-        <FeatureBlockMobile index={2} number="/003/" title={c.feature3Title} desc={c.feature3Desc} bgImage="/images/section2/section2-bg2-m.jpg" />
-        <FeatureBlockMobile index={3} number="/004/" title={c.feature4Title} desc={c.feature4Desc} bgImage="/images/section2/section2-bg3.png" />
-        <FeatureBlockMobile index={4} number="/005/" title={c.feature5Title} desc={c.feature5Desc} bgColor="bg-black" advisorGraphic={true} />
-        <FeatureBlockMobile index={5} number="/006/" title={c.feature6Title} desc={c.feature6Desc} bgImage="/images/section2/section2-bg4-482c9c.jpg" />
+        <Container>
+          <h2 className="py-6 md:py-10 text-[#111827] text-[24px] md:text-[24px] font-bold leading-[30px] md:leading-[32px] tracking-[-0.15px]">
+            {c.sectionTitle}
+          </h2>
+        </Container>
+        <div className="flex flex-col w-full">
+          <FeatureBlockMobile index={0} number="/001/" title={c.feature1Title} desc={c.feature1Desc} bgImage="/images/section2/section2-bg1.png" />
+          <FeatureBlockMobile index={1} number="/002/" title={c.feature2Title} desc={c.feature2Desc} bgColor="bg-[#8B5CF6]" illustration="/images/section2/frame6-decorative.svg" />
+          <FeatureBlockMobile index={2} number="/003/" title={c.feature3Title} desc={c.feature3Desc} bgImage="/images/section2/section2-bg2-m.jpg" />
+          <FeatureBlockMobile index={3} number="/004/" title={c.feature4Title} desc={c.feature4Desc} bgImage="/images/section2/section2-bg3.png" />
+          <FeatureBlockMobile index={4} number="/005/" title={c.feature5Title} desc={c.feature5Desc} bgColor="bg-black" advisorGraphic={true} />
+          <FeatureBlockMobile index={5} number="/006/" title={c.feature6Title} desc={c.feature6Desc} bgImage="/images/section2/section2-bg4-482c9c.jpg" />
+        </div>
       </div>
 
       {/* DESKTOP UI (Original structure restored from Step 15) */}
