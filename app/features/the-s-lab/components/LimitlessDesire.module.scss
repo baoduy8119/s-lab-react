@@ -89,8 +89,11 @@
 
   @media (max-width: 1024px) {
     flex: none;
-    width: 270px;
+    width: 600px;
     max-width: calc(100% - 40px); // safety for tiny screens
+  }
+  @media (max-width: 767px) {
+    width: 270px;
   }
 }
 

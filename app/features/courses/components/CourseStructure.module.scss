@@ -150,7 +150,7 @@
 .column:nth-child(2) .card:nth-child(2) { min-height: 340px; margin-top: 72px; }
 
 // --- Mobile Design ---
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .desktopLayout {
     display: none;
   }

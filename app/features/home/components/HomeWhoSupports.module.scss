@@ -237,11 +237,14 @@
 
   .mainHeading {
     font-size: 24px;
+    @media (min-width: 768px) {
+      font-size: 32px;
+    }
     margin-bottom: 24px;
     letter-spacing: -0.15px;
     font-weight: 700;
   }
-
+ 
   .topRow {
     flex-direction: column;
     margin-bottom: 24px;
@@ -289,8 +292,9 @@
   }
   
   .headerImage {
-    height: 228px;
-    width: 360px;
+    height: auto;
+    aspect-ratio: 16 / 10;
+    width: 100%;
     margin: 0 auto;
   }
   

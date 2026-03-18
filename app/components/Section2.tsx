@@ -41,7 +41,7 @@ const Section2 = React.memo(function Section2() {
         </div>
       )}
       {illustration && (
-        <div className="absolute left-[4px] bottom-0 w-[202px] h-[151px] md:w-[320px] md:h-[240px] z-10 transition-transform duration-700 group-hover:scale-105">
+        <div className="absolute left-[4px] bottom-0 md:left-[-95px] w-[202px] h-[151px] md:w-[500px] md:h-[375px] z-10 transition-transform duration-700 group-hover:scale-105">
           <Image src={illustration} alt="" fill className="object-contain" />
         </div>
       )}
@@ -78,7 +78,7 @@ const Section2 = React.memo(function Section2() {
       {/* MOBILE & TABLET UI */}
       <div className="block lg:hidden">
         <Container>
-          <h2 className="py-6 md:py-10 text-[#111827] text-[24px] md:text-[24px] font-bold leading-[30px] md:leading-[32px] tracking-[-0.15px]">
+          <h2 className="py-6 md:py-10 text-[#111827] text-[24px] md:text-[32px] font-bold leading-[30px] md:leading-[38px] tracking-[-0.15px]">
             {c.sectionTitle}
           </h2>
         </Container>
