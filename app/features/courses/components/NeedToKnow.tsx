@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import Image from "next/image";
 import styles from "./NeedToKnow.module.scss";
 import Container from "@/app/components/Container";
+import StickyBox from "react-sticky-box";
+import { useMediaQuery } from "@/app/hooks/useMediaQuery";
 
 type TabType = "who_its_for" | "what_you_get" | "faqs";
 
@@ -84,6 +86,7 @@ const tabsData: Record<TabType, TabData> = {
 const NeedToKnow = React.memo(function NeedToKnow() {
   const [activeTab, setActiveTab] = useState<TabType>("who_its_for");
   const [openFaqIndex, setOpenFaqIndex] = useState<number>(0);
+  const isMobile = useMediaQuery("(max-width: 767px)");
   const currentTab = tabsData[activeTab];
 
   const toggleFAQ = (index: number) => {
@@ -184,21 +187,39 @@ const NeedToKnow = React.memo(function NeedToKnow() {
             {/* FAQ Layout */}
             {currentTab.layout === "faq" && currentTab.faqItems && (
               <div className={styles.faqLayout}>
-                <div className={styles.faqLeftContent}>
-                  <h3 className={styles.faqTitle}>
-                    Friendly Asked<br />Questions.
-                  </h3>
-                  {currentTab.image && (
-                    <div className={styles.faqImageWrapper}>
-                      <Image
-                        src={currentTab.image}
-                        alt="FAQ Illustration"
-                        fill
-                        style={{ objectFit: 'contain' }}
-                      />
-                    </div>
-                  )}
-                </div>
+                {isMobile ? (
+                  <div className={styles.faqLeftContent}>
+                    <h3 className={styles.faqTitle}>
+                      Friendly Asked<br />Questions.
+                    </h3>
+                    {currentTab.image && (
+                      <div className={styles.faqImageWrapper}>
+                        <Image
+                          src={currentTab.image}
+                          alt="FAQ Illustration"
+                          fill
+                          style={{ objectFit: 'contain' }}
+                        />
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <StickyBox className={styles.faqLeftContent} offsetTop={120} offsetBottom={20}>
+                    <h3 className={styles.faqTitle}>
+                      Friendly Asked<br />Questions.
+                    </h3>
+                    {currentTab.image && (
+                      <div className={styles.faqImageWrapper}>
+                        <Image
+                          src={currentTab.image}
+                          alt="FAQ Illustration"
+                          fill
+                          style={{ objectFit: 'contain' }}
+                        />
+                      </div>
+                    )}
+                  </StickyBox>
+                )}
                 <div className={styles.faqList}>
                   {currentTab.faqItems.map((faq, index) => (
                     <div key={index} className={styles.faqItem}>

@@ -210,21 +210,21 @@
   // No background needed if image fills or is transparent
 }
 
-// --- FAQ Layout ---
 .faqLayout {
-  display: grid;
-  grid-template-columns: 350px 1fr;
+  display: flex;
+  align-items: flex-start;
   gap: 80px;
   padding: 40px 0;
-  align-items: flex-start;
 }
 
 .faqLeftContent {
-  position: sticky; // Simple sticky
-  top: 120px;
+  width: 350px;
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
   gap: 20px;
+  height: fit-content;
+  z-index: 10;
 }
 
 .faqTitle {
@@ -245,6 +245,8 @@
 }
 
 .faqList {
+  flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
 }
@@ -429,9 +431,44 @@
   }
 
   // Split & FAQ Mobile
-  .splitLayout, .faqLayout {
+  .splitLayout {
     padding: 32px 0;
     grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .faqLayout {
+    padding: 32px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 80px;
+
+    @media screen and (max-width: 1024px) {
+      gap: 40px;
+    }
+
+    @media (max-width: 767px) {
+      flex-direction: column;
+      gap: 32px;
+    }
+  }
+
+  .faqLeftContent {
+    width: 300px;
+    flex-shrink: 0;
+    @media (max-width: 767px) {
+      width: 100%;
+    }
+  }
+
+  .splitImageWrapper {
+    aspect-ratio: 16 / 9;
+    position: relative;
+    
+    img {
+      object-fit: cover !important;
+      object-position: center !important;
+    }
   }
 
   .bulletText {
