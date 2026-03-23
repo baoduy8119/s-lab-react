@@ -46,7 +46,7 @@
   line-height: 1.6;
   max-width: 1000px;
   flex: 1;
-  
+
   p {
     margin-bottom: 24px;
     &:last-child {
@@ -111,8 +111,8 @@
   gap: 40px;
   padding: 40px 0;
   align-items: flex-start;
-  border-bottom: 1px solid #CBD5E1; // Separator
-  
+  border-bottom: 1px solid #cbd5e1; // Separator
+
   &:last-child {
     border-bottom: none;
   }
@@ -151,7 +151,7 @@
   aspect-ratio: 16/9; // Fixed aspect ratio styling
   background: #d1d5db;
   overflow: hidden;
-  
+
   img {
     object-fit: cover;
   }
@@ -162,7 +162,7 @@
   text-align: center;
   font-family: "MJ Satoshi", sans-serif;
   color: #6b7280;
-  background: #EAEAEA;
+  background: #eaeaea;
 }
 
 // --- Split Layout (What you'll get) ---
@@ -215,6 +215,7 @@
   align-items: flex-start;
   gap: 80px;
   padding: 40px 0;
+  min-height: max(50vh, 400px);
 }
 
 .faqLeftContent {
@@ -251,10 +252,10 @@
   flex-direction: column;
 }
 
-.faqItem { 
+.faqItem {
   padding: 16px 0;
-  border-bottom: 1px solid #CBD5E1;
-  
+  border-bottom: 1px solid #cbd5e1;
+
   &:last-child {
     border-bottom: none;
   }
@@ -265,7 +266,7 @@
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
-  
+
   &:hover .questionText {
     opacity: 0.8;
   }
@@ -289,7 +290,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #D1D5DB; // Light gray bg for circle
+  background: #d1d5db; // Light gray bg for circle
   color: #000;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -301,7 +302,7 @@
     color: #fff;
     // transform: rotate(45deg)? Arrow icon changes in SVG.
   }
-  
+
   // Update icon color based on design if needed.
 }
 
@@ -313,7 +314,7 @@
 
   &.open {
     grid-template-rows: 1fr;
-    
+
     .answerInner {
       opacity: 1;
       visibility: visible;
@@ -325,13 +326,15 @@
   min-height: 0;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.3s ease-out, visibility 0.3s;
-  
+  transition:
+    opacity 0.3s ease-out,
+    visibility 0.3s;
+
   p {
     font-family: "MJ Satoshi", sans-serif;
     font-size: 16px;
     line-height: 1.6;
-    color: #4B5563;
+    color: #4b5563;
     margin: 0;
   }
 }
@@ -387,7 +390,7 @@
     font-size: 16px;
     font-weight: 700;
     border-right: none; // Remove dividers on mobile for flush look
-    
+
     &.active {
       background: #000000;
       color: #ffffff;
@@ -402,7 +405,7 @@
     grid-template-columns: 1fr;
     gap: 16px;
     padding: 16px 0 20px;
-    border-bottom: 1px solid #CBD5E1;
+    border-bottom: 1px solid #cbd5e1;
 
     &:last-child {
       border-bottom: none;
@@ -450,6 +453,7 @@
     @media (max-width: 767px) {
       flex-direction: column;
       gap: 32px;
+      min-height: auto;
     }
   }
 
@@ -464,7 +468,7 @@
   .splitImageWrapper {
     aspect-ratio: 16 / 9;
     position: relative;
-    
+
     img {
       object-fit: cover !important;
       object-position: center !important;
