@@ -36,11 +36,14 @@ export async function GET(
     return noStoreJson({ data: JSON.parse(row.data) });
   } catch (err) {
     console.error("[api/content GET]", key, err);
+    const message = err instanceof Error ? err.message : String(err);
+    const showDetail = process.env.VERCEL_ENV !== "production";
     return noStoreJson(
       {
         error: "database_unavailable",
         hint:
-          "Vercel: add the same Postgres env vars for Preview as for Production (DATABASE_URL or store_* / POSTGRES_PRISMA_URL), then redeploy.",
+          "Vercel: enable Postgres env for Preview + Production; prefer POSTGRES_PRISMA_URL / store_PRISMA_DATABASE_URL. Redeploy after changes.",
+        ...(showDetail ? { detail: message.slice(0, 500) } : {}),
       },
       503
     );
@@ -83,11 +86,14 @@ export async function PUT(
     });
   } catch (err) {
     console.error("[api/content PUT]", key, err);
+    const message = err instanceof Error ? err.message : String(err);
+    const showDetail = process.env.VERCEL_ENV !== "production";
     return NextResponse.json(
       {
         error: "database_unavailable",
         hint:
-          "Vercel: ensure DATABASE_URL (or integration Postgres vars) is set for this environment.",
+          "Vercel: ensure DATABASE_URL or POSTGRES_PRISMA_URL is set for this deployment environment.",
+        ...(showDetail ? { detail: message.slice(0, 500) } : {}),
       },
       { status: 503 }
     );
