@@ -1,38 +1,24 @@
 /**
- * Postgres URL: DATABASE_URL, or Vercel defaults (POSTGRES_PRISMA_URL, store_*).
+ * Resolves Postgres URL (shared logic in app/lib/postgresEnv.js).
  */
 const { spawnSync } = require("node:child_process");
 const path = require("node:path");
 
 const root = path.join(__dirname, "..");
 
-const PG_KEYS = [
-  "DATABASE_URL",
-  "POSTGRES_PRISMA_URL",
-  "PRISMA_DATABASE_URL",
-  "POSTGRES_URL",
-  "store_PRISMA_DATABASE_URL",
-  "store_DATABASE_URL",
-  "TARGET_DATABASE_URL",
-];
+const { resolvePostgresDatabaseUrl, isPostgresUrl } = require(path.join(
+  root,
+  "app/lib/postgresEnv.js"
+));
 
-function isPostgresUrl(v) {
-  return /^postgres(ql)?:\/\//i.test(String(v).trim());
-}
-
-if (!process.env.DATABASE_URL?.trim() || !isPostgresUrl(process.env.DATABASE_URL)) {
-  for (const k of PG_KEYS) {
-    const v = process.env[k]?.trim();
-    if (v && isPostgresUrl(v)) {
-      process.env.DATABASE_URL = v;
-      break;
-    }
-  }
+const resolved = resolvePostgresDatabaseUrl(process.env);
+if (resolved) {
+  process.env.DATABASE_URL = resolved;
 }
 
 if (!process.env.DATABASE_URL?.trim() || !isPostgresUrl(process.env.DATABASE_URL)) {
   console.error(
-    "No Postgres DATABASE_URL. In Vercel: add DATABASE_URL or use Vercel Postgres (POSTGRES_PRISMA_URL / store_PRISMA_DATABASE_URL)."
+    "No Postgres DATABASE_URL. In Vercel: link Storage → Postgres and/or set DATABASE_URL for Production; redeploy."
   );
   process.exit(1);
 }
