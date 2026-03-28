@@ -4,9 +4,12 @@
  */
 const { spawnSync } = require("node:child_process");
 const path = require("node:path");
+const { pathToFileURL } = require("node:url");
 
 const root = path.join(__dirname, "..");
-const DEFAULT_DATABASE_URL = "file:./prisma/prod.db";
+const DEFAULT_DATABASE_URL = pathToFileURL(
+  path.join(root, "prisma", "prod.db")
+).href;
 
 if (!process.env.DATABASE_URL?.trim()) {
   process.env.DATABASE_URL = DEFAULT_DATABASE_URL;

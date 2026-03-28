@@ -9,7 +9,10 @@
     "lint": "eslint",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
     "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
-    "db:seed": "npx tsx prisma/seed.ts"
+    "db:seed": "npx tsx prisma/seed.ts",
+    "db:export": "npx tsx scripts/db-export.ts",
+    "db:import": "npx tsx scripts/db-import.ts",
+    "db:push-content": "npx tsx scripts/db-push-content.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.19.2",
