@@ -1,8 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   reactCompiler: true,
+  // Ensure Prisma query engine (.node) is copied into serverless output (custom output path)
+  outputFileTracingIncludes: {
+    "/api/**/*": ["./app/generated/prisma/**/*"],
+  },
   images: {
     remotePatterns: [
       {
