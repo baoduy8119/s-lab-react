@@ -6,9 +6,10 @@ import styles from "./CourseHero.module.scss";
 import SLabLogoWhite from "@/app/components/SLabLogoWhite";
 import Container from "@/app/components/Container";
 import { useCoursesContentStore } from "@/app/features/dashboard/stores/useCoursesContentStore";
+import { useLocalizedContent } from "@/app/hooks/useLocalizedContent";
 
 const CourseHero = React.memo(function CourseHero() {
-  const c = useCoursesContentStore((s) => s.content.courseHero);
+  const c = useLocalizedContent(useCoursesContentStore((s) => s.content.courseHero));
 
   const titleLines = c.title.split("\n");
 
@@ -59,24 +60,53 @@ const CourseHero = React.memo(function CourseHero() {
 
             <form>
               <div className={styles.formGroup}>
-                <input type="text" placeholder="Your career *" className={styles.input} />
+                <input
+                  type="text"
+                  name="name"
+                  autoComplete="name"
+                  placeholder={c.placeholderName}
+                  className={styles.input}
+                />
               </div>
               <div className={styles.formGroup}>
-                <input type="email" placeholder="Email *" className={styles.input} />
+                <input
+                  type="email"
+                  name="email"
+                  autoComplete="email"
+                  placeholder={c.placeholderEmail}
+                  className={styles.input}
+                />
               </div>
               <div className={styles.formGroup}>
-                <input type="tel" placeholder="Phone number *" className={styles.input} />
+                <input
+                  type="tel"
+                  name="phone"
+                  autoComplete="tel"
+                  placeholder={c.placeholderPhone}
+                  className={styles.input}
+                />
               </div>
               <div className={styles.row}>
-                <div className={styles.formGroup} style={{ flex: 1 }}>
-                  <input type="text" placeholder="Your career" className={styles.input} />
+                <div className={`${styles.formGroup} ${styles.rowField}`}>
+                  <input
+                    type="text"
+                    name="career"
+                    autoComplete="organization-title"
+                    placeholder={c.placeholderCareer}
+                    className={styles.input}
+                  />
                 </div>
-                <div className={styles.formGroup} style={{ flex: 1 }}>
-                  <input type="text" placeholder="Your age" className={styles.input} />
+                <div className={`${styles.formGroup} ${styles.rowField}`}>
+                  <input type="text" name="age" placeholder={c.placeholderAge} className={styles.input} />
                 </div>
               </div>
               <div className={styles.formGroup}>
-                <input type="text" placeholder="More about your need..." className={styles.input} />
+                <textarea
+                  name="needs"
+                  placeholder={c.placeholderNeeds}
+                  className={`${styles.input} ${styles.textarea}`}
+                  rows={4}
+                />
               </div>
               <button type="submit" className={styles.submitButton}>
                 {c.submitButton}

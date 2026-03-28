@@ -40,6 +40,16 @@
   border-radius: 10px;
 }
 
+.langBadge {
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: #ef4444;
+  padding: 2px 6px;
+  border-radius: 4px;
+  letter-spacing: 0.3px;
+}
+
 .chevron {
   width: 20px;
   height: 20px;
@@ -168,4 +178,26 @@
     background: #f9fafb;
     border-color: #9ca3af;
   }
+}
+
+.reference {
+  font-size: 12px;
+  color: #6b7280;
+  background: #f9fafb;
+  border: 1px dashed #d1d5db;
+  border-radius: 4px;
+  padding: 6px 10px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.referenceLabel {
+  font-weight: 700;
+  color: #374151;
+}
+
+.referenceEmpty {
+  font-style: italic;
+  color: #9ca3af;
 }

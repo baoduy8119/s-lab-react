@@ -1,53 +1,75 @@
 "use client";
 
 import Image from "next/image";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { useLanguageStore } from "../features/dashboard/stores/useLanguageStore";
 
 const LeftMenu = React.memo(function LeftMenu() {
   const pathname = usePathname();
   const [isSLabOpen, setIsSLabOpen] = useState(false);
+  const locale = useLanguageStore((s) => s.locale);
+  const toggleLocale = useLanguageStore((s) => s.toggleLocale);
 
-  // Automatically open S-Lab menu if on a relevant path
   useEffect(() => {
     if (pathname && (pathname.includes("/the-s-lab") || pathname.includes("/s-library"))) {
       setIsSLabOpen(true);
     }
   }, [pathname]);
 
+  const handleToggleLocale = useCallback(() => {
+    toggleLocale();
+  }, [toggleLocale]);
+
   const isActive = (path: string) => pathname === path;
   const isSLabActive = pathname?.startsWith("/the-s-lab") || pathname === "/s-library";
 
   return (
     <aside className="fixed left-0 top-0 w-[360px] h-screen bg-white flex z-50">
-      {/* Left Section - Decorative Pattern */}
+      {/* Left Section - Narrow strip */}
       <div className="w-14 flex flex-col">
         {/* Icon at top */}
         <div className="w-14 h-14 bg-[#D1D5DB] flex items-center justify-center shrink-0">
           <Image src="/images/logo-left-menu.svg" alt="Logo" width={38} height={43} />
         </div>
 
-        {/* Decorative vertical pattern */}
-        <div className="flex-1 relative">
-          {/* Grid pattern - 3x3 dots repeated vertically */}
-          <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
-            <pattern
-              id="dotPattern"
-              x="0"
-              y="0"
-              width="16"
-              height="16"
-              patternUnits="userSpaceOnUse"
-            >
-              <circle cx="2.67" cy="2.67" r="1.3" fill="black" />
-              <circle cx="2.67" cy="9.33" r="1.3" fill="black" />
-              <circle cx="2.67" cy="16" r="1.3" fill="black" />
-              <circle cx="9.33" cy="2.67" r="1.3" fill="black" />
-              <circle cx="9.33" cy="9.33" r="1.3" fill="black" />
-              <circle cx="9.33" cy="16" r="1.3" fill="black" />
-            </pattern>
-          </svg>
+        {/* Main strip with right border */}
+        <div className="flex-1 border-r border-[#CBD5E1] relative overflow-hidden">
+          {/* Language toggle */}
+          <button
+            onClick={handleToggleLocale}
+            className="absolute bottom-[90px] left-1/2 -translate-x-1/2 font-bold text-sm leading-[20px] tracking-[-0.16px] text-[#111827] cursor-pointer hover:text-[#EF4444] transition-colors bg-transparent border-none p-0"
+            type="button"
+            aria-label={`Switch to ${locale === "en" ? "Vietnamese" : "English"}`}
+          >
+            {locale === "en" ? "EN" : "VI"}
+          </button>
+
+          {/* Avatar */}
+          <div className="absolute bottom-[49px] left-[12px] w-8 h-8 rounded-full bg-[#F3F4F6] flex items-center justify-center overflow-hidden">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path
+                d="M8 8C9.65685 8 11 6.65685 11 5C11 3.34315 9.65685 2 8 2C6.34315 2 5 3.34315 5 5C5 6.65685 6.34315 8 8 8ZM8 9.5C5.99 9.5 2 10.51 2 12.5V14H14V12.5C14 10.51 10.01 9.5 8 9.5Z"
+                fill="#9CA3AF"
+              />
+            </svg>
+          </div>
+
+          {/* 3x3 dot grid */}
+          <div className="absolute bottom-[21px] left-[20px]">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <circle cx="1.33" cy="1.33" r="1.33" fill="#9CA3AF" />
+              <circle cx="1.33" cy="8" r="1.33" fill="#9CA3AF" />
+              <circle cx="1.33" cy="14.67" r="1.33" fill="#9CA3AF" />
+              <circle cx="8" cy="1.33" r="1.33" fill="#9CA3AF" />
+              <circle cx="8" cy="8" r="1.33" fill="#9CA3AF" />
+              <circle cx="8" cy="14.67" r="1.33" fill="#9CA3AF" />
+              <circle cx="14.67" cy="1.33" r="1.33" fill="#9CA3AF" />
+              <circle cx="14.67" cy="8" r="1.33" fill="#9CA3AF" />
+              <circle cx="14.67" cy="14.67" r="1.33" fill="#9CA3AF" />
+            </svg>
+          </div>
         </div>
       </div>
 
@@ -153,10 +175,10 @@ const LeftMenu = React.memo(function LeftMenu() {
             {/* Contact Info */}
             <div className="flex flex-col gap-1">
               <p className="text-[#6B7280] text-sm font-bold leading-[20px] tracking-[-0.16px]">
-                (312) 555-2468
+                (+84) 935-979-353
               </p>
               <p className="text-[#111827] text-xl font-bold leading-[24px]">
-                hello@theslab.agency
+                info@slab-edu.com
               </p>
             </div>
 
@@ -180,8 +202,8 @@ const LeftMenu = React.memo(function LeftMenu() {
             </p>
           </div>
         </div>
-      </div >
-    </aside >
+      </div>
+    </aside>
   );
 });
 LeftMenu.displayName = "LeftMenu";

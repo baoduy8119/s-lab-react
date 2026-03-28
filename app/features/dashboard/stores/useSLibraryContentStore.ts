@@ -1,11 +1,8 @@
+import { fetchContent, saveContentToDb } from "@/app/lib/contentApi";
 import { create } from "zustand";
-import type {
-  HomepageContent,
-  SectionConfig,
-  SectionContent,
-} from "../types/content";
+import type { HomepageContent, SectionConfig, SectionContent } from "../types/content";
 
-const STORAGE_KEY = "slab-slibrary-content";
+const CONTENT_KEY = "slibrary";
 
 export const sLibrarySections: SectionConfig[] = [
   {
@@ -124,176 +121,261 @@ export const sLibrarySections: SectionConfig[] = [
 export const defaultSLibraryContent: HomepageContent = {
   slibHero: {
     title: "/Shape Tomorrow Today",
+    title_vi: "/Định hình tương lai hôm nay",
     subtitle1: "Where Vision Meets Action",
+    subtitle1_vi: "Nơi tầm nhìn gặp hành động",
     subtitle2: "in Business and Creativity",
+    subtitle2_vi: "trong kinh doanh và sáng tạo",
     description1:
       "Our courses in business, marketing, and creativity are the launchpad for visionaries ready to challenge the status quo.",
+    description1_vi:
+      "Các khóa học về kinh doanh, marketing và sáng tạo là bệ phóng cho những người có tầm nhìn sẵn sàng thách thức hiện trạng.",
     description2:
       "Transform your dreams into reality and carve your path in the ever-evolving landscape of industry and imagination.",
+    description2_vi:
+      "Biến ước mơ thành hiện thực và tạo lối đi riêng trong bối cảnh ngành công nghiệp và trí tưởng tượng luôn thay đổi.",
     cardLabel: "Marketing",
+    cardLabel_vi: "Marketing",
     cardLabel2: "Marketing Planning",
+    cardLabel2_vi: "Kế hoạch Marketing",
     cardLabel3: "",
+    cardLabel3_vi: "",
     heroImage1: "/images/slib/marketing-hero.png",
     heroImage2: "/images/slib/marketing-planning-hero.jpg",
     heroImage3: "/images/slib/person-hero.png",
   },
   slibBestForYou: {
     heading: "/Best for you.",
+    heading_vi: "/Phù hợp nhất cho bạn.",
     subtitle: "Suit you best",
+    subtitle_vi: "Phù hợp nhất với bạn",
     c1Title: "Marketing Planning",
+    c1Title_vi: "Kế hoạch Marketing",
     c1Instructor: "Kira Dinh",
+    c1Instructor_vi: "Kira Dinh",
     c1Duration: "20H",
+    c1Duration_vi: "20H",
     c1Documents: "15 documents",
+    c1Documents_vi: "15 tài liệu",
     c1OrigPrice: "899.000",
+    c1OrigPrice_vi: "899.000",
     c1Price: "399.000",
+    c1Price_vi: "399.000",
     c1Image: "/images/slib/lib-card-1.jpg",
     c2Title: "Content Strategy",
+    c2Title_vi: "Chiến lược nội dung",
     c2Instructor: "Sarah Lee",
+    c2Instructor_vi: "Sarah Lee",
     c2Duration: "18H",
+    c2Duration_vi: "18H",
     c2Documents: "12 documents",
+    c2Documents_vi: "12 tài liệu",
     c2OrigPrice: "799.000",
+    c2OrigPrice_vi: "799.000",
     c2Price: "349.000",
+    c2Price_vi: "349.000",
     c2Image: "/images/slib/lib-card-4.jpg",
     c3Title: "Digital Marketing",
+    c3Title_vi: "Marketing số",
     c3Instructor: "John Smith",
+    c3Instructor_vi: "John Smith",
     c3Duration: "25H",
+    c3Duration_vi: "25H",
     c3Documents: "20 documents",
+    c3Documents_vi: "20 tài liệu",
     c3OrigPrice: "999.000",
+    c3OrigPrice_vi: "999.000",
     c3Price: "499.000",
+    c3Price_vi: "499.000",
     c3Image: "/images/slib/lib-card-2.png",
     c4Title: "Content Strategy",
+    c4Title_vi: "Chiến lược nội dung",
     c4Instructor: "Sarah Lee",
+    c4Instructor_vi: "Sarah Lee",
     c4Duration: "18H",
+    c4Duration_vi: "18H",
     c4Documents: "12 documents",
+    c4Documents_vi: "12 tài liệu",
     c4OrigPrice: "799.000",
+    c4OrigPrice_vi: "799.000",
     c4Price: "349.000",
+    c4Price_vi: "349.000",
     c4Image: "/images/slib/lib-card-3.jpg",
     c5Title: "Content Strategy",
+    c5Title_vi: "Chiến lược nội dung",
     c5Instructor: "Sarah Lee",
+    c5Instructor_vi: "Sarah Lee",
     c5Duration: "18H",
+    c5Duration_vi: "18H",
     c5Documents: "12 documents",
+    c5Documents_vi: "12 tài liệu",
     c5OrigPrice: "799.000",
+    c5OrigPrice_vi: "799.000",
     c5Price: "349.000",
+    c5Price_vi: "349.000",
     c5Image: "/images/slib/lib-card-5.jpg",
   },
   slibLibrarySystem: {
     heading: "/The S-Lab library system.",
+    heading_vi: "/Hệ thống thư viện The S-Lab.",
     cat1Name: "Design and Media",
+    cat1Name_vi: "Thiết kế và Truyền thông",
     cat1Image: "/images/slib/design-media.png",
     cat2Name: "Content Writing",
+    cat2Name_vi: "Viết nội dung",
     cat2Image: "/images/slib/content-writing.png",
     cat3Name: "Data Analytics",
+    cat3Name_vi: "Phân tích dữ liệu",
     cat3Image: "/images/slib/data-analytics.png",
     cat4Name: "Marketing Planning",
+    cat4Name_vi: "Kế hoạch Marketing",
     cat4Image: "/images/slib/marketing-planning-lib.png",
     card1Title: "Data Analytics",
+    card1Title_vi: "Phân tích dữ liệu",
     card1Image: "/images/slib/data-analytics.png",
     card2Title: "Content Writing",
+    card2Title_vi: "Viết nội dung",
     card2Image: "/images/slib/content-writing.png",
     card3Title: "Marketing Planning",
+    card3Title_vi: "Kế hoạch Marketing",
     card3Image: "/images/slib/marketing-planning-lib.png",
     card4Title: "Design and Media",
+    card4Title_vi: "Thiết kế và Truyền thông",
     card4Image: "/images/slib/design-media.png",
     card5Title: "Logo/Illustration",
+    card5Title_vi: "Logo/Minh họa",
     card5Image: "/images/slib/lib-card-5.svg",
   },
   slibFaq: {
     heading: "/Frequently\nasked questions.",
+    heading_vi: "/Câu hỏi\nthường gặp.",
     faqImage: "/images/slib/faq-image.png",
-    q1: "How do I purchase a course on S-Lab?",
-    a1: 'To purchase a course, simply navigate to the course catalog on the S-Lab website, select the course you\'re interested in, and click the "Buy Now" button. You\'ll be prompted to complete your payment information. Once the purchase is confirmed, you\'ll have immediate access to the course materials.',
-    q2: "Can I preview a course before purchasing?",
-    a2: "Yes, you can preview select course materials before making a purchase.",
-    q3: "What payment methods are accepted?",
-    a3: "We accept all major credit cards, PayPal, and bank transfers.",
-    q4: "How long do I have access to a course after purchasing it?",
-    a4: "You have lifetime access to all purchased courses.",
-    q5: "How can I track my progress in a course?",
-    a5: "Your progress is automatically tracked and displayed on your dashboard.",
-    q6: "Can I interact with instructors or other students?",
-    a6: "Yes, you can interact through our community forums and live Q&A sessions.",
-    q7: "Are there any assessments or certifications upon completing a course?",
-    a7: "Yes, most courses include assessments and provide certificates upon completion.",
-    q8: "What should I do if I encounter technical issues with a course?",
-    a8: "Please contact our support team at hello@theslab.agency for assistance.",
-    q9: "How can I make the most out of the courses I enroll in?",
-    a9: "Stay consistent, participate in discussions, complete all assignments, and apply what you learn.",
+    q1: "How do I register for a course at The S-Lab?",
+    q1_vi: "Làm sao để đăng ký Khoá học tại The S-Lab?",
+    a1: 'To register, open the course catalog on The S-Lab website, choose the program that fits you, and click "Register Now". After payment is complete, you will get immediate access to the course materials and content.',
+    a1_vi:
+      'Để đăng ký khóa học, bạn chỉ cần vào danh mục khóa học trên website The S-Lab, chọn chương trình phù hợp và nhấn "Register Now". Sau khi hoàn tất thanh toán, bạn sẽ được cấp quyền truy cập ngay vào tài liệu và nội dung khóa học.',
+    q2: "Can I preview course content before enrolling?",
+    q2_vi: "Tôi có thể xem trước nội dung Khóa học không?",
+    a2: "Yes. Selected programs let you preview materials before you register.",
+    a2_vi:
+      "Có. Một số chương trình cho phép bạn xem trước nội dung trước khi đăng ký.",
+    q3: "What payment methods does The S-Lab offer?",
+    q3_vi: "The S-Lab có những Phương thức thanh toán nào?",
+    a3: "We accept major credit cards, PayPal, and bank transfers.",
+    a3_vi:
+      "Chúng tôi chấp nhận các thẻ thanh toán quốc tế phổ biến, PayPal và chuyển khoản ngân hàng.",
+    q4: "After I register, how soon can I start the course?",
+    q4_vi: "Sau khi đăng kí Khóa học, sau bao lâu có thể bắt đầu?",
+    a4: "As soon as your payment is confirmed, you can usually start within minutes. If your course has a scheduled cohort or kickoff, the start date is shown in your confirmation email and on your dashboard.",
+    a4_vi:
+      "Ngay sau khi thanh toán được xác nhận, bạn thường có thể bắt đầu trong vài phút. Nếu khóa học có lịch khai giảng hoặc lớp cố định, ngày bắt đầu sẽ được ghi trong email xác nhận và trên bảng điều khiển của bạn.",
+    q5: "How do I track my progress in a course?",
+    q5_vi: "Làm sao để để theo dõi quá trình tham gia Khóa học?",
+    a5: "Your progress is tracked automatically and shown on your learner dashboard.",
+    a5_vi:
+      "Tiến độ của bạn được hệ thống ghi nhận tự động và hiển thị trên bảng điều khiển học viên.",
+    q6: "Can I interact with mentors and other students?",
+    q6_vi: "Có thể tương tác với Mentor và các học viên khác không?",
+    a6: "Yes. You can join community forums, live Q&A sessions, and mentor channels where your program offers them.",
+    a6_vi:
+      "Có. Bạn có thể tham gia diễn đàn cộng đồng, các buổi hỏi đáp trực tiếp và kênh Mentor khi chương trình có hỗ trợ.",
+    q7: "After completing a course, does The S-Lab provide exit assessments or certificates?",
+    q7_vi:
+      "Sau khi hoàn thành khóa học, The S-Lab có bài kiểm tra đầu ra hoặc cấp chứng chỉ nào không?",
+    a7: "Most courses include assessments; many award a certificate when you meet the requirements. Details are on each course page.",
+    a7_vi:
+      "Hầu hết khóa học có bài kiểm tra; nhiều chương trình cấp chứng chỉ khi bạn hoàn thành yêu cầu. Chi tiết được ghi trên từng trang khóa học.",
+    q8: "What should I do if I run into technical issues while studying?",
+    q8_vi: "Nên làm gì nếu gặp sự cố kỹ thuật trong quá trình học?",
+    a8: "Please contact our support team at info@slab-edu.com for help.",
+    a8_vi:
+      "Vui lòng liên hệ đội hỗ trợ tại info@slab-edu.com để được trợ giúp.",
+    q9: "How can I get the most out of the courses I signed up for?",
+    q9_vi: "Làm sao để tận dụng tối đa các Khóa học đã đăng ký?",
+    a9: "Study consistently, join discussions, complete all assignments, and apply what you learn in practice.",
+    a9_vi:
+      "Học đều đặn, tham gia thảo luận, hoàn thành đầy đủ bài tập và áp dụng kiến thức vào thực tế.",
   },
 };
 
 interface SLibraryContentState {
   content: HomepageContent;
   isDirty: boolean;
+  isSaving: boolean;
   updateField: (sectionId: string, key: string, value: string) => void;
-  saveContent: () => void;
-  resetContent: () => void;
+  saveContent: () => Promise<void>;
+  resetContent: () => Promise<void>;
   resetSection: (sectionId: string) => void;
-  hydrate: () => void;
+  hydrate: () => Promise<void>;
   getSection: (sectionId: string) => SectionContent;
 }
 
-export const useSLibraryContentStore = create<SLibraryContentState>(
-  (set, get) => ({
-    content: defaultSLibraryContent,
-    isDirty: false,
+export const useSLibraryContentStore = create<SLibraryContentState>((set, get) => ({
+  content: defaultSLibraryContent,
+  isDirty: false,
+  isSaving: false,
 
-    updateField: (sectionId, key, value) => {
-      set((state) => ({
-        content: {
-          ...state.content,
-          [sectionId]: {
-            ...state.content[sectionId],
-            [key]: value,
-          },
+  updateField: (sectionId, key, value) => {
+    set((state) => ({
+      content: {
+        ...state.content,
+        [sectionId]: {
+          ...state.content[sectionId],
+          [key]: value,
         },
-        isDirty: true,
-      }));
-    },
+      },
+      isDirty: true,
+    }));
+  },
 
-    saveContent: () => {
-      const { content } = get();
-      if (typeof window !== "undefined") {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(content));
-      }
+  saveContent: async () => {
+    const { content } = get();
+    set({ isSaving: true });
+    try {
+      await saveContentToDb(CONTENT_KEY, content);
       set({ isDirty: false });
-    },
+    } finally {
+      set({ isSaving: false });
+    }
+  },
 
-    resetContent: () => {
-      if (typeof window !== "undefined") {
-        localStorage.removeItem(STORAGE_KEY);
-      }
+  resetContent: async () => {
+    set({ isSaving: true });
+    try {
+      await saveContentToDb(CONTENT_KEY, defaultSLibraryContent);
       set({ content: defaultSLibraryContent, isDirty: false });
-    },
+    } finally {
+      set({ isSaving: false });
+    }
+  },
 
-    resetSection: (sectionId) => {
-      set((state) => ({
-        content: {
-          ...state.content,
-          [sectionId]: defaultSLibraryContent[sectionId],
-        },
-        isDirty: true,
-      }));
-    },
+  resetSection: (sectionId) => {
+    set((state) => ({
+      content: {
+        ...state.content,
+        [sectionId]: defaultSLibraryContent[sectionId],
+      },
+      isDirty: true,
+    }));
+  },
 
-    hydrate: () => {
-      if (typeof window === "undefined") return;
-      try {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        if (raw) {
-          const saved = JSON.parse(raw) as HomepageContent;
-          const merged: HomepageContent = {};
-          for (const key of Object.keys(defaultSLibraryContent)) {
-            merged[key] = { ...defaultSLibraryContent[key], ...saved[key] };
-          }
-          set({ content: merged, isDirty: false });
+  hydrate: async () => {
+    try {
+      const saved = await fetchContent<HomepageContent>(CONTENT_KEY);
+      if (saved) {
+        const merged: HomepageContent = {};
+        for (const key of Object.keys(defaultSLibraryContent)) {
+          merged[key] = { ...defaultSLibraryContent[key], ...saved[key] };
         }
-      } catch {
-        // ignore parse errors
+        set({ content: merged, isDirty: false });
       }
-    },
+    } catch {
+      // fallback to defaults on network error
+    }
+  },
 
-    getSection: (sectionId) => {
-      return get().content[sectionId] ?? {};
-    },
-  })
-);
+  getSection: (sectionId) => {
+    return get().content[sectionId] ?? {};
+  },
+}));

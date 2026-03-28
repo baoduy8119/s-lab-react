@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "./MarketingCards.module.scss";
 import { useCoursesContentStore } from "@/app/features/dashboard/stores/useCoursesContentStore";
+import { useLocalizedFullContent } from "@/app/hooks/useLocalizedContent";
 
 interface CardItem {
   id: string;
@@ -18,7 +19,7 @@ const MarketingCards = React.memo(function MarketingCards() {
   const [activeTab, setActiveTab] = useState("All");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const cardIds = useCoursesContentStore((s) => s.cardIds);
-  const content = useCoursesContentStore((s) => s.content);
+  const content = useLocalizedFullContent(useCoursesContentStore((s) => s.content));
 
   const cards: CardItem[] = useMemo(
     () =>

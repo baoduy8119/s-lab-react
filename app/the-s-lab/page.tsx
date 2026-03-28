@@ -6,10 +6,14 @@ import KeyActivities from "../features/the-s-lab/components/KeyActivities";
 import LimitlessDesire from "../features/the-s-lab/components/LimitlessDesire";
 import TheSlabFooter from "../features/the-s-lab/components/TheSlabFooter";
 import Trainers from "../features/the-s-lab/components/Trainers";
+import ContentHydrator from "@/app/features/dashboard/components/ContentHydrator";
+import TheSlabContentHydrator from "@/app/features/dashboard/components/TheSlabContentHydrator";
 
 export default function TheSlabPage() {
   return (
     <MainLayout>
+      <ContentHydrator />
+      <TheSlabContentHydrator />
       <Hero />
       <LimitlessDesire />
       <KeyActivities />

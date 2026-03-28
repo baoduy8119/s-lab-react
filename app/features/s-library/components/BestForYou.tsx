@@ -11,10 +11,11 @@ import "swiper/css/navigation";
 import styles from "./BestForYou.module.scss";
 import Container from "@/app/components/Container";
 import { useSLibraryContentStore } from "@/app/features/dashboard/stores/useSLibraryContentStore";
+import { useLocalizedContent } from "@/app/hooks/useLocalizedContent";
 
 const BestForYou = React.memo(function BestForYou() {
   const [activeIndex, setActiveIndex] = useState(1);
-  const c = useSLibraryContentStore((s) => s.content.slibBestForYou);
+  const c = useLocalizedContent(useSLibraryContentStore((s) => s.content.slibBestForYou));
 
   const courses = useMemo(
     () => [

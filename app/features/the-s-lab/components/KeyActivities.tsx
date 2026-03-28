@@ -3,33 +3,34 @@
 import Image from "next/image";
 import React from "react";
 import styles from "./KeyActivities.module.scss";
+import { useTheSlabContentStore } from "@/app/features/dashboard/stores/useTheSlabContentStore";
+import { useLocalizedContent } from "@/app/hooks/useLocalizedContent";
 
 const KeyActivities = React.memo(function KeyActivities() {
+  const c = useLocalizedContent(
+    useTheSlabContentStore((s) => s.content.slabKeyActivities)
+  );
   const activities = [
     {
       number: "/001/",
-      title: "Business and Marketing Courses:",
-      description:
-        "Explore our comprehensive courses designed to enhance your business and marketing skills, led by industry experts.",
+      title: c.item1Title,
+      description: c.item1Description,
     },
     {
       number: "/002/",
-      title: "Valuable Events",
-      description:
-        "Join our exclusive events tailored to businessmen, offering networking opportunities, knowledge sharing, and insights.",
+      title: c.item2Title,
+      description: c.item2Description,
       highlighted: true,
     },
     {
       number: "/003/",
-      title: "Insightful Market Content",
-      description:
-        "Stay updated with our informative content, providing valuable market insights and new trends.",
+      title: c.item3Title,
+      description: c.item3Description,
     },
     {
       number: "/004/",
-      title: "Web 3 Industry Community",
-      description:
-        "Be a part of our thriving community dedicated to building and advancing the web 3 industry in Central Vietnam.",
+      title: c.item4Title,
+      description: c.item4Description,
     },
   ];
 
@@ -39,34 +40,36 @@ const KeyActivities = React.memo(function KeyActivities() {
       <div className={styles.backgroundWrapper}>
         <div className={styles.background}>
           <Image
-            src="/images/slab/key-activities-bg.png"
+            src={c.backgroundImage}
             alt="Key Activities Background"
             fill
             style={{ objectFit: "cover" }}
+            unoptimized={c.backgroundImage.startsWith("data:")}
           />
         </div>
 
         <div className={styles.patternBg}>
           <Image
-            src="/images/slab/our-key-frame-16.png"
+            src={c.patternImage}
             alt="Key Activities Background"
             fill
             style={{ objectFit: "cover" }}
+            unoptimized={c.patternImage.startsWith("data:")}
           />
         </div>
 
         <div className={styles.content}>
           <div className={styles.header}>
-            <h2 className={styles.title} data-aos="fade-up">Our Key Activities</h2>
+            <h2 className={styles.title} data-aos="fade-up">{c.titleDesktop}</h2>
           </div>
           <div className={styles.buttonWrapper}>
-            <button className={styles.playButton} data-aos="fade-up" data-aos-delay="200">Join us now</button>
+            <button className={styles.playButton} data-aos="fade-up" data-aos-delay="200">{c.joinButtonText}</button>
           </div>
         </div>
       </div>
 
       <div className={styles.mobileHeader}>
-        <h2 className={styles.mobileTitle} data-aos="fade-up">/Our Key Activities. </h2>
+        <h2 className={styles.mobileTitle} data-aos="fade-up">{c.titleMobile}</h2>
       </div>
 
       {/* Cards Grid */}
@@ -85,7 +88,7 @@ const KeyActivities = React.memo(function KeyActivities() {
       </div>
 
       <div className={styles.mobileActions}>
-        <button className={styles.joinButton}>Join us now</button>
+        <button className={styles.joinButton}>{c.joinButtonText}</button>
       </div>
     </section>
   );

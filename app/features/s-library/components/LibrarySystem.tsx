@@ -9,9 +9,10 @@ import "swiper/css";
 import "swiper/css/effect-coverflow";
 import styles from "./LibrarySystem.module.scss";
 import { useSLibraryContentStore } from "@/app/features/dashboard/stores/useSLibraryContentStore";
+import { useLocalizedContent } from "@/app/hooks/useLocalizedContent";
 
 const LibrarySystem = React.memo(function LibrarySystem() {
-  const c = useSLibraryContentStore((s) => s.content.slibLibrarySystem);
+  const c = useLocalizedContent(useSLibraryContentStore((s) => s.content.slibLibrarySystem));
 
   const categories = useMemo(
     () => [

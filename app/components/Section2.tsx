@@ -4,10 +4,11 @@ import Image from "next/image";
 import React from "react";
 import PolygonImage from "./PolygonImage";
 import { useHomeContentStore } from "@/app/features/dashboard/stores/useHomeContentStore";
+import { useLocalizedContent } from "@/app/hooks/useLocalizedContent";
 import Container from "./Container";
 
 const Section2 = React.memo(function Section2() {
-  const c = useHomeContentStore((s) => s.content.section2);
+  const c = useLocalizedContent(useHomeContentStore((s) => s.content.section2));
 
   const FeatureBlockMobile = ({
     number,
@@ -83,12 +84,11 @@ const Section2 = React.memo(function Section2() {
           </h2>
         </Container>
         <div className="flex flex-col w-full">
-          <FeatureBlockMobile index={0} number="/001/" title={c.feature1Title} desc={c.feature1Desc} bgImage="/images/section2/section2-bg1.png" />
-          <FeatureBlockMobile index={1} number="/002/" title={c.feature2Title} desc={c.feature2Desc} bgColor="bg-[#8B5CF6]" illustration="/images/section2/frame6-decorative.svg" />
-          <FeatureBlockMobile index={2} number="/003/" title={c.feature3Title} desc={c.feature3Desc} bgImage="/images/section2/section2-bg2-m.jpg" />
-          <FeatureBlockMobile index={3} number="/004/" title={c.feature4Title} desc={c.feature4Desc} bgImage="/images/section2/section2-bg3.png" />
-          <FeatureBlockMobile index={4} number="/005/" title={c.feature5Title} desc={c.feature5Desc} bgColor="bg-black" advisorGraphic={true} />
-          <FeatureBlockMobile index={5} number="/006/" title={c.feature6Title} desc={c.feature6Desc} bgImage="/images/section2/section2-bg4-482c9c.jpg" />
+          <FeatureBlockMobile index={0} number="/001/" title={c.feature1Title} desc={c.feature1Desc} bgColor="bg-[#8B5CF6]" illustration="/images/section2/frame6-decorative.svg" />
+          <FeatureBlockMobile index={1} number="/002/" title={c.feature2Title} desc={c.feature2Desc} bgImage="/images/section2/section2-bg2-m.jpg" />
+          <FeatureBlockMobile index={2} number="/003/" title={c.feature3Title} desc={c.feature3Desc} bgImage="/images/section2/section2-bg3.png" />
+          <FeatureBlockMobile index={3} number="/004/" title={c.feature4Title} desc={c.feature4Desc} bgColor="bg-black" advisorGraphic={true} />
+          <FeatureBlockMobile index={4} number="/005/" title={c.feature5Title} desc={c.feature5Desc} bgImage="/images/section2/section2-bg4-482c9c.jpg" />
         </div>
       </div>
 
@@ -122,15 +122,6 @@ const Section2 = React.memo(function Section2() {
           <h2 className="absolute left-[86px] top-[48px] text-white text-[32px] font-bold leading-[38px] tracking-[-0.2px]">
             {c.sectionTitle}
           </h2>
-          <div className="absolute right-[60px] bottom-[40px] text-white text-2xl font-bold leading-[30px] tracking-[-0.15px]">
-            /001/
-          </div>
-          <h3 className="absolute left-[78px] top-[426px] text-white text-2xl font-bold leading-[30px] w-[500px]">
-            {c.feature1Title}
-          </h3>
-          <p className="absolute left-[78px] top-[471px] text-white text-base font-medium leading-[22px] w-[352px]">
-            {c.feature1Desc}
-          </p>
         </div>
 
         {/* Card 2 & 3 */}
@@ -145,14 +136,14 @@ const Section2 = React.memo(function Section2() {
             <div className="relative z-20 flex flex-col h-full justify-between">
               <div className="flex flex-col gap-[24px]">
                 <h3 className="text-white text-2xl font-bold leading-[30px] w-full">
-                  {c.feature2Title}
+                  {c.feature1Title}
                 </h3>
                 <p className="text-white text-base font-medium leading-[22px] w-[400px]">
-                  {c.feature2Desc}
+                  {c.feature1Desc}
                 </p>
               </div>
               <div className="text-white text-2xl font-bold leading-[30px] tracking-[-0.15px]">
-                /002/
+                /001/
               </div>
             </div>
           </div>
@@ -162,14 +153,14 @@ const Section2 = React.memo(function Section2() {
               <Image src="/images/section2/section2-bg2.png" alt="" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
             </div>
             <div className="relative z-20 text-white text-2xl font-bold mr-[60px] mt-[40px]">
-              /003/
+              /002/
             </div>
             <div className="relative z-20 w-full h-[239px] bg-white/10 backdrop-blur-sm rounded-[8px] flex flex-col px-[80px] py-[40px]">
               <h3 className="text-white text-2xl font-bold leading-[30px] w-[295px]">
-                {c.feature3Title}
+                {c.feature2Title}
               </h3>
               <p className="text-white text-base font-medium leading-[22px] w-[332px] mt-[20px]">
-                {c.feature3Desc}
+                {c.feature2Desc}
               </p>
             </div>
           </div>
@@ -182,14 +173,14 @@ const Section2 = React.memo(function Section2() {
               <Image src="/images/section2/section2-bg3.png" alt="" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
             </div>
             <div className="relative z-20 text-white text-2xl font-bold px-[80px] py-[40px]">
-              /004/
+              /003/
             </div>
             <div className="relative z-20 w-full bg-white/10 backdrop-blur-sm rounded-[8px] flex flex-col px-[80px] py-[50px] mb-0">
               <h3 className="text-white text-2xl font-bold leading-[30px]">
-                {c.feature4Title}
+                {c.feature3Title}
               </h3>
               <p className="text-white text-base font-medium leading-[22px] mt-[20px]">
-                {c.feature4Desc}
+                {c.feature3Desc}
               </p>
             </div>
           </div>
@@ -198,10 +189,10 @@ const Section2 = React.memo(function Section2() {
             <div className="absolute inset-0 z-0 bg-black" />
             <div className="relative z-20 flex flex-col">
               <h3 className="text-white text-2xl font-bold leading-[30px] w-[378px]">
-                {c.feature5Title}
+                {c.feature4Title}
               </h3>
               <p className="text-white text-base font-medium leading-[22px] w-[332px] mt-[20px]">
-                {c.feature5Desc}
+                {c.feature4Desc}
               </p>
             </div>
             <div className="relative z-20 flex flex-col items-end">
@@ -209,12 +200,14 @@ const Section2 = React.memo(function Section2() {
                 <Image src="/images/section2/section2-advisor.png" alt="" fill className="object-cover" />
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-[#111827] text-[38px] font-bold leading-[48px] tracking-[-0.24px] text-center w-[212px]">
-                    {c.feature5Title}
+                    EXECUTION
+                    -DRIVEN
+                    LEARNING
                   </div>
                 </div>
               </div>
               <div className="text-white text-2xl font-bold mt-0 mr-[-28px] self-end">
-                /005/
+                /004/
               </div>
             </div>
           </div>
@@ -229,14 +222,14 @@ const Section2 = React.memo(function Section2() {
             <Image src="/images/section2/section2-bg4-482c9c.png" alt="" width={1104} height={737} className="object-cover" />
           </div> */}
           <div className="absolute right-[65px] top-[489px] text-white text-2xl font-bold z-30">
-            /006/
+            /005/
           </div>
           <div className="absolute left-0 bottom-0 w-[586px] bg-white/10 backdrop-blur-sm z-20 flex flex-col pl-[80px] py-[40px]">
             <h3 className="text-white text-2xl font-bold leading-[30px] w-[452px]">
-              {c.feature6Title}
+              {c.feature5Title}
             </h3>
             <p className="text-white text-base font-medium leading-[22px] w-[435px] mt-[15px]">
-              {c.feature6Desc}
+              {c.feature5Desc}
             </p>
           </div>
         </div>

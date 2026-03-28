@@ -111,24 +111,37 @@
   border-bottom: 0.5px solid #4b5563;
   padding: 10px 0;
   color: #ffffff;
-  font-family: "MJ Satoshi", sans-serif;
+  font-family: "Abyssinica SIL", "MJ Satoshi", sans-serif;
   font-size: 20px;
-  font-weight: 700;
+  font-weight: 400;
   line-height: 24px;
-  
+
   &::placeholder {
-    color: #9CA3AF;
+    color: #9ca3af;
   }
-  
+
   &:focus {
     outline: none;
-    border-bottom-color: #EF4444;
+    border-bottom-color: #ef4444;
   }
+}
+
+.textarea {
+  display: block;
+  min-height: 130px;
+  resize: vertical;
+  box-sizing: border-box;
 }
 
 .row {
   display: flex;
-  gap: 20px;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.rowField {
+  flex: 1;
+  min-width: 0;
 }
 
 .submitButton {

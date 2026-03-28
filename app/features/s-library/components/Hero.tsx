@@ -6,9 +6,10 @@ import styles from "./Hero.module.scss";
 import Container from "@/app/components/Container";
 import Marquee from "@/app/components/Marquee";
 import { useSLibraryContentStore } from "@/app/features/dashboard/stores/useSLibraryContentStore";
+import { useLocalizedContent } from "@/app/hooks/useLocalizedContent";
 
 const Hero = React.memo(function Hero() {
-  const c = useSLibraryContentStore((s) => s.content.slibHero);
+  const c = useLocalizedContent(useSLibraryContentStore((s) => s.content.slibHero));
 
   return (
     <section className={styles.section}>

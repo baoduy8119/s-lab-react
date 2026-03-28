@@ -7,6 +7,8 @@ import {
   buildCardSectionConfig,
   useCoursesContentStore,
 } from "../stores/useCoursesContentStore";
+import { useLanguageStore } from "../stores/useLanguageStore";
+import { useTranslations } from "../i18n/translations";
 import SectionEditor from "./SectionEditor";
 import styles from "./CoursesEditor.module.scss";
 
@@ -20,6 +22,8 @@ const CoursesEditor = React.memo(function CoursesEditor() {
   const removeCourse = useCoursesContentStore((s) => s.removeCourse);
   const addCard = useCoursesContentStore((s) => s.addCard);
   const removeCard = useCoursesContentStore((s) => s.removeCard);
+  const locale = useLanguageStore((s) => s.locale);
+  const tt = useTranslations(locale);
 
   const courseSections = useMemo(
     () =>
@@ -39,20 +43,20 @@ const CoursesEditor = React.memo(function CoursesEditor() {
 
   const handleRemoveCourse = useCallback(
     (courseId: string, courseName: string) => {
-      if (window.confirm(`Remove "${courseName}"? This cannot be undone.`)) {
+      if (window.confirm(tt.removeCourseConfirm(courseName))) {
         removeCourse(courseId);
       }
     },
-    [removeCourse]
+    [removeCourse, tt]
   );
 
   const handleRemoveCard = useCallback(
     (cardId: string, cardTitle: string) => {
-      if (window.confirm(`Remove "${cardTitle}"? This cannot be undone.`)) {
+      if (window.confirm(tt.removeCardConfirm(cardTitle))) {
         removeCard(cardId);
       }
     },
-    [removeCard]
+    [removeCard, tt]
   );
 
   return (
@@ -70,7 +74,7 @@ const CoursesEditor = React.memo(function CoursesEditor() {
       <div className={styles.courseGroup}>
         <div className={styles.courseGroupHeader}>
           <h3 className={styles.courseGroupTitle}>
-            Courses ({courseIds.length})
+            {tt.coursesCount(courseIds.length)}
           </h3>
           <button
             type="button"
@@ -89,7 +93,7 @@ const CoursesEditor = React.memo(function CoursesEditor() {
               <line x1="8" y1="3" x2="8" y2="13" />
               <line x1="3" y1="8" x2="13" y2="8" />
             </svg>
-            Add Course
+            {tt.addCourse}
           </button>
         </div>
 
@@ -113,8 +117,8 @@ const CoursesEditor = React.memo(function CoursesEditor() {
               disabled={courseIds.length <= 1}
               title={
                 courseIds.length <= 1
-                  ? "At least one course is required"
-                  : `Remove ${section.title}`
+                  ? tt.atLeastOneCourse
+                  : tt.removeTooltip(section.title)
               }
             >
               <svg
@@ -128,7 +132,7 @@ const CoursesEditor = React.memo(function CoursesEditor() {
               >
                 <path d="M1.5 3.5h11M5.5 6v4M8.5 6v4M2.5 3.5l.5 8a1 1 0 001 1h6a1 1 0 001-1l.5-8M4.5 3.5V2a1 1 0 011-1h3a1 1 0 011 1v1.5" />
               </svg>
-              Remove
+              {tt.remove}
             </button>
           </div>
         ))}
@@ -137,7 +141,7 @@ const CoursesEditor = React.memo(function CoursesEditor() {
       <div className={styles.courseGroup}>
         <div className={styles.courseGroupHeader}>
           <h3 className={styles.courseGroupTitle}>
-            Marketing Cards ({cardIds.length})
+            {tt.cardsCount(cardIds.length)}
           </h3>
           <button
             type="button"
@@ -156,7 +160,7 @@ const CoursesEditor = React.memo(function CoursesEditor() {
               <line x1="8" y1="3" x2="8" y2="13" />
               <line x1="3" y1="8" x2="13" y2="8" />
             </svg>
-            Add Card
+            {tt.addCard}
           </button>
         </div>
 
@@ -180,8 +184,8 @@ const CoursesEditor = React.memo(function CoursesEditor() {
               disabled={cardIds.length <= 1}
               title={
                 cardIds.length <= 1
-                  ? "At least one card is required"
-                  : `Remove ${section.title}`
+                  ? tt.atLeastOneCard
+                  : tt.removeTooltip(section.title)
               }
             >
               <svg
@@ -195,7 +199,7 @@ const CoursesEditor = React.memo(function CoursesEditor() {
               >
                 <path d="M1.5 3.5h11M5.5 6v4M8.5 6v4M2.5 3.5l.5 8a1 1 0 001 1h6a1 1 0 001-1l.5-8M4.5 3.5V2a1 1 0 011-1h3a1 1 0 011 1v1.5" />
               </svg>
-              Remove
+              {tt.remove}
             </button>
           </div>
         ))}

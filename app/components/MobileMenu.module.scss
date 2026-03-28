@@ -138,6 +138,18 @@
   letter-spacing: -0.16px;
 }
 
+.langToggle {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: color 0.15s ease;
+
+  &:hover {
+    color: #ef4444;
+  }
+}
+
 .avatar {
   width: 32px;
   height: 32px;

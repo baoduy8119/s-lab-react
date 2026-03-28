@@ -2,6 +2,9 @@
 
 import PartnerLogos from "@/app/components/PartnerLogos";
 import SLabLogoBlack from "@/app/components/SLabLogoBlack";
+import { useTheSlabContentStore } from "@/app/features/dashboard/stores/useTheSlabContentStore";
+import { useIsVietnamese } from "@/app/hooks/useIsVietnamese";
+import { useLocalizedContent } from "@/app/hooks/useLocalizedContent";
 import Image from "next/image";
 import React from "react";
 import styles from "./Hero.module.scss";
@@ -109,75 +112,84 @@ const Highlight = React.memo(function Highlight({
 Highlight.displayName = "Highlight";
 
 const Hero = React.memo(function Hero() {
+  const c = useLocalizedContent(useTheSlabContentStore((s) => s.content.slabHero));
+  const isVi = useIsVietnamese();
+
   return (
     <section className={styles.hero}>
       <div className={styles.innerContent}>
         {/* Background Images - decorative, kept absolute for layering */}
         {/* Background Images - decorative, kept absolute for layering */}
         <Image
-          src="/images/slab/bg-image-top-7c576e.png"
+          src={c.bgImageTop}
           alt="3D Asset"
           width={408}
           height={330}
           className={styles.bgImageTop}
           data-aos="fade-down"
           data-aos-duration="1500"
+          unoptimized={c.bgImageTop.startsWith("data:")}
         />
         <Image
-          src="/images/slab/bg-image-left-4bf67d.png"
+          src={c.bgImageLeft}
           alt="3D Asset"
           width={173}
           height={452}
           className={styles.bgImageLeft}
           data-aos="fade-right"
           data-aos-duration="1500"
+          unoptimized={c.bgImageLeft.startsWith("data:")}
         />
 
         {/* Main Content Container */}
         <div className={styles.contentWrapper}>
           {/* Header Section */}
           <div className={styles.headerSection}>
-            <h1 className={styles.title} data-aos="fade-up">/About THE S-LAB.</h1>
+            <h1 className={styles.title} data-aos="fade-up">{c.title}</h1>
             <div className={styles.logoGroup} data-aos="fade-up" data-aos-delay="100">
               <SLabLogoBlack width={90} height={33} />
             </div>
           </div>
 
           {/* Description Text with Inline Highlights */}
-          <div className={styles.description} data-aos="fade-up" data-aos-delay="200">
+          <div
+            className={`${styles.description} ${isVi ? styles.viDesc : ""}`}
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
             <p>
-              Where{" "}
+              {c.p1Prefix}{" "}
               <Highlight color="yellow" rotation={1} pillPosition="top-left" pillSize="tall">
-                knowledge meets action
+                {c.p1Highlight1}
               </Highlight>{" "}
-              <Highlight color="pink" rotation={-1} pillPosition="bottom-right" pillSize="medium">
-                empowering
+              <Highlight color="pink" red rotation={-1} pillPosition="bottom-right" pillSize="medium">
+                {c.p1Highlight2}
               </Highlight>{" "}
-              learners, professionals, and enterprises.
+              {c.p1Suffix}
             </p>
             <p>
               <Highlight color="yellow" pillPosition="top-left" pillSize="medium">
-                Bridging
+                {c.p2Highlight1}
               </Highlight>{" "}
-              theory and practice at The S-LAB,{" "}
-              <Highlight color="pink" rotation={3} red pillPosition="top-right" pillSize="medium">
-                fostering
+              {c.p2Middle}{" "}
+              <Highlight color="pink" rotation={3} red pillSize="medium">
+                {c.p2Highlight2}
               </Highlight>{" "}
-              a diverse community.
+              {c.p2Suffix}
             </p>
             <p>
-              Transforming learning at The S-LAB:{" "}
+              {c.p3Prefix}{" "}
               <Highlight color="yellow" rotation={1} pillPosition="top-left" pillSize="tall">
-                theory in
-              </Highlight>{" "}
-              <Highlight color="yellow" pillPosition="bottom-right" pillSize="medium">
-                action
+                {c.p3Highlight1}
               </Highlight>
-              ,{" "}
+              <Highlight color="yellow" pillPosition="bottom-right" pillSize="medium">
+                {c.p3Highlight2}
+              </Highlight>
+              {" "}
               <Highlight color="pink" rotation={-2} red>
-                connecting
+                {c.p3Highlight3}
               </Highlight>{" "}
-              all for growth.
+              {c.p3Suffix}
             </p>
           </div>
         </div>

@@ -3,6 +3,7 @@
 import React from "react";
 import styles from "./HomePartners.module.scss";
 import { useHomeContentStore } from "@/app/features/dashboard/stores/useHomeContentStore";
+import { useLocalizedContent } from "@/app/hooks/useLocalizedContent";
 import Container from "@/app/components/Container";
 
 const partnerImages = [
@@ -24,7 +25,7 @@ const partnerImages = [
 ];
 
 const HomePartners = React.memo(function HomePartners() {
-  const heading = useHomeContentStore((s) => s.content.partners.heading);
+  const heading = useLocalizedContent(useHomeContentStore((s) => s.content.partners)).heading;
 
   return (
     <section className={styles.section}>

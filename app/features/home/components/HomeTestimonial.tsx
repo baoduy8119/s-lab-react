@@ -11,6 +11,7 @@ import styles from "./HomeTestimonial.module.scss";
 import PolygonSection from "@/app/components/PolygonSection";
 import Marquee from "@/app/components/Marquee";
 import { useHomeContentStore } from "@/app/features/dashboard/stores/useHomeContentStore";
+import { useLocalizedContent } from "@/app/hooks/useLocalizedContent";
 
 const NavButtons = React.memo(function NavButtons({ subtitle }: { subtitle: string }) {
   const swiper = useSwiper();
@@ -37,7 +38,7 @@ const NavButtons = React.memo(function NavButtons({ subtitle }: { subtitle: stri
 NavButtons.displayName = "NavButtons";
 
 const HomeTestimonial = React.memo(function HomeTestimonial() {
-  const c = useHomeContentStore((s) => s.content.testimonials);
+  const c = useLocalizedContent(useHomeContentStore((s) => s.content.testimonials));
 
   const testimonials = useMemo(
     () => [

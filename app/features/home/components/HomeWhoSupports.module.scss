@@ -36,7 +36,7 @@
   line-height: 1;
   display: flex;
   align-items: flex-start;
-  
+
   .plus {
     font-size: 40px;
     color: #ef4444; // Red accent
@@ -47,7 +47,7 @@
 .counterLabel {
   font-family: "MJ Satoshi", sans-serif;
   font-size: 24px;
-  color: #9CA3AF;
+  color: #9ca3af;
   font-weight: 700;
 }
 
@@ -59,7 +59,7 @@
 
 .headerImage {
   width: 100%;
-  height: 480px; 
+  height: 480px;
   position: relative;
 }
 
@@ -81,9 +81,12 @@
 
 .labelCol {
   font-family: "MJ Satoshi", sans-serif;
-  font-size: 16px; 
-  color: #9CA3AF;
+  font-size: 16px;
+  color: #9ca3af;
   font-weight: 500;
+  &.professionCol {
+    padding: 0 20px;
+  }
 }
 
 .accordionList {
@@ -98,7 +101,7 @@
   overflow: hidden;
   transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
   min-height: 100px;
-  
+
   &.active {
     min-height: 100px;
     color: #ffffff;
@@ -106,14 +109,18 @@
 
   &:hover:not(.active) {
     .bgOverlay {
-      background: rgba(0,0,0,0.4);
+      background: rgba(0, 0, 0, 0.4);
     }
   }
 }
 
 @keyframes slideIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .itemBg {
@@ -135,7 +142,7 @@
 .bgOverlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.6) 100%);
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.6) 100%);
 }
 
 .itemContent {
@@ -143,7 +150,7 @@
   z-index: 2;
   display: flex;
   align-items: center;
-  padding: 12px 40px; 
+  padding: 12px 40px;
   height: 100%;
   min-height: 100px;
 }
@@ -154,11 +161,12 @@
 
 .itemTitle {
   font-family: "MJ Satoshi", sans-serif;
-  font-size: 32px; 
+  font-size: 32px;
   font-weight: 700;
   color: #111827;
+  white-space: pre-line;
   transition: color 0.6s ease;
-  
+
   .active & {
     color: #ffffff;
   }
@@ -168,8 +176,9 @@
   flex: 0 0 30%;
   opacity: 0;
   transition: opacity 0.4s ease;
+  padding: 0 20px;
   @media screen and (max-width: 1536px) {
-    flex: 0 0 24%
+    flex: 0 0 24%;
   }
   .active & {
     opacity: 1;
@@ -178,7 +187,7 @@
 
 .professionText {
   font-family: "MJ Satoshi", sans-serif;
-  font-size: 16px; 
+  font-size: 16px;
   font-weight: 500;
   color: #ffffff;
 }
@@ -200,7 +209,7 @@
   margin: 0;
   color: #ffffff;
   font-family: "MJ Satoshi", sans-serif;
-  font-size: 14px; 
+  font-size: 14px;
   line-height: 1.6;
 }
 
@@ -223,7 +232,7 @@
   align-items: center;
   justify-content: center;
   transition: transform 0.2s;
-  
+
   &:hover {
     transform: scale(1.1);
   }
@@ -244,13 +253,13 @@
     letter-spacing: -0.15px;
     font-weight: 700;
   }
- 
+
   .topRow {
     flex-direction: column;
     margin-bottom: 24px;
     gap: 16px;
   }
-  
+
   .counterSection {
     max-width: 100%;
     width: 100%;
@@ -268,7 +277,7 @@
   .counterNumber {
     font-size: 48px;
     letter-spacing: -0.4px;
-    
+
     .plus {
       font-size: 32px;
       margin-top: 5px;
@@ -279,7 +288,7 @@
   .counterLabel {
     font-size: 16px;
     letter-spacing: -0.18px;
-    color: #9CA3AF;
+    color: #9ca3af;
   }
 
   .headerRight {
@@ -290,14 +299,14 @@
       width: 100%;
     }
   }
-  
+
   .headerImage {
     height: auto;
     aspect-ratio: 16 / 10;
     width: 100%;
     margin: 0 auto;
   }
-  
+
   .listSection {
     margin-top: 24px;
   }
@@ -306,7 +315,7 @@
     display: block;
     font-family: "MJ Satoshi", sans-serif;
     font-size: 16px;
-    color: #9CA3AF;
+    color: #9ca3af;
     margin-bottom: 16px;
   }
 
@@ -352,7 +361,7 @@
   .itemTitle {
     font-size: 20px;
     color: #ffffff; // always white on mobile
-    white-space: nowrap;
+    white-space: pre-line;
   }
 
   .colProfession {
@@ -361,7 +370,7 @@
     text-align: center;
     padding: 0 5px;
   }
-  
+
   .professionText {
     font-size: 12px;
     letter-spacing: -0.12px;
@@ -373,7 +382,7 @@
   .colDescription {
     display: none; // hidden on mobile consistent with 64px height
   }
-  
+
   .colAction {
     width: auto;
     opacity: 1;

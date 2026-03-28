@@ -3,6 +3,8 @@
 import React, { useState, useCallback, useRef } from "react";
 import Image from "next/image";
 import type { SectionConfig, SectionContent } from "../types/content";
+import { useLanguageStore } from "../stores/useLanguageStore";
+import { useTranslations } from "../i18n/translations";
 import styles from "./SectionEditor.module.scss";
 
 interface SectionEditorProps {
@@ -19,6 +21,8 @@ const SectionEditor = React.memo(function SectionEditor({
   resetSection,
 }: SectionEditorProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const locale = useLanguageStore((s) => s.locale);
+  const tt = useTranslations(locale);
 
   const handleToggle = useCallback(() => {
     setIsOpen((prev) => !prev);
@@ -27,11 +31,11 @@ const SectionEditor = React.memo(function SectionEditor({
   const handleResetSection = useCallback(
     (e: React.MouseEvent) => {
       e.stopPropagation();
-      if (window.confirm(`Reset "${config.title}" to defaults?`)) {
+      if (window.confirm(tt.resetSectionConfirm(config.title))) {
         resetSection(config.id);
       }
     },
-    [config.id, config.title, resetSection]
+    [config.id, config.title, resetSection, tt]
   );
 
   return (
@@ -40,15 +44,18 @@ const SectionEditor = React.memo(function SectionEditor({
         <div className={styles.headerLeft}>
           <h3 className={styles.sectionTitle}>{config.title}</h3>
           <span className={styles.fieldCount}>
-            {config.fields.length} fields
+            {config.fields.length} {tt.fields}
           </span>
+          {locale === "vi" && (
+            <span className={styles.langBadge}>VI</span>
+          )}
         </div>
         <div className={styles.headerActions}>
           <button
             className={styles.resetSectionBtn}
             onClick={handleResetSection}
           >
-            Reset
+            {tt.reset}
           </button>
           <svg
             className={`${styles.chevron} ${isOpen ? styles.open : ""}`}
@@ -64,17 +71,30 @@ const SectionEditor = React.memo(function SectionEditor({
 
       {isOpen && (
         <div className={styles.body}>
-          {config.fields.map((field) => (
-            <FieldRenderer
-              key={field.key}
-              sectionId={config.id}
-              fieldKey={field.key}
-              label={field.label}
-              type={field.type}
-              value={(content[field.key] as string) ?? ""}
-              onChange={updateField}
-            />
-          ))}
+          {config.fields.map((field) => {
+            const isShared = field.type === "image";
+            const effectiveKey =
+              locale === "vi" && !isShared
+                ? `${field.key}_vi`
+                : field.key;
+            const referenceValue =
+              locale === "vi" && !isShared
+                ? (content[field.key] as string) ?? ""
+                : undefined;
+
+            return (
+              <FieldRenderer
+                key={`${field.key}-${locale}`}
+                sectionId={config.id}
+                fieldKey={effectiveKey}
+                label={field.label}
+                type={field.type}
+                value={(content[effectiveKey] as string) ?? ""}
+                referenceValue={referenceValue}
+                onChange={updateField}
+              />
+            );
+          })}
         </div>
       )}
     </div>
@@ -89,6 +109,7 @@ interface FieldRendererProps {
   label: string;
   type: "text" | "textarea" | "image";
   value: string;
+  referenceValue?: string;
   onChange: (sectionId: string, key: string, value: string) => void;
 }
 
@@ -98,9 +119,12 @@ const FieldRenderer = React.memo(function FieldRenderer({
   label,
   type,
   value,
+  referenceValue,
   onChange,
 }: FieldRendererProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const locale = useLanguageStore((s) => s.locale);
+  const tt = useTranslations(locale);
 
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -121,6 +145,13 @@ const FieldRenderer = React.memo(function FieldRenderer({
     },
     [sectionId, fieldKey, onChange]
   );
+
+  const referenceBlock = referenceValue !== undefined ? (
+    <div className={styles.reference}>
+      <span className={styles.referenceLabel}>EN:</span>{" "}
+      {referenceValue || <span className={styles.referenceEmpty}>(empty)</span>}
+    </div>
+  ) : null;
 
   if (type === "image") {
     return (
@@ -144,14 +175,14 @@ const FieldRenderer = React.memo(function FieldRenderer({
               className={styles.imagePathInput}
               value={value}
               onChange={handleChange}
-              placeholder="/images/..."
+              placeholder={tt.imagePlaceholder}
             />
             <button
               type="button"
               className={styles.uploadBtn}
               onClick={() => fileInputRef.current?.click()}
             >
-              Upload
+              {tt.upload}
             </button>
             <input
               ref={fileInputRef}
@@ -170,6 +201,7 @@ const FieldRenderer = React.memo(function FieldRenderer({
     return (
       <div className={styles.field}>
         <label className={styles.fieldLabel}>{label}</label>
+        {referenceBlock}
         <textarea
           className={styles.fieldTextarea}
           value={value}
@@ -183,6 +215,7 @@ const FieldRenderer = React.memo(function FieldRenderer({
   return (
     <div className={styles.field}>
       <label className={styles.fieldLabel}>{label}</label>
+      {referenceBlock}
       <input
         type="text"
         className={styles.fieldInput}

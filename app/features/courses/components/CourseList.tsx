@@ -8,6 +8,8 @@ import styles from "./CourseList.module.scss";
 import Container from "@/app/components/Container";
 import { useMediaQuery } from "@/app/hooks/useMediaQuery";
 import { useCoursesContentStore } from "@/app/features/dashboard/stores/useCoursesContentStore";
+import { useLocalizedContent, useLocalizedFullContent } from "@/app/hooks/useLocalizedContent";
+import { useIsVietnamese } from "@/app/hooks/useIsVietnamese";
 
 interface CourseItem {
   id: string;
@@ -19,11 +21,14 @@ interface CourseItem {
   availability: string;
 }
 
+const POPULAR_COURSE_NAME = "Content Marketing: Content Starter";
+
 const CourseList = React.memo(function CourseList() {
   const isMobile = useMediaQuery("(max-width: 1024px)");
-  const general = useCoursesContentStore((s) => s.content.courseListGeneral);
+  const isVietnamese = useIsVietnamese();
+  const general = useLocalizedContent(useCoursesContentStore((s) => s.content.courseListGeneral));
   const courseIds = useCoursesContentStore((s) => s.courseIds);
-  const content = useCoursesContentStore((s) => s.content);
+  const content = useLocalizedFullContent(useCoursesContentStore((s) => s.content));
 
   const courses: CourseItem[] = useMemo(
     () =>
@@ -92,13 +97,20 @@ const CourseList = React.memo(function CourseList() {
                 <div key={course.id} className={styles.courseItem}>
                   <div className={styles.courseHeader}>
                     <h3 className={styles.courseTitle}>/{course.name}</h3>
-                    <p className={styles.duration}>{course.duration}</p>
+                    <div className={styles.durationRow}>
+                      <p className={styles.duration}>{course.duration}</p>
+                      {course.name.includes(POPULAR_COURSE_NAME) ? (
+                        <div className={styles.popularPill}>
+                          <span className={styles.popularPillText}>Popular</span>
+                        </div>
+                      ) : null}
+                    </div>
                     <div className={styles.priceWrapper}>
                       {course.oldPrice && (
                         <span className={styles.oldPrice}>{course.oldPrice}</span>
                       )}
                       <span className={styles.price}>{course.price}</span>
-                      <span className={styles.perPerson}>/person</span>
+                      <span className={styles.perPerson}>{isVietnamese ? "vnđ / khóa" : "/person"}</span>
                     </div>
                   </div>
 
@@ -109,7 +121,14 @@ const CourseList = React.memo(function CourseList() {
                       {course.features.map((feature, idx) => (
                         <li key={idx} className={styles.featureItem}>
                           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className={styles.checkIcon}>
-                            <rect x="2" y="2" width="20" height="20" rx="6" fill="#111827" />
+                            <rect
+                              x="2"
+                              y="2"
+                              width="20"
+                              height="20"
+                              rx="6"
+                              fill={course.name.includes(POPULAR_COURSE_NAME) ? "#EF4444" : "#111827"}
+                            />
                             <path d="M7 12L10 15L17 8" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                           </svg>
                           {feature}
@@ -119,7 +138,7 @@ const CourseList = React.memo(function CourseList() {
 
                     <button className={styles.registerButton}>
                       <span
-                        style={{ backgroundColor: course.name.includes("Decision") ? "#EF4444" : "#000000" }}
+                        style={{ backgroundColor: course.name.includes(POPULAR_COURSE_NAME) ? "#EF4444" : "#000000" }}
                         className={styles.btnBg}
                       ></span>
                       <span className={styles.btnText}>{general.registerBtn}</span>

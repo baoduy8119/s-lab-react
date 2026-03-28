@@ -7,11 +7,12 @@ import styles from "./FAQ.module.scss";
 import { useMediaQuery } from "@/app/hooks/useMediaQuery";
 import Container from "@/app/components/Container";
 import { useSLibraryContentStore } from "@/app/features/dashboard/stores/useSLibraryContentStore";
+import { useLocalizedContent } from "@/app/hooks/useLocalizedContent";
 
 const FAQ = React.memo(function FAQ() {
   const isMobile = useMediaQuery("(max-width: 768px)");
   const [openIndex, setOpenIndex] = useState<number>(0);
-  const c = useSLibraryContentStore((s) => s.content.slibFaq);
+  const c = useLocalizedContent(useSLibraryContentStore((s) => s.content.slibFaq));
 
   const headingLines = c.heading.split("\n");
 

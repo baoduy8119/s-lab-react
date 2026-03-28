@@ -7,6 +7,7 @@ import styles from "./HomeWhoSupports.module.scss";
 import PolygonImage from "@/app/components/PolygonImage";
 import Container from "@/app/components/Container";
 import { useHomeContentStore } from "@/app/features/dashboard/stores/useHomeContentStore";
+import { useLocalizedContent } from "@/app/hooks/useLocalizedContent";
 
 interface SupportItem {
   id: string;
@@ -18,8 +19,7 @@ interface SupportItem {
 }
 
 const HomeWhoSupports = React.memo(function HomeWhoSupports() {
-  const [activeId, setActiveId] = useState<string>("");
-  const c = useHomeContentStore((s) => s.content.whoSupports);
+  const c = useLocalizedContent(useHomeContentStore((s) => s.content.whoSupports));
 
   const items: SupportItem[] = useMemo(
     () => [
@@ -55,9 +55,19 @@ const HomeWhoSupports = React.memo(function HomeWhoSupports() {
         image: c.item4Image,
         link: "#",
       },
+      {
+        id: "career-switchers",
+        title: c.item5Title,
+        profession: c.item5Profession,
+        description: c.item5Description.split("\n"),
+        image: c.item5Image,
+        link: "#",
+      },
     ],
     [c]
   );
+
+  const [activeId, setActiveId] = useState<string>(() => items[0]?.id ?? "");
 
   return (
     <section className={styles.section}>
@@ -70,9 +80,9 @@ const HomeWhoSupports = React.memo(function HomeWhoSupports() {
           <div className={styles.counterSection}>
             <div className={styles.counterBlock}>
               <span className={styles.counterNumber}>
-                /04<span className={styles.plus}>+</span>
+                {c.counterNumber || "/5+"}<span className={styles.plus}></span>
               </span>
-              <span className={styles.counterLabel}>The S-Lab supports</span>
+              <span className={styles.counterLabel}>{c.counterLabel || "The S-Lab supports"}</span>
             </div>
             {/* Mobile Barcode Icon */}
             <div className={styles.barcodeIcon}>
@@ -99,18 +109,18 @@ const HomeWhoSupports = React.memo(function HomeWhoSupports() {
         <div className={styles.listSection}>
           <div className={styles.listLabels}>
             <span className={styles.labelCol} style={{ flex: "0 0 30%" }}>
-              Support staff
+              {c.labelSupport || "Support staff"}
             </span>
-            <span className={styles.labelCol} style={{ flex: "0 0 30%" }}>
-              Profession
+            <span className={[styles.labelCol, styles.professionCol].join(" ")} style={{ flex: "0 0 30%" }}>
+              {c.labelProfession || "Profession"}
             </span>
             <span className={styles.labelCol} style={{ flex: 1 }}>
-              Description
+              {c.labelDescription || "Description"}
             </span>
           </div>
 
           {/* Mobile Label */}
-          <div className={styles.mobileLabel}>Support staff</div>
+          <div className={styles.mobileLabel}>{c.labelSupport || "Support staff"}</div>
 
           <div className={styles.accordionList} data-aos="fade-up">
             {items.map((item) => {

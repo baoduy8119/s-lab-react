@@ -10,8 +10,8 @@ const CourseInfo = React.memo(function CourseInfo() {
         <div className={styles.contactInfo}>
           <div className={styles.contactItem}>
             <span className={styles.label}>Contact</span>
-            <a href="mailto:hello@theslab.agency" className={styles.email}>
-              hello@theslab.agency
+            <a href="mailto:info@slab-edu.com" className={styles.email}>
+              info@slab-edu.com
             </a>
           </div>
           <div className={styles.divider} />

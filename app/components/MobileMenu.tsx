@@ -1,8 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useLanguageStore } from "../features/dashboard/stores/useLanguageStore";
 import TheSLabLogo from "./TheSLabLogo";
 import styles from "./MobileMenu.module.scss";
 
@@ -12,6 +13,12 @@ interface MobileMenuProps {
 
 const MobileMenu = React.memo(function MobileMenu({ onClose }: MobileMenuProps) {
   const [isSLabOpen, setIsSLabOpen] = React.useState(false);
+  const locale = useLanguageStore((s) => s.locale);
+  const toggleLocale = useLanguageStore((s) => s.toggleLocale);
+
+  const handleToggleLocale = useCallback(() => {
+    toggleLocale();
+  }, [toggleLocale]);
 
   return (
     <div className={styles.overlay}>
@@ -44,7 +51,14 @@ const MobileMenu = React.memo(function MobileMenu({ onClose }: MobileMenuProps) 
         <div className={styles.sidebarStrip}>
           <span className={styles.stripText}><TheSLabLogo width={42} height={6} /></span>
           <div className={styles.stripBottom}>
-            <span className={styles.langLabel}>EN</span>
+            <button
+              type="button"
+              className={`${styles.langLabel} ${styles.langToggle}`}
+              onClick={handleToggleLocale}
+              aria-label={`Switch to ${locale === "en" ? "Vietnamese" : "English"}`}
+            >
+              {locale === "en" ? "EN" : "VI"}
+            </button>
             <div className={styles.avatar} aria-hidden />
           </div>
         </div>
@@ -94,8 +108,8 @@ const MobileMenu = React.memo(function MobileMenu({ onClose }: MobileMenuProps) 
           <div className={styles.contentBottom}>
             <div className={styles.divider} aria-hidden />
             <div className={styles.contactInfo}>
-              <span className={styles.phone}>(312) 555-2468</span>
-              <a href="mailto:hello@theslab.agency" className={styles.email}>hello@theslab.agency</a>
+              <span className={styles.phone}>(+84) 935-979-353</span>
+              <a href="mailto:info@slab-edu.com" className={styles.email}>info@slab-edu.com</a>
             </div>
             <p className={styles.copyright}>
               © 2026 the s-lab.<br />

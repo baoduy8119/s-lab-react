@@ -6,10 +6,11 @@ import SLabLogoWhite from "./SLabLogoWhite";
 import ArrowRightIcon from "./icons/ArrowRightIcon";
 import PolygonSection from "./PolygonSection";
 import { SocialIcons } from "./SocialIcons";
-import { useHomeContentStore } from "@/app/features/dashboard/stores/useHomeContentStore";
+import { useFooterContentStore } from "@/app/features/dashboard/stores/useFooterContentStore";
+import { useLocalizedContent } from "@/app/hooks/useLocalizedContent";
 
 const Footer = React.memo(function Footer() {
-  const c = useHomeContentStore((s) => s.content.footer);
+  const c = useLocalizedContent(useFooterContentStore((s) => s.content.footer));
 
   return (
     <footer className="w-full">
@@ -21,7 +22,7 @@ const Footer = React.memo(function Footer() {
               src="/images/footer-red-bg.jpg"
               alt="Background"
               fill
-              className="object-cover object-left-top"
+              className="object-cover object-top-left"
               priority
             />
           </div>
@@ -87,18 +88,18 @@ const Footer = React.memo(function Footer() {
 
       {/* Bottom Section */}
       <PolygonSection topLeftCut={60} topLeftCutMobile={40}>
-        <div className="relative w-full bg-[#171717] overflow-hidden px-6 pb-12 pt-16 lg:px-20 lg:py-11 mt-[-80px] lg:mt-[-80px] -mt-[1px]">
+        <div className="relative w-full bg-[#171717] overflow-hidden px-6 pb-12 pt-16 lg:px-20 lg:py-11 mt-[-80px] lg:mt-[-80px]">
           <div className="absolute inset-0">
-            <Image src="/images/footer-black-bg.jpg" alt="Background" fill className="object-cover object-left-top" priority />
+            <Image src="/images/footer-black-bg.jpg" alt="Background" fill className="object-cover object-top-left" priority />
           </div>
 
           {/* Desktop Content Grid */}
           <div className="hidden lg:grid relative grid-cols-[1fr_2fr_1fr] gap-x-20" data-aos="fade-up">
             <div className="flex flex-col gap-[85px]">
               <p className="text-white text-sm font-bold leading-[20px] tracking-[-0.16px]">
-                20©<br />26
+                {c.yearTop}<br />{c.yearBottom}
               </p>
-              <p className="text-[#D1D5DB] text-sm font-medium leading-[20px] tracking-[-0.16px] w-[237px]">
+              <p className="text-[#D1D5DB] text-sm font-medium leading-[20px] tracking-[-0.16px] w-[300px] whitespace-pre-line">
                 {c.description}
               </p>
             </div>
@@ -115,13 +116,13 @@ const Footer = React.memo(function Footer() {
             </div>
 
             <div className="flex flex-col gap-1.5">
-              <p className="text-[#6B7280] text-sm font-medium leading-[20px] tracking-[-0.16px] mb-1">/Navigation</p>
+              <p className="text-[#6B7280] text-sm font-medium leading-[20px] tracking-[-0.16px] mb-1">{c.navLabel}</p>
               <div className="flex flex-col gap-1.5">
-                <a href="#" className="text-white text-base font-bold leading-[22px] tracking-[-0.18px] hover:text-[#EF4444] transition-colors">Home</a>
-                <a href="#" className="text-white text-base font-bold leading-[22px] tracking-[-0.18px] hover:text-[#EF4444] transition-colors">The S-Lab</a>
-                <a href="#" className="text-white text-base font-bold leading-[22px] tracking-[-0.18px] hover:text-[#EF4444] transition-colors">Course</a>
-                <a href="#" className="text-white text-base font-bold leading-[22px] tracking-[-0.18px] hover:text-[#EF4444] transition-colors">Blog</a>
-                <a href="#" className="text-white text-base font-bold leading-[22px] tracking-[-0.18px] hover:text-[#EF4444] transition-colors">Event</a>
+                <a href="#" className="text-white text-base font-bold leading-[22px] tracking-[-0.18px] hover:text-[#EF4444] transition-colors">{c.navHome}</a>
+                <a href="#" className="text-white text-base font-bold leading-[22px] tracking-[-0.18px] hover:text-[#EF4444] transition-colors">{c.navTheSlab}</a>
+                <a href="#" className="text-white text-base font-bold leading-[22px] tracking-[-0.18px] hover:text-[#EF4444] transition-colors">{c.navCourse}</a>
+                <a href="#" className="text-white text-base font-bold leading-[22px] tracking-[-0.18px] hover:text-[#EF4444] transition-colors">{c.navBlog}</a>
+                <a href="#" className="text-white text-base font-bold leading-[22px] tracking-[-0.18px] hover:text-[#EF4444] transition-colors">{c.navEvent}</a>
               </div>
             </div>
           </div>
@@ -137,7 +138,7 @@ const Footer = React.memo(function Footer() {
               {c.location}
             </p>
             <p className="text-white text-sm font-bold leading-[20px] tracking-[-0.16px] mt-4">
-              20©<br />26
+              {c.yearTop}<br />{c.yearBottom}
             </p>
             <p className="text-[#D1D5DB] text-sm font-medium leading-[20px] tracking-[-0.16px] w-full">
               {c.description}

@@ -3,6 +3,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import StickyBox from "react-sticky-box";
 import QuoteIcon from "@/app/components/icons/QuoteIcon";
+import { useTheSlabContentStore } from "@/app/features/dashboard/stores/useTheSlabContentStore";
+import { useLocalizedContent } from "@/app/hooks/useLocalizedContent";
 import styles from "./AdvisorsCredentials.module.scss";
 import { useMediaQuery } from "@/app/hooks/useMediaQuery";
 import Container from "@/app/components/Container";
@@ -10,6 +12,7 @@ import Container from "@/app/components/Container";
 const LINE_ANIMATION_MS = 600; // Must match CSS transition duration
 
 const AdvisorsCredentials = React.memo(function AdvisorsCredentials() {
+  const c = useLocalizedContent(useTheSlabContentStore((s) => s.content.slabAdvisors));
   const isMobile = useMediaQuery("(max-width: 1024px)");
   const [activeIndex, setActiveIndex] = useState(0);
   const [visualIndex, setVisualIndex] = useState(0);
@@ -18,33 +21,28 @@ const AdvisorsCredentials = React.memo(function AdvisorsCredentials() {
   const credentials = [
     {
       number: "/001/",
-      title: "Extensive Business Background.",
-      description:
-        "Our trainers boast extensive experience in the business realm. They have been at the forefront of various industries, bringing a wealth of knowledge to the classroom.",
+      title: c.item1Title,
+      description: c.item1Description,
     },
     {
       number: "/002/",
-      title: "Theoretical Expertise.",
-      description:
-        "Beyond their practical know-how, our trainers have a solid foundation in business theory, ensuring that they can provide learners with a well-rounded education.",
+      title: c.item2Title,
+      description: c.item2Description,
     },
     {
       number: "/003/",
-      title: "Real-World Insights.",
-      description:
-        "What sets our trainers apart is their ability to translate theory into practice. They use real case studies to mentor and coach learners, helping them apply their knowledge effectively.",
+      title: c.item3Title,
+      description: c.item3Description,
     },
     {
       number: "/004/",
-      title: "Mentors and Guides.",
-      description:
-        "Our trainers don't just deliver lessons; they provide personalized guidance and mentorship. They're here to support learners every step of the way, making sure they understand how to navigate the business landscape.",
+      title: c.item4Title,
+      description: c.item4Description,
     },
     {
       number: "/005/",
-      title: "Practical Learning.",
-      description:
-        "With our trainers, learners don't just gain theoretical knowledge. They acquire practical skills and insights that can be immediately applied in the business world.",
+      title: c.item5Title,
+      description: c.item5Description,
     },
   ];
 
@@ -116,29 +114,23 @@ const AdvisorsCredentials = React.memo(function AdvisorsCredentials() {
         <div className={styles.container}>
           {isMobile ? (
             <div className={styles.leftContent}>
-              <h2 className={styles.title}>/Advisors' Credentials</h2>
+              <h2 className={styles.title}>{c.title}</h2>
 
               <div className={styles.quoteIcon}>
                 <QuoteIcon />
               </div>
 
-              <p className={styles.subtitle}>
-                Each phase is handled by specialists who work together seamlessly, ensuring nothing
-                falls through the cracks.
-              </p>
+              <p className={styles.subtitle}>{c.subtitle}</p>
             </div>
           ) : (
             <StickyBox className={styles.leftContent} offsetTop={120} offsetBottom={20}>
-              <h2 className={styles.title}>/Advisors' Credentials</h2>
+              <h2 className={styles.title}>{c.title}</h2>
 
               <div className={styles.quoteIcon}>
                 <QuoteIcon />
               </div>
 
-              <p className={styles.subtitle}>
-                Each phase is handled by specialists who work together seamlessly, ensuring nothing
-                falls through the cracks.
-              </p>
+              <p className={styles.subtitle}>{c.subtitle}</p>
             </StickyBox>
           )}
 

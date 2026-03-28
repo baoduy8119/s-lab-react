@@ -8,9 +8,10 @@ import styles from "./MoreArticles.module.scss";
 import TheSLabLogo from "./TheSLabLogo";
 import Link from "next/link";
 import { useHomeContentStore } from "@/app/features/dashboard/stores/useHomeContentStore";
+import { useLocalizedContent } from "@/app/hooks/useLocalizedContent";
 
 const MoreArticles = React.memo(function MoreArticles() {
-  const c = useHomeContentStore((s) => s.content.articles);
+  const c = useLocalizedContent(useHomeContentStore((s) => s.content.articles));
 
   const articles = useMemo(
     () => [

@@ -5,10 +5,11 @@ import React from "react";
 import PartnerLogos from "./PartnerLogos";
 import MouseTracker3D from "./MouseTracker3D";
 import { useHomeContentStore } from "@/app/features/dashboard/stores/useHomeContentStore";
+import { useLocalizedContent } from "@/app/hooks/useLocalizedContent";
 import TheSlabMobile from "./icons/TheSlabMobile";
 
 const HeroSection = React.memo(function HeroSection() {
-  const c = useHomeContentStore((s) => s.content.hero);
+  const c = useLocalizedContent(useHomeContentStore((s) => s.content.hero));
 
   return (
     <section className="relative w-full lg:h-[860px] overflow-hidden bg-white">
@@ -50,7 +51,7 @@ const HeroSection = React.memo(function HeroSection() {
           data-aos-delay="200"
         >
           <button className="w-full bg-[#EF4444] text-white font-bold text-base py-[13px] px-6 hover:bg-[#DC2626] transition-colors">
-            Get in touch now
+            {c.buttonPrimary}
           </button>
           <button className="w-full bg-white text-[#111827] font-bold text-base py-[13px] px-6 hover:opacity-60 transition-opacity">
             {c.buttonSecondary}
@@ -70,15 +71,17 @@ const HeroSection = React.memo(function HeroSection() {
           <p className="text-[12px] font-bold leading-[16px] tracking-[-0.12px]">
             {(() => {
               const text = c.feedbackText;
-              // Figma: "We have helped over 950+ students" (#111827) | "achieve their goals..." (#6b7280)
-              const achieveIdx = text.toLowerCase().indexOf("achieve");
-              if (achieveIdx > 0) {
-                return (
-                  <>
-                    <span className="text-[#111827]">{text.slice(0, achieveIdx).trimEnd()}</span>
-                    <span className="text-[#6B7280]"> {text.slice(achieveIdx)}</span>
-                  </>
-                );
+              const splitWords = ["achieve", "giải quyết"];
+              for (const word of splitWords) {
+                const idx = text.toLowerCase().indexOf(word);
+                if (idx > 0) {
+                  return (
+                    <>
+                      <span className="text-[#111827]">{text.slice(0, idx).trimEnd()}</span>
+                      <span className="text-[#6B7280]"> {text.slice(idx)}</span>
+                    </>
+                  );
+                }
               }
               return <span className="text-[#6B7280]">{text}</span>;
             })()}
@@ -145,14 +148,17 @@ const HeroSection = React.memo(function HeroSection() {
           <p className="text-[12px] font-bold leading-[16px] tracking-[-0.12px]">
             {(() => {
               const text = c.feedbackText;
-              const achieveIdx = text.toLowerCase().indexOf("achieve");
-              if (achieveIdx > 0) {
-                return (
-                  <>
-                    <span className="text-[#111827]">{text.slice(0, achieveIdx).trimEnd()}</span>
-                    <span className="text-[#6B7280]"> {text.slice(achieveIdx)}</span>
-                  </>
-                );
+              const splitWords = ["achieve", "giải quyết"];
+              for (const word of splitWords) {
+                const idx = text.toLowerCase().indexOf(word);
+                if (idx > 0) {
+                  return (
+                    <>
+                      <span className="text-[#111827]">{text.slice(0, idx).trimEnd()}</span>
+                      <span className="text-[#6B7280]"> {text.slice(idx)}</span>
+                    </>
+                  );
+                }
               }
               return <span className="text-[#6B7280]">{text}</span>;
             })()}
