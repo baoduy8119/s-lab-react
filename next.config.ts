@@ -2,9 +2,11 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactCompiler: true,
-  // Ensure Prisma query engine (.node) is copied into serverless output (custom output path)
+  // Prisma custom output: ship query engines into the serverless bundle (App Router paths vary by Next version)
   outputFileTracingIncludes: {
     "/api/**/*": ["./app/generated/prisma/**/*"],
+    "/api/**": ["./app/generated/prisma/**/*"],
+    "/*": ["./app/generated/prisma/**/*"],
   },
   images: {
     remotePatterns: [
