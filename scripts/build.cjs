@@ -1,18 +1,17 @@
 /**
- * Vercel (and other CI) often omit DATABASE_URL; Prisma still validates
- * env("DATABASE_URL") in schema.prisma. Default matches app/lib/prisma.ts.
+ * Requires DATABASE_URL (Postgres). On Vercel, set DATABASE_URL to the same
+ * value as store_PRISMA_DATABASE_URL from Vercel Storage.
  */
 const { spawnSync } = require("node:child_process");
 const path = require("node:path");
-const { pathToFileURL } = require("node:url");
 
 const root = path.join(__dirname, "..");
-const DEFAULT_DATABASE_URL = pathToFileURL(
-  path.join(root, "prisma", "prod.db")
-).href;
 
 if (!process.env.DATABASE_URL?.trim()) {
-  process.env.DATABASE_URL = DEFAULT_DATABASE_URL;
+  console.error(
+    "DATABASE_URL is not set. For Vercel: add env var DATABASE_URL = value of store_PRISMA_DATABASE_URL."
+  );
+  process.exit(1);
 }
 
 const env = process.env;

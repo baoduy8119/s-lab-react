@@ -2,7 +2,7 @@ import { config as loadEnv } from "dotenv";
 import fs from "node:fs";
 import path from "node:path";
 import { PrismaClient } from "../app/generated/prisma/client";
-import { REPO_ROOT, sqliteFileUrl } from "./db-url";
+import { REPO_ROOT } from "./db-url";
 import { migrateDeployTarget } from "./migrate-deploy-target";
 
 loadEnv({ path: path.join(REPO_ROOT, ".env.local") });
@@ -10,8 +10,14 @@ loadEnv({ path: path.join(REPO_ROOT, ".env") });
 
 const targetUrl =
   process.env.TARGET_DATABASE_URL?.trim() ||
-  process.env.DATABASE_URL?.trim() ||
-  sqliteFileUrl("prod.db");
+  process.env.DATABASE_URL?.trim();
+
+if (!targetUrl) {
+  console.error(
+    "Set TARGET_DATABASE_URL or DATABASE_URL to the Postgres database to import into."
+  );
+  process.exit(1);
+}
 
 const importPath =
   process.argv[2] ?? path.join(REPO_ROOT, "prisma", "site-content.export.json");

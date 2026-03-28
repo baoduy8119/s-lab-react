@@ -2,15 +2,21 @@ import { config as loadEnv } from "dotenv";
 import fs from "node:fs";
 import path from "node:path";
 import { PrismaClient } from "../app/generated/prisma/client";
-import { REPO_ROOT, sqliteFileUrl } from "./db-url";
+import { REPO_ROOT } from "./db-url";
 
 loadEnv({ path: path.join(REPO_ROOT, ".env.local") });
 loadEnv({ path: path.join(REPO_ROOT, ".env") });
 
 const sourceUrl =
   process.env.SOURCE_DATABASE_URL?.trim() ||
-  process.env.DATABASE_URL?.trim() ||
-  sqliteFileUrl("dev.db");
+  process.env.DATABASE_URL?.trim();
+
+if (!sourceUrl) {
+  console.error(
+    "Set DATABASE_URL or SOURCE_DATABASE_URL (Postgres) in .env.local, e.g. from Neon or local Docker."
+  );
+  process.exit(1);
+}
 
 const outPath =
   process.argv[2] ?? path.join(REPO_ROOT, "prisma", "site-content.export.json");

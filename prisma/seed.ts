@@ -1,5 +1,7 @@
-import { PrismaClient } from "../app/generated/prisma/client";
+import "dotenv/config";
+import { config as loadEnv } from "dotenv";
 import path from "node:path";
+import { PrismaClient } from "../app/generated/prisma/client";
 import {
   defaultCoursesContent,
   DEFAULT_CARD_IDS,
@@ -7,10 +9,17 @@ import {
 } from "../app/features/dashboard/stores/useCoursesContentStore";
 import { defaultSLibraryContent } from "../app/features/dashboard/stores/useSLibraryContentStore";
 
-const DATABASE_URL = `file:${path.join(__dirname, "dev.db")}`;
+const root = path.join(__dirname, "..");
+loadEnv({ path: path.join(root, ".env.local") });
+loadEnv({ path: path.join(root, ".env") });
+
+const databaseUrl = process.env.DATABASE_URL?.trim();
+if (!databaseUrl) {
+  throw new Error("DATABASE_URL is required for db:seed (e.g. in .env.local).");
+}
 
 const prisma = new PrismaClient({
-  datasources: { db: { url: DATABASE_URL } },
+  datasources: { db: { url: databaseUrl } },
 });
 
 const defaultContent = {

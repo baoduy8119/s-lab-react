@@ -1,16 +1,15 @@
 /**
- * Copy all SiteContent from local/source DB into a target DB in one step.
+ * Copy all SiteContent from source Postgres → target Postgres.
  *
- * Usage (production SQLite file or URL you can reach from this machine):
- *   TARGET_DATABASE_URL="file:/path/to/prod.db" npm run db:push-content
+ * Example:
+ *   TARGET_DATABASE_URL="postgresql://..." npm run db:push-content
  *
- * Defaults SOURCE to repo prisma/dev.db if SOURCE_DATABASE_URL / DATABASE_URL unset.
- * Requires TARGET_DATABASE_URL (your production database).
+ * SOURCE defaults to DATABASE_URL in .env.local when SOURCE_DATABASE_URL is unset.
  */
 import { config as loadEnv } from "dotenv";
 import path from "node:path";
 import { PrismaClient } from "../app/generated/prisma/client";
-import { REPO_ROOT, sqliteFileUrl } from "./db-url";
+import { REPO_ROOT } from "./db-url";
 import { migrateDeployTarget } from "./migrate-deploy-target";
 
 loadEnv({ path: path.join(REPO_ROOT, ".env.local") });
@@ -18,20 +17,20 @@ loadEnv({ path: path.join(REPO_ROOT, ".env") });
 
 const sourceUrl =
   process.env.SOURCE_DATABASE_URL?.trim() ||
-  process.env.DATABASE_URL?.trim() ||
-  sqliteFileUrl("dev.db");
+  process.env.DATABASE_URL?.trim();
+
+if (!sourceUrl) {
+  console.error(
+    "Set DATABASE_URL or SOURCE_DATABASE_URL (Postgres) for the database to read from."
+  );
+  process.exit(1);
+}
 
 const targetUrl = process.env.TARGET_DATABASE_URL?.trim();
 
 if (!targetUrl) {
   console.error(
-    "Set TARGET_DATABASE_URL to the database you want to update (e.g. production)."
-  );
-  console.error(
-    'Example: TARGET_DATABASE_URL="file:/absolute/path/to/prod.db" npm run db:push-content'
-  );
-  console.error(
-    "On Vercel, SQLite does not persist; use a hosted DB and the same URL in Vercel env."
+    "Set TARGET_DATABASE_URL (e.g. same value as store_PRISMA_DATABASE_URL from Vercel)."
   );
   process.exit(1);
 }
