@@ -1,5 +1,13 @@
 import "dotenv/config";
+import { resolveDatabaseUrl } from "./app/lib/resolveDatabaseUrl";
 import { defineConfig } from "prisma/config";
+
+let prismaCliDatasourceUrl = "";
+try {
+  prismaCliDatasourceUrl = resolveDatabaseUrl();
+} catch {
+  prismaCliDatasourceUrl = process.env.DATABASE_URL ?? "";
+}
 
 export default defineConfig({
   schema: "prisma/schema.prisma",
@@ -8,6 +16,6 @@ export default defineConfig({
   },
   engine: "classic",
   datasource: {
-    url: process.env.DATABASE_URL ?? "",
+    url: prismaCliDatasourceUrl,
   },
 });

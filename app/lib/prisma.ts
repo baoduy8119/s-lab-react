@@ -1,13 +1,9 @@
 import { PrismaClient } from "@/app/generated/prisma/client";
+import { resolveDatabaseUrl } from "@/app/lib/resolveDatabaseUrl";
 
 const globalForPrisma = globalThis as unknown as { prisma?: PrismaClient };
 
-const databaseUrl = process.env.DATABASE_URL?.trim();
-if (!databaseUrl) {
-  throw new Error(
-    "DATABASE_URL is missing. Add it to .env.local (local) or Vercel env (production)."
-  );
-}
+const databaseUrl = resolveDatabaseUrl();
 
 export const prisma =
   globalForPrisma.prisma ??
