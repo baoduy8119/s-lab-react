@@ -19,7 +19,7 @@ const COURSE_FIELDS: SectionConfig["fields"] = [
   { key: "availability", label: "Availability", type: "text" },
 ];
 
-const NEW_COURSE_DEFAULTS: SectionContent = {
+export const NEW_COURSE_DEFAULTS: SectionContent = {
   name: "New Course",
   name_vi: "Khóa học mới",
   duration: "2-4 hours/class",
@@ -56,7 +56,7 @@ const CARD_FIELDS: SectionConfig["fields"] = [
   { key: "category", label: "Category", type: "text" },
 ];
 
-const NEW_CARD_DEFAULTS: SectionContent = {
+export const NEW_CARD_DEFAULTS: SectionContent = {
   title: "New Card",
   title_vi: "Thẻ mới",
   description: "",
@@ -341,13 +341,61 @@ export const defaultCoursesContent: HomepageContent = {
   },
 };
 
-// --- Store ---
-
-interface StoredData {
+export interface CoursesStoredData {
   courseIds: string[];
   cardIds: string[];
   content: HomepageContent;
 }
+
+export function mergeCoursesFromSaved(
+  parsed: CoursesStoredData | HomepageContent | null | undefined
+): { content: HomepageContent; courseIds: string[]; cardIds: string[] } {
+  if (!parsed) {
+    return {
+      content: defaultCoursesContent,
+      courseIds: DEFAULT_COURSE_IDS,
+      cardIds: DEFAULT_CARD_IDS,
+    };
+  }
+
+  let savedContent: HomepageContent;
+  let savedCourseIds: string[];
+  let savedCardIds: string[];
+
+  const asStored = parsed as CoursesStoredData;
+  if (asStored.courseIds && asStored.content) {
+    savedContent = asStored.content;
+    savedCourseIds = asStored.courseIds;
+    savedCardIds = asStored.cardIds ?? DEFAULT_CARD_IDS;
+  } else {
+    savedContent = parsed as HomepageContent;
+    savedCourseIds = DEFAULT_COURSE_IDS;
+    savedCardIds = DEFAULT_CARD_IDS;
+  }
+
+  const merged: HomepageContent = {};
+  for (const key of Object.keys(defaultCoursesContent)) {
+    merged[key] = { ...defaultCoursesContent[key], ...savedContent[key] };
+  }
+  for (const id of savedCourseIds) {
+    if (!merged[id]) {
+      merged[id] = { ...NEW_COURSE_DEFAULTS, ...savedContent[id] };
+    }
+  }
+  for (const id of savedCardIds) {
+    if (!merged[id]) {
+      merged[id] = { ...NEW_CARD_DEFAULTS, ...savedContent[id] };
+    }
+  }
+
+  return {
+    content: merged,
+    courseIds: savedCourseIds,
+    cardIds: savedCardIds,
+  };
+}
+
+// --- Store ---
 
 interface CoursesContentState {
   content: HomepageContent;
@@ -394,7 +442,7 @@ export const useCoursesContentStore = create<CoursesContentState>(
       const { content, courseIds, cardIds } = get();
       set({ isSaving: true });
       try {
-        const data: StoredData = { courseIds, cardIds, content };
+        const data: CoursesStoredData = { courseIds, cardIds, content };
         await saveContentToDb(CONTENT_KEY, data);
         set({ isDirty: false });
       } finally {
@@ -405,7 +453,7 @@ export const useCoursesContentStore = create<CoursesContentState>(
     resetContent: async () => {
       set({ isSaving: true });
       try {
-        const data: StoredData = {
+        const data: CoursesStoredData = {
           courseIds: DEFAULT_COURSE_IDS,
           cardIds: DEFAULT_CARD_IDS,
           content: defaultCoursesContent,
@@ -486,45 +534,12 @@ export const useCoursesContentStore = create<CoursesContentState>(
 
     hydrate: async () => {
       try {
-        const parsed = await fetchContent<StoredData | HomepageContent>(
+        const parsed = await fetchContent<CoursesStoredData | HomepageContent>(
           CONTENT_KEY
         );
         if (!parsed) return;
-
-        let savedContent: HomepageContent;
-        let savedCourseIds: string[];
-        let savedCardIds: string[];
-
-        const asStored = parsed as StoredData;
-        if (asStored.courseIds && asStored.content) {
-          savedContent = asStored.content;
-          savedCourseIds = asStored.courseIds;
-          savedCardIds = asStored.cardIds ?? DEFAULT_CARD_IDS;
-        } else {
-          savedContent = parsed as HomepageContent;
-          savedCourseIds = DEFAULT_COURSE_IDS;
-          savedCardIds = DEFAULT_CARD_IDS;
-        }
-
-        const merged: HomepageContent = {};
-        for (const key of Object.keys(defaultCoursesContent)) {
-          merged[key] = { ...defaultCoursesContent[key], ...savedContent[key] };
-        }
-        for (const id of savedCourseIds) {
-          if (!merged[id]) {
-            merged[id] = { ...NEW_COURSE_DEFAULTS, ...savedContent[id] };
-          }
-        }
-        for (const id of savedCardIds) {
-          if (!merged[id]) {
-            merged[id] = { ...NEW_CARD_DEFAULTS, ...savedContent[id] };
-          }
-        }
-
         set({
-          content: merged,
-          courseIds: savedCourseIds,
-          cardIds: savedCardIds,
+          ...mergeCoursesFromSaved(parsed),
           isDirty: false,
         });
       } catch {

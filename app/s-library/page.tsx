@@ -6,10 +6,14 @@ import Footer from '../components/Footer';
 import MainLayout from '@/app/MainLayout';
 import ContentHydrator from '@/app/features/dashboard/components/ContentHydrator';
 import SLibraryContentHydrator from '@/app/features/dashboard/components/SLibraryContentHydrator';
+import SiteContentBootstrap from '@/app/features/dashboard/components/SiteContentBootstrap';
+import { buildSLibrarySiteContentPayload } from '@/app/lib/buildSiteContentBootstrapPayload';
 
-export default function SLibraryPage() {
+export default async function SLibraryPage() {
+  const siteContentPayload = await buildSLibrarySiteContentPayload();
   return (
     <MainLayout>
+      <SiteContentBootstrap payload={siteContentPayload} />
       <ContentHydrator />
       <SLibraryContentHydrator />
       <Hero />

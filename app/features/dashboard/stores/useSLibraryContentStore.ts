@@ -299,6 +299,16 @@ export const defaultSLibraryContent: HomepageContent = {
   },
 };
 
+export function mergeSLibraryFromSaved(
+  saved: HomepageContent | null | undefined
+): HomepageContent {
+  const merged: HomepageContent = {};
+  for (const key of Object.keys(defaultSLibraryContent)) {
+    merged[key] = { ...defaultSLibraryContent[key], ...saved?.[key] };
+  }
+  return merged;
+}
+
 interface SLibraryContentState {
   content: HomepageContent;
   isDirty: boolean;
@@ -363,13 +373,7 @@ export const useSLibraryContentStore = create<SLibraryContentState>((set, get) =
   hydrate: async () => {
     try {
       const saved = await fetchContent<HomepageContent>(CONTENT_KEY);
-      if (saved) {
-        const merged: HomepageContent = {};
-        for (const key of Object.keys(defaultSLibraryContent)) {
-          merged[key] = { ...defaultSLibraryContent[key], ...saved[key] };
-        }
-        set({ content: merged, isDirty: false });
-      }
+      set({ content: mergeSLibraryFromSaved(saved ?? undefined), isDirty: false });
     } catch {
       // fallback to defaults on network error
     }

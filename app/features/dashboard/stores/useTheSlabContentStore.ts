@@ -326,6 +326,16 @@ export const defaultTheSlabContent: HomepageContent = {
   },
 };
 
+export function mergeTheSlabFromSaved(
+  saved: HomepageContent | null | undefined
+): HomepageContent {
+  const merged: HomepageContent = {};
+  for (const key of Object.keys(defaultTheSlabContent)) {
+    merged[key] = { ...defaultTheSlabContent[key], ...saved?.[key] };
+  }
+  return merged;
+}
+
 interface TheSlabContentState {
   content: HomepageContent;
   isDirty: boolean;
@@ -390,13 +400,7 @@ export const useTheSlabContentStore = create<TheSlabContentState>((set, get) => 
   hydrate: async () => {
     try {
       const saved = await fetchContent<HomepageContent>(CONTENT_KEY);
-      if (saved) {
-        const merged: HomepageContent = {};
-        for (const key of Object.keys(defaultTheSlabContent)) {
-          merged[key] = { ...defaultTheSlabContent[key], ...saved[key] };
-        }
-        set({ content: merged, isDirty: false });
-      }
+      set({ content: mergeTheSlabFromSaved(saved ?? undefined), isDirty: false });
     } catch {
       // fallback to defaults on network error
     }

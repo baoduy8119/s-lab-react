@@ -62,6 +62,35 @@ export const defaultFooterContent: HomepageContent = {
   },
 };
 
+/** Resolves footer from dedicated `footer` row or legacy homepage / the-s-lab rows. */
+export function mergeFooterFromSavedRows(
+  footerRow: unknown,
+  homepageRow: unknown,
+  theSlabRow: unknown
+): HomepageContent {
+  const footerKey = footerRow as HomepageContent | null | undefined;
+  const home = homepageRow as HomepageContent | null | undefined;
+  const slab = theSlabRow as HomepageContent | null | undefined;
+
+  if (footerKey?.footer) {
+    return {
+      footer: { ...defaultFooterContent.footer, ...footerKey.footer },
+    };
+  }
+
+  const legacyFooter =
+    (home?.footer as SectionContent | undefined) ??
+    (slab?.slabFooter as SectionContent | undefined);
+
+  if (legacyFooter) {
+    return {
+      footer: { ...defaultFooterContent.footer, ...legacyFooter },
+    };
+  }
+
+  return defaultFooterContent;
+}
+
 interface FooterContentState {
   content: HomepageContent;
   isDirty: boolean;
@@ -125,34 +154,23 @@ export const useFooterContentStore = create<FooterContentState>((set, get) => ({
 
   hydrate: async () => {
     try {
-      const saved = await fetchContent<HomepageContent>(CONTENT_KEY);
-      if (saved?.footer) {
-        set({
-          content: {
-            footer: { ...defaultFooterContent.footer, ...saved.footer },
-          },
-          isDirty: false,
-        });
-        return;
-      }
-
-      // Back-compat: migrate footer content from older per-page storage
-      // (homepage.footer or the-s-lab.slabFooter) if present.
-      const [homeSaved, slabSaved] = await Promise.all([
+      const [footerSaved, homeSaved, slabSaved] = await Promise.all([
+        fetchContent<HomepageContent>(CONTENT_KEY),
         fetchContent<HomepageContent>("homepage"),
         fetchContent<HomepageContent>("the-s-lab"),
       ]);
 
-      const legacyFooter =
-        (homeSaved?.footer as SectionContent | undefined) ??
-        (slabSaved?.slabFooter as SectionContent | undefined);
+      const hadDedicatedFooter = Boolean(footerSaved?.footer);
+      const merged = mergeFooterFromSavedRows(footerSaved, homeSaved, slabSaved);
+      set({ content: merged, isDirty: false });
 
-      if (legacyFooter) {
-        const migrated: HomepageContent = {
-          footer: { ...defaultFooterContent.footer, ...legacyFooter },
-        };
-        set({ content: migrated, isDirty: false });
-        await saveContentToDb(CONTENT_KEY, migrated);
+      if (!hadDedicatedFooter) {
+        const legacyFooter =
+          (homeSaved?.footer as SectionContent | undefined) ??
+          (slabSaved?.slabFooter as SectionContent | undefined);
+        if (legacyFooter) {
+          await saveContentToDb(CONTENT_KEY, merged);
+        }
       }
     } catch {
       // fallback to defaults on network error

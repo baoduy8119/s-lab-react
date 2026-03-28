@@ -347,6 +347,16 @@ export const defaultContent: HomepageContent = {
   },
 };
 
+export function mergeHomepageFromSaved(
+  saved: HomepageContent | null | undefined
+): HomepageContent {
+  const merged: HomepageContent = {};
+  for (const key of Object.keys(defaultContent)) {
+    merged[key] = { ...defaultContent[key], ...saved?.[key] };
+  }
+  return merged;
+}
+
 interface HomeContentState {
   content: HomepageContent;
   isDirty: boolean;
@@ -411,13 +421,7 @@ export const useHomeContentStore = create<HomeContentState>((set, get) => ({
   hydrate: async () => {
     try {
       const saved = await fetchContent<HomepageContent>(CONTENT_KEY);
-      if (saved) {
-        const merged: HomepageContent = {};
-        for (const key of Object.keys(defaultContent)) {
-          merged[key] = { ...defaultContent[key], ...saved[key] };
-        }
-        set({ content: merged, isDirty: false });
-      }
+      set({ content: mergeHomepageFromSaved(saved ?? undefined), isDirty: false });
     } catch {
       // fallback to defaults on network error
     }
