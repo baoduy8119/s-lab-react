@@ -1,7 +1,7 @@
 import "dotenv/config";
 import { config as loadEnv } from "dotenv";
 import path from "node:path";
-import { PrismaClient } from "../app/generated/prisma/client";
+import { PrismaClient } from "@prisma/client";
 import {
   defaultCoursesContent,
   DEFAULT_CARD_IDS,

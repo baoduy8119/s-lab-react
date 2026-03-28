@@ -1,7 +1,7 @@
 import { config as loadEnv } from "dotenv";
 import fs from "node:fs";
 import path from "node:path";
-import { PrismaClient } from "../app/generated/prisma/client";
+import { PrismaClient } from "@prisma/client";
 import { assertPostgresUrl } from "./assert-postgres-url";
 import { REPO_ROOT } from "./db-url";
 import { migrateDeployTarget } from "./migrate-deploy-target";
