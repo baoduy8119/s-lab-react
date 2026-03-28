@@ -2,6 +2,7 @@ import { config as loadEnv } from "dotenv";
 import fs from "node:fs";
 import path from "node:path";
 import { PrismaClient } from "../app/generated/prisma/client";
+import { assertPostgresUrl } from "./assert-postgres-url";
 import { REPO_ROOT } from "./db-url";
 
 loadEnv({ path: path.join(REPO_ROOT, ".env.local") });
@@ -17,6 +18,8 @@ if (!sourceUrl) {
   );
   process.exit(1);
 }
+
+assertPostgresUrl(sourceUrl, "DATABASE_URL / SOURCE_DATABASE_URL");
 
 const outPath =
   process.argv[2] ?? path.join(REPO_ROOT, "prisma", "site-content.export.json");
