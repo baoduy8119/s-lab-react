@@ -2,7 +2,17 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/app/lib/prisma";
 import { verifySessionToken, COOKIE_NAME } from "@/app/lib/auth";
 
+export const dynamic = "force-dynamic";
+
 const VALID_KEYS = ["homepage", "courses", "slibrary", "the-s-lab", "footer"];
+
+const noStoreJson = (body: unknown, status = 200) =>
+  NextResponse.json(body, {
+    status,
+    headers: {
+      "Cache-Control": "private, no-store, max-age=0, must-revalidate",
+    },
+  });
 
 export async function GET(
   _request: NextRequest,
@@ -11,16 +21,16 @@ export async function GET(
   const { key } = await params;
 
   if (!VALID_KEYS.includes(key)) {
-    return NextResponse.json({ error: "Invalid key" }, { status: 400 });
+    return noStoreJson({ error: "Invalid key" }, 400);
   }
 
   const row = await prisma.siteContent.findUnique({ where: { key } });
 
   if (!row) {
-    return NextResponse.json({ data: null });
+    return noStoreJson({ data: null });
   }
 
-  return NextResponse.json({ data: JSON.parse(row.data) });
+  return noStoreJson({ data: JSON.parse(row.data) });
 }
 
 export async function PUT(

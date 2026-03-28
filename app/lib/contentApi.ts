@@ -1,5 +1,5 @@
 export async function fetchContent<T>(key: string): Promise<T | null> {
-  const res = await fetch(`/api/content/${key}`);
+  const res = await fetch(`/api/content/${key}`, { cache: "no-store" });
   if (!res.ok) return null;
   const json = await res.json();
   return json.data ?? null;
