@@ -14,8 +14,6 @@ ENV DASHBOARD_PASSWORD=$DASHBOARD_PASSWORD
 ENV DASHBOARD_SESSION_SECRET=$DASHBOARD_SESSION_SECRET
 ENV NODE_ENV=production
 
-RUN echo "DEBUG: DATABASE_URL: |${DATABASE_URL}|"
-
 # Install app dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
 # where available (npm@5+)
@@ -28,6 +26,12 @@ RUN npm ci
 
 # Bundle app source
 COPY . .
+
+RUN echo "DATABASE_URL=$DATABASE_URL" > .env
+RUN echo "DASHBOARD_USERNAME=$DASHBOARD_USERNAME" >> .env
+RUN echo "DASHBOARD_PASSWORD=$DASHBOARD_PASSWORD" >> .env
+RUN echo "DASHBOARD_SESSION_SECRET=$DASHBOARD_SESSION_SECRET" >> .env
+
 #RUN yarn build
 RUN npm run build
 EXPOSE 3000
