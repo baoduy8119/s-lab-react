@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     container_name: sLab
     ports:
-      - "80:3000"
+      - "8010:3000"
     restart: always
     environment:
       NODE_ENV: production
