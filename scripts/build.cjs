@@ -6,6 +6,14 @@ const path = require("node:path");
 
 const root = path.join(__dirname, "..");
 
+// Load local env files for node scripts (Prisma/Next don't auto-load `.env` here).
+// On Vercel, environment variables are injected, so we avoid overriding them.
+if (process.env.VERCEL !== "1") {
+  const dotenv = require("dotenv");
+  dotenv.config({ path: path.join(root, ".env") });
+  dotenv.config({ path: path.join(root, ".env.local"), override: true });
+}
+
 const { resolvePostgresDatabaseUrl, isPostgresUrl } = require(path.join(
   root,
   "app/lib/postgresEnv.js"
