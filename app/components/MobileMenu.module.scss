@@ -1,4 +1,4 @@
-
+// Figma node 3-10329: Mobile menu design
 .overlay {
   position: fixed;
   top: 0;
@@ -10,7 +10,7 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  animation: slideIn 0.3s ease-in-out;
+  animation: slideIn 0.3s ease-out;
 }
 
 @keyframes slideIn {
@@ -22,314 +22,286 @@
   }
 }
 
-.header {
-  height: 64px;
-  background-color: #000000;
+// Header: same 3-part layout as MobileHeader (icon | logo+arrow | close)
+.menuHeader {
+  height: 56px;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 16px;
+  align-items: stretch;
   flex-shrink: 0;
 }
 
-.logoArea {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.headerTitle {
-  font-family: "MJ Satoshi", sans-serif;
-  font-weight: 700;
-  font-size: 20px;
-  color: #ffffff;
-  letter-spacing: -0.5px;
-}
-
-.arrowIcon {
-  width: 20px;
-  height: 20px;
-  
-  svg {
-    width: 100%;
-    height: 100%;
-    fill: #ffffff;
-  }
-}
-
-.closeButton {
-  background: none;
-  border: none;
-  width: 24px;
-  height: 24px;
-  cursor: pointer;
+.iconArea {
+  width: 56px;
+  height: 56px;
+  background-color: #d1d5db;
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  
-  svg {
-    stroke: #000000; /* Wait, header is black? Close button is on white part? No, in header. */
-    /* Screenshot shows Header is Black. Close button is on White area? 
-       Actually, checking screenshot:
-       Header bar is black "THE S-LAB [arrow]".
-       But the close 'X' is to the RIGHT of the black bar? Or inside it?
-       Wait, let's look at the screenshot closely.
-       There is a side strip (white) on the left.
-       Then the main content.
-       The "THE S-LAB" header seems to be part of the main content area? 
-       Actually, looking at the top image: 
-       Left strip: White. "THE S-LAB" text vertical.
-       Top Bar: Black. "THE S-LAB [Arrow]".
-       To the right of the black bar: 'X' on white? 
-       Or is the 'X' inside the black bar?
-       Screenshot: Black bar ends, then 'X' is on white background? 
-       No, the 'X' looks to be in the top right corner, on white background.
-       The Black Bar behaves like a header for the content area, but maybe clearly separated?
-       Let's assume 'X' is separate for now, or maybe the screenshot implies the menu slides in and leaves a gap? 
-       Actually, standard mobile menu usually full screen. 
-       Let's look at the screenshot again.
-       Top left: Black vertical "THE S-LAB" text on white strip.
-       Top right: 'X' icon.
-       But there is a Black Header Bar "THE S-LAB" with arrow.
-       It seems the Black Bar is adjacent to the side strip.
-       Let's assume full width header for simplicity, with X inside or adjacent.
-       Wait, screenshot shows:
-       [Vertical Strip] [Black Header Bar..........] [X on white?]
-       Let's implement 'X' inside the Black Header for now, or just to the right if it's white.
-       I will stick to 'X' inside Black Header for high contrast if the background is black, OR 'X' on white if the header doesn't cover full width.
-       Re-examining screenshot (crop 1):
-       Left: small white strip with vertical text.
-       Next: Black block "THE S-LAB [Arrow]".
-       Right: X icon on WHITE background.
-       So the Black Header is NOT full width? Or the X is outside?
-       Maybe the Black Header is just a button/element?
-       I'll implement X on the top right, white background.
-       The Black "THE S-LAB" bar seems to be a navigation item or just a header.
-       Actually, "THE S-LAB" IS a menu item? No, it's at the top.
-       Let's stick to a full black header for now, it's safer. Unless I see 'X' is definitely on white.
-       Okay, I see the 'X' is black stroke on white bg.
-       So the header bar might be: [Side Strip] [Black Bar] [White space with X]?
-       Let's try to replicate the structure:
-       Main container: Flex row.
-       Left: Sidebar Strip (White, fixed width).
-       Right: Content Area (Flex col).
-          Top of Content Area: "THE S-LAB" Black Bar?
-          Wait, the X is to the right of the Black Bar?
-          Let's make the Close button top-right absolute or flex.
-    */
-    stroke: #111827; 
-  }
+}
+
+.sLogo {
+  width: 38px;
+  height: auto;
+  object-fit: contain;
+}
+
+.logoArea {
+  flex: 1;
+  min-width: 0;
+  height: 56px;
+  background-color: #000000;
+  display: flex;
+  align-items: center;
+  padding: 0 40px 0 8px;
+  position: relative;
+}
+
+.logoWhite {
+  color: white;
+}
+
+.arrowUp {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%) rotate(180deg);
+}
+
+.closeBtn {
+  width: 56px;
+  height: 56px;
+  background-color: #ffffff;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  color: #111827;
 }
 
 .body {
   display: flex;
   flex: 1;
-  height: calc(100vh - 64px); /* appx? */
+  min-height: 0;
 }
 
+// Left strip: 56px, vertical THE S-LAB, barcode, EN, avatar (Figma)
 .sidebarStrip {
-  width: 48px;
-  border-right: 1px solid #E5E7EB;
+  width: 56px;
+  flex-shrink: 0;
+  border-right: 0.5px solid #cbd5e1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  background: white;
+  padding: 12px 0 12px 0;
 }
 
-.stripLogo {
-  width: 56px;
-  height: 56px;
-  background: #D1D5DB; /* Placeholder for S logo */
-  border-radius: 4px; /* or whatever shape */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-weight: bold;
+.barcode {
+  flex: 1;
+  min-height: 120px;
+  background: repeating-linear-gradient(
+    90deg,
+    #111827,
+    #111827 1px,
+    transparent 1px,
+    transparent 4px
+  );
+  width: 6px;
+  margin: 8px 0;
 }
 
 .stripText {
+  margin-top: 20px;
   writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  font-family: "MJ Satoshi", sans-serif;
+  transform: rotate(-90deg);
   font-weight: 500;
   font-size: 14px;
+  color: #6b7280;
   letter-spacing: 0.1em;
-  color: #6B7280;
-  margin-top: 12px;
-  margin-bottom: auto;
+}
+
+.stripBottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.langLabel {
+  font-family: "MJ Satoshi", sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  color: #111827;
+  letter-spacing: -0.16px;
+}
+
+.langToggle {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: color 0.15s ease;
+
+  &:hover {
+    color: #ef4444;
+  }
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  background-color: #f3f4f6;
+  flex-shrink: 0;
 }
 
 .contentArea {
   flex: 1;
-  background: white;
+  min-width: 0;
   display: flex;
   flex-direction: column;
+  padding: 16px 24px;
+  gap: 92px;
   overflow-y: auto;
-  position: relative;
 }
 
-.topBar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 56px;
-  padding: 0;
-  /* If the black bar is just a header element */
-}
-
-.blackLabHeader {
-  background: #000;
-  color: white;
-  display: flex;
-  align-items: center;
-  padding: 0 16px;
-  height: 56px;
-  flex: 1;
-  gap: 12px;
-  
-  span {
-    font-family: "MJ Satoshi", sans-serif;
-    font-weight: 700;
-    font-size: 24px;
-    letter-spacing: -0.5px;
-  }
-}
-
-.topCloseBtn {
-  width: 56px;
-  height: 56px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  border: none;
-  background: white;
-  
-  svg {
-    width: 24px;
-    height: 24px;
-    stroke: #111827;
-  }
-}
-
-.menuList {
+.menuSection {
   display: flex;
   flex-direction: column;
-  padding: 24px 24px 0 24px;
-  gap: 16px;
+  gap: 8px;
 }
 
 .menuItem {
   font-family: "MJ Satoshi", sans-serif;
   font-weight: 700;
-  font-size: 20px;
-  line-height: 28px;
+  font-size: 16px;
+  line-height: 22px;
   color: #111827;
+  letter-spacing: -0.18px;
   text-decoration: none;
   display: flex;
   align-items: center;
+  gap: 4px;
+}
+
+.menuGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.menuItemWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.submenuToggle {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: #111827;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+
+  &.open {
+    transform: rotate(180deg);
+  }
+}
+
+.submenu {
+  display: flex;
+  flex-direction: column;
+  padding-left: 12px;
+  margin-top: 4px;
   gap: 8px;
 }
 
-.activeItem {
-  color: #EF4444;
-}
-
-.subMenu {
-  padding-left: 16px;
-  margin-top: 8px;
-  list-style: none;
-  
-  li {
-    position: relative;
-    padding-left: 12px;
-    color: #374151;
-    font-family: "MJ Satoshi", sans-serif;
-    font-weight: 500;
-    font-size: 16px;
-    
-    &::before {
-      content: "•";
-      position: absolute;
-      left: 0;
-      color: #9CA3AF;
-    }
-  }
+.submenuItem {
+  font-family: "MJ Satoshi", sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 20px;
+  color: #4b5563;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
 }
 
 .hotTag {
-  font-size: 10px;
-  color: #EF4444;
-  vertical-align: super;
-  margin-left: 4px;
+  font-size: 10.32px;
+  color: #ef4444;
+  letter-spacing: -0.18px;
+}
+
+.contentBottom {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
 }
 
 .divider {
-  margin: 40px 24px;
-  height: 24px;
-  /* Barcode placeholder */
+  width: 41px;
+  height: 12px;
   background: repeating-linear-gradient(
     90deg,
-    #000,
-    #000 2px,
-    #fff 2px,
-    #fff 4px
+    #111827,
+    #111827 2px,
+    transparent 2px,
+    transparent 5px
   );
-  width: 100px;
 }
 
 .contactInfo {
-  padding: 0 24px;
-  margin-bottom: 40px;
   display: flex;
   flex-direction: column;
   gap: 4px;
-  
-  .phone {
-    font-family: "MJ Satoshi", sans-serif;
-    font-size: 16px;
-    color: #6B7280;
-    font-weight: 500;
-  }
-  
-  .email {
-    font-family: "MJ Satoshi", sans-serif;
-    font-size: 20px;
-    color: #111827;
-    font-weight: 700;
-  }
 }
 
-.footer {
-  padding: 0 24px 40px 24px;
+.phone {
+  font-family: "MJ Satoshi", sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  color: #6b7280;
+  letter-spacing: -0.16px;
+}
+
+.email {
+  font-family: "MJ Satoshi", sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  color: #111827;
+  text-decoration: none;
+}
+
+.copyright {
+  font-family: "MJ Satoshi", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  color: #6b7280;
+  letter-spacing: -0.16px;
+  margin: 0;
+}
+
+.socials {
   display: flex;
-  flex-direction: column;
-  gap: 24px;
-  
-  .copyright {
-    font-family: "MJ Satoshi", sans-serif;
-    font-size: 14px;
-    color: #6B7280;
-    line-height: 1.5;
-  }
-  
-  .socials {
-    display: flex;
-    gap: 16px;
-    svg {
-      fill: #9CA3AF; /* Gray icons */
-      width: 20px;
-      height: 20px;
-    }
-  }
-  
-  .year {
-    font-family: "MJ Satoshi", sans-serif;
-    font-weight: 700;
-    font-size: 16px;
-    color: #111827;
-    line-height: 1.2;
-  }
+  gap: 8px;
+  align-items: center;
+}
+
+.year {
+  font-family: "MJ Satoshi", sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 20px;
+  color: #111827;
+  letter-spacing: -0.16px;
+  margin: 0;
 }

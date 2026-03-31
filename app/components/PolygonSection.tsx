@@ -1,4 +1,7 @@
+"use client";
+
 import React from "react";
+import styles from "./PolygonSection.module.scss";
 
 interface PolygonSectionProps {
   children: React.ReactNode;
@@ -7,6 +10,11 @@ interface PolygonSectionProps {
   topRightCut?: number;
   bottomRightCut?: number;
   bottomLeftCut?: number;
+  // Mobile specific cuts
+  topLeftCutMobile?: number;
+  topRightCutMobile?: number;
+  bottomRightCutMobile?: number;
+  bottomLeftCutMobile?: number;
   className?: string;
   style?: React.CSSProperties;
 }
@@ -18,69 +26,51 @@ const PolygonSection = React.memo(function PolygonSection({
   topRightCut = 0,
   bottomRightCut = 0,
   bottomLeftCut = 0,
+  // Mobile props (optional)
+  topLeftCutMobile,
+  topRightCutMobile,
+  bottomRightCutMobile,
+  bottomLeftCutMobile,
   className,
   style,
 }: PolygonSectionProps) {
-  // Generate clip-path based on corner cuts
-  const generateClipPath = () => {
-    if (clipPath) return clipPath;
 
-    // If no cuts are specified, return normal rectangle
-    if (!topLeftCut && !topRightCut && !bottomRightCut && !bottomLeftCut) {
-      return "none";
-    }
+  // Helper to generate polygon string
+  const getPolygon = (tl: number, tr: number, br: number, bl: number) => {
+    if (!tl && !tr && !br && !bl) return "none";
 
-    // Build polygon points for each corner
     const points = [];
-
-    // Top-left corner
-    if (topLeftCut > 0) {
-      points.push(`${topLeftCut}px 0`);
-    } else {
-      points.push("0 0");
-    }
-
-    // Top-right corner
-    if (topRightCut > 0) {
-      points.push(`calc(100% - ${topRightCut}px) 0`);
-      points.push(`100% ${topRightCut}px`);
-    } else {
-      points.push("100% 0");
-    }
-
-    // Bottom-right corner
-    if (bottomRightCut > 0) {
-      points.push(`100% calc(100% - ${bottomRightCut}px)`);
-      points.push(`calc(100% - ${bottomRightCut}px) 100%`);
-    } else {
-      points.push("100% 100%");
-    }
-
-    // Bottom-left corner
-    if (bottomLeftCut > 0) {
-      points.push(`${bottomLeftCut}px 100%`);
-      points.push(`0 calc(100% - ${bottomLeftCut}px)`);
-    } else {
-      points.push("0 100%");
-    }
-
-    // Close the polygon back to top-left
-    if (topLeftCut > 0) {
-      points.push(`0 ${topLeftCut}px`);
-    }
+    // Top-left
+    points.push(tl > 0 ? `${tl}px 0` : "0 0");
+    // Top-right
+    points.push(tr > 0 ? `calc(100% - ${tr}px) 0, 100% ${tr}px` : "100% 0");
+    // Bottom-right
+    points.push(br > 0 ? `100% calc(100% - ${br}px), calc(100% - ${br}px) 100%` : "100% 100%");
+    // Bottom-left
+    points.push(bl > 0 ? `${bl}px 100%, 0 calc(100% - ${bl}px)` : "0 100%");
+    // Close top-left if cut
+    if (tl > 0) points.push(`0 ${tl}px`);
 
     return `polygon(${points.join(", ")})`;
   };
 
-  const combinedStyle: React.CSSProperties = {
-    ...style,
-    clipPath: generateClipPath(),
-  };
+  const desktopClip = clipPath || getPolygon(topLeftCut, topRightCut, bottomRightCut, bottomLeftCut);
+  const mobileClip = getPolygon(
+    topLeftCutMobile ?? topLeftCut,
+    topRightCutMobile ?? topRightCut,
+    bottomRightCutMobile ?? bottomRightCut,
+    bottomLeftCutMobile ?? bottomLeftCut
+  );
 
   return (
     <div
-      style={combinedStyle}
-      className={className}
+      className={`${styles.polygonSection} ${className || ""}`}
+      style={{
+        ...style,
+        // @ts-ignore
+        "--desktop-section-clip": desktopClip,
+        "--mobile-section-clip": mobileClip,
+      }}
     >
       {children}
     </div>

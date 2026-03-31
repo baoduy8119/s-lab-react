@@ -117,21 +117,70 @@
 
 // Responsive
 @media (max-width: 1024px) {
+  .section {
+    padding-top: 60px;
+    padding-bottom: 32px;
+  }
+
+  .topLogo {
+    display: none; // Match minimalist detail header if not in Figma
+  }
+
   .grid {
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: 0; // Handled per area
   }
   
   .dateArea {
     padding-top: 0;
+    margin-bottom: 30px;
   }
   
+  .headerArea {
+    margin-bottom: 44px;
+  }
+
   .title {
-    font-size: 40px;
+    font-size: 32px;
+    line-height: 38px;
+    letter-spacing: -0.2px;
+    margin-bottom: 12px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+    line-height: 20px;
+    max-width: 100%;
+  }
+
+  .authorArea {
+    display: none;
+  }
+
+  .heroArea {
+    order: 4;
+  }
+
+  .heroImageWrapper {
+    aspect-ratio: 4 / 3; // Taller on small screens
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding-top: 48px;
+  }
+
+  .dateArea {
+    margin-bottom: 24px;
+  }
+
+  .headerArea {
+    margin-bottom: 40px;
   }
   
-  // Reorder for mobile if needed: Date > Header > Author > Hero
-  // Flex order usually follows DOM order: Date, Header, Author, Hero.
-  // This is acceptable responsive behavior.
+  .authorArea {
+    margin-bottom: 32px;
+  }
 }

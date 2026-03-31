@@ -3,6 +3,11 @@
 import React from "react";
 import styles from "./CourseStructure.module.scss";
 import Container from "@/app/components/Container";
+import {
+  detailSectionId,
+  useCourseDetailContentStore,
+} from "@/app/features/dashboard/stores/useCourseDetailContentStore";
+import { useLocalizedContent } from "@/app/hooks/useLocalizedContent";
 
 interface Chapter {
   id: string;
@@ -13,72 +18,42 @@ interface Chapter {
   time: string;
 }
 
-const chapters: Chapter[] = [
-  {
-    id: "ch1",
-    number: 1,
-    title: "Marketing System Overview",
-    theme: "light",
-    content: [
-      "How marketing works end-to-end (goals → strategy → execution → measurement)",
-      "Key frameworks & terminology"
-    ],
-    time: "WEEK 01"
-  },
-  {
-    id: "ch2",
-    number: 2,
-    title: "Audience & Customer Insight",
-    theme: "dark",
-    content: [
-      "ICP definition + segmentation basics",
-      "Buyer journey mapping"
-    ],
-    time: "WEEK 01"
-  },
-  {
-    id: "ch3",
-    number: 3,
-    title: "Positioning & Messaging",
-    theme: "light",
-    content: [
-      "Value proposition + differentiation",
-      "Messaging house (core message, proof, tone)"
-    ],
-    time: "WEEK 01"
-  },
-  {
-    id: "ch4",
-    number: 4,
-    title: "Channels & Execution Planning",
-    theme: "light",
-    content: [
-      "Channel selection logic (organic/paid/owned/community)",
-      "Basic campaign plan + content planning"
-    ],
-    time: "WEEK 01"
-  },
-  {
-    id: "ch5",
-    number: 5,
-    title: "Measurement & Optimization Basics",
-    theme: "dark",
-    content: [
-      "KPI selection + dashboard basics",
-      "How to review results and iterate"
-    ],
-    time: "WEEK 01"
-  }
-];
+function splitLines(v: string): string[] {
+  return v
+    .split("\n")
+    .map((s) => s.trim())
+    .filter(Boolean);
+}
 
-const CourseStructure = React.memo(function CourseStructure() {
-  // Split data into 3 columns
-  const col1 = [chapters[0], chapters[3]]; // Ch 1, 4
-  const col2 = [chapters[1], chapters[4]]; // Ch 2, 5
-  const col3 = [chapters[2]];              // Ch 3
+interface CourseStructureProps {
+  courseId: string;
+}
+
+const CourseStructure = React.memo(function CourseStructure({
+  courseId,
+}: CourseStructureProps) {
+  const section = useLocalizedContent(
+    useCourseDetailContentStore((s) =>
+      s.getSection(detailSectionId(courseId, "structure"))
+    )
+  );
+
+  const heading = (section.heading as string) || "/Course Structure.";
+  const chapters: Chapter[] = [1, 2, 3, 4, 5].map((n) => {
+    const themeRaw = (section[`ch${n}Theme`] as string) || "light";
+    const theme: "light" | "dark" = themeRaw === "dark" ? "dark" : "light";
+    return {
+      id: `ch${n}`,
+      number: n,
+      title: (section[`ch${n}Title`] as string) || "",
+      theme,
+      content: splitLines((section[`ch${n}Content`] as string) || ""),
+      time: (section[`ch${n}Time`] as string) || "",
+    };
+  });
 
   const renderCard = (chapter: Chapter) => (
-    <div key={chapter.id} className={styles.card}>
+    <div key={chapter.id} className={`${styles.card} ${styles[`card${chapter.number}`]}`}>
       <div className={`${styles.header} ${styles[chapter.theme]}`}>
         <span className={styles.chapterNum}>Chapter {chapter.number}</span>
         <span className={styles.chapterTitle}>{chapter.title}</span>
@@ -102,18 +77,26 @@ const CourseStructure = React.memo(function CourseStructure() {
   return (
     <section className={styles.section}>
       <Container>
-        <h2 className={styles.heading}>/Course Structure.</h2>
+        <h2 className={styles.heading}>{heading}</h2>
 
-        <div className={styles.columnsWrapper}>
+        {/* Desktop View: Staggered columns */}
+        <div className={styles.desktopLayout}>
           <div className={styles.column}>
-            {col1.map(renderCard)}
+            {renderCard(chapters[0])}
+            {renderCard(chapters[3])}
           </div>
           <div className={`${styles.column} ${styles.colOffset1}`}>
-            {col2.map(renderCard)}
+            {renderCard(chapters[1])}
+            {renderCard(chapters[4])}
           </div>
           <div className={`${styles.column} ${styles.colOffset2}`}>
-            {col3.map(renderCard)}
+            {renderCard(chapters[2])}
           </div>
+        </div>
+
+        {/* Mobile View: Sequential 1-5 */}
+        <div className={styles.mobileLayout}>
+          {chapters.map(renderCard)}
         </div>
       </Container>
     </section>

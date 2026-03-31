@@ -68,9 +68,6 @@
   max-width: 400px; // Limit width like design
 }
 
-.logoWrapper {
-  // Logo container styles
-}
 
 .rightContent {
   flex: 1;
@@ -90,28 +87,61 @@
   object-fit: cover;
 }
 
+.headingSub {
+  display: inline;
+}
+
 // --- Responsive ---
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .section {
-    padding: 60px 0;
+    padding: 0;
   }
-  
+
   .container {
-    padding: 0 20px;
+    padding: 0; // Remove horizontal padding
+    background-color: #fff; // Must be white so the cut reveals the section background
   }
   
   .contentWrapper {
-    flex-direction: column-reverse; // Image top or bottom? Design typically Image Top on mobile or Bottom. Let's stack.
-    gap: 40px;
+    flex-direction: column;
+    align-items: stretch; // Forces full width on column children
+    gap: 0; 
+    background-color: transparent; 
+  }
+
+  .rightContent {
+    width: 100%;
+    display: block; // Prevent flex constraint from desktop shrinking width
   }
   
   .leftContent {
     min-height: auto;
-    padding-right: 0;
+    padding: 39px 27px 32px 27px;
   }
   
+  .heading {
+    font-size: 16px;
+    font-weight: 700; // Bold to match Figma MJ_Satoshi:Bold
+    line-height: 22px;
+    letter-spacing: -0.18px;
+    margin-bottom: 0;
+  }
+
+  .bottomGroup {
+    gap: 16px;
+    margin-top: 24px; // Spacing down from the text block
+  }
+
+  .barcodeLine {
+    height: 14px;
+    max-width: 314px; // Matches the barcode max width from Figma
+  }
+
   .imageWrapper {
     max-width: 100%;
-    aspect-ratio: 16/9;
+    width: 100%; // full width
+    aspect-ratio: 361/240; 
+    border-radius: 0;
   }
 }
+

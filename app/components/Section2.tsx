@@ -1,255 +1,243 @@
+"use client";
+
 import Image from "next/image";
 import React from "react";
 import PolygonImage from "./PolygonImage";
+import { useHomeContentStore } from "@/app/features/dashboard/stores/useHomeContentStore";
+import { useLocalizedContent } from "@/app/hooks/useLocalizedContent";
+import Container from "./Container";
 
 const Section2 = React.memo(function Section2() {
-  return (
-    <section className="w-full flex flex-col">
-      {/* Card 1: Structured curriculum */}
-      <div
-        className="relative w-full h-[565px] bg-black overflow-hidden group"
-        data-aos="fade-up"
-      >
-        {/* Background Image */}
-        <div className="absolute inset-0 bg-white">
-          <div
-            className="absolute inset-0 opacity-[0.04]"
-            style={{
-              backgroundImage: "url(/images/background-pattern.png)",
-              backgroundRepeat: "repeat",
-              backgroundSize: "256px 256px",
-            }}
-          ></div>
-          <PolygonImage
-            src="/images/section2/section2-bg1.png"
-            alt=""
-            fill
-            className="object-cover"
-            style={{ objectPosition: "center -73px" }}
-            topLeftCut={60}
-            topLeftCutMobile={30}
-          />
+  const c = useLocalizedContent(useHomeContentStore((s) => s.content.section2));
+
+  const FeatureBlockMobile = ({
+    number,
+    title,
+    desc,
+    bgImage,
+    bgColor,
+    illustration,
+    advisorGraphic,
+    index,
+    className = "",
+  }: {
+    number: string;
+    title: string;
+    desc: string;
+    bgImage?: string;
+    bgColor?: string;
+    illustration?: string;
+    advisorGraphic?: boolean;
+    index: number;
+    className?: string;
+  }) => (
+    <div
+      className={`relative w-full h-[206px] md:h-[500px] overflow-hidden ${bgColor || "bg-black"} ${className} group cursor-pointer`}
+      data-aos="fade-up"
+    >
+      {bgImage && (
+        <div className="absolute inset-0 z-0">
+          <Image src={bgImage} alt="" fill className="object-cover transition-transform duration-700 group-hover:scale-110" priority={index === 0} />
+          <div className="absolute inset-0 bg-black/20" />
         </div>
-
-        {/* S-Lab Logo - Top Right */}
-        <div className="absolute top-[40px] right-[24px] lg:top-[40px] lg:right-[40px] w-[80px] h-[55px] lg:w-[108px] lg:h-[74px]">
-          <Image src="/images/s-lab-white-logo.svg" alt="The S-Lab" fill className="object-contain" />
+      )}
+      {illustration && (
+        <div className="absolute left-[4px] bottom-0 md:left-[-95px] w-[202px] h-[151px] md:w-[500px] md:h-[375px] z-10 transition-transform duration-700 group-hover:scale-105">
+          <Image src={illustration} alt="" fill className="object-contain" />
         </div>
-
-        {/* Title */}
-        <h2 className="absolute left-[24px] top-[40px] w-[250px] lg:w-auto lg:left-[86px] lg:top-[48px] text-white text-[24px] lg:text-[32px] font-bold leading-[30px] lg:leading-[38px] tracking-[-0.2px]">
-          What Makes The Slab Different
-        </h2>
-
-        {/* mobile /001/ */}
-        <div className="block lg:hidden absolute left-[24px] top-[260px] text-white text-xl font-bold">/001/</div>
-
-        {/* desktop /001/ */}
-        <div className="hidden lg:block absolute right-[60px] bottom-[40px] text-white text-2xl font-bold leading-[30px] tracking-[-0.15px]">
-          /001/
-        </div>
-
-        {/* Feature Title */}
-        <h3 className="absolute left-[24px] bottom-[100px] lg:w-auto lg:left-[78px] lg:top-[426px] lg:bottom-auto text-white text-[20px] lg:text-2xl font-bold leading-[26px] lg:leading-[30px] w-[300px] lg:w-[406px]">
-          Structured curriculum, easy to follow
-        </h3>
-
-        {/* Feature Description */}
-        <p className="absolute left-[24px] bottom-[40px] lg:w-auto lg:left-[78px] lg:top-[471px] lg:bottom-auto text-white text-sm lg:text-base font-medium leading-[20px] lg:leading-[22px] w-[300px] lg:w-[302px]">
-          Clear stages, objectives, and checklists—<br />so you always know what to focus on next.
-        </p>
-      </div>
-
-      {/* Card 2: Outcome-driven & Flexible learning */}
-      <div
-        className="relative w-full flex flex-col lg:flex-row lg:h-[565px] overflow-hidden"
-        data-aos="fade-up"
-      >
-        {/* Left 50% (Desktop) / Top (Mobile): Flexible learning */}
-        <div className="relative w-full lg:w-1/2 h-[400px] lg:h-full flex flex-col justify-between px-6 py-10 lg:px-20 lg:py-[41px] bg-black overflow-hidden">
-          {/* Background Image for left side */}
-          <div className="absolute inset-0 z-0">
-            <Image src="/images/section2/section2-bg2.png" alt="" fill className="object-cover" />
-          </div>
-
-          {/* Frame 6 - Decorative SVG overlay */}
-          <div className="absolute inset-0 z-10">
-            <Image
-              src="/images/section2/frame6-decorative.svg"
-              alt=""
-              fill
-              className="object-cover"
-            />
-          </div>
-
-          {/* Content */}
-          <div className="relative z-20 flex flex-col gap-6 lg:gap-[84px] lg:h-full lg:justify-between">
-            <div className="flex flex-col gap-[24px] lg:gap-[24px]">
-              <h3 className="text-white text-[20px] lg:text-2xl font-bold leading-[26px] lg:leading-[30px] w-full">
-                Flexible learning, with a consistent rhythm
-              </h3>
-              <p className="text-white text-sm lg:text-base font-medium leading-[20px] lg:leading-[22px] w-full lg:w-[400px]">
-                Self-paced materials combined with scheduled guidance and reviews, so you stay on
-                track without feeling overwhelmed.
-              </p>
-            </div>
-            <div className="text-white text-xl lg:text-2xl font-bold leading-[30px] tracking-[-0.15px]">
-              /002/
-            </div>
-          </div>
-
-          {/* /002/ Label at bottom? Wait, visual design order. */}
-        </div>
-
-        {/* Right 50% (Desktop) / Bottom (Mobile): Outcome-driven */}
-        <div className="relative w-full lg:w-1/2 h-[400px] lg:h-full flex flex-col items-start lg:items-end justify-between bg-black overflow-hidden">
-          {/* Background Image for right side */}
-          <div className="absolute inset-0 z-0">
-            <Image src="/images/section2/section2-bg2.png" alt="" fill className="object-cover" />
-          </div>
-
-          {/* Content */}
-          <div className="relative z-20 text-white text-xl lg:text-2xl font-bold p-6 lg:p-0 lg:self-end lg:mr-[60px] lg:mt-[40px]">
-            /003/
-          </div>
-
-          {/* Outcome-driven box at bottom */}
-          <div className="relative z-20 w-full lg:h-[239px] bg-white/10 backdrop-blur-sm rounded-[8px] flex flex-col px-6 py-6 lg:px-[80px] lg:py-[40px]">
-            <h3 className="text-white text-[20px] lg:text-2xl font-bold leading-[26px] lg:leading-[30px] lg:w-[295px]">
-              Outcome-driven by design
-            </h3>
-            <p className="text-white text-sm lg:text-base font-medium leading-[20px] lg:leading-[22px] lg:w-[332px] mt-4 lg:mt-[20px]">
-              Every module produces tangible deliverables—plans, systems, or assets you can apply
-              immediately.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Card 3: Project-first & High-touch advisor */}
-      <div
-        className="relative w-full flex flex-col lg:flex-row lg:h-[565px] overflow-hidden"
-        data-aos="fade-up"
-      >
-        {/* Left Side: Project-first */}
-        <div className="relative w-full lg:w-1/2 h-[400px] lg:h-full flex flex-col justify-between bg-black overflow-hidden">
-          {/* Background Image for left side */}
-          <div className="absolute inset-0 z-0">
-            <Image
-              src="/images/section2/section2-bg3.png"
-              alt=""
-              fill
-              className="object-cover"
-            />
-          </div>
-
-          {/* /004/ Label at top */}
-          <div className="relative z-20 text-white text-xl lg:text-2xl font-bold px-6 py-6 lg:px-[80px] lg:py-[40px]">
-            /004/
-          </div>
-
-          {/* Project-first box at bottom */}
-          <div className="relative z-20 w-full bg-white/10 backdrop-blur-sm rounded-[8px] flex flex-col px-6 py-6 lg:px-[80px] lg:py-[50px] mb-0">
-            <h3 className="text-white text-[20px] lg:text-2xl font-bold leading-[26px] lg:leading-[30px]">
-              Project-first execution
-            </h3>
-            <p className="text-white text-sm lg:text-base font-medium leading-[20px] lg:leading-[22px] mt-4 lg:mt-[20px]">
-              You learn by building and refining real work, not by consuming theory alone.
-            </p>
-          </div>
-        </div>
-
-        {/* Right Side: High-touch advisor */}
-        <div className="relative w-full lg:w-1/2 lg:h-full flex flex-col justify-between bg-black overflow-hidden px-6 py-10 lg:px-[80px] lg:py-[29px]">
-          {/* Solid black background */}
-          <div className="absolute inset-0 z-0 bg-black" />
-
-          {/* Top Section */}
-          <div className="relative z-20 flex flex-col">
-            {/* Title */}
-            <h3 className="text-white text-[20px] lg:text-2xl font-bold leading-[26px] lg:leading-[30px] w-full lg:w-[378px]">
-              High-touch advisor feedback
-            </h3>
-
-            {/* Description */}
-            <p className="text-white text-sm lg:text-base font-medium leading-[20px] lg:leading-[22px] w-full lg:w-[332px] mt-4 lg:mt-[20px]">
-              Targeted reviews and actionable improvements to steadily raise the quality of your output.
-            </p>
-          </div>
-
-          {/* Bottom Section: Advisor Image with overlay text + Label */}
-          <div className="relative z-20 flex flex-col items-center lg:items-end mt-10 lg:mt-0">
-            {/* Advisor Image */}
-            <div className="relative w-[300px] h-[300px] lg:w-[358px] lg:h-[358px] lg:mr-[41px]">
-              <Image
-                src="/images/section2/section2-advisor.png"
-                alt=""
-                fill
-                className="object-cover"
-              />
-              {/* Overlay Text - centered on image */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-[#111827] text-[28px] lg:text-[38px] font-bold leading-[36px] lg:leading-[48px] tracking-[-0.24px] text-center w-[180px] lg:w-[212px]">
-                  High-touch advisor feedback
-                </div>
+      )}
+      {advisorGraphic && (
+        <div className="absolute left-[8px] bottom-[-50px] md:left-[20px] md:bottom-[-20px] z-20 flex items-center justify-center transition-transform duration-700 group-hover:scale-105">
+          <div className="relative w-[195px] h-[195px] md:w-[320px] md:h-[320px]">
+            <Image src="/images/section2/section2-advisor.png" alt="" fill className="object-contain" />
+            <div className="absolute inset-0 flex items-center justify-center p-4">
+              <div className="text-[#111827] text-[16px] md:text-[28px] font-bold leading-[20px] md:leading-[34px] tracking-[-0.24px] text-center w-[120px] md:w-[220px] rotate-[-6.15deg]">
+                {title}
               </div>
             </div>
-
-            {/* /005/ Label */}
-            <div className="text-white text-xl lg:text-2xl font-bold mt-4 lg:mt-0 lg:mr-[-28px] self-end">
-              /005/
-            </div>
           </div>
+        </div>
+      )}
+      <div className="relative z-30 h-full flex flex-col justify-between p-4 md:p-10">
+        <div className="flex flex-col items-end">
+          <div className="text-white text-[12px] md:text-[20px] font-bold opacity-80">{number}</div>
+          <h3 className="text-white text-[16px] md:text-[28px] font-bold leading-[22px] md:leading-[36px] max-w-[280px] md:max-w-[450px] text-right mt-2">
+            {title}
+          </h3>
+        </div>
+        <div className="flex justify-end">
+          <p className="text-white text-[12px] md:text-[18px] font-medium leading-[16px] md:leading-[26px] w-[200px] md:w-[380px] text-right opacity-90 transition-opacity group-hover:opacity-100">
+            {desc}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+
+  return (
+    <section className="w-full flex flex-col">
+      {/* MOBILE & TABLET UI */}
+      <div className="block lg:hidden">
+        <Container>
+          <h2 className="py-6 md:py-10 text-[#111827] text-[24px] md:text-[32px] font-bold leading-[30px] md:leading-[38px] tracking-[-0.15px]">
+            {c.sectionTitle}
+          </h2>
+        </Container>
+        <div className="flex flex-col w-full">
+          <FeatureBlockMobile index={0} number="/001/" title={c.feature1Title} desc={c.feature1Desc} bgColor="bg-[#8B5CF6]" illustration="/images/section2/frame6-decorative.svg" />
+          <FeatureBlockMobile index={1} number="/002/" title={c.feature2Title} desc={c.feature2Desc} bgImage="/images/section2/section2-bg2-m.jpg" />
+          <FeatureBlockMobile index={2} number="/003/" title={c.feature3Title} desc={c.feature3Desc} bgImage="/images/section2/section2-bg3.png" />
+          <FeatureBlockMobile index={3} number="/004/" title={c.feature4Title} desc={c.feature4Desc} bgColor="bg-black" advisorGraphic={true} />
+          <FeatureBlockMobile index={4} number="/005/" title={c.feature5Title} desc={c.feature5Desc} bgImage="/images/section2/section2-bg4-482c9c.jpg" />
         </div>
       </div>
 
-      {/* Card 4: AI-enabled workflows */}
-      <div
-        className="relative w-full h-[565px] bg-black overflow-hidden"
-        data-aos="fade-up"
-      >
-        {/* Background Image - Full bleed */}
-        <div className="absolute left-0 top-[-50px] lg:top-[-172px] w-full h-[500px] lg:h-[760px] z-0">
-          <Image
-            src="/images/section2/section2-bg4-482c9c.png"
-            alt=""
-            fill
-            className="object-cover object-top"
-          />
+      {/* DESKTOP UI (Original structure restored from Step 15) */}
+      <div className="hidden lg:flex flex-col w-full">
+        {/* Card 1 */}
+        <div className="relative w-full h-[565px] bg-black overflow-hidden group" data-aos="fade-up">
+          <div className="absolute inset-0 bg-white">
+            <div
+              className="absolute inset-0 opacity-[0.04]"
+              style={{
+                backgroundImage: "url(/images/background-pattern.png)",
+                backgroundRepeat: "repeat",
+                backgroundSize: "256px 256px",
+              }}
+            ></div>
+            <PolygonImage
+              src="/images/section2/section2-bg1.png"
+              alt=""
+              fill
+              className="w-full h-full"
+              innerClassName="transition-transform duration-700 group-hover:scale-110"
+              style={{ objectPosition: "center -73px" }}
+              topLeftCut={60}
+              topLeftCutMobile={30}
+            />
+          </div>
+          <div className="absolute top-[40px] right-[40px] w-[108px] h-[74px]">
+            <Image src="/images/s-lab-white-logo.svg" alt="The S-Lab" fill className="object-contain" />
+          </div>
+          <h2 className="absolute left-[86px] top-[48px] text-white text-[32px] font-bold leading-[38px] tracking-[-0.2px]">
+            {c.sectionTitle}
+          </h2>
         </div>
 
-        {/* Mask group overlay */}
-        <div className="hidden lg:block absolute left-0 top-[-172px] w-[1104px] h-[737px] z-10 pointer-events-none">
-          <Image
-            src="/images/section2/section2-bg5.png"
-            alt=""
-            width={1104}
-            height={737}
-            className="object-cover"
-          />
+        {/* Card 2 & 3 */}
+        <div className="relative w-full flex flex-row h-[565px] overflow-hidden" data-aos="fade-up">
+          <div className="relative w-1/2 h-full flex flex-col justify-between px-20 py-[41px] bg-black overflow-hidden group">
+            <div className="absolute inset-0 z-0">
+              <Image src="/images/section2/section2-bg2.png" alt="" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
+            </div>
+            <div className="absolute inset-0 z-10">
+              <Image src="/images/section2/frame6-decorative.svg" alt="" fill className="object-cover" />
+            </div>
+            <div className="relative z-20 flex flex-col h-full justify-between">
+              <div className="flex flex-col gap-[24px]">
+                <h3 className="text-white text-2xl font-bold leading-[30px] w-full">
+                  {c.feature1Title}
+                </h3>
+                <p className="text-white text-base font-medium leading-[22px] w-[400px]">
+                  {c.feature1Desc}
+                </p>
+              </div>
+              <div className="text-white text-2xl font-bold leading-[30px] tracking-[-0.15px]">
+                /001/
+              </div>
+            </div>
+          </div>
+
+          <div className="relative w-1/2 h-full flex flex-col items-end justify-between bg-black overflow-hidden group">
+            <div className="absolute inset-0 z-0">
+              <Image src="/images/section2/section2-bg2.png" alt="" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
+            </div>
+            <div className="relative z-20 text-white text-2xl font-bold mr-[60px] mt-[40px]">
+              /002/
+            </div>
+            <div className="relative z-20 w-full h-[239px] bg-white/10 backdrop-blur-sm rounded-[8px] flex flex-col px-[80px] py-[40px]">
+              <h3 className="text-white text-2xl font-bold leading-[30px] w-[295px]">
+                {c.feature2Title}
+              </h3>
+              <p className="text-white text-base font-medium leading-[22px] w-[332px] mt-[20px]">
+                {c.feature2Desc}
+              </p>
+            </div>
+          </div>
         </div>
 
-        {/* /006/ Label */}
-        <div className="absolute right-[24px] top-[40px] lg:right-[65px] lg:top-[489px] text-white text-xl lg:text-2xl font-bold z-30">
-          /006/
+        {/* Card 4 & 5 */}
+        <div className="relative w-full flex flex-row h-[565px] overflow-hidden" data-aos="fade-up">
+          <div className="relative w-1/2 h-full flex flex-col justify-between bg-black overflow-hidden group">
+            <div className="absolute inset-0 z-0">
+              <Image src="/images/section2/section2-bg3.png" alt="" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
+            </div>
+            <div className="relative z-20 text-white text-2xl font-bold px-[80px] py-[40px]">
+              /003/
+            </div>
+            <div className="relative z-20 w-full bg-white/10 backdrop-blur-sm rounded-[8px] flex flex-col px-[80px] py-[50px] mb-0">
+              <h3 className="text-white text-2xl font-bold leading-[30px]">
+                {c.feature3Title}
+              </h3>
+              <p className="text-white text-base font-medium leading-[22px] mt-[20px]">
+                {c.feature3Desc}
+              </p>
+            </div>
+          </div>
+
+          <div className="relative w-1/2 h-full flex flex-col justify-between bg-black overflow-hidden px-[80px] py-[29px]">
+            <div className="absolute inset-0 z-0 bg-black" />
+            <div className="relative z-20 flex flex-col">
+              <h3 className="text-white text-2xl font-bold leading-[30px] w-[378px]">
+                {c.feature4Title}
+              </h3>
+              <p className="text-white text-base font-medium leading-[22px] w-[332px] mt-[20px]">
+                {c.feature4Desc}
+              </p>
+            </div>
+            <div className="relative z-20 flex flex-col items-end">
+              <div className="relative w-[358px] h-[358px] mr-[41px]">
+                <Image src="/images/section2/section2-advisor.png" alt="" fill className="object-cover" />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="text-[#111827] text-[38px] font-bold leading-[48px] tracking-[-0.24px] text-center w-[212px]">
+                    EXECUTION
+                    -DRIVEN
+                    LEARNING
+                  </div>
+                </div>
+              </div>
+              <div className="text-white text-2xl font-bold mt-0 mr-[-28px] self-end">
+                /004/
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* Content Wrapper (Glass Effect) */}
-        <div className="absolute left-0 bottom-0 w-full lg:w-[586px] bg-white/10 backdrop-blur-sm z-20 flex flex-col px-6 py-6 lg:pl-[80px] lg:py-[40px]">
-          {/* Feature Title */}
-          <h3 className="text-white text-[20px] lg:text-2xl font-bold leading-[26px] lg:leading-[30px] w-full lg:w-[452px]">
-            AI-enabled workflows + systems thinking
-          </h3>
-
-          {/* Feature Description */}
-          <p className="text-white text-sm lg:text-base font-medium leading-[20px] lg:leading-[22px] w-full lg:w-[435px] mt-4 lg:mt-[15px]">
-            Practical AI integration to speed up research and iteration, supported by repeatable frameworks—not isolated tactics.
-          </p>
+        {/* Card 6 */}
+        <div className="relative w-full h-[565px] bg-black overflow-hidden group" data-aos="fade-up">
+          <div className="absolute left-0 top-[-172px] w-full h-[760px] z-0">
+            <Image src="/images/section2/systems-thinking.jpg" alt="" fill className="object-cover object-top transition-transform duration-700 group-hover:scale-110" />
+          </div>
+          {/* <div className="absolute left-0 top-[-172px] w-[1104px] h-[737px] z-10 pointer-events-none">
+            <Image src="/images/section2/section2-bg4-482c9c.png" alt="" width={1104} height={737} className="object-cover" />
+          </div> */}
+          <div className="absolute right-[65px] top-[489px] text-white text-2xl font-bold z-30">
+            /005/
+          </div>
+          <div className="absolute left-0 bottom-0 w-[586px] bg-white/10 backdrop-blur-sm z-20 flex flex-col pl-[80px] py-[40px]">
+            <h3 className="text-white text-2xl font-bold leading-[30px] w-[452px]">
+              {c.feature5Title}
+            </h3>
+            <p className="text-white text-base font-medium leading-[22px] w-[435px] mt-[15px]">
+              {c.feature5Desc}
+            </p>
+          </div>
         </div>
       </div>
     </section>
   );
 });
+
 Section2.displayName = "Section2";
 
 export default Section2;

@@ -1,10 +1,21 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import Container from "@/app/components/Container";
 import styles from "./BlogBody.module.scss";
 
-const BlogBody = React.memo(function BlogBody() {
+interface BlogBodyProps {
+  authorName: string;
+  authorRole: string;
+  authorImage: string;
+}
+
+const BlogBody = React.memo(function BlogBody({
+  authorName,
+  authorRole,
+  authorImage,
+}: BlogBodyProps) {
   return (
     <section className={styles.section}>
       <Container>
@@ -53,6 +64,25 @@ const BlogBody = React.memo(function BlogBody() {
                 <li>better collaboration between teams with clearly aligned goals</li>
                 <li>reduced costs due to less duplication of tools and processes</li>
               </ul>
+            </div>
+
+            {/* Author Block at Bottom */}
+            <div className={styles.authorArea} data-aos="fade-up">
+              <div className={styles.authorBlock}>
+                <div className={styles.authorImageWrapper}>
+                  <Image
+                    src={authorImage}
+                    alt={authorName}
+                    width={28}
+                    height={28}
+                    className={styles.authorImage}
+                  />
+                </div>
+                <div className={styles.authorInfo}>
+                  <span className={styles.authorName}>/{authorName}</span>
+                  <span className={styles.authorRole}>{authorRole}</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>

@@ -5,21 +5,24 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import LeftMenu from "./components/LeftMenu";
 import MobileHeader from "./components/MobileHeader";
+import { useFooterContentStore } from "./features/dashboard/stores/useFooterContentStore";
 
 interface MainLayoutProps {
   children: React.ReactNode;
 }
 
 const MainLayout = ({ children }: MainLayoutProps) => {
+  const hydrateFooter = useFooterContentStore((s) => s.hydrate);
   useEffect(() => {
     AOS.init({
       duration: 800,
       once: true,
       easing: "ease-out-cubic",
     });
-  }, []);
+    hydrateFooter();
+  }, [hydrateFooter]);
   return (
-    <div className="flex min-h-screen flex-col lg:block bg-[#F3F4F6]">
+    <div className="flex min-h-screen flex-col lg:block bg-[#F3F4F6] overflow-x-clip">
       {/* Mobile Header - Visible only on mobile */}
       <div className="block lg:hidden w-full sticky top-0 z-50">
         <MobileHeader />

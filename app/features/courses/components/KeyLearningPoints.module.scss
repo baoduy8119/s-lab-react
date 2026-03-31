@@ -66,28 +66,48 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .section {
-    padding: 60px 0;
+    padding: 24px 0 0;
   }
   
   .container {
     padding: 0 20px;
     gap: 40px;
+    max-width: 100%;
   }
 
   .heading {
-    font-size: 40px;
+    font-size: 32px;
+    letter-spacing: -1px;
+    line-height: 1.1;
   }
 
   .grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
+    grid-template-columns: repeat(2, 1fr); // 2 columns for mobile
+    gap: 16px;
+    margin-top: 20px;
   }
   
   .card {
-    min-height: auto;
-    gap: 24px;
-    padding: 32px;
+    padding: 10px;
+    gap: 16px; // Specified gap for items
+    min-height: 168px;
+    
+    &:hover {
+      transform: none;
+    }
+  }
+
+  .iconWrapper {
+    width: 32px;
+    height: 32px;
+  }
+
+  .cardText {
+    margin: 0; // Removed redundant margin in favor of gap
+    margin-top: 30px;
+    font-size: 12px;
+    font-weight: 500;
   }
 }

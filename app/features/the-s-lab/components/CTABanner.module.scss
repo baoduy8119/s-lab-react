@@ -44,6 +44,14 @@
   }
 }
 
+.content {
+  @media screen and (max-width: 767px) {
+    > div {
+      padding: 40px 20px;
+    }
+  }
+}
+
 .ctaGroup {
   display: flex;
   align-items: center;
@@ -75,6 +83,10 @@
   &:hover {
     background-color: #f3f4f6;
   }
+
+  @media screen and (max-width: 767px) {
+    width: 100%;
+  }
 }
 
 .secondaryLink {
@@ -91,6 +103,11 @@
 
   span {
     max-width: 250px;
+    @media screen and (max-width: 767px) {
+      max-width: 100%;
+      font-size: 16px;
+      line-height: 22px;
+    }
   }
 
   svg {

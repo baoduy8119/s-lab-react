@@ -40,13 +40,13 @@ const BlogHero = React.memo(function BlogHero() {
           >
             <span>Category</span>
             <svg
-              width="12"
-              height="8"
-              viewBox="0 0 12 8"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
               fill="none"
               className={`${styles.chevron} ${isDropdownOpen ? styles.rotate : ''}`}
             >
-              <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M7 14.5L12 9.5L17 14.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
 
             {isDropdownOpen && (
@@ -62,8 +62,9 @@ const BlogHero = React.memo(function BlogHero() {
 
           <div className={styles.searchBar}>
             <input type="text" placeholder="Search blogs..." className={styles.searchInput} />
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className={styles.searchIcon}>
-              <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className={styles.searchIcon}>
+              <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+              <path d="M21 21L16.65 16.65" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
             </svg>
           </div>
         </div>

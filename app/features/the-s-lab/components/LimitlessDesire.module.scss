@@ -6,7 +6,7 @@
   flex-direction: column;
 
   @media (max-width: 1024px) {
-    padding: 0 16px 40px;
+    padding: 0 0 0;
   }
 }
 
@@ -21,10 +21,10 @@
   width: 576px;
 
   @media (max-width: 1024px) {
-    width: 100%;
+    width: 267px;
     font-size: 32px;
-    line-height: 40px;
-    letter-spacing: -0.8px;
+    line-height: 38px;
+    letter-spacing: -0.2px;
     margin-bottom: 24px;
   }
 }
@@ -33,6 +33,10 @@
   display: flex;
   flex-direction: column;
   gap: 32px;
+
+  @media (max-width: 1024px) {
+    gap: 24px;
+  }
 }
 
 .imageWrapper {
@@ -48,17 +52,11 @@
   transition: all 0.3s ease;
 
   @media (max-width: 1024px) {
-    gap: 16px;
-    padding-bottom: 24px;
-    flex-direction: column; // Stack icon/content if needed, or keep flex but reduce gap
-    align-items: flex-start;
-    
-    // Actually desire design usually keeps icon next to title, so let's keep row but reduce gap
     flex-direction: row; 
-    gap: 16px;
+    gap: 0; // Use space-between with fixed right-side width instead of flexible gap
+    padding-bottom: 24px;
+    justify-content: space-between;
   }
-
-  
 
   &:last-child {
     border-bottom: none;
@@ -80,7 +78,7 @@
 
 .iconOpen {
   svg {
-    transform: rotate(90deg);
+    transform: scaleX(-1);
   }
 }
 
@@ -88,6 +86,15 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 1024px) {
+    flex: none;
+    width: 600px;
+    max-width: calc(100% - 40px); // safety for tiny screens
+  }
+  @media (max-width: 767px) {
+    width: 270px;
+  }
 }
 
 .textContent {
@@ -106,7 +113,8 @@
   
   @media (max-width: 1024px) {
     font-size: 24px;
-    line-height: 32px;
+    line-height: 30px;
+    letter-spacing: -0.15px;
   }
 
   &:hover {
@@ -148,28 +156,39 @@
 
 .images {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 16px;
-  
-  img {
-    flex: 1
-  }
+  width: 100%;
+  margin-top: 8px;
 
   @media (max-width: 1024px) {
     flex-direction: column;
     align-items: flex-start;
     width: 100%;
-    
-    // Ensure images take full width or are responsive
-    & > div { // Assuming polygon image wrapper
-       width: 100% !important;
-       height: auto !important;
+
+    .imageItem {
+      width: 100%;
     }
-    
-    img {
-        width: 100%;
-        height: auto;
-    }
+  }
+}
+
+.imageItem {
+  flex: 1;
+  min-width: 0; // Prevent flex overflow
+  overflow: hidden;
+
+  // Ensure PolygonImage fills the flex item
+  > div, img {
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  img {
+    transition: transform 0.5s ease;
+  }
+
+  &:hover img {
+    transform: scale(1.1);
   }
 }
 

@@ -8,54 +8,62 @@ import "swiper/css";
 import styles from "./TestimonialsList.module.scss";
 import QuoteIcon from "@/app/components/icons/QuoteIcon";
 import Container from "@/app/components/Container";
+import {
+  detailSectionId,
+  useCourseDetailContentStore,
+} from "@/app/features/dashboard/stores/useCourseDetailContentStore";
+import { useLocalizedContent } from "@/app/hooks/useLocalizedContent";
 
-// Reusing same image for demo as per screenshot repetition
-const testimonials = [
-  {
-    id: 1,
-    text: "The S-Lab agency delivered a complete rebrand and website that perfectly captured our vision. The integrated approach saved us months of back-and-forth with multiple vendors.",
-    name: "Lora K.",
-    role: "Student, InnovateHealth",
-    image: "/images/avatar.png"
-  },
-  {
-    id: 2,
-    text: "The S-Lab agency delivered a complete rebrand and website that perfectly captured our vision. The integrated approach saved us months of back-and-forth with multiple vendors.",
-    name: "Lora K.",
-    role: "Student, InnovateHealth",
-    image: "/images/avatar.png"
-  },
-  {
-    id: 3,
-    text: "The S-Lab agency delivered a complete rebrand and website that perfectly captured our vision. The integrated approach saved us months of back-and-forth with multiple vendors.",
-    name: "Lora K.",
-    role: "Student, InnovateHealth",
-    image: "/images/avatar.png"
-  },
-  {
-    id: 4,
-    text: "The S-Lab agency delivered a complete rebrand and website that perfectly captured our vision. The integrated approach saved us months of back-and-forth with multiple vendors.",
-    name: "Lora K.",
-    role: "Student, InnovateHealth",
-    image: "/images/avatar.png"
+interface TestimonialsListProps {
+  courseId: string;
+}
+
+function getTestimonialIndices(section: Record<string, unknown>): number[] {
+  const indices = new Set<number>();
+  for (const k of Object.keys(section)) {
+    const m = /^l(\d+)(Text|Name|Role|Image)$/.exec(k);
+    if (!m) continue;
+    const n = Number(m[1]);
+    if (Number.isFinite(n) && n > 0) indices.add(n);
   }
-];
+  return Array.from(indices).sort((a, b) => a - b);
+}
 
-const TestimonialsList = React.memo(function TestimonialsList() {
+const TestimonialsList = React.memo(function TestimonialsList({
+  courseId,
+}: TestimonialsListProps) {
+  const section = useLocalizedContent(
+    useCourseDetailContentStore((s) =>
+      s.getSection(detailSectionId(courseId, "testimonialsList"))
+    )
+  );
+  const heading = (section.heading as string) || "/Testimonials.";
+  const indices = getTestimonialIndices(section);
+  const testimonials = indices
+    .map((n) => ({
+      id: n,
+      text: (section[`l${n}Text`] as string) || "",
+      name: (section[`l${n}Name`] as string) || "",
+      role: (section[`l${n}Role`] as string) || "",
+      image: (section[`l${n}Image`] as string) || "",
+    }))
+    .filter((t) => t.text || t.name || t.role || t.image);
+
   return (
     <section className={styles.section}>
       <Container>
-        <h2 className={styles.heading}>/Testimonials.</h2>
+        <h2 className={styles.heading}>{heading}</h2>
         <Swiper
           modules={[Autoplay]}
-          spaceBetween={24}
-          slidesPerView={1}
+          spaceBetween={16}
+          slidesPerView={1.2}
+          centeredSlides={false}
           loop={true}
           autoplay={{ delay: 3000, disableOnInteraction: false }}
           grabCursor={true}
           breakpoints={{
-            640: { slidesPerView: 2 },
-            1024: { slidesPerView: 3 },
+            640: { slidesPerView: 2, spaceBetween: 24 },
+            1024: { slidesPerView: 3, spaceBetween: 24 },
           }}
           className={styles.swiper}
         >
@@ -75,7 +83,7 @@ const TestimonialsList = React.memo(function TestimonialsList() {
                 <div className={styles.profile}>
                   <div className={styles.imageWrapper}>
                     <Image
-                      src={item.image}
+                      src={item.image || "/images/avatar.png"}
                       alt={item.name}
                       width={48}
                       height={48}

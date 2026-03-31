@@ -1,0 +1,7 @@
+.polygonSection {
+  clip-path: var(--desktop-section-clip);
+  
+  @media (max-width: 768px) {
+    clip-path: var(--mobile-section-clip);
+  }
+}

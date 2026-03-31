@@ -3,40 +3,43 @@
 import React, { useState } from "react";
 import PolygonImage from "@/app/components/PolygonImage";
 import QuoteIcon from "@/app/components/icons/QuoteIcon";
+import { useTheSlabContentStore } from "@/app/features/dashboard/stores/useTheSlabContentStore";
+import { useLocalizedContent } from "@/app/hooks/useLocalizedContent";
 import styles from "./Trainers.module.scss";
 import Container from "@/app/components/Container";
 
 const Trainers = React.memo(function Trainers() {
+  const c = useLocalizedContent(useTheSlabContentStore((s) => s.content.slabTrainers));
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   const trainers = [
     {
       number: "/001/",
-      name: "/Alex Morgan",
-      role: "Technical Lead",
-      image: "/images/slab/trainer-1.png",
-      bio: "Having completed a degree in philosophy, Mike Trow started out in fashion working on Bizarre magazine as photo editor and photographer. He has been the picture editor of British Vogue 2005-2018 – responsible for commissioning, production and art direction of most of the portraits, reportage and house shoots of the magazine.",
+      name: c.t1Name,
+      role: c.t1Role,
+      image: c.t1Image,
+      bio: c.t1Bio,
     },
     {
       number: "/002/",
-      name: "/Alex Morgan",
-      role: "Technical Lead",
-      image: "/images/slab/trainer-2.png",
-      bio: "A seasoned marketing strategist with over 10 years of experience in digital transformation and brand development.",
+      name: c.t2Name,
+      role: c.t2Role,
+      image: c.t2Image,
+      bio: c.t2Bio,
     },
     {
       number: "/003/",
-      name: "/Alex Morgan",
-      role: "Technical Lead",
-      image: "/images/slab/trainer-3.png",
-      bio: "Specializing in business analytics and data-driven decision making, bringing innovative solutions to complex challenges.",
+      name: c.t3Name,
+      role: c.t3Role,
+      image: c.t3Image,
+      bio: c.t3Bio,
     },
     {
       number: "/004/",
-      name: "/Alex Morgan",
-      role: "Technical Lead",
-      image: "/images/slab/trainer-4.png",
-      bio: "Expert in Web3 technologies and blockchain implementation, leading the charge in decentralized business models.",
+      name: c.t4Name,
+      role: c.t4Role,
+      image: c.t4Image,
+      bio: c.t4Bio,
     },
   ];
 
@@ -47,8 +50,8 @@ const Trainers = React.memo(function Trainers() {
           <div className={styles.quoteIcon}>
             <QuoteIcon />
           </div>
-          <h2 className={styles.title}>Our Trainers: The Heart of The S-Lab</h2>
-          <p className={styles.subtitle}>Who brings value to leverage the talents</p>
+          <h2 className={styles.title}>{c.title}</h2>
+          <p className={styles.subtitle}>{c.subtitle}</p>
         </div>
 
 
@@ -68,8 +71,7 @@ const Trainers = React.memo(function Trainers() {
                   <PolygonImage
                     src={trainer.image}
                     alt={trainer.name}
-                    width={225}
-                    height={350}
+                    fill={true}
                     topLeftCut={25}
                   />
                   <div className={`${styles.overlay} ${isHovered ? styles.expanded : ""}`}>

@@ -52,8 +52,8 @@ const BlogDetailHeader = React.memo(function BlogDetailHeader({
                 <Image
                   src={authorImage}
                   alt={authorName}
-                  width={40}
-                  height={40}
+                  width={48}
+                  height={48}
                   className={styles.authorImage}
                 />
               </div>
@@ -64,7 +64,7 @@ const BlogDetailHeader = React.memo(function BlogDetailHeader({
             </div>
           </div>
 
-          {/* Row 2 / Col 2: Hero Image */}
+          {/* Row 2 / Col 2: Hero Image (Formerly Col 1 in my previous step) */}
           <div className={styles.heroArea} data-aos="fade-left" data-aos-delay="200">
             <div className={styles.heroImageWrapper}>
               <PolygonImage
@@ -74,6 +74,7 @@ const BlogDetailHeader = React.memo(function BlogDetailHeader({
                 className={styles.heroImage}
                 priority
                 topLeftCut={60}
+                topLeftCutMobile={30}
               />
             </div>
           </div>

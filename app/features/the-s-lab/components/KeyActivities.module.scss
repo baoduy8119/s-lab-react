@@ -13,8 +13,7 @@
   overflow: hidden;
 
   @media (max-width: 1024px) {
-    height: auto;
-    min-height: 400px;
+    display: none; // Hiding entirely for mobile per design
   }
 }
 
@@ -24,7 +23,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  
+
   img {
     object-fit: cover;
   }
@@ -139,7 +138,7 @@
 
   @media (max-width: 1024px) {
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 8px; // From figma
     background-color: transparent;
     border: none;
     padding: 0 16px;
@@ -147,7 +146,7 @@
 }
 
 .card {
-  background-color: #F3F4F6;
+  background-color: #f3f4f6;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -155,8 +154,22 @@
   cursor: pointer;
 
   &:hover {
-    background-color:white;
-    transition: all 0.3s ease;
+    @media screen and (min-width: 1025px) {
+      background-color: white;
+      transition: all 0.3s ease;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    background-color: transparent;
+    border: 1px solid #cbd5e1;
+    padding: 24px 22px; // approx
+    height: 199px;
+    gap: 0;
+
+    &:nth-child(even) {
+      background-color: white; // alternating backgrounds in figma design
+    }
   }
 }
 
@@ -172,6 +185,14 @@
   letter-spacing: -0.3px;
   color: #111827;
   min-height: 100px;
+
+  @media (max-width: 1024px) {
+    font-size: 24px;
+    line-height: 30px;
+    letter-spacing: -0.15px;
+    min-height: auto;
+    margin-bottom: 22px; // approx from figma 25px top, 101px desc top -> wait, title height is 60? No, let's keep gap visually.
+  }
 }
 
 .cardDescription {
@@ -181,4 +202,62 @@
   line-height: 24px;
   letter-spacing: -0.2px;
   color: #6b7280;
+  white-space: pre-line;
+
+  @media (max-width: 1024px) {
+    font-weight: 500; // Medium
+    line-height: 20px;
+    letter-spacing: -0.16px;
+  }
+}
+
+.mobileHeader {
+  display: none;
+  @media (max-width: 1024px) {
+    display: block;
+    padding: 16px;
+    margin-bottom: 8px;
+    margin-top: 16px; // Adjusting space
+  }
+}
+
+.mobileTitle {
+  font-family: "MJ Satoshi", sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 38px;
+  letter-spacing: -0.2px;
+  color: #111827;
+}
+
+.mobileActions {
+  display: none;
+  @media (max-width: 1024px) {
+    display: flex;
+    padding: 16px;
+    margin-top: 8px;
+    width: 100%;
+  }
+}
+
+.joinButton {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 13px 24px;
+  background-color: #ef4444; // bg-tertiary
+  border: none;
+  color: white;
+  font-family: "MJ Satoshi", sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: -0.18px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #dc2626;
+  }
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 import { Autoplay, EffectFade } from "swiper/modules";
@@ -10,32 +10,10 @@ import Container from "@/app/components/Container";
 import styles from "./HomeTestimonial.module.scss";
 import PolygonSection from "@/app/components/PolygonSection";
 import Marquee from "@/app/components/Marquee";
+import { useHomeContentStore } from "@/app/features/dashboard/stores/useHomeContentStore";
+import { useLocalizedContent } from "@/app/hooks/useLocalizedContent";
 
-const testimonials = [
-  {
-    id: 1,
-    text: "The S-Lab agency delivered a complete rebrand and website that perfectly captured our vision. The integrated approach saved us months of back-and-forth with multiple vendors.",
-    name: "Lora K.",
-    role: "Student, InnovateHealth",
-    image: "/images/avatar.png"
-  },
-  {
-    id: 2,
-    text: "Working with The S-Lab was a game-changer. Their strategic insights helping us navigate complex market shifts with confidence gave us a clear competitive advantage.",
-    name: "Michael C.",
-    role: "Founder, TechFlow",
-    image: "/images/avatar.png"
-  },
-  {
-    id: 3,
-    text: "They don't just execute; they think. The team challenged our assumptions and delivered a product that exceeded our expectations in every measurable way.",
-    name: "Sarah J.",
-    role: "Marketing Director, OmniGroup",
-    image: "/images/avatar.png"
-  }
-];
-
-const NavButtons = () => {
+const NavButtons = React.memo(function NavButtons({ subtitle }: { subtitle: string }) {
   const swiper = useSwiper();
   return (
     <div className={styles.navWrapper}>
@@ -53,18 +31,27 @@ const NavButtons = () => {
           </svg>
         </button>
       </div>
-      <p className={styles.navText}>
-        Our clients don't just hire us for our skills — they stay with us because we consistently deliver clarity, speed, and measurable outcomes.
-      </p>
+      <p className={styles.navText}>{subtitle}</p>
     </div>
   );
-};
+});
+NavButtons.displayName = "NavButtons";
 
 const HomeTestimonial = React.memo(function HomeTestimonial() {
+  const c = useLocalizedContent(useHomeContentStore((s) => s.content.testimonials));
+
+  const testimonials = useMemo(
+    () => [
+      { id: 1, text: c.t1Text, name: c.t1Name, role: c.t1Role, image: c.t1Image },
+      { id: 2, text: c.t2Text, name: c.t2Name, role: c.t2Role, image: c.t2Image },
+      { id: 3, text: c.t3Text, name: c.t3Name, role: c.t3Role, image: c.t3Image },
+    ],
+    [c]
+  );
+
   return (
     <PolygonSection topLeftCut={60}>
       <section className={styles.section}>
-        {/* Background */}
         <div className="absolute inset-0">
           <Image
             src="/images/home-testimonial-bg.png"
@@ -77,7 +64,7 @@ const HomeTestimonial = React.memo(function HomeTestimonial() {
 
         <Container className={styles.innerContainer}>
           <div className={styles.header}>
-            <h2 className={styles.heading} data-aos="fade-up">/Our Testimonials.</h2>
+            <h2 className={styles.heading} data-aos="fade-up">{c.heading}</h2>
           </div>
 
           <Swiper
@@ -112,6 +99,7 @@ const HomeTestimonial = React.memo(function HomeTestimonial() {
                           alt={item.name}
                           fill
                           className={styles.avatar}
+                          unoptimized={item.image.startsWith("data:")}
                         />
                       </div>
                       <div className={styles.userDetails}>
@@ -123,14 +111,12 @@ const HomeTestimonial = React.memo(function HomeTestimonial() {
                   </div>
                 </div>
 
-                {/* Navigation placed inside slide for context access, or use component */}
-                <NavButtons />
+                <NavButtons subtitle={c.subtitle} />
               </SwiperSlide>
             ))}
           </Swiper>
         </Container>
 
-        {/* Marquee Footer */}
         <Marquee />
       </section>
     </PolygonSection>

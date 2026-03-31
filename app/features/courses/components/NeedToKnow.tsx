@@ -1,9 +1,16 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import Image from "next/image";
 import styles from "./NeedToKnow.module.scss";
 import Container from "@/app/components/Container";
+import StickyBox from "react-sticky-box";
+import { useMediaQuery } from "@/app/hooks/useMediaQuery";
+import {
+  detailSectionId,
+  useCourseDetailContentStore,
+} from "@/app/features/dashboard/stores/useCourseDetailContentStore";
+import { useLocalizedContent } from "@/app/hooks/useLocalizedContent";
 
 type TabType = "who_its_for" | "what_you_get" | "faqs";
 
@@ -27,63 +34,80 @@ interface TabData {
   faqItems?: FaqItem[];  // For "faq" layout
 }
 
-const tabsData: Record<TabType, TabData> = {
-  who_its_for: {
-    label: "Who it's for",
-    layout: "list",
-    items: [
-      {
-        title: "Students & Career Switchers",
-        description: "You need a clear foundation and a structured roadmap—so you stop learning random tips and understand how marketing actually works.",
-        imageSrc: "/images/courses/be-strong.jpg"
-      },
-      {
-        title: "Early-career Marketers\n(Freshers/Juniors)",
-        description: "You're doing tasks but lack a system—this course helps you connect goals → strategy → execution → basic measurement.",
-        imageSrc: "/images/courses/marketing-essentials.png"
-      },
-      {
-        title: "Founders & Non-Marketing\nProfessionals",
-        description: "You need marketing clarity to make better decisions, manage teams/agencies, and evaluate performance without guesswork.",
-        imageSrc: "/images/courses/mar-8.jpg"
-      }
-    ]
-  },
-  what_you_get: {
-    label: "What you'll get",
-    layout: "split",
-    bullets: [
-      "A clear end-to-end marketing framework (goals → strategy → execution → measurement)",
-      "Practical tools to define audience, positioning, and messaging",
-      "Guidance to choose the right channels and set basic KPIs",
-      "Simple templates/checklists they can apply immediately to real projects"
-    ],
-    image: "/images/courses/september-pro.png"
-  },
-  faqs: {
-    label: "FAQs",
-    layout: "faq",
-    image: "/images/slib/faq-image.png",
-    faqItems: [
-      {
-        question: "Do I get templates and learning materials?",
-        answer: "Yes. You’ll receive a set of practical templates and checklists (e.g., audience/ICP, messaging, channel plan, KPI tracker) to apply immediately."
-      },
-      {
-        question: "How difficult is the course?",
-        answer: "The course is designed to be accessible for beginners but deep enough for early-career professionals. We break down complex concepts into actionable steps."
-      },
-      {
-        question: "How should I study to get the best results?",
-        answer: "We recommend setting aside dedicated time each week, completing the practical exercises, and joining the community discussions."
-      }
-    ]
-  }
-};
+function splitLines(v: string): string[] {
+  return v
+    .split("\n")
+    .map((s) => s.trim())
+    .filter(Boolean);
+}
 
-const NeedToKnow = React.memo(function NeedToKnow() {
+interface NeedToKnowProps {
+  courseId: string;
+}
+
+const NeedToKnow = React.memo(function NeedToKnow({ courseId }: NeedToKnowProps) {
+  const section = useLocalizedContent(
+    useCourseDetailContentStore((s) =>
+      s.getSection(detailSectionId(courseId, "needToKnow"))
+    )
+  );
+
+  const faqItems = useMemo(() => {
+    const indices = new Set<number>();
+    for (const k of Object.keys(section)) {
+      const m = /^faq(\d+)Q$/.exec(k);
+      if (!m) continue;
+      const n = Number(m[1]);
+      if (Number.isFinite(n) && n > 0) indices.add(n);
+    }
+    const sorted = Array.from(indices).sort((a, b) => a - b);
+    return sorted
+      .map((n) => ({
+        question: (section[`faq${n}Q` as keyof typeof section] as string) || "",
+        answer: (section[`faq${n}A` as keyof typeof section] as string) || "",
+      }))
+      .filter((x) => x.question || x.answer);
+  }, [section]);
+
+  const tabsData: Record<TabType, TabData> = {
+    who_its_for: {
+      label: (section.tab1Label as string) || "Who it's for",
+      layout: "list",
+      items: [
+        {
+          title: (section.tab1Item1Title as string) || "",
+          description: (section.tab1Item1Desc as string) || "",
+          imageSrc: (section.tab1Item1Image as string) || "",
+        },
+        {
+          title: (section.tab1Item2Title as string) || "",
+          description: (section.tab1Item2Desc as string) || "",
+          imageSrc: (section.tab1Item2Image as string) || "",
+        },
+        {
+          title: (section.tab1Item3Title as string) || "",
+          description: (section.tab1Item3Desc as string) || "",
+          imageSrc: (section.tab1Item3Image as string) || "",
+        },
+      ].filter((x) => x.title || x.description || x.imageSrc),
+    },
+    what_you_get: {
+      label: (section.tab2Label as string) || "What you'll get",
+      layout: "split",
+      bullets: splitLines((section.tab2Bullets as string) || ""),
+      image: (section.tab2Image as string) || "",
+    },
+    faqs: {
+      label: (section.tab3Label as string) || "FAQs",
+      layout: "faq",
+      image: (section.tab3Image as string) || "",
+      faqItems,
+    },
+  };
+
   const [activeTab, setActiveTab] = useState<TabType>("who_its_for");
-  const [openFaqIndex, setOpenFaqIndex] = useState<number>(0);
+  const [openFaqIndex, setOpenFaqIndex] = useState<number>(faqItems.length > 0 ? 0 : -1);
+  const isMobile = useMediaQuery("(max-width: 767px)");
   const currentTab = tabsData[activeTab];
 
   const toggleFAQ = (index: number) => {
@@ -94,7 +118,32 @@ const NeedToKnow = React.memo(function NeedToKnow() {
     <section className={styles.section}>
       <Container>
         {/* ... Header ... */}
+        <h2 className={styles.mainHeading} data-aos="fade-up">
+          {((section.heading as string) || "/Your need-to-know\nabout this course.")
+            .split("\n")
+            .map((line, i) => (
+              <React.Fragment key={i}>
+                {line}
+                {i === 0 && <br />}
+              </React.Fragment>
+            ))}
+        </h2>
+
         {/* ... Overview ... */}
+        <div className={styles.overviewGrid} data-aos="fade-up" data-aos-delay="100">
+          <h3 className={styles.overviewLabel}>
+            {(section.overviewLabel as string) || "/Overview information"}
+          </h3>
+          <div className={styles.overviewText}>
+            <p>
+              {(section.overviewP1 as string) || ""}
+            </p>
+            <p>
+              {(section.overviewP2 as string) || ""}
+            </p>
+          </div>
+        </div>
+
         {/* ... Tabs ... */}
         <div className={styles.tabsWrapper}>
           <div className={styles.tabList}>
@@ -167,21 +216,39 @@ const NeedToKnow = React.memo(function NeedToKnow() {
             {/* FAQ Layout */}
             {currentTab.layout === "faq" && currentTab.faqItems && (
               <div className={styles.faqLayout}>
-                <div className={styles.faqLeftContent}>
-                  <h3 className={styles.faqTitle}>
-                    Friendly Asked<br />Questions.
-                  </h3>
-                  {currentTab.image && (
-                    <div className={styles.faqImageWrapper}>
-                      <Image
-                        src={currentTab.image}
-                        alt="FAQ Illustration"
-                        fill
-                        style={{ objectFit: 'contain' }}
-                      />
-                    </div>
-                  )}
-                </div>
+                {isMobile ? (
+                  <div className={styles.faqLeftContent}>
+                    <h3 className={styles.faqTitle}>
+                      Friendly Asked<br />Questions.
+                    </h3>
+                    {currentTab.image && (
+                      <div className={styles.faqImageWrapper}>
+                        <Image
+                          src={currentTab.image}
+                          alt="FAQ Illustration"
+                          fill
+                          style={{ objectFit: 'contain' }}
+                        />
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <StickyBox className={styles.faqLeftContent} offsetTop={120} offsetBottom={20}>
+                    <h3 className={styles.faqTitle}>
+                      Friendly Asked<br />Questions.
+                    </h3>
+                    {currentTab.image && (
+                      <div className={styles.faqImageWrapper}>
+                        <Image
+                          src={currentTab.image}
+                          alt="FAQ Illustration"
+                          fill
+                          style={{ objectFit: 'contain' }}
+                        />
+                      </div>
+                    )}
+                  </StickyBox>
+                )}
                 <div className={styles.faqList}>
                   {currentTab.faqItems.map((faq, index) => (
                     <div key={index} className={styles.faqItem}>

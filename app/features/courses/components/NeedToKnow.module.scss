@@ -1,5 +1,5 @@
 .section {
-  padding: 80px 0 0;
+  padding: 60px 0 0;
   background: #f3f4f6;
 }
 
@@ -46,7 +46,7 @@
   line-height: 1.6;
   max-width: 1000px;
   flex: 1;
-  
+
   p {
     margin-bottom: 24px;
     &:last-child {
@@ -111,8 +111,8 @@
   gap: 40px;
   padding: 40px 0;
   align-items: flex-start;
-  border-bottom: 1px solid #CBD5E1; // Separator
-  
+  border-bottom: 1px solid #cbd5e1; // Separator
+
   &:last-child {
     border-bottom: none;
   }
@@ -129,6 +129,9 @@
 
 .titleLine {
   display: block;
+  @media screen and (max-width: 767px) {
+    font-size: 20px;
+  }
 }
 
 .rowDescription {
@@ -137,6 +140,9 @@
   line-height: 1.5;
   color: #111827;
   padding: 0 20px;
+  @media screen and (max-width: 767px) {
+    font-size: 16px;
+  }
 }
 
 .rowImageWrapper {
@@ -145,7 +151,7 @@
   aspect-ratio: 16/9; // Fixed aspect ratio styling
   background: #d1d5db;
   overflow: hidden;
-  
+
   img {
     object-fit: cover;
   }
@@ -156,7 +162,7 @@
   text-align: center;
   font-family: "MJ Satoshi", sans-serif;
   color: #6b7280;
-  background: #EAEAEA;
+  background: #eaeaea;
 }
 
 // --- Split Layout (What you'll get) ---
@@ -204,21 +210,22 @@
   // No background needed if image fills or is transparent
 }
 
-// --- FAQ Layout ---
 .faqLayout {
-  display: grid;
-  grid-template-columns: 350px 1fr;
+  display: flex;
+  align-items: flex-start;
   gap: 80px;
   padding: 40px 0;
-  align-items: flex-start;
+  min-height: max(50vh, 400px);
 }
 
 .faqLeftContent {
-  position: sticky; // Simple sticky
-  top: 120px;
+  width: 350px;
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
   gap: 20px;
+  height: fit-content;
+  z-index: 10;
 }
 
 .faqTitle {
@@ -239,14 +246,16 @@
 }
 
 .faqList {
+  flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
 }
 
-.faqItem { 
+.faqItem {
   padding: 16px 0;
-  border-bottom: 1px solid #CBD5E1;
-  
+  border-bottom: 1px solid #cbd5e1;
+
   &:last-child {
     border-bottom: none;
   }
@@ -257,7 +266,7 @@
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
-  
+
   &:hover .questionText {
     opacity: 0.8;
   }
@@ -281,7 +290,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #D1D5DB; // Light gray bg for circle
+  background: #d1d5db; // Light gray bg for circle
   color: #000;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -293,7 +302,7 @@
     color: #fff;
     // transform: rotate(45deg)? Arrow icon changes in SVG.
   }
-  
+
   // Update icon color based on design if needed.
 }
 
@@ -305,7 +314,7 @@
 
   &.open {
     grid-template-rows: 1fr;
-    
+
     .answerInner {
       opacity: 1;
       visibility: visible;
@@ -317,65 +326,164 @@
   min-height: 0;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.3s ease-out, visibility 0.3s;
-  
+  transition:
+    opacity 0.3s ease-out,
+    visibility 0.3s;
+
   p {
     font-family: "MJ Satoshi", sans-serif;
     font-size: 16px;
     line-height: 1.6;
-    color: #4B5563;
+    color: #4b5563;
     margin: 0;
   }
 }
 
-// --- Responsive ---
 @media (max-width: 1024px) {
+  .section {
+    padding: 0; // Reduced top padding
+    > div {
+      padding: 0;
+    }
+  }
+
+  .container {
+    padding: 0; // Let children handle side padding where needed
+    gap: 0;
+  }
+
+  // --- Header & Overview Mobile ---
   .mainHeading {
-    font-size: 56px;
+    padding: 0 16px;
+    font-size: 32px;
+    letter-spacing: -1px;
+    margin-top: 40px;
   }
 
   .overviewGrid {
-    grid-template-columns: 1fr;
-    gap: 20px;
+    padding: 0 16px;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 8px;
   }
 
-  .tabList, .contentRow {
-    grid-template-columns: 1fr;
+  .overviewLabel {
+    font-size: 24px;
   }
-  
+
+  .overviewText {
+    font-size: 16px;
+  }
+
+  .tabsWrapper {
+    margin-top: 32px;
+  }
+
+  .tabList {
+    width: 100%;
+    grid-template-columns: repeat(3, 1fr);
+    border-bottom: 2px solid #000;
+  }
+
+  .tabButton {
+    padding: 16px 8px;
+    font-size: 16px;
+    font-weight: 700;
+    border-right: none; // Remove dividers on mobile for flush look
+
+    &.active {
+      background: #000000;
+      color: #ffffff;
+    }
+  }
+
+  .contentContainer {
+    padding: 0 20px;
+  }
+
   .contentRow {
-    gap: 24px;
-    padding: 24px;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 16px 0 20px;
+    border-bottom: 1px solid #cbd5e1;
+
+    &:last-child {
+      border-bottom: none;
+    }
   }
 
-  // Split Layout Mobile & FAQ
-  .splitLayout, .faqLayout {
-    grid-template-columns: 1fr;
-    padding: 32px;
-    gap: 40px;
+  .rowTitle {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.2;
+    padding: 0;
   }
-  
-  .faqLeftContent {
-    position: static;
+
+  .rowDescription {
+    padding: 0;
+    font-size: 18px;
+    line-height: 1.5;
+    color: #374151; // Slightly softer black
+  }
+
+  .rowImageWrapper {
+    width: 60%;
+    margin-top: 8px;
+    aspect-ratio: 4/3; // Better for mobile viewing
+    border-radius: 4px;
+  }
+
+  // Split & FAQ Mobile
+  .splitLayout {
+    padding: 32px 0;
+    grid-template-columns: 1fr;
     gap: 20px;
   }
-  
-  .faqImageWrapper {
-    width: 200px; // Smaller on mobile
+
+  .faqLayout {
+    padding: 32px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 80px;
+
+    @media screen and (max-width: 1024px) {
+      gap: 40px;
+    }
+
+    @media (max-width: 767px) {
+      flex-direction: column;
+      gap: 32px;
+      min-height: auto;
+    }
+  }
+
+  .faqLeftContent {
+    width: 300px;
+    flex-shrink: 0;
+    @media (max-width: 767px) {
+      width: 100%;
+    }
+  }
+
+  .splitImageWrapper {
+    aspect-ratio: 16 / 9;
+    position: relative;
+
+    img {
+      object-fit: cover !important;
+      object-position: center !important;
+    }
   }
 
   .bulletText {
     font-size: 18px;
   }
-}
 
-@media (max-width: 768px) {
-  .container {
-    padding: 0 20px;
-    gap: 40px;
+  .faqTitle {
+    font-size: 32px;
   }
 
-  .mainHeading {
-    font-size: 40px;
+  .questionText {
+    font-size: 18px;
   }
 }

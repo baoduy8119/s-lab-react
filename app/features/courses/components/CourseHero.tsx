@@ -5,28 +5,30 @@ import Image from "next/image";
 import styles from "./CourseHero.module.scss";
 import SLabLogoWhite from "@/app/components/SLabLogoWhite";
 import Container from "@/app/components/Container";
+import { useCoursesContentStore } from "@/app/features/dashboard/stores/useCoursesContentStore";
+import { useLocalizedContent } from "@/app/hooks/useLocalizedContent";
 
 const CourseHero = React.memo(function CourseHero() {
+  const c = useLocalizedContent(useCoursesContentStore((s) => s.content.courseHero));
+
+  const titleLines = c.title.split("\n");
+
   return (
     <section className={styles.heroSection}>
-
-      {/* Background Image */}
       <div className={styles.heroBackground}>
-        {/* Placeholder for the hero image - using a generic office/student image if available or color */}
         <div style={{ width: "100%", height: "100%", backgroundColor: "#333" }}>
           <Image
-            src="/images/courses/hero-bg.jpg"
+            src={c.heroImage}
             alt="Background"
             fill
             style={{ objectFit: "cover" }}
+            unoptimized={c.heroImage.startsWith("data:")}
             onError={(e) => {
-              // Fallback if image not found
-              e.currentTarget.style.display = 'none';
+              e.currentTarget.style.display = "none";
             }}
           />
         </div>
       </div>
-      {/* Pattern Overlay */}
       <div className={styles.patternOverlay}>
         <Image
           src="/images/pattern-frame-16.png"
@@ -38,54 +40,76 @@ const CourseHero = React.memo(function CourseHero() {
       </div>
       <Container>
         <div className={styles.contentContainer}>
-          {/* Left Side */}
           <div className={styles.leftContent}>
             <div className={styles.logo}>
-              {/* Logo Icon */}
               <SLabLogoWhite />
             </div>
             <h1 className={styles.title}>
-              /The S-LAB<br />
-              Programmes and<br />
-              Courses
+              {titleLines.map((line, i) => (
+                <React.Fragment key={i}>
+                  {line}
+                  {i < titleLines.length - 1 && <br />}
+                </React.Fragment>
+              ))}
             </h1>
-            <p className={styles.subtitle}>
-              Learning goes beyond textbooks
-            </p>
+            <p className={styles.subtitle}>{c.subtitle}</p>
           </div>
 
-          {/* Right Side - Form */}
           <div className={styles.formContainer}>
-            <h3 className={styles.formTitle}>FILL FOR REGISTRATION</h3>
+            <h3 className={styles.formTitle}>{c.formTitle}</h3>
 
             <form>
               <div className={styles.formGroup}>
-                <input type="text" placeholder="Your career *" className={styles.input} />
+                <input
+                  type="text"
+                  name="name"
+                  autoComplete="name"
+                  placeholder={c.placeholderName}
+                  className={styles.input}
+                />
               </div>
-
               <div className={styles.formGroup}>
-                <input type="email" placeholder="Email *" className={styles.input} />
+                <input
+                  type="email"
+                  name="email"
+                  autoComplete="email"
+                  placeholder={c.placeholderEmail}
+                  className={styles.input}
+                />
               </div>
-
               <div className={styles.formGroup}>
-                <input type="tel" placeholder="Phone number *" className={styles.input} />
+                <input
+                  type="tel"
+                  name="phone"
+                  autoComplete="tel"
+                  placeholder={c.placeholderPhone}
+                  className={styles.input}
+                />
               </div>
-
               <div className={styles.row}>
-                <div className={styles.formGroup} style={{ flex: 1 }}>
-                  <input type="text" placeholder="Your career" className={styles.input} />
+                <div className={`${styles.formGroup} ${styles.rowField}`}>
+                  <input
+                    type="text"
+                    name="career"
+                    autoComplete="organization-title"
+                    placeholder={c.placeholderCareer}
+                    className={styles.input}
+                  />
                 </div>
-                <div className={styles.formGroup} style={{ flex: 1 }}>
-                  <input type="text" placeholder="Your age" className={styles.input} />
+                <div className={`${styles.formGroup} ${styles.rowField}`}>
+                  <input type="text" name="age" placeholder={c.placeholderAge} className={styles.input} />
                 </div>
               </div>
-
               <div className={styles.formGroup}>
-                <input type="text" placeholder="More about your need..." className={styles.input} />
+                <textarea
+                  name="needs"
+                  placeholder={c.placeholderNeeds}
+                  className={`${styles.input} ${styles.textarea}`}
+                  rows={4}
+                />
               </div>
-
               <button type="submit" className={styles.submitButton}>
-                Send your answer
+                {c.submitButton}
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                   <path d="M12 4L4 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                   <path d="M5 4H12V11" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />

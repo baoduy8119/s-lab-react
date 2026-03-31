@@ -1,7 +1,3 @@
-.section {
-  // padding: 100px 0;
-}
-
 .container {
   max-width: 1400px;
   margin: 0 auto;
@@ -48,14 +44,28 @@
 
 .textContent {
   flex: 1;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-areas: 
+    "header"
+    "quote"
+    "nav";
+  grid-template-columns: 1fr;
   max-width: 700px;
   height: 100%;
 }
 
+.topSection {
+  display: contents; // children become direct children of grid
+}
+
 .header {
+  grid-area: header;
   margin-bottom: 40px;
+}
+
+.navWrapper {
+  grid-area: nav;
+  margin-top: auto;
 }
 
 .name {
@@ -69,30 +79,33 @@
 
 .role {
   font-family: "MJ Satoshi", sans-serif;
-  font-size: 24px; // Matched with Name size as per visual
-  font-weight: 700; // Bold like Name
-  color: #9CA3AF; // Lighter Gray
+  font-size: 24px;
+  font-weight: 700;
+  color: #9CA3AF;
   line-height: 1.2;
 }
 
 .quote {
+  grid-area: quote;
   font-family: "MJ Satoshi", sans-serif;
-  font-size: 20px; // Slightly smaller than header
+  font-size: 20px;
   line-height: 1.6;
   color: #111827;
   margin-bottom: 60px;
-  font-weight: 400; // Regular
-  max-width: 90%; // prevent full width stretch for readability
+  font-weight: 400;
+  max-width: 90%;
 }
 
 .navigation {
   display: flex;
   align-items: center;
-  gap: 24px;
-  margin-top: auto;
+  gap: 16px; // Tighter gap for circles
 }
 
 .navBtnPrev, .navBtnNext {
+  position: relative;
+  width: 38px;
+  height: 38px;
   background: none;
   border: none;
   cursor: pointer;
@@ -105,31 +118,33 @@
   &:hover {
     transform: scale(1.1);
   }
-}
 
-.navBtnPrev {
-  color: #111827; // Black arrow
-  width: 48px;
-  height: 48px;
-}
-
-.navBtnNext {
-  position: relative;
-  width: 38px;
-  height: 38px;
-  color: #ffffff; // White arrow
-  
   .circleBg {
     position: absolute;
     inset: 0;
-    background: #000000;
     border-radius: 50%;
     z-index: 1;
   }
   
-  .arrowIcon {
+  svg {
     position: relative;
     z-index: 2;
+    width: 20px; // Scaled down arrows
+    height: 20px;
+  }
+}
+
+.navBtnPrev {
+  color: #111827;
+  .circleBg {
+    background: #ffffff;
+  }
+}
+
+.navBtnNext {
+  color: #ffffff;
+  .circleBg {
+    background: #000000;
   }
 }
 
@@ -137,16 +152,58 @@
 @media (max-width: 1024px) {
   .slideContent {
     flex-direction: column;
-    gap: 40px;
+    gap: 24px;
   }
   
   .imageWrapper {
     max-width: 100%;
     width: 100%;
-    display: block; // Reset flex for mobile if needed
+  }
+
+  .textContent {
+    grid-template-areas: 
+      "header nav"
+      "quote quote";
+    grid-template-columns: 1fr auto;
+    gap: 16px;
+  }
+
+  .header {
+    margin-bottom: 0;
+  }
+
+  .navWrapper {
+    margin-top: 0;
+    display: flex;
+    align-items: center;
   }
   
-  .name { font-size: 28px; }
-  .role { font-size: 20px; }
-  .quote { font-size: 20px; }
+  .name { 
+    font-size: 20px; // Per Figma
+    margin-bottom: 4px;
+  }
+  
+  .role { 
+    font-size: 16px; // Per Figma
+    font-weight: 400; // Regular on mobile
+    color: #6b7280;
+  }
+  
+  .quote { 
+    font-size: 14px; // Per Figma
+    line-height: 20px;
+    margin-bottom: 0;
+    max-width: 100%;
+    color: #111827;
+  }
+
+  .navigation {
+    gap: 8px; // Closer arrows
+  }
+}
+
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 20px;
+  }
 }

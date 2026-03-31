@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import type { Swiper as SwiperType } from "swiper";
@@ -8,78 +8,56 @@ import { EffectCoverflow, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import styles from "./LibrarySystem.module.scss";
+import { useSLibraryContentStore } from "@/app/features/dashboard/stores/useSLibraryContentStore";
+import { useLocalizedContent } from "@/app/hooks/useLocalizedContent";
 
 const LibrarySystem = React.memo(function LibrarySystem() {
-  const categories = [
-    {
-      id: 1,
-      name: "Design and Media",
-      image: "/images/slib/design-media.png",
-    },
-    {
-      id: 2,
-      name: "Content Writing",
-      image: "/images/slib/content-writing.png",
-    },
-    {
-      id: 3,
-      name: "Data Analytics",
-      image: "/images/slib/data-analytics.png",
-    },
-    {
-      id: 4,
-      name: "Marketing Planning",
-      image: "/images/slib/marketing-planning-lib.png",
-    },
-  ];
+  const c = useLocalizedContent(useSLibraryContentStore((s) => s.content.slibLibrarySystem));
 
-  const libraryCardsData = [
-    {
-      id: 1,
-      title: "Data Analytics",
-      image: "/images/slib/data-analytics.png",
-    },
-    {
-      id: 2,
-      title: "Content Writing",
-      image: "/images/slib/content-writing.png",
-    },
-    {
-      id: 3,
-      title: "Marketing Planning",
-      image: "/images/slib/marketing-planning-lib.png",
-    },
-    {
-      id: 4,
-      title: "Design and Media",
-      image: "/images/slib/design-media.png",
-    },
-    {
-      id: 5,
-      title: "Logo/Illustration",
-      image: "/images/slib/lib-card-5.svg",
-    },
-  ];
+  const categories = useMemo(
+    () => [
+      { id: 1, name: c.cat1Name, image: c.cat1Image },
+      { id: 2, name: c.cat2Name, image: c.cat2Image },
+      { id: 3, name: c.cat3Name, image: c.cat3Image },
+      { id: 4, name: c.cat4Name, image: c.cat4Image },
+    ],
+    [c]
+  );
+
+  const libraryCardsData = useMemo(
+    () => [
+      { id: 1, title: c.card1Title, image: c.card1Image },
+      { id: 2, title: c.card2Title, image: c.card2Image },
+      { id: 3, title: c.card3Title, image: c.card3Image },
+      { id: 4, title: c.card4Title, image: c.card4Image },
+      { id: 5, title: c.card5Title, image: c.card5Image },
+    ],
+    [c]
+  );
 
   const [isReady, setIsReady] = React.useState(false);
   const [swiperInstance, setSwiperInstance] = React.useState<SwiperType | null>(null);
+  const [isMobile, setIsMobile] = React.useState(false);
 
   React.useEffect(() => {
     setIsReady(true);
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
   return (
     <section className={styles.section}>
-      <h2 className={styles.title} data-aos="fade-up">/The S-Lab library system.</h2>
+      <h2 className={styles.title} data-aos="fade-up">{c.heading}</h2>
 
-      {/* Library Cards Display */}
       {isReady && (
         <div className={styles.cardsContainerOuter}>
           <Swiper
             onSwiper={setSwiperInstance}
-            effect="coverflow"
+            effect={isMobile ? "slide" : "coverflow"}
             grabCursor={true}
-            centeredSlides={true}
+            centeredSlides={!isMobile}
             slidesPerView="auto"
             loop={true}
             autoplay={{
@@ -87,7 +65,14 @@ const LibrarySystem = React.memo(function LibrarySystem() {
               disableOnInteraction: false,
               pauseOnMouseEnter: true,
             }}
-            coverflowEffect={{
+            coverflowEffect={isMobile ? {
+              rotate: 0,
+              stretch: 0,
+              depth: 0,
+              modifier: 1,
+              slideShadows: false,
+              scale: 1,
+            } : {
               rotate: 30,
               stretch: -20,
               depth: 150,
@@ -106,6 +91,7 @@ const LibrarySystem = React.memo(function LibrarySystem() {
                     alt={card.title}
                     fill
                     style={{ objectFit: "cover" }}
+                    unoptimized={card.image.startsWith("data:")}
                   />
                   <div className={styles.cardLabel}>
                     {card.title.split("/").map((part, i) => (
@@ -122,7 +108,6 @@ const LibrarySystem = React.memo(function LibrarySystem() {
         </div>
       )}
 
-      {/* View All Button */}
       <div className={styles.viewAllContainer} data-aos="fade-up" data-aos-delay="600">
         <button
           className={styles.viewAllButton}
@@ -141,7 +126,6 @@ const LibrarySystem = React.memo(function LibrarySystem() {
         </button>
       </div>
 
-      {/* Category Tags */}
       <div className={styles.categories}>
         {categories.map((category, index) => (
           <div
@@ -151,7 +135,13 @@ const LibrarySystem = React.memo(function LibrarySystem() {
             data-aos-delay={index * 100}
           >
             <div className={styles.categoryImage}>
-              <Image src={category.image} alt={category.name} fill style={{ objectFit: "cover" }} />
+              <Image
+                src={category.image}
+                alt={category.name}
+                fill
+                style={{ objectFit: "cover" }}
+                unoptimized={category.image.startsWith("data:")}
+              />
             </div>
             <span className={styles.categoryName}>{category.name}</span>
           </div>
