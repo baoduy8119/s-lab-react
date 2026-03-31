@@ -14,6 +14,8 @@ ENV DASHBOARD_PASSWORD=$DASHBOARD_PASSWORD
 ENV DASHBOARD_SESSION_SECRET=$DASHBOARD_SESSION_SECRET
 ENV NODE_ENV=production
 
+RUN echo "DEBUG: DATABASE_URL: |${DATABASE_URL}|"
+
 # Install app dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
 # where available (npm@5+)
