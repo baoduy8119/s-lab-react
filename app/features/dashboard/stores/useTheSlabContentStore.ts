@@ -4,6 +4,8 @@ import type { HomepageContent, SectionConfig, SectionContent } from "../types/co
 
 const CONTENT_KEY = "the-s-lab";
 
+const EMPTY_SECTION_CONTENT = Object.freeze({}) as SectionContent;
+
 export const theSlabSections: SectionConfig[] = [
   {
     id: "slabHero",
@@ -407,6 +409,6 @@ export const useTheSlabContentStore = create<TheSlabContentState>((set, get) => 
   },
 
   getSection: (sectionId) => {
-    return get().content[sectionId] ?? {};
+    return get().content[sectionId] ?? EMPTY_SECTION_CONTENT;
   },
 }));

@@ -5,7 +5,7 @@ import { verifySessionToken, COOKIE_NAME } from "@/app/lib/auth";
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
-const VALID_KEYS = ["homepage", "courses", "slibrary", "the-s-lab", "footer"];
+const VALID_KEYS = ["homepage", "courses", "courseDetails", "slibrary", "the-s-lab", "footer"];
 
 const noStoreJson = (body: unknown, status = 200) =>
   NextResponse.json(body, {

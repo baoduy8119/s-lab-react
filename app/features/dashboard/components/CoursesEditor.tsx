@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useMemo, useCallback } from "react";
+import Link from "next/link";
 import {
   staticSections,
   buildCourseSectionConfig,
@@ -11,6 +12,7 @@ import { useLanguageStore } from "../stores/useLanguageStore";
 import { useTranslations } from "../i18n/translations";
 import SectionEditor from "./SectionEditor";
 import styles from "./CoursesEditor.module.scss";
+import { courseIdAndTitleToSlug } from "@/app/lib/courseSlugs";
 
 const CoursesEditor = React.memo(function CoursesEditor() {
   const content = useCoursesContentStore((s) => s.content);
@@ -172,35 +174,59 @@ const CoursesEditor = React.memo(function CoursesEditor() {
               updateField={updateField}
               resetSection={resetSection}
             />
-            <button
-              type="button"
-              className={styles.removeBtn}
-              onClick={() =>
-                handleRemoveCard(
-                  section.id,
-                  (content[section.id]?.title as string) || section.title
-                )
-              }
-              disabled={cardIds.length <= 1}
-              title={
-                cardIds.length <= 1
-                  ? tt.atLeastOneCard
-                  : tt.removeTooltip(section.title)
-              }
-            >
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 14 14"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
+            <div className={styles.cardActions}>
+              <Link
+                className={styles.detailLinkBtn}
+                href={`/dashboard/courses/${courseIdAndTitleToSlug(section.id, (content[section.id]?.title as string) || "")}`}
               >
-                <path d="M1.5 3.5h11M5.5 6v4M8.5 6v4M2.5 3.5l.5 8a1 1 0 001 1h6a1 1 0 001-1l.5-8M4.5 3.5V2a1 1 0 011-1h3a1 1 0 011 1v1.5" />
-              </svg>
-              {tt.remove}
-            </button>
+                Edit detail
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 12 12"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M1 11L11 1M11 1H3M11 1V9"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </Link>
+
+              <button
+                type="button"
+                className={styles.removeBtn}
+                onClick={() =>
+                  handleRemoveCard(
+                    section.id,
+                    (content[section.id]?.title as string) || section.title
+                  )
+                }
+                disabled={cardIds.length <= 1}
+                title={
+                  cardIds.length <= 1
+                    ? tt.atLeastOneCard
+                    : tt.removeTooltip(section.title)
+                }
+              >
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 14 14"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                >
+                  <path d="M1.5 3.5h11M5.5 6v4M8.5 6v4M2.5 3.5l.5 8a1 1 0 001 1h6a1 1 0 001-1l.5-8M4.5 3.5V2a1 1 0 011-1h3a1 1 0 011 1v1.5" />
+                </svg>
+                {tt.remove}
+              </button>
+            </div>
           </div>
         ))}
       </div>

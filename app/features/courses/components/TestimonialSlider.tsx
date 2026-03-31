@@ -8,6 +8,11 @@ import "swiper/css/effect-fade";
 import PolygonImage from "@/app/components/PolygonImage";
 import styles from "./TestimonialSlider.module.scss";
 import Container from "@/app/components/Container";
+import {
+  detailSectionId,
+  useCourseDetailContentStore,
+} from "@/app/features/dashboard/stores/useCourseDetailContentStore";
+import { useLocalizedContent } from "@/app/hooks/useLocalizedContent";
 
 interface Testimonial {
   id: number;
@@ -17,29 +22,16 @@ interface Testimonial {
   image: string;
 }
 
-const testimonials: Testimonial[] = [
-  {
-    id: 1,
-    name: "Jacob B.",
-    role: "HR Manager Bank Central Indo",
-    quote: "“We’re a boundary-pushing creative agency from Yogyakarta — crafting innovative design, strategic narratives, and unforgettable brand journeys for those who dare to dream big.”",
-    image: "/images/courses/jacob.jpg"
-  },
-  {
-    id: 2,
-    name: "Sarah Jenkins",
-    role: "CMO TechFlow",
-    quote: "“The strategic insights from this course transformed our marketing approach. We moved from guessing to precision targeting in just weeks.”",
-    image: "/images/courses/jacob.jpg"
-  },
-  {
-    id: 3,
-    name: "Michael Chen",
-    role: "Founder StartupX",
-    quote: "“Excellent curriculum that balances theory with real-world application. The templates alone are worth the investment.”",
-    image: "/images/courses/jacob.jpg"
+function getTestimonialIndices(section: Record<string, unknown>): number[] {
+  const indices = new Set<number>();
+  for (const k of Object.keys(section)) {
+    const m = /^t(\d+)(Name|Role|Quote|Image)$/.exec(k);
+    if (!m) continue;
+    const n = Number(m[1]);
+    if (Number.isFinite(n) && n > 0) indices.add(n);
   }
-];
+  return Array.from(indices).sort((a, b) => a - b);
+}
 
 // Internal component to access Swiper context
 const NavButtons = () => {
@@ -76,7 +68,29 @@ const NavButtons = () => {
   );
 };
 
-const TestimonialSlider = React.memo(function TestimonialSlider() {
+interface TestimonialSliderProps {
+  courseId: string;
+}
+
+const TestimonialSlider = React.memo(function TestimonialSlider({
+  courseId,
+}: TestimonialSliderProps) {
+  const section = useLocalizedContent(
+    useCourseDetailContentStore((s) =>
+      s.getSection(detailSectionId(courseId, "testimonialSlider"))
+    )
+  );
+  const indices = getTestimonialIndices(section);
+  const testimonials: Testimonial[] = indices
+    .map((n) => ({
+      id: n,
+      name: (section[`t${n}Name`] as string) || "",
+      role: (section[`t${n}Role`] as string) || "",
+      quote: (section[`t${n}Quote`] as string) || "",
+      image: (section[`t${n}Image`] as string) || "",
+    }))
+    .filter((t) => t.name || t.role || t.quote || t.image);
+
   return (
     <section className={styles.section}>
       <Container>
@@ -96,7 +110,7 @@ const TestimonialSlider = React.memo(function TestimonialSlider() {
                 {/* Visual Side (Image) */}
                 <div className={styles.imageWrapper}>
                   <PolygonImage
-                    src={item.image}
+                    src={item.image || "/images/courses/jacob.jpg"}
                     alt={item.name}
                     width={297}
                     height={350}

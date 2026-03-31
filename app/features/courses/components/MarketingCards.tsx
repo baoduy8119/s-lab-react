@@ -6,6 +6,7 @@ import Link from "next/link";
 import styles from "./MarketingCards.module.scss";
 import { useCoursesContentStore } from "@/app/features/dashboard/stores/useCoursesContentStore";
 import { useLocalizedFullContent } from "@/app/hooks/useLocalizedContent";
+import { courseIdAndTitleToSlug } from "@/app/lib/courseSlugs";
 
 interface CardItem {
   id: string;
@@ -110,7 +111,11 @@ const MarketingCards = React.memo(function MarketingCards() {
 
         <div className={styles.grid}>
           {filteredCards.map((card) => (
-            <Link key={card.id} href={`/courses/${card.id}`} className={styles.card}>
+            <Link
+              key={card.id}
+              href={`/courses/${courseIdAndTitleToSlug(card.id, card.title)}`}
+              className={styles.card}
+            >
               <div className={styles.imageContainer}>
                 {card.image && (
                   <Image

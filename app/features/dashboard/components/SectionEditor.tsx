@@ -12,6 +12,7 @@ interface SectionEditorProps {
   content: SectionContent;
   updateField: (sectionId: string, key: string, value: string) => void;
   resetSection: (sectionId: string) => void;
+  extra?: React.ReactNode;
 }
 
 const SectionEditor = React.memo(function SectionEditor({
@@ -19,6 +20,7 @@ const SectionEditor = React.memo(function SectionEditor({
   content,
   updateField,
   resetSection,
+  extra,
 }: SectionEditorProps) {
   const [isOpen, setIsOpen] = useState(false);
   const locale = useLanguageStore((s) => s.locale);
@@ -43,9 +45,11 @@ const SectionEditor = React.memo(function SectionEditor({
       <div className={styles.header} onClick={handleToggle}>
         <div className={styles.headerLeft}>
           <h3 className={styles.sectionTitle}>{config.title}</h3>
-          <span className={styles.fieldCount}>
-            {config.fields.length} {tt.fields}
-          </span>
+          {config.fields.length > 0 && (
+            <span className={styles.fieldCount}>
+              {config.fields.length} {tt.fields}
+            </span>
+          )}
           {locale === "vi" && (
             <span className={styles.langBadge}>VI</span>
           )}
@@ -89,12 +93,14 @@ const SectionEditor = React.memo(function SectionEditor({
                 fieldKey={effectiveKey}
                 label={field.label}
                 type={field.type}
+                options={field.options}
                 value={(content[effectiveKey] as string) ?? ""}
                 referenceValue={referenceValue}
                 onChange={updateField}
               />
             );
           })}
+          {extra}
         </div>
       )}
     </div>
@@ -107,7 +113,8 @@ interface FieldRendererProps {
   sectionId: string;
   fieldKey: string;
   label: string;
-  type: "text" | "textarea" | "image";
+  type: "text" | "textarea" | "image" | "select";
+  options?: string[];
   value: string;
   referenceValue?: string;
   onChange: (sectionId: string, key: string, value: string) => void;
@@ -118,6 +125,7 @@ const FieldRenderer = React.memo(function FieldRenderer({
   fieldKey,
   label,
   type,
+  options,
   value,
   referenceValue,
   onChange,
@@ -127,7 +135,11 @@ const FieldRenderer = React.memo(function FieldRenderer({
   const tt = useTranslations(locale);
 
   const handleChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    (
+      e: React.ChangeEvent<
+        HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+      >
+    ) => {
       onChange(sectionId, fieldKey, e.target.value);
     },
     [sectionId, fieldKey, onChange]
@@ -208,6 +220,27 @@ const FieldRenderer = React.memo(function FieldRenderer({
           onChange={handleChange}
           rows={3}
         />
+      </div>
+    );
+  }
+
+  if (type === "select") {
+    return (
+      <div className={styles.field}>
+        <label className={styles.fieldLabel}>{label}</label>
+        {referenceBlock}
+        <select
+          className={styles.fieldInput}
+          value={value}
+          onChange={handleChange}
+        >
+          <option value="">Select…</option>
+          {(options ?? []).map((opt) => (
+            <option key={opt} value={opt}>
+              {opt}
+            </option>
+          ))}
+        </select>
       </div>
     );
   }

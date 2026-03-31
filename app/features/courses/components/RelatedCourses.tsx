@@ -7,6 +7,11 @@ import React from "react";
 import Link from "next/link";
 import styles from "./RelatedCourses.module.scss";
 import Container from "@/app/components/Container";
+import {
+  detailSectionId,
+  useCourseDetailContentStore,
+} from "@/app/features/dashboard/stores/useCourseDetailContentStore";
+import { useLocalizedContent } from "@/app/hooks/useLocalizedContent";
 
 interface CourseCard {
   id: number;
@@ -21,86 +26,51 @@ interface CourseCard {
   nextAvailable: string;
 }
 
-const courses: CourseCard[] = [
-  {
-    id: 1,
-    title: "/Operations & Execution Systems",
-    duration: "3-4 hours/class",
-    originalPrice: "$150",
-    price: "$100",
-    popular: false,
-    features: [
-      "The S-LAB is where theory and practice",
-      "The S-LAB is where theory and practice",
-      "The S-LAB is where theory and practice",
-      "The S-LAB is where theory and practice",
-      "The S-LAB is where theory and practice"
-    ],
-    buttonColor: "black",
-    checkboxColor: "black",
-    nextAvailable: "Jan 14, 2026"
-  },
-  {
-    id: 2,
-    title: "/Decision Intelligence with Data & AI",
-    duration: "3-4 hours/class",
-    originalPrice: "$550",
-    price: "$350",
-    popular: true,
-    features: [
-      "The S-LAB is where theory and practice",
-      "The S-LAB is where theory and practice",
-      "The S-LAB is where theory and practice",
-      "The S-LAB is where theory and practice",
-      "The S-LAB is where theory and practice"
-    ],
-    buttonColor: "red",
-    checkboxColor: "red",
-    nextAvailable: "Jan 20, 2026"
-  },
-  {
-    id: 3,
-    title: "/Operations & Execution Systems",
-    duration: "3-4 hours/class",
-    originalPrice: "$150",
-    price: "$100",
-    popular: false,
-    features: [
-      "The S-LAB is where theory and practice",
-      "The S-LAB is where theory and practice",
-      "The S-LAB is where theory and practice",
-      "The S-LAB is where theory and practice",
-      "The S-LAB is where theory and practice"
-    ],
-    buttonColor: "black",
-    checkboxColor: "black",
-    nextAvailable: "Jan 14, 2026"
-  },
-  {
-    id: 4,
-    title: "/Decision Intelligence with Data & AI",
-    duration: "3-4 hours/class",
-    originalPrice: "$550",
-    price: "$350",
-    popular: true,
-    features: [
-      "The S-LAB is where theory and practice",
-      "The S-LAB is where theory and practice",
-      "The S-LAB is where theory and practice",
-      "The S-LAB is where theory and practice",
-      "The S-LAB is where theory and practice"
-    ],
-    buttonColor: "red",
-    checkboxColor: "red",
-    nextAvailable: "Jan 20, 2026"
-  }
-];
+function splitLines(v: string): string[] {
+  return v
+    .split("\n")
+    .map((s) => s.trim())
+    .filter(Boolean);
+}
 
-const RelatedCourses = React.memo(function RelatedCourses() {
+interface RelatedCoursesProps {
+  courseId: string;
+}
+
+const RelatedCourses = React.memo(function RelatedCourses({
+  courseId,
+}: RelatedCoursesProps) {
+  const section = useLocalizedContent(
+    useCourseDetailContentStore((s) =>
+      s.getSection(detailSectionId(courseId, "relatedCourses"))
+    )
+  );
+
+  const heading = (section.heading as string) || "/Other related courses.";
+  const courses: CourseCard[] = [1, 2, 3, 4].map((i) => {
+    const buttonColorRaw = (section[`c${i}ButtonColor`] as string) || "black";
+    const checkboxColorRaw = (section[`c${i}CheckboxColor`] as string) || "black";
+    const buttonColor: "black" | "red" = buttonColorRaw === "red" ? "red" : "black";
+    const checkboxColor: "black" | "red" = checkboxColorRaw === "red" ? "red" : "black";
+    const popular = ((section[`c${i}Popular`] as string) || "false") === "true";
+    return {
+      id: i,
+      title: (section[`c${i}Title`] as string) || "",
+      duration: (section[`c${i}Duration`] as string) || "",
+      originalPrice: (section[`c${i}OriginalPrice`] as string) || "",
+      price: (section[`c${i}Price`] as string) || "",
+      popular,
+      features: splitLines((section[`c${i}Features`] as string) || ""),
+      buttonColor,
+      checkboxColor,
+      nextAvailable: (section[`c${i}NextAvailable`] as string) || "",
+    };
+  }).filter((c) => c.title || c.duration || c.price || c.originalPrice);
+
   return (
     <section className={styles.section}>
       <Container>
-        <h2 className={styles.sectionHeading}>/Other related courses.</h2>
+        <h2 className={styles.sectionHeading}>{heading}</h2>
 
         <Swiper
           modules={[Autoplay]}
@@ -169,7 +139,9 @@ const RelatedCourses = React.memo(function RelatedCourses() {
                       <path d="M5.33334 1.33331V3.99998" stroke="#111827" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                       <path d="M2.00001 6.66669H14" stroke="#111827" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
-                    <span>Next available: <strong>{course.nextAvailable}</strong></span>
+                    <span>
+                      Next available: <strong>{course.nextAvailable}</strong>
+                    </span>
                   </div>
                 </div>
               </div>

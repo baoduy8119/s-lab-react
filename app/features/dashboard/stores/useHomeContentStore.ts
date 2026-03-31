@@ -4,6 +4,8 @@ import type { HomepageContent, SectionConfig, SectionContent } from "../types/co
 
 const CONTENT_KEY = "homepage";
 
+const EMPTY_SECTION_CONTENT = Object.freeze({}) as SectionContent;
+
 export const homepageSections: SectionConfig[] = [
   {
     id: "hero",
@@ -428,6 +430,6 @@ export const useHomeContentStore = create<HomeContentState>((set, get) => ({
   },
 
   getSection: (sectionId) => {
-    return get().content[sectionId] ?? {};
+    return get().content[sectionId] ?? EMPTY_SECTION_CONTENT;
   },
 }));

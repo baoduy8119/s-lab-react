@@ -4,6 +4,8 @@ import type { HomepageContent, SectionConfig, SectionContent } from "../types/co
 
 const CONTENT_KEY = "footer";
 
+const EMPTY_SECTION_CONTENT = Object.freeze({}) as SectionContent;
+
 export const footerSections: SectionConfig[] = [
   {
     id: "footer",
@@ -177,6 +179,6 @@ export const useFooterContentStore = create<FooterContentState>((set, get) => ({
     }
   },
 
-  getSection: (sectionId) => get().content[sectionId] ?? {},
+  getSection: (sectionId) => get().content[sectionId] ?? EMPTY_SECTION_CONTENT,
 }));
 

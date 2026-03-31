@@ -8,6 +8,8 @@ import type {
 
 const CONTENT_KEY = "courses";
 
+const EMPTY_SECTION_CONTENT = Object.freeze({}) as SectionContent;
+
 // --- Course helpers ---
 
 const COURSE_FIELDS: SectionConfig["fields"] = [
@@ -49,11 +51,24 @@ export function buildCourseSectionConfig(
 
 // --- Marketing card helpers ---
 
+const CARD_CATEGORY_OPTIONS = [
+  "Self-Growth Lab",
+  "Business Thinking Lab",
+  "Marketing Lab",
+  "Creative Lab",
+  "Technology & AI Lab",
+];
+
 const CARD_FIELDS: SectionConfig["fields"] = [
   { key: "title", label: "Title", type: "text" },
   { key: "description", label: "Description", type: "textarea" },
   { key: "image", label: "Image", type: "image" },
-  { key: "category", label: "Category", type: "text" },
+  {
+    key: "category",
+    label: "Category",
+    type: "select",
+    options: CARD_CATEGORY_OPTIONS,
+  },
 ];
 
 export const NEW_CARD_DEFAULTS: SectionContent = {
@@ -547,6 +562,6 @@ export const useCoursesContentStore = create<CoursesContentState>(
       }
     },
 
-    getSection: (sectionId) => get().content[sectionId] ?? {},
+    getSection: (sectionId) => get().content[sectionId] ?? EMPTY_SECTION_CONTENT,
   })
 );

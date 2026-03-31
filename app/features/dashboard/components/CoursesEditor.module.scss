@@ -41,6 +41,34 @@
   position: relative;
 }
 
+.cardActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin: -8px 0 16px auto;
+}
+
+.detailLinkBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #111827;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.15s;
+
+  &:hover {
+    background: #f9fafb;
+    border-color: #d1d5db;
+  }
+}
+
 .removeBtn {
   display: flex;
   align-items: center;
@@ -54,7 +82,7 @@
   padding: 6px 12px;
   cursor: pointer;
   transition: all 0.15s;
-  margin: -8px 0 16px auto;
+  margin: 0;
 
   &:hover:not(:disabled) {
     color: #ef4444;

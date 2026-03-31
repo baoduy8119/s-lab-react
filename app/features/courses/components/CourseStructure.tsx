@@ -3,6 +3,11 @@
 import React from "react";
 import styles from "./CourseStructure.module.scss";
 import Container from "@/app/components/Container";
+import {
+  detailSectionId,
+  useCourseDetailContentStore,
+} from "@/app/features/dashboard/stores/useCourseDetailContentStore";
+import { useLocalizedContent } from "@/app/hooks/useLocalizedContent";
 
 interface Chapter {
   id: string;
@@ -13,65 +18,40 @@ interface Chapter {
   time: string;
 }
 
-const chapters: Chapter[] = [
-  {
-    id: "ch1",
-    number: 1,
-    title: "Marketing System Overview",
-    theme: "light",
-    content: [
-      "How marketing works end-to-end (goals → strategy → execution → measurement)",
-      "Key frameworks & terminology"
-    ],
-    time: "WEEK 01"
-  },
-  {
-    id: "ch2",
-    number: 2,
-    title: "Audience & Customer Insight",
-    theme: "dark",
-    content: [
-      "ICP definition + segmentation basics",
-      "Buyer journey mapping"
-    ],
-    time: "WEEK 01"
-  },
-  {
-    id: "ch3",
-    number: 3,
-    title: "Positioning & Messaging",
-    theme: "light",
-    content: [
-      "Value proposition + differentiation",
-      "Messaging house (core message, proof, tone)"
-    ],
-    time: "WEEK 01"
-  },
-  {
-    id: "ch4",
-    number: 4,
-    title: "Channels & Execution Planning",
-    theme: "light",
-    content: [
-      "Channel selection logic (organic/paid/owned/community)",
-      "Basic campaign plan + content planning"
-    ],
-    time: "WEEK 01"
-  },
-  {
-    id: "ch5",
-    number: 5,
-    title: "Measurement & Optimization Basics",
-    theme: "dark",
-    content: [
-      "KPI selection + dashboard basics",
-      "How to review results and iterate"
-    ],
-    time: "WEEK 01"
-  }
-];
+function splitLines(v: string): string[] {
+  return v
+    .split("\n")
+    .map((s) => s.trim())
+    .filter(Boolean);
+}
 
-const CourseStructure = React.memo(function CourseStructure() {
+interface CourseStructureProps {
+  courseId: string;
+}
+
+const CourseStructure = React.memo(function CourseStructure({
+  courseId,
+}: CourseStructureProps) {
+  const section = useLocalizedContent(
+    useCourseDetailContentStore((s) =>
+      s.getSection(detailSectionId(courseId, "structure"))
+    )
+  );
+
+  const heading = (section.heading as string) || "/Course Structure.";
+  const chapters: Chapter[] = [1, 2, 3, 4, 5].map((n) => {
+    const themeRaw = (section[`ch${n}Theme`] as string) || "light";
+    const theme: "light" | "dark" = themeRaw === "dark" ? "dark" : "light";
+    return {
+      id: `ch${n}`,
+      number: n,
+      title: (section[`ch${n}Title`] as string) || "",
+      theme,
+      content: splitLines((section[`ch${n}Content`] as string) || ""),
+      time: (section[`ch${n}Time`] as string) || "",
+    };
+  });
+
   const renderCard = (chapter: Chapter) => (
     <div key={chapter.id} className={`${styles.card} ${styles[`card${chapter.number}`]}`}>
       <div className={`${styles.header} ${styles[chapter.theme]}`}>
@@ -97,7 +77,7 @@ const CourseStructure = React.memo(function CourseStructure() {
   return (
     <section className={styles.section}>
       <Container>
-        <h2 className={styles.heading}>/Course Structure.</h2>
+        <h2 className={styles.heading}>{heading}</h2>
 
         {/* Desktop View: Staggered columns */}
         <div className={styles.desktopLayout}>

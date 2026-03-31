@@ -8,11 +8,16 @@ import {
   mergeCoursesFromSaved,
   type CoursesStoredData,
 } from "@/app/features/dashboard/stores/useCoursesContentStore";
+import {
+  mergeCourseDetailsFromSaved,
+  type CourseDetailStoredData,
+} from "@/app/features/dashboard/stores/useCourseDetailContentStore";
 
 export type SiteContentBootstrapPayload = {
   homepage?: HomepageContent;
   footer?: HomepageContent;
   courses?: ReturnType<typeof mergeCoursesFromSaved>;
+  courseDetails?: HomepageContent;
   theSlab?: HomepageContent;
   slibrary?: HomepageContent;
 };
@@ -28,12 +33,23 @@ export async function buildHomeSiteContentPayload(): Promise<SiteContentBootstra
 }
 
 export async function buildCoursesSiteContentPayload(): Promise<SiteContentBootstrapPayload> {
-  const rows = await loadSiteContentRows(["homepage", "footer", THE_SLAB, "courses"]);
+  const rows = await loadSiteContentRows([
+    "homepage",
+    "footer",
+    THE_SLAB,
+    "courses",
+    "courseDetails",
+  ]);
+  const courses = mergeCoursesFromSaved(
+    rows.courses as CoursesStoredData | HomepageContent | null | undefined
+  );
   return {
     homepage: mergeHomepageFromSaved(rows.homepage as HomepageContent | null),
     footer: mergeFooterFromSavedRows(rows.footer, rows.homepage, rows[THE_SLAB]),
-    courses: mergeCoursesFromSaved(
-      rows.courses as CoursesStoredData | HomepageContent | null | undefined
+    courses,
+    courseDetails: mergeCourseDetailsFromSaved(
+      rows.courseDetails as CourseDetailStoredData | HomepageContent | null | undefined,
+      courses.cardIds
     ),
   };
 }

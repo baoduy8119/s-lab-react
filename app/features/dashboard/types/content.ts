@@ -1,9 +1,10 @@
-export type ContentFieldType = "text" | "textarea" | "image";
+export type ContentFieldType = "text" | "textarea" | "image" | "select";
 
 export interface ContentFieldConfig {
   key: string;
   label: string;
   type: ContentFieldType;
+  options?: string[];
 }
 
 export interface SectionConfig {

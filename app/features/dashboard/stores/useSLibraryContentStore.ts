@@ -4,6 +4,8 @@ import type { HomepageContent, SectionConfig, SectionContent } from "../types/co
 
 const CONTENT_KEY = "slibrary";
 
+const EMPTY_SECTION_CONTENT = Object.freeze({}) as SectionContent;
+
 export const sLibrarySections: SectionConfig[] = [
   {
     id: "slibHero",
@@ -380,6 +382,6 @@ export const useSLibraryContentStore = create<SLibraryContentState>((set, get) =
   },
 
   getSection: (sectionId) => {
-    return get().content[sectionId] ?? {};
+    return get().content[sectionId] ?? EMPTY_SECTION_CONTENT;
   },
 }));

@@ -4,6 +4,7 @@ import { useFooterContentStore } from "@/app/features/dashboard/stores/useFooter
 import { useCoursesContentStore } from "@/app/features/dashboard/stores/useCoursesContentStore";
 import { useTheSlabContentStore } from "@/app/features/dashboard/stores/useTheSlabContentStore";
 import { useSLibraryContentStore } from "@/app/features/dashboard/stores/useSLibraryContentStore";
+import { useCourseDetailContentStore } from "@/app/features/dashboard/stores/useCourseDetailContentStore";
 
 /** Applies server-fetched merged content before paint (call from SiteContentBootstrap during render). */
 export function applySiteContentBootstrap(payload: SiteContentBootstrapPayload): void {
@@ -18,6 +19,15 @@ export function applySiteContentBootstrap(payload: SiteContentBootstrapPayload):
       content: payload.courses.content,
       courseIds: payload.courses.courseIds,
       cardIds: payload.courses.cardIds,
+      isDirty: false,
+    });
+  }
+  if (payload.courseDetails) {
+    // Also ensure courseIds align to courses' cardIds when present.
+    const courseIds = payload.courses?.cardIds ?? useCourseDetailContentStore.getState().courseIds;
+    useCourseDetailContentStore.setState({
+      content: payload.courseDetails,
+      courseIds,
       isDirty: false,
     });
   }
