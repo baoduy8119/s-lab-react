@@ -1,7 +1,7 @@
 // Limitless Desire Section
 .section {
   width: 100%;
-  padding: 0 80px 80px;
+  padding: 0 40px 80px;
   display: flex;
   flex-direction: column;
 
@@ -52,7 +52,7 @@
   transition: all 0.3s ease;
 
   @media (max-width: 1024px) {
-    flex-direction: row; 
+    flex-direction: row;
     gap: 0; // Use space-between with fixed right-side width instead of flexible gap
     padding-bottom: 24px;
     justify-content: space-between;
@@ -110,7 +110,7 @@
   line-height: 38px;
   letter-spacing: -0.2px;
   color: #111827;
-  
+
   @media (max-width: 1024px) {
     font-size: 24px;
     line-height: 30px;
@@ -149,7 +149,7 @@
 }
 
 .accordionItem.open .accordionContentWrapper {
-  max-height: 2000px; 
+  max-height: 2000px;
   opacity: 1;
   margin-top: 16px;
 }
@@ -178,7 +178,8 @@
   overflow: hidden;
 
   // Ensure PolygonImage fills the flex item
-  > div, img {
+  > div,
+  img {
     width: 100% !important;
     height: auto !important;
   }

@@ -8,6 +8,8 @@ import { useLocalizedContent } from "@/app/hooks/useLocalizedContent";
 import Image from "next/image";
 import React from "react";
 import styles from "./Hero.module.scss";
+import Container from "@/app/components/Container";
+
 
 // Highlight Component (for inline use with decorative pills)
 interface HighlightProps {
@@ -142,57 +144,59 @@ const Hero = React.memo(function Hero() {
         />
 
         {/* Main Content Container */}
-        <div className={styles.contentWrapper}>
-          {/* Header Section */}
-          <div className={styles.headerSection}>
-            <h1 className={styles.title} data-aos="fade-up">{c.title}</h1>
-            <div className={styles.logoGroup} data-aos="fade-up" data-aos-delay="100">
-              <SLabLogoBlack width={90} height={33} />
+        <Container>
+          <div className={styles.contentWrapper}>
+            {/* Header Section */}
+            <div className={styles.headerSection}>
+              <h1 className={styles.title} data-aos="fade-up">{c.title}</h1>
+              <div className={styles.logoGroup} data-aos="fade-up" data-aos-delay="100">
+                <SLabLogoBlack width={90} height={33} />
+              </div>
+            </div>
+
+            {/* Description Text with Inline Highlights */}
+            <div
+              className={`${styles.description} ${isVi ? styles.viDesc : ""}`}
+              data-aos="fade-up"
+              data-aos-delay="200"
+            >
+              <p>
+                {c.p1Prefix}{" "}
+                <Highlight color="yellow" rotation={1} pillPosition="top-left" pillSize="tall">
+                  {c.p1Highlight1}
+                </Highlight>{" "}
+                <Highlight color="pink" red rotation={-1} pillPosition="bottom-right" pillSize="medium">
+                  {c.p1Highlight2}
+                </Highlight>{" "}
+                {c.p1Suffix}
+              </p>
+              <p>
+                <Highlight color="yellow" pillPosition="top-left" pillSize="medium">
+                  {c.p2Highlight1}
+                </Highlight>{" "}
+                {c.p2Middle}{" "}
+                <Highlight color="pink" rotation={3} red pillSize="medium">
+                  {c.p2Highlight2}
+                </Highlight>{" "}
+                {c.p2Suffix}
+              </p>
+              <p>
+                {c.p3Prefix}{" "}
+                <Highlight color="yellow" rotation={1} pillPosition="top-left" pillSize="tall">
+                  {c.p3Highlight1}
+                </Highlight>
+                <Highlight color="yellow" pillPosition="bottom-right" pillSize="medium">
+                  {c.p3Highlight2}
+                </Highlight>
+                {" "}
+                <Highlight color="pink" rotation={-2} red>
+                  {c.p3Highlight3}
+                </Highlight>{" "}
+                {c.p3Suffix}
+              </p>
             </div>
           </div>
-
-          {/* Description Text with Inline Highlights */}
-          <div
-            className={`${styles.description} ${isVi ? styles.viDesc : ""}`}
-            data-aos="fade-up"
-            data-aos-delay="200"
-          >
-            <p>
-              {c.p1Prefix}{" "}
-              <Highlight color="yellow" rotation={1} pillPosition="top-left" pillSize="tall">
-                {c.p1Highlight1}
-              </Highlight>{" "}
-              <Highlight color="pink" red rotation={-1} pillPosition="bottom-right" pillSize="medium">
-                {c.p1Highlight2}
-              </Highlight>{" "}
-              {c.p1Suffix}
-            </p>
-            <p>
-              <Highlight color="yellow" pillPosition="top-left" pillSize="medium">
-                {c.p2Highlight1}
-              </Highlight>{" "}
-              {c.p2Middle}{" "}
-              <Highlight color="pink" rotation={3} red pillSize="medium">
-                {c.p2Highlight2}
-              </Highlight>{" "}
-              {c.p2Suffix}
-            </p>
-            <p>
-              {c.p3Prefix}{" "}
-              <Highlight color="yellow" rotation={1} pillPosition="top-left" pillSize="tall">
-                {c.p3Highlight1}
-              </Highlight>
-              <Highlight color="yellow" pillPosition="bottom-right" pillSize="medium">
-                {c.p3Highlight2}
-              </Highlight>
-              {" "}
-              <Highlight color="pink" rotation={-2} red>
-                {c.p3Highlight3}
-              </Highlight>{" "}
-              {c.p3Suffix}
-            </p>
-          </div>
-        </div>
+        </Container>
 
         {/* Footer Section */}
       </div>
