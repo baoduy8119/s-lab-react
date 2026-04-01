@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./HomeWhoSupports.module.scss";
@@ -69,6 +69,12 @@ const HomeWhoSupports = React.memo(function HomeWhoSupports() {
 
   const [activeId, setActiveId] = useState<string>(() => items[0]?.id ?? "");
 
+  useEffect(() => {
+    if (items.length === 0) return;
+    const hasActive = items.some((i) => i.id === activeId);
+    if (!hasActive) setActiveId(items[0]!.id);
+  }, [items, activeId]);
+
   return (
     <section className={styles.section}>
       <Container>
@@ -130,6 +136,10 @@ const HomeWhoSupports = React.memo(function HomeWhoSupports() {
                   key={item.id}
                   className={`${styles.accordionItem} ${isActive ? styles.active : ""}`}
                   onMouseEnter={() => setActiveId(item.id)}
+                  onFocus={() => setActiveId(item.id)}
+                  onClick={() => setActiveId(item.id)}
+                  role="button"
+                  tabIndex={0}
                 >
                   <div className={styles.itemBg}>
                     <Image

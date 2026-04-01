@@ -85,11 +85,17 @@
   line-height: 1.4;
   margin-bottom: 40px;
   min-height: 4.2em;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
+  display: block;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+@supports (-webkit-line-clamp: 3) and (-webkit-box-orient: vertical) {
+  .quoteText {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
 }
 
 .userInfo {
