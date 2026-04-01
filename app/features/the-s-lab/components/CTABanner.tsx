@@ -13,7 +13,7 @@ import { useMediaQuery } from "@/app/hooks/useMediaQuery";
 
 const CTABanner = React.memo(function CTABanner() {
   const c = useLocalizedContent(useTheSlabContentStore((s) => s.content.slabCtaBanner));
-  const isMobile = useMediaQuery("(max-width: 1024px)");
+  const isMobile = useMediaQuery("(max-width: 768px)");
 
   return (
     <PolygonSection topLeftCut={60} topLeftCutMobile={40} >

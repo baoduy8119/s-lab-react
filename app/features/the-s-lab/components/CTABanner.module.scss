@@ -12,7 +12,9 @@
   letter-spacing: -0.7px;
   margin-bottom: 24px;
   max-width: 840px;
-
+  @media screen and (min-width: 1536px) {
+    max-width: 100%;
+  }
   @media (max-width: 1024px) {
     font-size: 32px;
     line-height: 40px;
@@ -32,6 +34,10 @@
   line-height: 77px;
   letter-spacing: -0.7px;
   max-width: 960px;
+
+  @media screen and (min-width: 1536px) {
+    max-width: 100%;
+  }
 
   @media (max-width: 1024px) {
     font-size: 32px;
@@ -114,4 +120,3 @@
     flex-shrink: 0;
   }
 }
-

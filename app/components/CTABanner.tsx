@@ -12,12 +12,12 @@ interface CTABannerProps {
 const CTABanner = React.memo(function CTABanner({
   children,
   className,
-  height = "785px",
+  height,
 }: CTABannerProps) {
   return (
     <section
       className={`${styles.banner} ${className || ""}`}
-      style={{ height: typeof height === "number" ? `${height}px` : height }}
+      style={{ height: typeof height === "number" ? `${height}px` : 'undefined' }}
     >
       <div className={styles.content}>{children}</div>
     </section>
