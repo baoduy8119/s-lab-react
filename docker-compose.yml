@@ -5,9 +5,18 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        - DATABASE_URL=${DATABASE_URL}
+        - DASHBOARD_USERNAME=${DASHBOARD_USERNAME}
+        - DASHBOARD_PASSWORD=${DASHBOARD_PASSWORD}
+        - DASHBOARD_SESSION_SECRET=${DASHBOARD_SESSION_SECRET}
     container_name: sLab
     ports:
       - "8010:3000"
     restart: always
     environment:
       NODE_ENV: production
+      DATABASE_URL: ${DATABASE_URL}
+      DASHBOARD_USERNAME: ${DASHBOARD_USERNAME}
+      DASHBOARD_PASSWORD: ${DASHBOARD_PASSWORD}
+      DASHBOARD_SESSION_SECRET: ${DASHBOARD_SESSION_SECRET}
