@@ -76,7 +76,8 @@ const SectionEditor = React.memo(function SectionEditor({
       {isOpen && (
         <div className={styles.body}>
           {config.fields.map((field) => {
-            const isShared = field.type === "image";
+            const isShared =
+              field.type === "image" || field.localeShared === true;
             const effectiveKey =
               locale === "vi" && !isShared
                 ? `${field.key}_vi`
@@ -94,6 +95,7 @@ const SectionEditor = React.memo(function SectionEditor({
                 label={field.label}
                 type={field.type}
                 options={field.options}
+                localeShared={field.localeShared === true}
                 value={(content[effectiveKey] as string) ?? ""}
                 referenceValue={referenceValue}
                 onChange={updateField}
@@ -113,8 +115,15 @@ interface FieldRendererProps {
   sectionId: string;
   fieldKey: string;
   label: string;
-  type: "text" | "textarea" | "image" | "select";
+  type:
+    | "text"
+    | "textarea"
+    | "image"
+    | "select"
+    | "multiselect"
+    | "checkbox";
   options?: string[];
+  localeShared?: boolean;
   value: string;
   referenceValue?: string;
   onChange: (sectionId: string, key: string, value: string) => void;
@@ -126,6 +135,7 @@ const FieldRenderer = React.memo(function FieldRenderer({
   label,
   type,
   options,
+  localeShared,
   value,
   referenceValue,
   onChange,
@@ -158,12 +168,13 @@ const FieldRenderer = React.memo(function FieldRenderer({
     [sectionId, fieldKey, onChange]
   );
 
-  const referenceBlock = referenceValue !== undefined ? (
-    <div className={styles.reference}>
-      <span className={styles.referenceLabel}>EN:</span>{" "}
-      {referenceValue || <span className={styles.referenceEmpty}>(empty)</span>}
-    </div>
-  ) : null;
+  const referenceBlock =
+    referenceValue !== undefined && !localeShared ? (
+      <div className={styles.reference}>
+        <span className={styles.referenceLabel}>EN:</span>{" "}
+        {referenceValue || <span className={styles.referenceEmpty}>(empty)</span>}
+      </div>
+    ) : null;
 
   if (type === "image") {
     return (
@@ -241,6 +252,61 @@ const FieldRenderer = React.memo(function FieldRenderer({
             </option>
           ))}
         </select>
+      </div>
+    );
+  }
+
+  if (type === "multiselect") {
+    let selected = new Set<string>();
+    try {
+      const parsed = JSON.parse(value || "[]");
+      if (Array.isArray(parsed)) {
+        selected = new Set(parsed.filter((x) => typeof x === "string"));
+      }
+    } catch {
+      /* keep empty */
+    }
+
+    const toggleOption = (opt: string) => {
+      const next = new Set(selected);
+      if (next.has(opt)) next.delete(opt);
+      else next.add(opt);
+      onChange(sectionId, fieldKey, JSON.stringify([...next]));
+    };
+
+    return (
+      <div className={styles.field}>
+        <label className={styles.fieldLabel}>{label}</label>
+        {referenceBlock}
+        <div className={styles.multiselectList}>
+          {(options ?? []).map((opt) => (
+            <label key={opt} className={styles.multiselectOption}>
+              <input
+                type="checkbox"
+                checked={selected.has(opt)}
+                onChange={() => toggleOption(opt)}
+              />
+              {opt}
+            </label>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (type === "checkbox") {
+    return (
+      <div className={styles.field}>
+        <label className={styles.checkboxField}>
+          <input
+            type="checkbox"
+            checked={value === "true"}
+            onChange={(e) =>
+              onChange(sectionId, fieldKey, e.target.checked ? "true" : "false")
+            }
+          />
+          <span className={styles.fieldLabelInline}>{label}</span>
+        </label>
       </div>
     );
   }

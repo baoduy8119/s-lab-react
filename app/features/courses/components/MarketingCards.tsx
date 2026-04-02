@@ -4,7 +4,10 @@ import React, { useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./MarketingCards.module.scss";
-import { useCoursesContentStore } from "@/app/features/dashboard/stores/useCoursesContentStore";
+import {
+  parseCardCategoriesJson,
+  useCoursesContentStore,
+} from "@/app/features/dashboard/stores/useCoursesContentStore";
 import { useLocalizedFullContent } from "@/app/hooks/useLocalizedContent";
 import { courseIdAndTitleToSlug } from "@/app/lib/courseSlugs";
 
@@ -13,7 +16,7 @@ interface CardItem {
   title: string;
   description: string;
   image: string;
-  category: string;
+  categories: string[];
 }
 
 const MarketingCards = React.memo(function MarketingCards() {
@@ -28,12 +31,13 @@ const MarketingCards = React.memo(function MarketingCards() {
         .map((id) => {
           const c = content[id];
           if (!c) return null;
+          if ((c.showOnStorefront as string) === "false") return null;
           return {
             id,
             title: (c.title as string) ?? "",
             description: (c.description as string) ?? "",
             image: (c.image as string) ?? "",
-            category: (c.category as string) ?? "",
+            categories: parseCardCategoriesJson(c.categories as string),
           };
         })
         .filter((c): c is CardItem => c !== null),
@@ -41,14 +45,19 @@ const MarketingCards = React.memo(function MarketingCards() {
   );
 
   const categories = useMemo(() => {
-    const unique = new Set(cards.map((c) => c.category).filter(Boolean));
+    const unique = new Set<string>();
+    for (const card of cards) {
+      for (const cat of card.categories) {
+        unique.add(cat);
+      }
+    }
     return ["All", ...Array.from(unique)];
   }, [cards]);
 
   const filteredCards =
     activeTab === "All"
       ? cards
-      : cards.filter((card) => card.category === activeTab);
+      : cards.filter((card) => card.categories.includes(activeTab));
 
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 

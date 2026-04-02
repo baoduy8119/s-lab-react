@@ -60,25 +60,73 @@ const CARD_CATEGORY_OPTIONS = [
 ];
 
 const CARD_FIELDS: SectionConfig["fields"] = [
+  {
+    key: "showOnStorefront",
+    label: "Show on storefront (/courses)",
+    type: "checkbox",
+    localeShared: true,
+  },
   { key: "title", label: "Title", type: "text" },
   { key: "description", label: "Description", type: "textarea" },
   { key: "image", label: "Image", type: "image" },
   {
-    key: "category",
-    label: "Category",
-    type: "select",
+    key: "categories",
+    label: "Categories",
+    type: "multiselect",
     options: CARD_CATEGORY_OPTIONS,
+    localeShared: true,
   },
 ];
 
+/** Maps legacy single-select labels to current lab options. */
+const LEGACY_CATEGORY_TO_OPTIONS: Record<string, string[]> = {
+  "Marketing Foundations": ["Marketing Lab"],
+  "Business Fundamentals": ["Business Thinking Lab"],
+  "Advanced Marketing": ["Marketing Lab"],
+};
+
+export function parseCardCategoriesJson(raw: string | undefined): string[] {
+  if (!raw?.trim()) return [];
+  try {
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return [];
+    return parsed.filter((x): x is string => typeof x === "string" && x.length > 0);
+  } catch {
+    return [];
+  }
+}
+
+function normalizeCardContent(section: SectionContent): SectionContent {
+  const raw = { ...section };
+  const hasCategories =
+    typeof raw.categories === "string" && raw.categories.trim() !== "";
+  if (!hasCategories) {
+    const en = ((raw.category as string) || "").trim();
+    const vi = ((raw.category_vi as string) || "").trim();
+    const legacy = en || vi;
+    if (legacy.startsWith("[") && legacy.endsWith("]")) {
+      raw.categories = legacy;
+    } else if (legacy) {
+      const mapped = LEGACY_CATEGORY_TO_OPTIONS[legacy];
+      raw.categories = JSON.stringify(mapped ?? [legacy]);
+    } else {
+      raw.categories = "[]";
+    }
+  }
+  if (raw.showOnStorefront === undefined || raw.showOnStorefront === "") {
+    raw.showOnStorefront = "true";
+  }
+  return raw;
+}
+
 export const NEW_CARD_DEFAULTS: SectionContent = {
+  showOnStorefront: "true",
   title: "New Card",
   title_vi: "Thẻ mới",
   description: "",
   description_vi: "",
   image: "",
-  category: "",
-  category_vi: "",
+  categories: "[]",
 };
 
 export function buildCardSectionConfig(
@@ -256,6 +304,7 @@ export const defaultCoursesContent: HomepageContent = {
     availability_vi: "Lịch khai giảng: 15/04/2026",
   },
   card1: {
+    showOnStorefront: "true",
     title: "Marketing Foundation",
     title_vi: "Marketing Foundation",
     description:
@@ -263,10 +312,10 @@ export const defaultCoursesContent: HomepageContent = {
     description_vi:
       "Giúp bạn hệ thống lại toàn bộ tư duy end-to-end và cách triển khai. Học cách lập kế hoạch dựa trên dữ liệu để tránh cảm tính, ứng dụng AI đúng chỗ để tăng tốc làm việc và nâng chất lượng đầu ra.",
     image: "/images/courses/mar-1.jpg",
-    category: "Marketing Foundations",
-    category_vi: "Nền tảng Marketing",
+    categories: JSON.stringify(["Marketing Lab"]),
   },
   card2: {
+    showOnStorefront: "true",
     title: "Master Marketing Planning",
     title_vi: "Master Marketing Planning",
     description:
@@ -274,10 +323,10 @@ export const defaultCoursesContent: HomepageContent = {
     description_vi:
       "Giúp bạn xây dựng một bộ khung từ chiến lược đến vận hành. Bằng cách đi từng bước trong chu trình làm việc để kế hoạch có logic rõ ràng, khả thi và có cơ chế kiểm soát hiệu quả.",
     image: "/images/courses/mar-2.jpg",
-    category: "Business Fundamentals",
-    category_vi: "Kiến thức kinh doanh cơ bản",
+    categories: JSON.stringify(["Business Thinking Lab"]),
   },
   card3: {
+    showOnStorefront: "true",
     title: "Facebook Ads",
     title_vi: "Facebook ADS",
     description:
@@ -285,10 +334,10 @@ export const defaultCoursesContent: HomepageContent = {
     description_vi:
       "Bạn sẽ chuẩn hóa tài sản Meta (BM, Fanpage, Pixel, Events), thiết lập mục tiêu và KPI theo bài toán kinh doanh, sau đó triển khai cấu trúc campaign theo mục tiêu và quy trình test, tối ưu, scale theo ngưỡng chỉ số.",
     image: "/images/courses/mar-3.jpg",
-    category: "Advanced Marketing",
-    category_vi: "Marketing nâng cao",
+    categories: JSON.stringify(["Marketing Lab"]),
   },
   card4: {
+    showOnStorefront: "true",
     title: "Content Marketing",
     title_vi: "Content Marketing",
     description:
@@ -296,10 +345,10 @@ export const defaultCoursesContent: HomepageContent = {
     description_vi:
       "Giúp bạn xây một cách làm bài bản nhưng thực tế, trở thành một hệ thống có chiến lược, có quy trình, có đo lường. Bạn bắt đầu từ nền tảng để gỡ rối và khơi thông ý tưởng, đi sâu cách vận hành từng nền tảng social để phát triển đa kênh, sau đó nâng cấp sang các lớp chiến lược",
     image: "/images/courses/mar-1.jpg",
-    category: "Marketing Foundations",
-    category_vi: "Nền tảng Marketing",
+    categories: JSON.stringify(["Marketing Lab"]),
   },
   card5: {
+    showOnStorefront: "true",
     title: "UI/UX Design Foundation",
     title_vi: "UI/UX Design Foundation",
     description:
@@ -307,10 +356,10 @@ export const defaultCoursesContent: HomepageContent = {
     description_vi:
       "Đi theo quy trình end-to-end như một dự án thật, làm trên Figma với tiêu chuẩn bàn giao rõ ràng, từ xác định vấn đề, hiểu người dùng, thiết kế luồng và khung, triển khai UI theo hệ thống, làm prototype để review, đến chuẩn bị file handoff và case study để ứng tuyển hoặc áp dụng ngay trong công việc.",
     image: "/images/courses/mar-2.jpg",
-    category: "Business Fundamentals",
-    category_vi: "Kiến thức kinh doanh cơ bản",
+    categories: JSON.stringify(["Business Thinking Lab"]),
   },
   card6: {
+    showOnStorefront: "true",
     title: "YouTube AI Mastery",
     title_vi: "Youtube AI Mastery",
     description:
@@ -318,10 +367,10 @@ export const defaultCoursesContent: HomepageContent = {
     description_vi:
       "Thông qua lộ trình 2 ngày - 4 buổi học, học viên không chỉ nắm kiến thức mà còn xây được định hướng kênh, quy trình sản xuất và lộ trình triển khai rõ ràng sau khóa học.",
     image: "/images/courses/mar-3.jpg",
-    category: "Advanced Marketing",
-    category_vi: "Marketing nâng cao",
+    categories: JSON.stringify(["Marketing Lab"]),
   },
   card7: {
+    showOnStorefront: "true",
     title: "TikTok Ads Growth System",
     title_vi: "TikTok ADS Growth System",
     description:
@@ -329,10 +378,10 @@ export const defaultCoursesContent: HomepageContent = {
     description_vi:
       "Được thiết kế để học viên triển khai end-to-end: xác định mục tiêu và KPI theo funnel, chuẩn hóa tracking, xây audience map, phát triển hệ creative (Hook-Story-Proof-CTA) và vận hành theo nhịp test-learn-scale, AI được tích hợp như công cụ tăng tốc.",
     image: "/images/courses/mar-1.jpg",
-    category: "Marketing Foundations",
-    category_vi: "Nền tảng Marketing",
+    categories: JSON.stringify(["Marketing Lab"]),
   },
   card8: {
+    showOnStorefront: "true",
     title: "YouTube MMO",
     title_vi: "Youtube MMO",
     description:
@@ -340,10 +389,10 @@ export const defaultCoursesContent: HomepageContent = {
     description_vi:
       "Khóa học này được thiết kế từ cơ chế nền tảng -> chọn niche có cơ hội -> research đúng cách -> làm và đăng video đầu tiên -> tối ưu tiêu đề/thumbnail/SEO -> đọc số để sửa -> ra roadmap 90 ngày để phát triển kênh bền.",
     image: "/images/courses/mar-2.jpg",
-    category: "Business Fundamentals",
-    category_vi: "Kiến thức kinh doanh cơ bản",
+    categories: JSON.stringify(["Business Thinking Lab"]),
   },
   card9: {
+    showOnStorefront: "true",
     title: "Google Ads",
     title_vi: "Google ADS Thuc chien",
     description:
@@ -351,8 +400,7 @@ export const defaultCoursesContent: HomepageContent = {
     description_vi:
       "Bạn sẽ học theo cách của người làm nghề: có checklist, có log tối ưu, có rule ra quyết định và có dashboard để báo cáo bằng insight, không chỉ bằng số.",
     image: "/images/courses/mar-3.jpg",
-    category: "Advanced Marketing",
-    category_vi: "Marketing nâng cao",
+    categories: JSON.stringify(["Marketing Lab"]),
   },
 };
 
@@ -400,6 +448,12 @@ export function mergeCoursesFromSaved(
   for (const id of savedCardIds) {
     if (!merged[id]) {
       merged[id] = { ...NEW_CARD_DEFAULTS, ...savedContent[id] };
+    }
+  }
+
+  for (const key of Object.keys(merged)) {
+    if (key.startsWith("card")) {
+      merged[key] = normalizeCardContent(merged[key]);
     }
   }
 

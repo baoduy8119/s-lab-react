@@ -1,10 +1,18 @@
-export type ContentFieldType = "text" | "textarea" | "image" | "select";
+export type ContentFieldType =
+  | "text"
+  | "textarea"
+  | "image"
+  | "select"
+  | "multiselect"
+  | "checkbox";
 
 export interface ContentFieldConfig {
   key: string;
   label: string;
   type: ContentFieldType;
   options?: string[];
+  /** When true, field is not split into EN / `_vi` keys (same as image fields). */
+  localeShared?: boolean;
 }
 
 export interface SectionConfig {
