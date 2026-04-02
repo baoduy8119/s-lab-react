@@ -6,7 +6,6 @@
   padding-bottom: 60px;
   background-color: #eaeaea;
   overflow: hidden;
-  font-family: "MJ Satoshi", sans-serif;
   color: #111827;
 }
 
@@ -44,7 +43,6 @@
   animation: scroll 20s linear infinite;
 
   span {
-    font-family: "MJ Satoshi", sans-serif;
     font-weight: 700;
     font-size: 14px;
     line-height: 20px;
@@ -76,7 +74,6 @@
   z-index: 5;
   pointer-events: none;
   
-  font-family: "MJ Satoshi", sans-serif;
   font-weight: 700;
   font-size: 20px;
   line-height: 24px;
@@ -127,7 +124,6 @@
 }
 
 .title {
-  font-family: "MJ Satoshi", sans-serif;
   font-weight: 700;
   font-size: clamp(48px, 6.5vw, 72px);
   line-height: 1.1;
@@ -137,7 +133,6 @@
 }
 
 .subtitle {
-  font-family: "MJ Satoshi", sans-serif;
   font-weight: 700;
   font-size: clamp(40px, 5.5vw, 72px);
   line-height: 1.1;
@@ -155,7 +150,6 @@
 }
 
 .description {
-  font-family: "MJ Satoshi", sans-serif;
   font-weight: 600;
   font-size: clamp(16px, 1.4vw, 20px);
   line-height: 1.5;
@@ -165,7 +159,6 @@
 }
 
 .descriptionSecondary {
-  font-family: "MJ Satoshi", sans-serif;
   font-weight: 600;
   font-size: clamp(16px, 1.4vw, 20px);
   line-height: 1.5;
@@ -214,7 +207,6 @@
   position: absolute;
   top: clamp(16px, 2vw, 30px);
   right: clamp(16px, 2vw, 30px);
-  font-family: "MJ Satoshi", sans-serif;
   font-weight: 700;
   font-size: clamp(20px, 2.2vw, 32px);
   line-height: 1.2;
@@ -227,7 +219,6 @@
   position: absolute;
   bottom: clamp(16px, 2vw, 30px);
   left: clamp(16px, 2vw, 30px);
-  font-family: "MJ Satoshi", sans-serif;
   font-weight: 700;
   font-size: clamp(16px, 1.8vw, 24px);
   line-height: 1.2;

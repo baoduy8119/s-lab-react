@@ -27,7 +27,6 @@
 
 // --- Header Cells ---
 .headerCell {
-  font-family: "MJ Satoshi", sans-serif;
   font-size: 16px;
   font-weight: 500;
   color: #111827;
@@ -134,7 +133,6 @@
   display: flex;
   align-items: center;
   gap: 100px;
-  font-family: "MJ Satoshi", sans-serif;
   color: #6b7280;
   font-size: 18px;
   font-weight: 700;
@@ -145,7 +143,6 @@
 }
 
 .courseTitle {
-  font-family: "MJ Satoshi", sans-serif;
   font-size: 80px;
   font-weight: 600;
   color: #111827;
@@ -174,7 +171,6 @@
   color: white;
   border: none;
   padding: 12px 24px;
-  font-family: "MJ Satoshi", sans-serif;
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
@@ -206,9 +202,9 @@
 }
 
 .dateText { display: flex; flex-direction: column; }
-.label { font-family: "MJ Satoshi", sans-serif; font-size: 14px; margin-bottom: 2px; }
-.value { font-family: "MJ Satoshi", sans-serif; font-size: 16px; font-weight: 700; color: #111827; }
-.duration { font-family: "MJ Satoshi", sans-serif; font-size: 16px; font-weight: 600; color: #111827; }
+.label { font-size: 14px; margin-bottom: 2px; }
+.value { font-size: 16px; font-weight: 700; color: #111827; }
+.duration { font-size: 16px; font-weight: 600; color: #111827; }
 
 // --- Mobile Design (100% Match) ---
 @media (max-width: 1024px) {

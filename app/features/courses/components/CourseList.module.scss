@@ -43,7 +43,6 @@
 }
 
 .title {
-  font-family: "MJ Satoshi", sans-serif;
   font-weight: 700;
   font-size: 56px;
   line-height: 1.1;
@@ -53,7 +52,6 @@
 }
 
 .description {
-  font-family: "MJ Satoshi", sans-serif;
   font-size: 18px;
   line-height: 28px;
   color: #374151; /* Gray-700 */
@@ -122,14 +120,12 @@
 }
 
 .ratingScore {
-  font-family: "MJ Satoshi", sans-serif;
   font-weight: 700;
   font-size: 14px;
   color: #111827;
 }
 
 .socialDesc {
-  font-family: "MJ Satoshi", sans-serif;
   font-size: 12px;
   line-height: 1.4;
   color: #6B7280;
@@ -176,7 +172,6 @@
 }
 
 .courseTitle {
-  font-family: "MJ Satoshi", sans-serif;
   font-weight: 700;
   font-size: 24px;
   line-height: 30px;
@@ -189,7 +184,6 @@
 }
 
 .duration {
-  font-family: "MJ Satoshi", sans-serif;
   font-weight: 700;
   font-size: 16px;
   line-height: 22px;
@@ -233,7 +227,6 @@
 }
 
 .price {
-  font-family: "MJ Satoshi", sans-serif;
   font-weight: 700;
   font-size: 48px;
   line-height: 58px;
@@ -241,7 +234,6 @@
 }
 
 .oldPrice {
-  font-family: "MJ Satoshi", sans-serif;
   font-weight: 700;
   font-size: 20px;
   color: #6B7280;
@@ -249,7 +241,6 @@
 }
 
 .perPerson {
-  font-family: "MJ Satoshi", sans-serif;
   font-weight: 700;
   font-size: 20px;
   color: #6B7280;
@@ -283,7 +274,6 @@
   display: flex;
   align-items: flex-start; 
   gap: 16px;
-  font-family: "MJ Satoshi", sans-serif;
   font-size: 16px; 
   line-height: 24px;
   font-weight: 500;
@@ -301,7 +291,6 @@
   background-color: #000000;
   color: #ffffff;
   padding: 16px 24px; 
-  font-family: "MJ Satoshi", sans-serif;
   font-weight: 700;
   font-size: 16px;
   border: none;
@@ -331,7 +320,6 @@
 }
 
 .availability {
-  font-family: "MJ Satoshi", sans-serif;
   font-size: 16px;
   color: #111827;
   font-weight: 500;

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Manrope } from "next/font/google";
+import { Inter } from "next/font/google";
 import { cookies } from "next/headers";
 import { DASHBOARD_LOCALE_COOKIE_NAME } from "./lib/localeConstants";
 import {
@@ -8,19 +8,9 @@ import {
 } from "./features/dashboard/stores/useLanguageStore";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-const manrope = Manrope({
-  variable: "--font-manrope",
-  subsets: ["latin", "vietnamese"],
 });
 
 export const metadata: Metadata = {
@@ -40,7 +30,7 @@ export default async function RootLayout({
   return (
     <html lang={initialLocale}>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${manrope.variable} antialiased`}
+        className={`${inter.variable} antialiased`}
         suppressHydrationWarning={true}
       >
         <LocaleProvider initialLocale={initialLocale}>{children}</LocaleProvider>

@@ -60,7 +60,6 @@
   vertical-align: middle;
   background: #ffffff;
   color: #9CA3AF; // Dark black for contrast
-  font-family: "MJ Satoshi", sans-serif;
   font-size: 20px;
   padding: 3px 16px; // Pill shape padding
   border-radius: 100px;
@@ -81,14 +80,12 @@
 }
 
 .priceLabel {
-  font-family: "MJ Satoshi", sans-serif;
   font-size: 20px; // Match image size approx
   color: #9CA3AF;
   font-weight: 500;
 }
 
 .originalPrice {
-  font-family: "MJ Satoshi", sans-serif;
   font-size: 20px;
   color: #9CA3AF;
   text-decoration: line-through;
@@ -96,14 +93,12 @@
 }
 
 .earlyBirdText {
-  font-family: "MJ Satoshi", sans-serif;
   font-size: 16px;
   color: #9CA3AF;
   margin: 0 0 8px 0;
 }
 
 .finalPrice {
-  font-family: "MJ Satoshi", sans-serif;
   font-size: 64px;
   font-weight: 700;
   color: #ffffff;
@@ -121,7 +116,6 @@
 }
 
 .columnTitle {
-  font-family: "MJ Satoshi", sans-serif;
   font-size: 32px;
   font-weight: 700;
   color: #ffffff;
@@ -149,7 +143,6 @@
 }
 
 .benefitText {
-  font-family: "MJ Satoshi", sans-serif;
   font-size: 24px;
   line-height: 1.5;
   color: #9CA3AF !important;
@@ -168,7 +161,6 @@
   gap: 8px;
   background: #EF4444; // Red
   color: #ffffff;
-  font-family: "MJ Satoshi", sans-serif;
   font-size: 16px;
   font-weight: 600;
   padding: 16px 32px;
