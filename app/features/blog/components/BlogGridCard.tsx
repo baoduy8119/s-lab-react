@@ -32,7 +32,9 @@ const BlogGridCard = React.memo(function BlogGridCard({
       <div className={styles.bottomRow}>
         <div className={styles.contentCol}>
           <h3 className={styles.title}>{title}</h3>
-          <p className={styles.excerpt}>{excerpt}</p>
+          <div className={styles.excerptWrapper}>
+            <p className={styles.excerpt}>{excerpt}</p>
+          </div>
         </div>
 
         <div className={styles.dateCol}>
