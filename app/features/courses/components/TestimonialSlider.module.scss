@@ -1,5 +1,4 @@
 .container {
-  max-width: 1400px;
   margin: 0 auto;
   padding: 0 40px;
 }
@@ -27,7 +26,6 @@
 
 .imageWrapper {
   flex: 1;
-  max-width: 300px;
   position: relative;
   
   // Ensure image maintains strict aspect ratio if needed, or rely on width/height props
@@ -50,7 +48,6 @@
     "quote"
     "nav";
   grid-template-columns: 1fr;
-  max-width: 700px;
   height: 100%;
 }
 
@@ -90,7 +87,6 @@
   color: #111827;
   margin-bottom: 60px;
   font-weight: 400;
-  max-width: 90%;
 }
 
 .navigation {

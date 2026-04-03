@@ -15,7 +15,10 @@
 .quoteIconWrapper {
   margin: 0 auto;
   text-align: left;
-  max-width: 650px;
+
+  @media (max-width: 1024px) {
+    max-width: 650px;
+  }
 }
 
 .quoteIcon {

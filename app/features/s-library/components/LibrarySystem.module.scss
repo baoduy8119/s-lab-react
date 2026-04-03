@@ -65,7 +65,7 @@
   letter-spacing: -0.2px;
   color: #ffffff;
   z-index: 2;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .viewAllContainer {
@@ -124,7 +124,7 @@
     margin: 0;
     padding: 0;
     width: 100%;
-    margin-left: -16px; 
+    margin-left: -16px;
   }
 
   .swiperContainer {
@@ -171,6 +171,6 @@
 
 @media (max-width: 768px) {
   .viewAllContainer {
-    display: none; 
+    display: none;
   }
 }

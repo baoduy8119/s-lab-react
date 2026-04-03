@@ -1,4 +1,54 @@
 /* HeroSection.module.scss */
+.heroWordmark {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.heroWordmarkPart {
+  display: block;
+  height: auto;
+  object-fit: contain;
+}
+
+@media screen and (max-width: 768px) {
+  .heroWordmark {
+    max-width: 300px;
+    align-items: flex-start;
+  }
+
+  .heroWordmarkPart {
+    height: 70px;
+    width: auto;
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 2000px) {
+  .heroWordmark {
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 60px;
+  }
+
+  .heroWordmarkPart {
+    width: auto;
+    height: 100%;
+  }
+
+  .heroTagline {
+    width: 100%;
+  }
+
+  .heroFeedback {
+    width: 100%;
+  }
+
+  .heroContainer {
+    top: 200px;
+  }
+}
+
 .container {
   position: relative;
   width: 100%;
@@ -49,39 +99,114 @@
 
 /* Rotations based on 5x5 grid */
 /* Row 1 */
-.tr-1:hover ~ .item { transition: 125ms ease-in-out; transform: rotateX(20deg) rotateY(-10deg); }
-.tr-2:hover ~ .item { transition: 125ms ease-in-out; transform: rotateX(20deg) rotateY(-5deg); }
-.tr-3:hover ~ .item { transition: 125ms ease-in-out; transform: rotateX(20deg) rotateY(0deg); }
-.tr-4:hover ~ .item { transition: 125ms ease-in-out; transform: rotateX(20deg) rotateY(5deg); }
-.tr-5:hover ~ .item { transition: 125ms ease-in-out; transform: rotateX(20deg) rotateY(10deg); }
+.tr-1:hover ~ .item {
+  transition: 125ms ease-in-out;
+  transform: rotateX(20deg) rotateY(-10deg);
+}
+.tr-2:hover ~ .item {
+  transition: 125ms ease-in-out;
+  transform: rotateX(20deg) rotateY(-5deg);
+}
+.tr-3:hover ~ .item {
+  transition: 125ms ease-in-out;
+  transform: rotateX(20deg) rotateY(0deg);
+}
+.tr-4:hover ~ .item {
+  transition: 125ms ease-in-out;
+  transform: rotateX(20deg) rotateY(5deg);
+}
+.tr-5:hover ~ .item {
+  transition: 125ms ease-in-out;
+  transform: rotateX(20deg) rotateY(10deg);
+}
 
 /* Row 2 */
-.tr-6:hover ~ .item { transition: 125ms ease-in-out; transform: rotateX(10deg) rotateY(-10deg); }
-.tr-7:hover ~ .item { transition: 125ms ease-in-out; transform: rotateX(10deg) rotateY(-5deg); }
-.tr-8:hover ~ .item { transition: 125ms ease-in-out; transform: rotateX(10deg) rotateY(0deg); }
-.tr-9:hover ~ .item { transition: 125ms ease-in-out; transform: rotateX(10deg) rotateY(5deg); }
-.tr-10:hover ~ .item { transition: 125ms ease-in-out; transform: rotateX(10deg) rotateY(10deg); }
+.tr-6:hover ~ .item {
+  transition: 125ms ease-in-out;
+  transform: rotateX(10deg) rotateY(-10deg);
+}
+.tr-7:hover ~ .item {
+  transition: 125ms ease-in-out;
+  transform: rotateX(10deg) rotateY(-5deg);
+}
+.tr-8:hover ~ .item {
+  transition: 125ms ease-in-out;
+  transform: rotateX(10deg) rotateY(0deg);
+}
+.tr-9:hover ~ .item {
+  transition: 125ms ease-in-out;
+  transform: rotateX(10deg) rotateY(5deg);
+}
+.tr-10:hover ~ .item {
+  transition: 125ms ease-in-out;
+  transform: rotateX(10deg) rotateY(10deg);
+}
 
 /* Row 3 */
-.tr-11:hover ~ .item { transition: 125ms ease-in-out; transform: rotateX(0deg) rotateY(-10deg); }
-.tr-12:hover ~ .item { transition: 125ms ease-in-out; transform: rotateX(0deg) rotateY(-5deg); }
-.tr-13:hover ~ .item { transition: 125ms ease-in-out; transform: rotateX(0deg) rotateY(0deg); }
-.tr-14:hover ~ .item { transition: 125ms ease-in-out; transform: rotateX(0deg) rotateY(5deg); }
-.tr-15:hover ~ .item { transition: 125ms ease-in-out; transform: rotateX(0deg) rotateY(10deg); }
+.tr-11:hover ~ .item {
+  transition: 125ms ease-in-out;
+  transform: rotateX(0deg) rotateY(-10deg);
+}
+.tr-12:hover ~ .item {
+  transition: 125ms ease-in-out;
+  transform: rotateX(0deg) rotateY(-5deg);
+}
+.tr-13:hover ~ .item {
+  transition: 125ms ease-in-out;
+  transform: rotateX(0deg) rotateY(0deg);
+}
+.tr-14:hover ~ .item {
+  transition: 125ms ease-in-out;
+  transform: rotateX(0deg) rotateY(5deg);
+}
+.tr-15:hover ~ .item {
+  transition: 125ms ease-in-out;
+  transform: rotateX(0deg) rotateY(10deg);
+}
 
 /* Row 4 */
-.tr-16:hover ~ .item { transition: 125ms ease-in-out; transform: rotateX(-10deg) rotateY(-10deg); }
-.tr-17:hover ~ .item { transition: 125ms ease-in-out; transform: rotateX(-10deg) rotateY(-5deg); }
-.tr-18:hover ~ .item { transition: 125ms ease-in-out; transform: rotateX(-10deg) rotateY(0deg); }
-.tr-19:hover ~ .item { transition: 125ms ease-in-out; transform: rotateX(-10deg) rotateY(5deg); }
-.tr-20:hover ~ .item { transition: 125ms ease-in-out; transform: rotateX(-10deg) rotateY(10deg); }
+.tr-16:hover ~ .item {
+  transition: 125ms ease-in-out;
+  transform: rotateX(-10deg) rotateY(-10deg);
+}
+.tr-17:hover ~ .item {
+  transition: 125ms ease-in-out;
+  transform: rotateX(-10deg) rotateY(-5deg);
+}
+.tr-18:hover ~ .item {
+  transition: 125ms ease-in-out;
+  transform: rotateX(-10deg) rotateY(0deg);
+}
+.tr-19:hover ~ .item {
+  transition: 125ms ease-in-out;
+  transform: rotateX(-10deg) rotateY(5deg);
+}
+.tr-20:hover ~ .item {
+  transition: 125ms ease-in-out;
+  transform: rotateX(-10deg) rotateY(10deg);
+}
 
 /* Row 5 */
-.tr-21:hover ~ .item { transition: 125ms ease-in-out; transform: rotateX(-20deg) rotateY(-10deg); }
-.tr-22:hover ~ .item { transition: 125ms ease-in-out; transform: rotateX(-20deg) rotateY(-5deg); }
-.tr-23:hover ~ .item { transition: 125ms ease-in-out; transform: rotateX(-20deg) rotateY(0deg); }
-.tr-24:hover ~ .item { transition: 125ms ease-in-out; transform: rotateX(-20deg) rotateY(5deg); }
-.tr-25:hover ~ .item { transition: 125ms ease-in-out; transform: rotateX(-20deg) rotateY(10deg); }
+.tr-21:hover ~ .item {
+  transition: 125ms ease-in-out;
+  transform: rotateX(-20deg) rotateY(-10deg);
+}
+.tr-22:hover ~ .item {
+  transition: 125ms ease-in-out;
+  transform: rotateX(-20deg) rotateY(-5deg);
+}
+.tr-23:hover ~ .item {
+  transition: 125ms ease-in-out;
+  transform: rotateX(-20deg) rotateY(0deg);
+}
+.tr-24:hover ~ .item {
+  transition: 125ms ease-in-out;
+  transform: rotateX(-20deg) rotateY(5deg);
+}
+.tr-25:hover ~ .item {
+  transition: 125ms ease-in-out;
+  transform: rotateX(-20deg) rotateY(10deg);
+}
 
 .noselect {
   user-select: none;

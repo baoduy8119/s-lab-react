@@ -7,12 +7,13 @@ import MouseTracker3D from "./MouseTracker3D";
 import { useHomeContentStore } from "@/app/features/dashboard/stores/useHomeContentStore";
 import { useLocalizedContent } from "@/app/hooks/useLocalizedContent";
 import TheSlabMobile from "./icons/TheSlabMobile";
+import styles from "./HeroSection.module.scss";
 
 const HeroSection = React.memo(function HeroSection() {
   const c = useLocalizedContent(useHomeContentStore((s) => s.content.hero));
 
   return (
-    <section className="relative w-full lg:h-[860px] overflow-hidden bg-white">
+    <section className="relative w-full lg:h-[780px] overflow-hidden bg-white">
       {/* Background Pattern */}
       <div
         className="absolute inset-0 opacity-[0.04]"
@@ -42,7 +43,26 @@ const HeroSection = React.memo(function HeroSection() {
             acc.push(word);
             return acc;
           }, [])} */}
-          <img src="/images/hero-graphic.svg" alt="TheSlabMobile" />
+          <span className={styles.heroWordmark} aria-label="The S-Lab">
+            <Image
+              className={styles.heroWordmarkPart}
+              src="/images/the.png"
+              alt="The"
+              width={804}
+              height={246}
+              sizes="(max-width: 1024px) 300px, 402px"
+              priority
+            />
+            <Image
+              className={styles.heroWordmarkPart}
+              src="/images/s-lab.png"
+              alt="S-Lab"
+              width={1190}
+              height={255}
+              sizes="(max-width: 1024px) 300px, 595px"
+              priority
+            />
+          </span>
         </h1>
 
         <div
@@ -117,16 +137,35 @@ const HeroSection = React.memo(function HeroSection() {
       </div>
 
       <div
-        className="hidden lg:flex absolute left-[75px] top-[82px] w-[595px] flex-col gap-[30px]"
+        className={`${styles.heroContainer} hidden lg:flex absolute left-[75px] top-[82px] w-[595px] xl:w-[900px] flex-col gap-[30px]`}
         data-aos="fade-right"
         data-aos-duration="1000"
       >
-        <h1 className="text-xl font-bold text-[#111827] w-[347px] leading-[27.5px] tracking-[-0.225px]">
+        <h1 className={`${styles.heroTagline} text-xl font-bold text-[#111827] w-[347px] leading-[27.5px] tracking-[-0.225px]`}>
           {c.tagline}
         </h1>
 
-        <div className="w-[595px] h-[279px]">
-          <Image src="/images/hero-graphic.svg" alt="Hero Graphic" width={595} height={280} />
+        <div className="">
+          <div className={styles.heroWordmark} aria-label="The S-Lab">
+            <Image
+              className={styles.heroWordmarkPart}
+              src="/images/the.png"
+              alt="The"
+              width={402}
+              height={123}
+              sizes="(max-width: 1024px) 300px, 402px"
+              priority
+            />
+            <Image
+              className={styles.heroWordmarkPart}
+              src="/images/s-lab.png"
+              alt="S-Lab"
+              width={595}
+              height={127}
+              sizes="(max-width: 1024px) 300px, 595px"
+              priority
+            />
+          </div>
         </div>
 
         <div className="flex items-center gap-3">
@@ -138,7 +177,7 @@ const HeroSection = React.memo(function HeroSection() {
           </button>
         </div>
 
-        <div className="w-[269px] flex flex-col">
+        <div className={`${styles.heroFeedback} w-[269px] flex flex-col`}>
           <div className="flex items-center gap-2">
             <Image src="/images/star-rating.svg" alt="5 stars" width={56} height={8} />
             <span className="text-[#111827] text-xs font-bold leading-[16px] tracking-[-0.12px]">

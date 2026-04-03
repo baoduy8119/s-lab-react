@@ -3,7 +3,6 @@
 }
 
 .container {
-  max-width: 1400px;
   margin: 0 auto;
   padding: 0 40px;
   display: flex;
@@ -54,7 +53,6 @@
   line-height: 1.5;
   color: #111827;
   margin: 60px 0 0;
-  max-width: 90%; // prevent text from hitting edge too hard
 }
 
 // --- Responsive ---

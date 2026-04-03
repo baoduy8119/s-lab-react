@@ -11,7 +11,7 @@
   align-items: flex-start;
   gap: 124px;
   margin-bottom: 45px;
-  max-width: 1400px; // Ensure TopInfo stays contained within the section width
+  // max-width removed for desktop full-width
   margin-left: auto;
   margin-right: auto;
   padding-bottom: 0;
@@ -76,7 +76,6 @@
   font-size: 16px;
   color: #6B7280;
   line-height: 1.6;
-  max-width: 800px;
 }
 
 .bottomSection {

@@ -200,7 +200,7 @@ const Hero = React.memo(function Hero() {
 
         {/* Footer Section */}
       </div>
-      <div className="mt-[100px]" data-aos="fade-up" data-aos-delay="300">
+      <div className="mt-[100px] lg:mt-[200px]" data-aos="fade-up" data-aos-delay="300">
         <PartnerLogos />
       </div>
     </section>

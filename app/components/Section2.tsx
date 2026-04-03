@@ -95,7 +95,7 @@ const Section2 = React.memo(function Section2() {
       {/* DESKTOP UI (Original structure restored from Step 15) */}
       <div className="hidden lg:flex flex-col w-full">
         {/* Card 1 */}
-        <div className="relative w-full h-[565px] bg-black overflow-hidden group" data-aos="fade-up">
+        <div className="relative w-full aspect-1440/565 bg-black overflow-hidden group" data-aos="fade-up">
           <div className="absolute inset-0 bg-white">
             <div
               className="absolute inset-0 opacity-[0.04]"
@@ -125,7 +125,7 @@ const Section2 = React.memo(function Section2() {
         </div>
 
         {/* Card 2 & 3 */}
-        <div className="relative w-full flex flex-row h-[565px] overflow-hidden" data-aos="fade-up">
+        <div className="relative w-full flex flex-row aspect-1440/565 overflow-hidden" data-aos="fade-up">
           <div className="relative w-1/2 h-full flex flex-col justify-between px-20 py-[41px] bg-black overflow-hidden group">
             <div className="absolute inset-0 z-0">
               <Image src="/images/section2/section2-bg2.png" alt="" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
@@ -167,7 +167,7 @@ const Section2 = React.memo(function Section2() {
         </div>
 
         {/* Card 4 & 5 */}
-        <div className="relative w-full flex flex-row h-[565px] overflow-hidden" data-aos="fade-up">
+        <div className="relative w-full flex flex-row aspect-1440/565 overflow-hidden" data-aos="fade-up">
           <div className="relative w-1/2 h-full flex flex-col justify-between bg-black overflow-hidden group">
             <div className="absolute inset-0 z-0">
               <Image src="/images/section2/section2-bg3.png" alt="" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
@@ -214,8 +214,8 @@ const Section2 = React.memo(function Section2() {
         </div>
 
         {/* Card 6 */}
-        <div className="relative w-full h-[565px] bg-black overflow-hidden group" data-aos="fade-up">
-          <div className="absolute left-0 top-[-172px] w-full h-[760px] z-0">
+        <div className="relative w-full aspect-1440/565 bg-black overflow-hidden group" data-aos="fade-up">
+          <div className="absolute inset-0 z-0">
             <Image src="/images/section2/systems-thinking.jpg" alt="" fill className="object-cover object-top transition-transform duration-700 group-hover:scale-110" />
           </div>
           {/* <div className="absolute left-0 top-[-172px] w-[1104px] h-[737px] z-10 pointer-events-none">

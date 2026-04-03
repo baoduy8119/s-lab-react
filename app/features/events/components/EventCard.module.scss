@@ -79,7 +79,9 @@
   line-height: title-height;
   font-weight: 500;
   color: #111827;
-  max-width: 300px;
+  @media screen and (max-width: 1024px) {
+    max-width: 300px;
+  }
   @media screen and (max-width: 767px) {
     font-size: 24px;
   }
@@ -89,7 +91,9 @@
   font-size: 14px;
   line-height: 1.6;
   color: #6B7280;
-  max-width: 400px;
+  @media (max-width: 1024px) {
+    max-width: 400px;
+  }
 }
 
 .imageWrapper {

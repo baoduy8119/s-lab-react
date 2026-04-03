@@ -36,5 +36,8 @@
   color: #374151;
   margin-bottom: 40px;
   font-weight: 500;
-  max-width: 320px;
+
+  @media (max-width: 1024px) {
+    max-width: 320px;
+  }
 }

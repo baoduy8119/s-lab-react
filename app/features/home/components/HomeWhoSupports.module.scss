@@ -11,7 +11,6 @@
 .counterSection {
   display: flex;
   flex-direction: column;
-  max-width: 30%;
 }
 
 .barcodeIcon {
@@ -50,14 +49,15 @@
 
 .headerRight {
   flex: 1;
-  max-width: 70%;
   padding-left: 60px;
 }
 
 .headerImage {
-  width: 100%;
-  height: 480px;
+  aspect-ratio: 16 / 10;
   position: relative;
+  img {
+    width: 100%;
+  }
 }
 
 // --- List Section ---
@@ -171,7 +171,9 @@
   flex: 0 0 30%;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.4s ease, visibility 0.4s ease;
+  transition:
+    opacity 0.4s ease,
+    visibility 0.4s ease;
   padding: 0 20px;
   will-change: opacity;
   @media screen and (max-width: 1536px) {
@@ -194,7 +196,9 @@
   padding-right: 60px;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.4s ease, visibility 0.4s ease;
+  transition:
+    opacity 0.4s ease,
+    visibility 0.4s ease;
   will-change: opacity;
 
   .active & {

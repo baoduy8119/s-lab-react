@@ -10,11 +10,8 @@
   line-height: 77px;
   letter-spacing: -0.7px;
   margin-bottom: 24px;
-  max-width: 840px;
-  @media screen and (min-width: 1536px) {
-    max-width: 100%;
-  }
   @media (max-width: 1024px) {
+    max-width: 840px;
     font-size: 32px;
     line-height: 40px;
     letter-spacing: -1.2px;
@@ -31,13 +28,9 @@
   font-size: 64px;
   line-height: 77px;
   letter-spacing: -0.7px;
-  max-width: 960px;
-
-  @media screen and (min-width: 1536px) {
-    max-width: 100%;
-  }
 
   @media (max-width: 1024px) {
+    max-width: 960px;
     font-size: 32px;
     line-height: 40px;
     letter-spacing: -1.2px;
@@ -104,7 +97,9 @@
   transition: opacity 0.2s;
 
   span {
-    max-width: 250px;
+    @media screen and (max-width: 1024px) {
+      max-width: 250px;
+    }
     @media screen and (max-width: 767px) {
       max-width: 100%;
       font-size: 16px;

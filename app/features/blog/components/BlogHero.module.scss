@@ -38,7 +38,9 @@
 }
 
 .textWrapper {
-  max-width: 680px;
+  @media (max-width: 1024px) {
+    max-width: 680px;
+  }
 }
 
 .description {
