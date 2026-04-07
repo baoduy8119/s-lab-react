@@ -14,30 +14,18 @@ if (process.env.VERCEL !== "1") {
   dotenv.config({ path: path.join(root, ".env.local"), override: true });
 }
 
-const { resolvePostgresDatabaseUrl, isPostgresUrl } = require(path.join(
-  root,
-  "app/lib/postgresEnv.js"
-));
+const { resolvePostgresDatabaseUrl, isPostgresUrl } = require(
+  path.join(root, "app/lib/postgresEnv.js")
+);
 
 const resolved = resolvePostgresDatabaseUrl(process.env);
 if (resolved) {
   process.env.DATABASE_URL = resolved;
 }
 
-if (!process.env.DATABASE_URL?.trim() || !isPostgresUrl(process.env.DATABASE_URL)) {
-  console.error(
-    "No Postgres DATABASE_URL. In Vercel: link Storage → Postgres and/or set DATABASE_URL for Production; redeploy."
-  );
-  process.exit(1);
-}
-
 const env = process.env;
 
-for (const cmd of [
-  "npx prisma generate",
-  "npx prisma migrate deploy",
-  "npx next build",
-]) {
+function run(cmd) {
   const r = spawnSync(cmd, {
     cwd: root,
     env,
@@ -48,3 +36,21 @@ for (const cmd of [
     process.exit(r.status ?? 1);
   }
 }
+
+// `prisma generate` does not require a live DB connection; run it unconditionally so
+// production builds never ship with a stale Prisma Client (even with cached installs).
+run("npx prisma generate");
+
+const hasPostgresDbUrl =
+  !!process.env.DATABASE_URL?.trim() && isPostgresUrl(process.env.DATABASE_URL);
+
+if (!hasPostgresDbUrl) {
+  console.warn(
+    "No Postgres DATABASE_URL at build time; skipping `prisma migrate deploy`. " +
+      "In Vercel: link Storage → Postgres and/or set DATABASE_URL for Production; redeploy."
+  );
+} else {
+  run("npx prisma migrate deploy");
+}
+
+run("npx next build");
