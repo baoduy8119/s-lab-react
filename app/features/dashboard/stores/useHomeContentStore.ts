@@ -1,4 +1,4 @@
-import { fetchContent, saveContentToDb } from "@/app/lib/contentApi";
+import { fetchContent, saveContentToDb, setContentMergeBase } from "@/app/lib/contentApi";
 import { create } from "zustand";
 import type { HomepageContent, SectionConfig, SectionContent } from "../types/content";
 
@@ -361,6 +361,8 @@ export function mergeHomepageFromSaved(
 
 interface HomeContentState {
   content: HomepageContent;
+  /** False until the first successful client fetch or SiteContentBootstrap. */
+  isRemoteHydrated: boolean;
   isDirty: boolean;
   isSaving: boolean;
   updateField: (sectionId: string, key: string, value: string) => void;
@@ -373,6 +375,7 @@ interface HomeContentState {
 
 export const useHomeContentStore = create<HomeContentState>((set, get) => ({
   content: defaultContent,
+  isRemoteHydrated: false,
   isDirty: false,
   isSaving: false,
 
@@ -390,21 +393,23 @@ export const useHomeContentStore = create<HomeContentState>((set, get) => ({
   },
 
   saveContent: async () => {
+    if (!get().isRemoteHydrated) return;
     const { content } = get();
     set({ isSaving: true });
     try {
-      await saveContentToDb(CONTENT_KEY, content);
-      set({ isDirty: false });
+      const persisted = await saveContentToDb(CONTENT_KEY, content);
+      set({ content: persisted, isDirty: false });
     } finally {
       set({ isSaving: false });
     }
   },
 
   resetContent: async () => {
+    if (!get().isRemoteHydrated) return;
     set({ isSaving: true });
     try {
-      await saveContentToDb(CONTENT_KEY, defaultContent);
-      set({ content: defaultContent, isDirty: false });
+      const persisted = await saveContentToDb(CONTENT_KEY, defaultContent);
+      set({ content: persisted, isDirty: false });
     } finally {
       set({ isSaving: false });
     }
@@ -421,11 +426,14 @@ export const useHomeContentStore = create<HomeContentState>((set, get) => ({
   },
 
   hydrate: async () => {
+    if (get().isRemoteHydrated) return;
     try {
       const saved = await fetchContent<HomepageContent>(CONTENT_KEY);
-      set({ content: mergeHomepageFromSaved(saved ?? undefined), isDirty: false });
+      const content = mergeHomepageFromSaved(saved ?? undefined);
+      setContentMergeBase(CONTENT_KEY, content);
+      set({ content, isDirty: false, isRemoteHydrated: true });
     } catch {
-      // fallback to defaults on network error
+      set({ isRemoteHydrated: true });
     }
   },
 

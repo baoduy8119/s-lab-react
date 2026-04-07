@@ -7,6 +7,7 @@ import { useLanguageStore } from "@/app/features/dashboard/stores/useLanguageSto
 import { useTranslations } from "@/app/features/dashboard/i18n/translations";
 
 export default function DashboardPage() {
+  const isContentReady = useHomeContentStore((s) => s.isRemoteHydrated);
   const isDirty = useHomeContentStore((s) => s.isDirty);
   const isSaving = useHomeContentStore((s) => s.isSaving);
   const saveContent = useHomeContentStore((s) => s.saveContent);
@@ -21,6 +22,7 @@ export default function DashboardPage() {
       isSaving={isSaving}
       onSave={saveContent}
       onReset={resetContent}
+      isContentReady={isContentReady}
     >
       <HomepageEditor />
     </DashboardShell>

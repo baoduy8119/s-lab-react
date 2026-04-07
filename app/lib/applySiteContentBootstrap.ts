@@ -1,4 +1,5 @@
 import type { SiteContentBootstrapPayload } from "@/app/lib/buildSiteContentBootstrapPayload";
+import { setContentMergeBase } from "@/app/lib/contentApi";
 import { useHomeContentStore } from "@/app/features/dashboard/stores/useHomeContentStore";
 import { useFooterContentStore } from "@/app/features/dashboard/stores/useFooterContentStore";
 import { useCoursesContentStore } from "@/app/features/dashboard/stores/useCoursesContentStore";
@@ -9,10 +10,20 @@ import { useCourseDetailContentStore } from "@/app/features/dashboard/stores/use
 /** Applies server-fetched merged content before paint (call from SiteContentBootstrap during render). */
 export function applySiteContentBootstrap(payload: SiteContentBootstrapPayload): void {
   if (payload.homepage) {
-    useHomeContentStore.setState({ content: payload.homepage, isDirty: false });
+    useHomeContentStore.setState({
+      content: payload.homepage,
+      isDirty: false,
+      isRemoteHydrated: true,
+    });
+    setContentMergeBase("homepage", payload.homepage);
   }
   if (payload.footer) {
-    useFooterContentStore.setState({ content: payload.footer, isDirty: false });
+    useFooterContentStore.setState({
+      content: payload.footer,
+      isDirty: false,
+      isRemoteHydrated: true,
+    });
+    setContentMergeBase("footer", payload.footer);
   }
   if (payload.courses) {
     useCoursesContentStore.setState({
@@ -20,6 +31,12 @@ export function applySiteContentBootstrap(payload: SiteContentBootstrapPayload):
       courseIds: payload.courses.courseIds,
       cardIds: payload.courses.cardIds,
       isDirty: false,
+      isRemoteHydrated: true,
+    });
+    setContentMergeBase("courses", {
+      courseIds: payload.courses.courseIds,
+      cardIds: payload.courses.cardIds,
+      content: payload.courses.content,
     });
   }
   if (payload.courseDetails) {
@@ -32,12 +49,27 @@ export function applySiteContentBootstrap(payload: SiteContentBootstrapPayload):
       content: payload.courseDetails,
       courseIds,
       isDirty: false,
+      isRemoteHydrated: true,
+    });
+    setContentMergeBase("courseDetails", {
+      courseIds,
+      content: payload.courseDetails,
     });
   }
   if (payload.theSlab) {
-    useTheSlabContentStore.setState({ content: payload.theSlab, isDirty: false });
+    useTheSlabContentStore.setState({
+      content: payload.theSlab,
+      isDirty: false,
+      isRemoteHydrated: true,
+    });
+    setContentMergeBase("the-s-lab", payload.theSlab);
   }
   if (payload.slibrary) {
-    useSLibraryContentStore.setState({ content: payload.slibrary, isDirty: false });
+    useSLibraryContentStore.setState({
+      content: payload.slibrary,
+      isDirty: false,
+      isRemoteHydrated: true,
+    });
+    setContentMergeBase("slibrary", payload.slibrary);
   }
 }

@@ -6,11 +6,15 @@ import {
   useHomeContentStore,
 } from "../stores/useHomeContentStore";
 import SectionEditor from "./SectionEditor";
+import DashboardEditorLoading from "./DashboardEditorLoading";
 
 const HomepageEditor = React.memo(function HomepageEditor() {
+  const isRemoteHydrated = useHomeContentStore((s) => s.isRemoteHydrated);
   const content = useHomeContentStore((s) => s.content);
   const updateField = useHomeContentStore((s) => s.updateField);
   const resetSection = useHomeContentStore((s) => s.resetSection);
+
+  if (!isRemoteHydrated) return <DashboardEditorLoading />;
 
   return (
     <div>

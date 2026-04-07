@@ -19,6 +19,23 @@ function rememberEtag(key: string, res: Response) {
   if (etag) etagByKey.set(key, etag);
 }
 
+/**
+ * Snapshot used for 3-way merge on save conflicts. Must match the shape you send in PUT
+ * (after client-side merge with defaults), not the raw API JSON alone — otherwise diffs
+ * include spurious "default fill" changes and can clobber another tab's edits.
+ */
+export function setContentMergeBase(key: string, data: unknown): void {
+  if (data === undefined) {
+    baseByKey.delete(key);
+    return;
+  }
+  try {
+    baseByKey.set(key, structuredClone(data) as Json);
+  } catch {
+    baseByKey.set(key, JSON.parse(JSON.stringify(data)) as Json);
+  }
+}
+
 function isPlainObject(x: unknown): x is Record<string, unknown> {
   return typeof x === "object" && x !== null && !Array.isArray(x);
 }
@@ -109,12 +126,16 @@ export async function fetchContent<T>(key: string): Promise<T | null> {
   if (!res.ok) return null;
   rememberEtag(key, res);
   const json = await res.json();
-  // Keep a base snapshot in memory for 3-way merge on conflicts.
-  baseByKey.set(key, (json.data ?? null) as Json);
+  const data = (json.data ?? null) as Json;
+  // Only seed merge base before hydrate/bootstrap runs; merged snapshots win via setContentMergeBase.
+  if (!baseByKey.has(key)) {
+    baseByKey.set(key, data);
+  }
   return json.data ?? null;
 }
 
-export async function saveContentToDb<T>(key: string, data: T): Promise<void> {
+/** Returns the document as stored (same as `data`, or the server-merged snapshot after a 409 conflict). */
+export async function saveContentToDb<T>(key: string, data: T): Promise<T> {
   // Ensure we have a concurrency token for existing rows.
   if (!etagByKey.get(key)) {
     await fetchContent(key);
@@ -144,7 +165,7 @@ export async function saveContentToDb<T>(key: string, data: T): Promise<void> {
         if (refreshed.ok) {
           rememberEtag(key, refreshed);
           baseByKey.set(key, (data as unknown as Json) ?? null);
-          return;
+          return data;
         }
       }
 
@@ -169,7 +190,7 @@ export async function saveContentToDb<T>(key: string, data: T): Promise<void> {
         if (retry.ok) {
           rememberEtag(key, retry);
           baseByKey.set(key, (merged as unknown as Json) ?? null);
-          return;
+          return merged;
         }
       }
 
@@ -187,4 +208,5 @@ export async function saveContentToDb<T>(key: string, data: T): Promise<void> {
 
   rememberEtag(key, res);
   baseByKey.set(key, (data as unknown as Json) ?? null);
+  return data;
 }

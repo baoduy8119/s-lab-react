@@ -7,6 +7,7 @@ import { useCoursesContentStore } from "../stores/useCoursesContentStore";
 export default function CourseDetailContentHydrator() {
   const hydrateDetails = useCourseDetailContentStore((s) => s.hydrate);
   const setCourseIds = useCourseDetailContentStore((s) => s.setCourseIds);
+  const detailHydrated = useCourseDetailContentStore((s) => s.isRemoteHydrated);
   const cardIds = useCoursesContentStore((s) => s.cardIds);
   const hydrateCourses = useCoursesContentStore((s) => s.hydrate);
 
@@ -24,9 +25,9 @@ export default function CourseDetailContentHydrator() {
 
   useEffect(() => {
     if (!cardIds.length) return;
+    if (detailHydrated) return;
     hydrateDetails();
-  }, [cardIds.length, hydrateDetails]);
+  }, [cardIds.length, detailHydrated, hydrateDetails]);
 
   return null;
 }
-

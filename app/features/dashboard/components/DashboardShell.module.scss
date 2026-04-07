@@ -184,6 +184,11 @@
     background: #f9fafb;
     color: #111;
   }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 }
 
 .dirtyBadge {

@@ -1,13 +1,10 @@
 import { create } from "zustand";
-import { fetchContent, saveContentToDb } from "@/app/lib/contentApi";
 import type {
   ContentFieldConfig,
   HomepageContent,
   SectionConfig,
   SectionContent,
 } from "../types/content";
-
-const CONTENT_KEY = "courseDetails";
 
 const THEME_OPTIONS = ["light", "dark"];
 const COLOR_OPTIONS = ["black", "red"];
@@ -588,15 +585,20 @@ export function mergeCourseDetailsFromSaved(
 interface CourseDetailContentState {
   content: HomepageContent;
   courseIds: string[];
+  isRemoteHydrated: boolean;
   isDirty: boolean;
   isSaving: boolean;
+  lockTokenByCourse: Record<string, string | undefined>;
+  lockExpiresAtByCourse: Record<string, string | undefined>;
   setCourseIds: (courseIds: string[]) => void;
   updateField: (sectionId: string, key: string, value: string) => void;
   deleteFields: (sectionId: string, keys: string[]) => void;
-  saveContent: () => Promise<void>;
+  acquireLock: (courseId: string) => Promise<void>;
+  releaseLock: (courseId: string) => Promise<void>;
+  saveContent: (courseId: string) => Promise<void>;
   resetSection: (sectionId: string) => void;
   resetCourse: (courseId: string) => void;
-  hydrate: () => Promise<void>;
+  hydrate: (courseId?: string) => Promise<void>;
   getSection: (sectionId: string) => SectionContent;
 }
 
@@ -604,8 +606,11 @@ export const useCourseDetailContentStore = create<CourseDetailContentState>(
   (set, get) => ({
     content: buildDefaultDetailContent("card1"),
     courseIds: ["card1"],
+    isRemoteHydrated: false,
     isDirty: false,
     isSaving: false,
+    lockTokenByCourse: {},
+    lockExpiresAtByCourse: {},
 
     setCourseIds: (courseIds) => {
       set((state) => ({
@@ -638,12 +643,76 @@ export const useCourseDetailContentStore = create<CourseDetailContentState>(
       });
     },
 
-    saveContent: async () => {
-      const { content, courseIds } = get();
+    acquireLock: async (courseId: string) => {
+      const res = await fetch(`/api/course-details/${courseId}/lock`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      });
+      const body = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        throw new Error(body?.error ?? "Failed to acquire course lock");
+      }
+      set((state) => ({
+        lockTokenByCourse: { ...state.lockTokenByCourse, [courseId]: body.lockToken },
+        lockExpiresAtByCourse: { ...state.lockExpiresAtByCourse, [courseId]: body.expiresAt },
+      }));
+    },
+
+    releaseLock: async (courseId: string) => {
+      const token = get().lockTokenByCourse[courseId];
+      if (!token) return;
+      await fetch(`/api/course-details/${courseId}/unlock`, {
+        method: "POST",
+        headers: { "X-Course-Lock": token },
+      }).catch(() => null);
+      set((state) => {
+        const nextTokens = { ...state.lockTokenByCourse };
+        const nextExp = { ...state.lockExpiresAtByCourse };
+        delete nextTokens[courseId];
+        delete nextExp[courseId];
+        return { lockTokenByCourse: nextTokens, lockExpiresAtByCourse: nextExp };
+      });
+    },
+
+    saveContent: async (courseId: string) => {
+      if (!get().isRemoteHydrated) return;
       set({ isSaving: true });
       try {
-        const data: CourseDetailStoredData = { courseIds, content };
-        await saveContentToDb(CONTENT_KEY, data);
+        // Ensure we hold a lock before saving.
+        if (!get().lockTokenByCourse[courseId]) {
+          await get().acquireLock(courseId);
+        }
+        const lockToken = get().lockTokenByCourse[courseId];
+        if (!lockToken) throw new Error("Failed to acquire course lock");
+
+        const { content } = get();
+        const prefix = `${courseId}__`;
+        const sections: Record<string, SectionContent> = {};
+        for (const [sectionId, section] of Object.entries(content)) {
+          if (sectionId.startsWith(prefix)) sections[sectionId] = section;
+        }
+
+        const res = await fetch(`/api/course-details/${courseId}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Course-Lock": lockToken,
+          },
+          body: JSON.stringify({ sections }),
+        });
+
+        const body = await res.json().catch(() => ({}));
+        if (!res.ok) {
+          throw new Error(body?.error ?? "Failed to save course details");
+        }
+
+        // Lock TTL may refresh on save.
+        if (body?.expiresAt) {
+          set((state) => ({
+            lockExpiresAtByCourse: { ...state.lockExpiresAtByCourse, [courseId]: body.expiresAt },
+          }));
+        }
+
         set({ isDirty: false });
       } finally {
         set({ isSaving: false });
@@ -664,6 +733,7 @@ export const useCourseDetailContentStore = create<CourseDetailContentState>(
     },
 
     resetCourse: (courseId: string) => {
+      if (!get().isRemoteHydrated) return;
       set((state) => {
         const defaults = buildDefaultDetailContent(courseId);
         const next = { ...state.content };
@@ -672,15 +742,25 @@ export const useCourseDetailContentStore = create<CourseDetailContentState>(
       });
     },
 
-    hydrate: async () => {
+    hydrate: async (courseId?: string) => {
       try {
-        const parsed = await fetchContent<CourseDetailStoredData | HomepageContent>(
-          CONTENT_KEY
-        );
-        const { courseIds } = get();
-        set({ content: mergeCourseDetailsFromSaved(parsed, courseIds), isDirty: false });
+        const ids = courseId ? [courseId] : get().courseIds;
+        let nextContent: HomepageContent = { ...get().content };
+
+        for (const id of ids) {
+          const res = await fetch(`/api/course-details/${id}`, { cache: "no-store" });
+          if (!res.ok) continue;
+          const json = await res.json().catch(() => null);
+          const sections = (json?.sections ?? {}) as HomepageContent;
+          nextContent = mergeCourseDetailsFromSaved(
+            { content: { ...nextContent, ...sections }, courseIds: get().courseIds },
+            get().courseIds
+          );
+        }
+
+        set({ content: nextContent, isDirty: false, isRemoteHydrated: true });
       } catch {
-        // fallback to defaults on network error
+        set({ isRemoteHydrated: true });
       }
     },
 

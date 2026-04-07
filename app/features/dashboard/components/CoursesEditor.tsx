@@ -11,10 +11,12 @@ import {
 import { useLanguageStore } from "../stores/useLanguageStore";
 import { useTranslations } from "../i18n/translations";
 import SectionEditor from "./SectionEditor";
+import DashboardEditorLoading from "./DashboardEditorLoading";
 import styles from "./CoursesEditor.module.scss";
 import { courseIdAndTitleToSlug } from "@/app/lib/courseSlugs";
 
 const CoursesEditor = React.memo(function CoursesEditor() {
+  const isRemoteHydrated = useCoursesContentStore((s) => s.isRemoteHydrated);
   const content = useCoursesContentStore((s) => s.content);
   const courseIds = useCoursesContentStore((s) => s.courseIds);
   const cardIds = useCoursesContentStore((s) => s.cardIds);
@@ -60,6 +62,8 @@ const CoursesEditor = React.memo(function CoursesEditor() {
     },
     [removeCard, tt]
   );
+
+  if (!isRemoteHydrated) return <DashboardEditorLoading />;
 
   return (
     <div>

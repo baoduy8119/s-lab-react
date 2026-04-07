@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import type { SiteContentBootstrapPayload } from "@/app/lib/buildSiteContentBootstrapPayload";
 import { applySiteContentBootstrap } from "@/app/lib/applySiteContentBootstrap";
 
@@ -14,9 +14,10 @@ export default function SiteContentBootstrap({
   payload: SiteContentBootstrapPayload;
 }) {
   const applied = useRef(false);
-  if (!applied.current) {
+  useLayoutEffect(() => {
+    if (applied.current) return;
     applySiteContentBootstrap(payload);
     applied.current = true;
-  }
+  }, [payload]);
   return null;
 }

@@ -6,11 +6,15 @@ import {
   useTheSlabContentStore,
 } from "../stores/useTheSlabContentStore";
 import SectionEditor from "./SectionEditor";
+import DashboardEditorLoading from "./DashboardEditorLoading";
 
 const TheSlabEditor = React.memo(function TheSlabEditor() {
+  const isRemoteHydrated = useTheSlabContentStore((s) => s.isRemoteHydrated);
   const content = useTheSlabContentStore((s) => s.content);
   const updateField = useTheSlabContentStore((s) => s.updateField);
   const resetSection = useTheSlabContentStore((s) => s.resetSection);
+
+  if (!isRemoteHydrated) return <DashboardEditorLoading />;
 
   return (
     <div>

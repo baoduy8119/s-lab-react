@@ -6,11 +6,15 @@ import {
   useSLibraryContentStore,
 } from "../stores/useSLibraryContentStore";
 import SectionEditor from "./SectionEditor";
+import DashboardEditorLoading from "./DashboardEditorLoading";
 
 const SLibraryEditor = React.memo(function SLibraryEditor() {
+  const isRemoteHydrated = useSLibraryContentStore((s) => s.isRemoteHydrated);
   const content = useSLibraryContentStore((s) => s.content);
   const updateField = useSLibraryContentStore((s) => s.updateField);
   const resetSection = useSLibraryContentStore((s) => s.resetSection);
+
+  if (!isRemoteHydrated) return <DashboardEditorLoading />;
 
   return (
     <div>

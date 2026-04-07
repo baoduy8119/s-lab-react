@@ -7,6 +7,7 @@ import { useLanguageStore } from "@/app/features/dashboard/stores/useLanguageSto
 import { useTranslations } from "@/app/features/dashboard/i18n/translations";
 
 export default function DashboardFooterPage() {
+  const isContentReady = useFooterContentStore((s) => s.isRemoteHydrated);
   const isDirty = useFooterContentStore((s) => s.isDirty);
   const isSaving = useFooterContentStore((s) => s.isSaving);
   const saveContent = useFooterContentStore((s) => s.saveContent);
@@ -21,6 +22,7 @@ export default function DashboardFooterPage() {
       isSaving={isSaving}
       onSave={saveContent}
       onReset={resetContent}
+      isContentReady={isContentReady}
     >
       <FooterEditor />
     </DashboardShell>

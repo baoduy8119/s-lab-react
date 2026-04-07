@@ -86,6 +86,8 @@ interface DashboardShellProps {
   isSaving: boolean;
   onSave: () => Promise<void>;
   onReset: () => Promise<void>;
+  /** When false, save/reset are disabled until remote content has loaded. */
+  isContentReady?: boolean;
 }
 
 const DashboardShell = React.memo(function DashboardShell({
@@ -95,6 +97,7 @@ const DashboardShell = React.memo(function DashboardShell({
   isSaving,
   onSave,
   onReset,
+  isContentReady = true,
 }: DashboardShellProps) {
   const router = useRouter();
   const pathname = usePathname();
@@ -204,10 +207,20 @@ const DashboardShell = React.memo(function DashboardShell({
           <h1 className={styles.pageTitle}>{pageTitle}</h1>
           <div className={styles.topActions}>
             {isDirty && <span className={styles.dirtyBadge}>{tt.unsavedChanges}</span>}
-            <button className={styles.resetBtn} onClick={handleReset}>
+            <button
+              type="button"
+              className={styles.resetBtn}
+              onClick={handleReset}
+              disabled={!isContentReady}
+            >
               {tt.resetToDefaults}
             </button>
-            <button className={styles.saveBtn} onClick={handleSave} disabled={!isDirty || isSaving}>
+            <button
+              type="button"
+              className={styles.saveBtn}
+              onClick={handleSave}
+              disabled={!isContentReady || !isDirty || isSaving}
+            >
               {isSaving ? tt.saving : tt.saveChanges}
             </button>
           </div>

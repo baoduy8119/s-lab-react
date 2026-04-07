@@ -7,6 +7,7 @@ import { useLanguageStore } from "@/app/features/dashboard/stores/useLanguageSto
 import { useTranslations } from "@/app/features/dashboard/i18n/translations";
 
 export default function DashboardSLibraryPage() {
+  const isContentReady = useSLibraryContentStore((s) => s.isRemoteHydrated);
   const isDirty = useSLibraryContentStore((s) => s.isDirty);
   const isSaving = useSLibraryContentStore((s) => s.isSaving);
   const saveContent = useSLibraryContentStore((s) => s.saveContent);
@@ -21,6 +22,7 @@ export default function DashboardSLibraryPage() {
       isSaving={isSaving}
       onSave={saveContent}
       onReset={resetContent}
+      isContentReady={isContentReady}
     >
       <SLibraryEditor />
     </DashboardShell>

@@ -12,6 +12,8 @@ import {
   mergeCourseDetailsFromSaved,
   type CourseDetailStoredData,
 } from "@/app/features/dashboard/stores/useCourseDetailContentStore";
+import { resolveCourseIdFromSlug } from "@/app/lib/courseSlugs";
+import { loadCourseDetailSections } from "@/app/lib/loadCourseDetailSections";
 
 export type SiteContentBootstrapPayload = {
   homepage?: HomepageContent;
@@ -33,13 +35,13 @@ export async function buildHomeSiteContentPayload(): Promise<SiteContentBootstra
   };
 }
 
+/** Public /courses listing: hero, course list, marketing cards — no per-course detail sections. */
 export async function buildCoursesSiteContentPayload(): Promise<SiteContentBootstrapPayload> {
   const rows = await loadSiteContentRows([
     "homepage",
     "footer",
     THE_SLAB,
     "courses",
-    "courseDetails",
   ]);
   const courses = mergeCoursesFromSaved(
     rows.courses as CoursesStoredData | HomepageContent | null | undefined
@@ -48,11 +50,6 @@ export async function buildCoursesSiteContentPayload(): Promise<SiteContentBoots
     homepage: mergeHomepageFromSaved(rows.homepage as HomepageContent | null),
     footer: mergeFooterFromSavedRows(rows.footer, rows.homepage, rows[THE_SLAB]),
     courses,
-    courseDetails: mergeCourseDetailsFromSaved(
-      rows.courseDetails as CourseDetailStoredData | HomepageContent | null | undefined,
-      courses.cardIds
-    ),
-    courseDetailsCourseIds: courses.cardIds,
   };
 }
 
@@ -64,16 +61,17 @@ export async function buildCourseDetailPageSiteContentPayload(
     "footer",
     THE_SLAB,
     "courses",
-    "courseDetails",
   ]);
   const courses = mergeCoursesFromSaved(
     rows.courses as CoursesStoredData | HomepageContent | null | undefined
   );
 
-  // Try resolve from slug format: "<id>--<slug...>".
-  // If it's already a card id, keep it.
-  const maybeId = slugOrId.split("--")[0] ?? slugOrId;
-  const courseId = courses.cardIds.includes(maybeId) ? maybeId : courses.cardIds[0] ?? maybeId;
+  const courseId = resolveCourseIdFromSlug(slugOrId, {
+    cardIds: courses.cardIds,
+    contentById: courses.content as unknown as Record<string, Record<string, unknown> | undefined>,
+  });
+
+  const courseDetailSections = await loadCourseDetailSections(courseId);
 
   return {
     courseId,
@@ -81,7 +79,7 @@ export async function buildCourseDetailPageSiteContentPayload(
     footer: mergeFooterFromSavedRows(rows.footer, rows.homepage, rows[THE_SLAB]),
     courses,
     courseDetails: mergeCourseDetailsFromSaved(
-      rows.courseDetails as CourseDetailStoredData | HomepageContent | null | undefined,
+      courseDetailSections as CourseDetailStoredData | HomepageContent | null | undefined,
       [courseId]
     ),
     courseDetailsCourseIds: [courseId],

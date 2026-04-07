@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { fetchContent, saveContentToDb } from "@/app/lib/contentApi";
+import { fetchContent, saveContentToDb, setContentMergeBase } from "@/app/lib/contentApi";
 import type {
   HomepageContent,
   SectionConfig,
@@ -470,6 +470,7 @@ interface CoursesContentState {
   content: HomepageContent;
   courseIds: string[];
   cardIds: string[];
+  isRemoteHydrated: boolean;
   isDirty: boolean;
   isSaving: boolean;
   updateField: (sectionId: string, key: string, value: string) => void;
@@ -494,6 +495,7 @@ export const useCoursesContentStore = create<CoursesContentState>(
     content: defaultCoursesContent,
     courseIds: DEFAULT_COURSE_IDS,
     cardIds: DEFAULT_CARD_IDS,
+    isRemoteHydrated: false,
     isDirty: false,
     isSaving: false,
 
@@ -508,18 +510,25 @@ export const useCoursesContentStore = create<CoursesContentState>(
     },
 
     saveContent: async () => {
+      if (!get().isRemoteHydrated) return;
       const { content, courseIds, cardIds } = get();
       set({ isSaving: true });
       try {
         const data: CoursesStoredData = { courseIds, cardIds, content };
-        await saveContentToDb(CONTENT_KEY, data);
-        set({ isDirty: false });
+        const persisted = await saveContentToDb(CONTENT_KEY, data);
+        set({
+          content: persisted.content,
+          courseIds: persisted.courseIds,
+          cardIds: persisted.cardIds,
+          isDirty: false,
+        });
       } finally {
         set({ isSaving: false });
       }
     },
 
     resetContent: async () => {
+      if (!get().isRemoteHydrated) return;
       set({ isSaving: true });
       try {
         const data: CoursesStoredData = {
@@ -527,11 +536,11 @@ export const useCoursesContentStore = create<CoursesContentState>(
           cardIds: DEFAULT_CARD_IDS,
           content: defaultCoursesContent,
         };
-        await saveContentToDb(CONTENT_KEY, data);
+        const persisted = await saveContentToDb(CONTENT_KEY, data);
         set({
-          content: defaultCoursesContent,
-          courseIds: DEFAULT_COURSE_IDS,
-          cardIds: DEFAULT_CARD_IDS,
+          content: persisted.content,
+          courseIds: persisted.courseIds,
+          cardIds: persisted.cardIds,
           isDirty: false,
         });
       } finally {
@@ -602,17 +611,24 @@ export const useCoursesContentStore = create<CoursesContentState>(
     },
 
     hydrate: async () => {
+      if (get().isRemoteHydrated) return;
       try {
         const parsed = await fetchContent<CoursesStoredData | HomepageContent>(
           CONTENT_KEY
         );
-        if (!parsed) return;
+        const merged = mergeCoursesFromSaved(parsed ?? undefined);
+        setContentMergeBase(CONTENT_KEY, {
+          courseIds: merged.courseIds,
+          cardIds: merged.cardIds,
+          content: merged.content,
+        });
         set({
-          ...mergeCoursesFromSaved(parsed),
+          ...merged,
           isDirty: false,
+          isRemoteHydrated: true,
         });
       } catch {
-        // fallback to defaults on network error
+        set({ isRemoteHydrated: true });
       }
     },
 

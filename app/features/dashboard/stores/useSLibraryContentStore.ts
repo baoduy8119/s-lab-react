@@ -1,4 +1,4 @@
-import { fetchContent, saveContentToDb } from "@/app/lib/contentApi";
+import { fetchContent, saveContentToDb, setContentMergeBase } from "@/app/lib/contentApi";
 import { create } from "zustand";
 import type { HomepageContent, SectionConfig, SectionContent } from "../types/content";
 
@@ -313,6 +313,7 @@ export function mergeSLibraryFromSaved(
 
 interface SLibraryContentState {
   content: HomepageContent;
+  isRemoteHydrated: boolean;
   isDirty: boolean;
   isSaving: boolean;
   updateField: (sectionId: string, key: string, value: string) => void;
@@ -325,6 +326,7 @@ interface SLibraryContentState {
 
 export const useSLibraryContentStore = create<SLibraryContentState>((set, get) => ({
   content: defaultSLibraryContent,
+  isRemoteHydrated: false,
   isDirty: false,
   isSaving: false,
 
@@ -342,21 +344,23 @@ export const useSLibraryContentStore = create<SLibraryContentState>((set, get) =
   },
 
   saveContent: async () => {
+    if (!get().isRemoteHydrated) return;
     const { content } = get();
     set({ isSaving: true });
     try {
-      await saveContentToDb(CONTENT_KEY, content);
-      set({ isDirty: false });
+      const persisted = await saveContentToDb(CONTENT_KEY, content);
+      set({ content: persisted, isDirty: false });
     } finally {
       set({ isSaving: false });
     }
   },
 
   resetContent: async () => {
+    if (!get().isRemoteHydrated) return;
     set({ isSaving: true });
     try {
-      await saveContentToDb(CONTENT_KEY, defaultSLibraryContent);
-      set({ content: defaultSLibraryContent, isDirty: false });
+      const persisted = await saveContentToDb(CONTENT_KEY, defaultSLibraryContent);
+      set({ content: persisted, isDirty: false });
     } finally {
       set({ isSaving: false });
     }
@@ -375,9 +379,11 @@ export const useSLibraryContentStore = create<SLibraryContentState>((set, get) =
   hydrate: async () => {
     try {
       const saved = await fetchContent<HomepageContent>(CONTENT_KEY);
-      set({ content: mergeSLibraryFromSaved(saved ?? undefined), isDirty: false });
+      const content = mergeSLibraryFromSaved(saved ?? undefined);
+      setContentMergeBase(CONTENT_KEY, content);
+      set({ content, isDirty: false, isRemoteHydrated: true });
     } catch {
-      // fallback to defaults on network error
+      set({ isRemoteHydrated: true });
     }
   },
 

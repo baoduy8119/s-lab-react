@@ -7,6 +7,7 @@ import { useLanguageStore } from "@/app/features/dashboard/stores/useLanguageSto
 import { useTranslations } from "@/app/features/dashboard/i18n/translations";
 
 export default function DashboardTheSlabPage() {
+  const isContentReady = useTheSlabContentStore((s) => s.isRemoteHydrated);
   const isDirty = useTheSlabContentStore((s) => s.isDirty);
   const isSaving = useTheSlabContentStore((s) => s.isSaving);
   const saveContent = useTheSlabContentStore((s) => s.saveContent);
@@ -21,6 +22,7 @@ export default function DashboardTheSlabPage() {
       isSaving={isSaving}
       onSave={saveContent}
       onReset={resetContent}
+      isContentReady={isContentReady}
     >
       <TheSlabEditor />
     </DashboardShell>

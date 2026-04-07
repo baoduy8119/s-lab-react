@@ -1,4 +1,4 @@
-import { fetchContent, saveContentToDb } from "@/app/lib/contentApi";
+import { fetchContent, saveContentToDb, setContentMergeBase } from "@/app/lib/contentApi";
 import { create } from "zustand";
 import type { HomepageContent, SectionConfig, SectionContent } from "../types/content";
 
@@ -95,6 +95,7 @@ export function mergeFooterFromSavedRows(
 
 interface FooterContentState {
   content: HomepageContent;
+  isRemoteHydrated: boolean;
   isDirty: boolean;
   isSaving: boolean;
   updateField: (sectionId: string, key: string, value: string) => void;
@@ -107,6 +108,7 @@ interface FooterContentState {
 
 export const useFooterContentStore = create<FooterContentState>((set, get) => ({
   content: defaultFooterContent,
+  isRemoteHydrated: false,
   isDirty: false,
   isSaving: false,
 
@@ -124,21 +126,23 @@ export const useFooterContentStore = create<FooterContentState>((set, get) => ({
   },
 
   saveContent: async () => {
+    if (!get().isRemoteHydrated) return;
     const { content } = get();
     set({ isSaving: true });
     try {
-      await saveContentToDb(CONTENT_KEY, content);
-      set({ isDirty: false });
+      const persisted = await saveContentToDb(CONTENT_KEY, content);
+      set({ content: persisted, isDirty: false });
     } finally {
       set({ isSaving: false });
     }
   },
 
   resetContent: async () => {
+    if (!get().isRemoteHydrated) return;
     set({ isSaving: true });
     try {
-      await saveContentToDb(CONTENT_KEY, defaultFooterContent);
-      set({ content: defaultFooterContent, isDirty: false });
+      const persisted = await saveContentToDb(CONTENT_KEY, defaultFooterContent);
+      set({ content: persisted, isDirty: false });
     } finally {
       set({ isSaving: false });
     }
@@ -164,18 +168,20 @@ export const useFooterContentStore = create<FooterContentState>((set, get) => ({
 
       const hadDedicatedFooter = Boolean(footerSaved?.footer);
       const merged = mergeFooterFromSavedRows(footerSaved, homeSaved, slabSaved);
-      set({ content: merged, isDirty: false });
+      setContentMergeBase(CONTENT_KEY, merged);
+      set({ content: merged, isDirty: false, isRemoteHydrated: true });
 
       if (!hadDedicatedFooter) {
         const legacyFooter =
           (homeSaved?.footer as SectionContent | undefined) ??
           (slabSaved?.slabFooter as SectionContent | undefined);
         if (legacyFooter) {
-          await saveContentToDb(CONTENT_KEY, merged);
+          const written = await saveContentToDb(CONTENT_KEY, merged);
+          set({ content: written });
         }
       }
     } catch {
-      // fallback to defaults on network error
+      set({ isRemoteHydrated: true });
     }
   },
 

@@ -7,6 +7,7 @@ import { useLanguageStore } from "@/app/features/dashboard/stores/useLanguageSto
 import { useTranslations } from "@/app/features/dashboard/i18n/translations";
 
 export default function DashboardCoursesPage() {
+  const isContentReady = useCoursesContentStore((s) => s.isRemoteHydrated);
   const isDirty = useCoursesContentStore((s) => s.isDirty);
   const isSaving = useCoursesContentStore((s) => s.isSaving);
   const saveContent = useCoursesContentStore((s) => s.saveContent);
@@ -21,6 +22,7 @@ export default function DashboardCoursesPage() {
       isSaving={isSaving}
       onSave={saveContent}
       onReset={resetContent}
+      isContentReady={isContentReady}
     >
       <CoursesEditor />
     </DashboardShell>

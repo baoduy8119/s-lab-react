@@ -21,6 +21,8 @@ export default function DashboardCourseDetailPage({
 }) {
   const router = useRouter();
   const { id } = use(params);
+  const coursesHydrated = useCoursesContentStore((s) => s.isRemoteHydrated);
+  const detailHydrated = useCourseDetailContentStore((s) => s.isRemoteHydrated);
   const cardIds = useCoursesContentStore((s) => s.cardIds);
   const hydrateCourses = useCoursesContentStore((s) => s.hydrate);
   const coursesContent = useCoursesContentStore((s) => s.content);
@@ -42,6 +44,8 @@ export default function DashboardCourseDetailPage({
   const isSaving = useCourseDetailContentStore((s) => s.isSaving);
   const saveContent = useCourseDetailContentStore((s) => s.saveContent);
   const resetCourse = useCourseDetailContentStore((s) => s.resetCourse);
+  const acquireLock = useCourseDetailContentStore((s) => s.acquireLock);
+  const releaseLock = useCourseDetailContentStore((s) => s.releaseLock);
 
   useEffect(() => {
     hydrateCourses();
@@ -60,8 +64,26 @@ export default function DashboardCourseDetailPage({
 
   useEffect(() => {
     if (!cardIds.length) return;
-    hydrateDetails();
-  }, [cardIds.length, hydrateDetails]);
+    hydrateDetails(courseId);
+    void acquireLock(courseId);
+    return () => {
+      void releaseLock(courseId);
+    };
+  }, [acquireLock, cardIds.length, courseId, hydrateDetails, releaseLock]);
+
+  // When another tab saves `courseDetails`, refetch when the tab is focused again.
+  useEffect(() => {
+    const onVisibilityChange = () => {
+      if (document.visibilityState !== "visible") return;
+      if (!useCoursesContentStore.getState().cardIds.length) return;
+      const d = useCourseDetailContentStore.getState();
+      if (d.isDirty || d.isSaving) return;
+      void d.hydrate(courseId);
+    };
+    document.addEventListener("visibilitychange", onVisibilityChange);
+    return () =>
+      document.removeEventListener("visibilitychange", onVisibilityChange);
+  }, [courseId]);
 
   const courseTitle = (cardSection.title as string) || courseId;
 
@@ -70,8 +92,9 @@ export default function DashboardCourseDetailPage({
       pageTitle={`Course detail – ${courseTitle}`}
       isDirty={isDirty}
       isSaving={isSaving}
-      onSave={saveContent}
+      onSave={() => saveContent(courseId)}
       onReset={async () => resetCourse(courseId)}
+      isContentReady={coursesHydrated && detailHydrated}
     >
       <CourseDetailEditor courseId={courseId} />
     </DashboardShell>

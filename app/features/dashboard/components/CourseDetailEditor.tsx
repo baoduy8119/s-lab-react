@@ -9,6 +9,8 @@ import {
   buildCourseDetailSectionConfigs,
   useCourseDetailContentStore,
 } from "../stores/useCourseDetailContentStore";
+import { useCoursesContentStore } from "../stores/useCoursesContentStore";
+import DashboardEditorLoading from "./DashboardEditorLoading";
 
 interface CourseDetailEditorProps {
   courseId: string;
@@ -17,6 +19,8 @@ interface CourseDetailEditorProps {
 const CourseDetailEditor = React.memo(function CourseDetailEditor({
   courseId,
 }: CourseDetailEditorProps) {
+  const coursesHydrated = useCoursesContentStore((s) => s.isRemoteHydrated);
+  const detailHydrated = useCourseDetailContentStore((s) => s.isRemoteHydrated);
   const content = useCourseDetailContentStore((s) => s.content);
   const updateField = useCourseDetailContentStore((s) => s.updateField);
   const deleteFields = useCourseDetailContentStore((s) => s.deleteFields);
@@ -26,6 +30,8 @@ const CourseDetailEditor = React.memo(function CourseDetailEditor({
     () => buildCourseDetailSectionConfigs(courseId),
     [courseId]
   );
+
+  if (!coursesHydrated || !detailHydrated) return <DashboardEditorLoading />;
 
   return (
     <div>
