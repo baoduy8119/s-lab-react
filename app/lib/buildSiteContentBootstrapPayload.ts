@@ -18,6 +18,7 @@ export type SiteContentBootstrapPayload = {
   footer?: HomepageContent;
   courses?: ReturnType<typeof mergeCoursesFromSaved>;
   courseDetails?: HomepageContent;
+  courseDetailsCourseIds?: string[];
   theSlab?: HomepageContent;
   slibrary?: HomepageContent;
 };
@@ -51,6 +52,39 @@ export async function buildCoursesSiteContentPayload(): Promise<SiteContentBoots
       rows.courseDetails as CourseDetailStoredData | HomepageContent | null | undefined,
       courses.cardIds
     ),
+    courseDetailsCourseIds: courses.cardIds,
+  };
+}
+
+export async function buildCourseDetailPageSiteContentPayload(
+  slugOrId: string
+): Promise<SiteContentBootstrapPayload & { courseId: string }> {
+  const rows = await loadSiteContentRows([
+    "homepage",
+    "footer",
+    THE_SLAB,
+    "courses",
+    "courseDetails",
+  ]);
+  const courses = mergeCoursesFromSaved(
+    rows.courses as CoursesStoredData | HomepageContent | null | undefined
+  );
+
+  // Try resolve from slug format: "<id>--<slug...>".
+  // If it's already a card id, keep it.
+  const maybeId = slugOrId.split("--")[0] ?? slugOrId;
+  const courseId = courses.cardIds.includes(maybeId) ? maybeId : courses.cardIds[0] ?? maybeId;
+
+  return {
+    courseId,
+    homepage: mergeHomepageFromSaved(rows.homepage as HomepageContent | null),
+    footer: mergeFooterFromSavedRows(rows.footer, rows.homepage, rows[THE_SLAB]),
+    courses,
+    courseDetails: mergeCourseDetailsFromSaved(
+      rows.courseDetails as CourseDetailStoredData | HomepageContent | null | undefined,
+      [courseId]
+    ),
+    courseDetailsCourseIds: [courseId],
   };
 }
 

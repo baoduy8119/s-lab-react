@@ -15,6 +15,10 @@ export default function CourseDetailContentHydrator() {
   }, [hydrateCourses]);
 
   useEffect(() => {
+    // For public pages, server bootstrap may only include one course's detail sections.
+    // Only expand to all cards if we didn't get a pre-seeded subset.
+    const existing = useCourseDetailContentStore.getState().courseIds;
+    if (existing?.length) return;
     if (cardIds.length) setCourseIds(cardIds);
   }, [cardIds, setCourseIds]);
 

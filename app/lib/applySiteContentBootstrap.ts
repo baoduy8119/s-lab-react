@@ -24,7 +24,10 @@ export function applySiteContentBootstrap(payload: SiteContentBootstrapPayload):
   }
   if (payload.courseDetails) {
     // Also ensure courseIds align to courses' cardIds when present.
-    const courseIds = payload.courses?.cardIds ?? useCourseDetailContentStore.getState().courseIds;
+    const courseIds =
+      payload.courseDetailsCourseIds ??
+      payload.courses?.cardIds ??
+      useCourseDetailContentStore.getState().courseIds;
     useCourseDetailContentStore.setState({
       content: payload.courseDetails,
       courseIds,

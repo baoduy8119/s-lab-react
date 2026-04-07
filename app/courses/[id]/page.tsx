@@ -6,7 +6,7 @@ import SiteContentBootstrap from "@/app/features/dashboard/components/SiteConten
 import ContentHydrator from "@/app/features/dashboard/components/ContentHydrator";
 import CoursesContentHydrator from "@/app/features/dashboard/components/CoursesContentHydrator";
 import CourseDetailContentHydrator from "@/app/features/dashboard/components/CourseDetailContentHydrator";
-import { buildCoursesSiteContentPayload } from "@/app/lib/buildSiteContentBootstrapPayload";
+import { buildCourseDetailPageSiteContentPayload } from "@/app/lib/buildSiteContentBootstrapPayload";
 
 export default async function CourseDetailPage({
   params,
@@ -14,14 +14,14 @@ export default async function CourseDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const siteContentPayload = await buildCoursesSiteContentPayload();
+  const siteContentPayload = await buildCourseDetailPageSiteContentPayload(id);
   return (
     <MainLayout>
       <SiteContentBootstrap payload={siteContentPayload} />
       <ContentHydrator />
       <CoursesContentHydrator />
       <CourseDetailContentHydrator />
-      <CourseDetailPageClient slugOrId={id} />
+      <CourseDetailPageClient slugOrId={id} initialCourseId={siteContentPayload.courseId} />
 
       {/* Footer */}
       <Footer />

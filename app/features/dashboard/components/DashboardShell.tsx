@@ -128,7 +128,7 @@ const DashboardShell = React.memo(function DashboardShell({
     try {
       await onSave();
       setToast(tt.saveSuccess);
-    } catch {
+    } catch (err) {
       setToast(tt.saveFail);
     }
     setTimeout(() => setToast(""), 2500);

@@ -16,11 +16,13 @@ import { courseIdAndTitleToSlug, resolveCourseIdFromSlug } from "@/app/lib/cours
 
 interface CourseDetailPageClientProps {
   slugOrId: string;
+  initialCourseId?: string;
   dashboardBasePath?: string;
 }
 
 const CourseDetailPageClient = React.memo(function CourseDetailPageClient({
   slugOrId,
+  initialCourseId,
   dashboardBasePath,
 }: CourseDetailPageClientProps) {
   const router = useRouter();
@@ -29,11 +31,12 @@ const CourseDetailPageClient = React.memo(function CourseDetailPageClient({
 
   const courseId = useMemo(
     () =>
+      initialCourseId ||
       resolveCourseIdFromSlug(slugOrId, {
         cardIds,
         contentById: content as Record<string, Record<string, unknown> | undefined>,
       }),
-    [cardIds, content, slugOrId]
+    [cardIds, content, initialCourseId, slugOrId]
   );
 
   const canonicalSlug = useMemo(() => {

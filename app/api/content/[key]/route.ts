@@ -7,11 +7,17 @@ export const runtime = "nodejs";
 
 const VALID_KEYS = ["homepage", "courses", "courseDetails", "slibrary", "the-s-lab", "footer"];
 
-const noStoreJson = (body: unknown, status = 200) =>
+function computeEtag(updatedAt: Date): string {
+  // Weak ETag derived from DB `updatedAt`.
+  return `W/"${updatedAt.getTime()}"`;
+}
+
+const noStoreJson = (body: unknown, status = 200, extraHeaders?: Record<string, string>) =>
   NextResponse.json(body, {
     status,
     headers: {
       "Cache-Control": "private, no-store, max-age=0, must-revalidate",
+      ...(extraHeaders ?? {}),
     },
   });
 
@@ -27,13 +33,16 @@ export async function GET(
 
   try {
     const prisma = getPrisma();
-    const row = await prisma.siteContent.findUnique({ where: { key } });
+    const row = await prisma.siteContent.findUnique({
+      where: { key },
+      select: { data: true, updatedAt: true },
+    });
 
     if (!row) {
       return noStoreJson({ data: null });
     }
 
-    return noStoreJson({ data: JSON.parse(row.data) });
+    return noStoreJson({ data: JSON.parse(row.data) }, 200, { ETag: computeEtag(row.updatedAt) });
   } catch (err) {
     console.error("[api/content GET]", key, err);
     const message = err instanceof Error ? err.message : String(err);
@@ -79,11 +88,43 @@ export async function PUT(
 
   try {
     const prisma = getPrisma();
-    await prisma.siteContent.upsert({
+    const existing = await prisma.siteContent.findUnique({
+      where: { key },
+      select: { data: true, updatedAt: true },
+    });
+
+    // Optimistic concurrency: require If-Match when overwriting existing data.
+    if (existing) {
+      const ifMatch = request.headers.get("if-match");
+      if (!ifMatch) {
+        return noStoreJson(
+          { error: "precondition_required", hint: "Missing If-Match header" },
+          428,
+          { ETag: computeEtag(existing.updatedAt) }
+        );
+      }
+      const currentEtag = computeEtag(existing.updatedAt);
+      if (ifMatch !== currentEtag) {
+        return noStoreJson(
+          {
+            error: "conflict",
+            hint: "Content was updated elsewhere. Reload before saving again.",
+            data: JSON.parse(existing.data),
+          },
+          409,
+          { ETag: currentEtag }
+        );
+      }
+    }
+
+    const saved = await prisma.siteContent.upsert({
       where: { key },
       create: { key, data: JSON.stringify(data) },
       update: { data: JSON.stringify(data) },
+      select: { updatedAt: true },
     });
+
+    return noStoreJson({ success: true }, 200, { ETag: computeEtag(saved.updatedAt) });
   } catch (err) {
     console.error("[api/content PUT]", key, err);
     const message = err instanceof Error ? err.message : String(err);
@@ -98,6 +139,4 @@ export async function PUT(
       { status: 503 }
     );
   }
-
-  return NextResponse.json({ success: true });
 }
